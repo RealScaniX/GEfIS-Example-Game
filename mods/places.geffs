@@ -1,0 +1,61 @@
+This is places by ScaniX
+
+entity place is a thing
+   attributes
+      bool known
+      list persons
+      list items
+      map exits   // either a place or a door
+
+entity door is a thing
+   attributes
+      bool locked
+      bool open
+      place destination
+      place source
+      key key
+
+entity key is an item
+   attributes
+		
+
+action navigate
+   understand
+      go [destination]
+   modes
+      main
+      introduction
+   do
+      say "You want to go " + destination.name + "."
+      if destination is a place
+         say "This is a place."
+      else
+         say "This is not a place."
+         if entry hall.exits.(destination.name) is a place
+            say "But there is an exit called " + destination.name + " leading to a place."
+      end
+
+
+there is a place called Kitchen
+   its description is "This is your kitchen."
+
+there is a place called Cellar
+   its description is "This is your cellar."
+
+there is a place called Entry hall
+   its exits are {"north": "kitchen", "down": "cellar"}
+
+there is a key called cellar key
+   its description is "You see a pretty rusty key."
+
+there is a door called cellar door
+   its key is cellar key
+
+entity stringer is an entity
+   attributes
+      text string
+      text string2
+
+there is an stringer called northern
+   its string is "north"
+   its string2 is "kitchen"
