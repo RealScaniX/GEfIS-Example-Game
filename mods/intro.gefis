@@ -1,0 +1,26 @@
+This is Introduction Mode by ScaniX
+
+when play begins
+   say "Hello and welcome to the test game (yeah, what a great name)!\n"
+   say "This is supposed to show some of the features of GEfIS.\n"
+   say "You can view this page in [link \"/?dev=true&game=gefis+one&restart=true\"]developer mode[/link] and check out all the scripts and files that are the input for this little game."
+   say "There also is the [link \"/help\"]documentation[/link] that might help to clear things up.\n\n"
+
+when play ends
+   say "goodbye world!"
+
+mode Introduction
+   its prompt is "Introduction"
+   its status info is "... Intro ..."
+   on start do
+      say "And now the game begins...\n"
+   on end do
+      say "And now the game ends...\n"
+   before action do
+      say "Your command: " + user.input + "\n"
+   after action do
+      say "\n\nThis is a prompt. You can do the following exciting things:\n"
+      say "<a href=\"javascript:inp('questioning');\">questioning</a> "
+      say "<a href=\"javascript:inp('musictest');\">musictest</a> "
+      say "<a href=\"javascript:inp('restart');\">restart</a> "
+      say "\n" 

@@ -1,0 +1,12 @@
+This is gefis one basics by ScaniX
+	
+Entity Thing is an Entity
+   attributes
+      text description
+
+entity item is a thing
+      
+entity item is a thing
+   attributes
+      number weight
+		
