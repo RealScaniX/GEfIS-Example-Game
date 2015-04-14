@@ -5,15 +5,21 @@ Uses places by ScaniX
 mode Main
    its prompt is "Main"
    its status info is "... Main ..."
-   on start do
-      say "And now the game begins...\n"
-   on end do
-      say "And now the game ends...\n"
    before action do
       say "Your command: " + user.input + "\n"
    after action do
-      say "\n\nThis is a prompt. You can do the following exciting things:\n"
-      say "<a href=\"javascript:inp('questioning');\">questioning</a> "
-      say "<a href=\"javascript:inp('musictest');\">musictest</a> "
-      say "<a href=\"javascript:inp('restart');\">restart</a> "
-      say "\n"
+      build prompt
+
+function mainprompt
+	understand
+		build prompt
+	do
+		say "Hello."
+
+
+when game starts
+	start introduction mode
+	cls
+	player.location is entry hall
+	say "The heavy wooden door closes behind you with an ear shattering sound that echoes in this huge hall for what feels like minutes."
+	//do look around

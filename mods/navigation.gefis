@@ -1,4 +1,4 @@
-This is places by ScaniX
+This is navigation by ScaniX
 
 entity place is a thing
    attributes
@@ -6,6 +6,7 @@ entity place is a thing
       list persons
       list items
       map exits   // either a place or a door
+		text intro	// text to be said when first entering a place
 
 entity door is a thing
    attributes
@@ -17,7 +18,6 @@ entity door is a thing
 
 entity key is an item
    attributes
-		
 
 action navigate
    understand
@@ -35,27 +35,12 @@ action navigate
             say "But there is an exit called " + destination.name + " leading to a place."
       end
 
-
-there is a place called Kitchen
-   its description is "This is your kitchen."
-
-there is a place called Cellar
-   its description is "This is your cellar."
-
-there is a place called Entry hall
-   its exits are {"north": "kitchen", "down": "cellar"}
-
-there is a key called cellar key
-   its description is "You see a pretty rusty key."
-
-there is a door called cellar door
-   its key is cellar key
-
-entity stringer is an entity
-   attributes
-      text string
-      text string2
-
-there is an stringer called northern
-   its string is "north"
-   its string2 is "kitchen"
+action lookaround
+	understand
+		look around
+	do
+		if not player.location.known
+			say player.location.intro
+			now player.location.known is true
+		else
+			say player.location.desc

@@ -1,12 +1,22 @@
 This is gefis one basics by ScaniX
-	
+
 Entity Thing is an Entity
    attributes
       text description
 
 entity item is a thing
-      
-entity item is a thing
    attributes
       number weight
-		
+
+entity playercharacter is a thing
+	attributes
+		place location
+
+there is a playercharacter called Player
+	its location is entry hall
+
+action end game
+	understand
+		end game
+	do
+		end game
