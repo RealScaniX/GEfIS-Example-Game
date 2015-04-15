@@ -7,6 +7,7 @@ entity place is a thing
       list items
       map exits   // either a place or a door
 		text intro	// text to be said when first entering a place
+		number illumination // is there a light in this place?
 
 entity door is a thing
    attributes
@@ -24,7 +25,6 @@ action navigate
       go [destination]
    modes
       main
-      introduction
    do
       say "You want to go " + destination.name + "."
       if destination is a place
@@ -40,7 +40,7 @@ action lookaround
 		look around
 	do
 		if not player.location.known
-			say player.location.intro
 			now player.location.known is true
+			say player.location.intro
 		else
-			say player.location.desc
+			say player.location.description

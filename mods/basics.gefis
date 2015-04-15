@@ -11,12 +11,49 @@ entity item is a thing
 entity playercharacter is a thing
 	attributes
 		place location
+		number illumination // this value defines how much the player can "see"
+		lightsource light   // in the beginning we only have matches
+		number lightsteps   // after every step we increment this value, e.g. matches only work for five actions or 1 navigation (== 5 steps)
+
+entity lightsource is a thing
+	attributes
+		number illumination
+		number steps // how many steps does this last?
+		bool lit is @[lightsource_update] // we expect a specific light source to have a function here
+
+there is a lightsource called match
+	its illumination is 10
+	its steps is 5
+
+function lightsource_update
+	do
+		player.lightsteps = player.lightsteps + 1
+		if player.lightsteps > this.steps
+			say "Your lightsource just went dark. As your eyes have been adjusted to this [if this.illumination > 70]blinding[else if this.illumination > 40]bright[else if this.illumination > 20]small[else]dim[end] light you need a few seconds to see anything in the dark that now surrounds you."
+			player.light is null
+			return false
+		else if player.lightsteps is this.steps - 2
+			say "Your lightsource starts flickering..."
+		return true
+
+action light match
+	do
+		set lightsource lightsource.match
+		say "A small flash and some sparks are the first things that can be seen in the dark, then the small flame cast a flickering light that makes the shadows around you dance before your eyes."
+		say "You are wondering whether you are even feeling more uneasy now..."
+
+function setlight
+	understand
+		set lightsource [light]
+	do
+		player.lightsteps = 0
+		player.light = light
+		say "your new light has illum: " + light.illumination
+		player.illumination = light.illumination
 
 there is a playercharacter called Player
 	its location is entry hall
 
 action end game
-	understand
-		end game
 	do
 		end game

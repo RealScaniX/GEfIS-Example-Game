@@ -3,22 +3,31 @@ This is Main Mode by ScaniX
 Uses places by ScaniX
 
 mode Main
-   its prompt is "Main"
-   its status info is "... Main ..."
+   its prompt is "[one of]What's next?[or]You decided to...[or]What are you going to do?[at random]"
+   its status info is "[mainStatusInfo]"
    before action do
       say "Your command: " + user.input + "\n"
    after action do
-      build prompt
+      mainprompt
 
 function mainprompt
-	understand
-		build prompt
 	do
-		say "Hello."
+		// light update
+		if player.light is a lightsource
+			if not player.light.lit
+				player.illumination is 0
+			else
+				player.illumination is player.light.illumination
+			end
+		end
+		say "\nYou can see the following things:"
 
+function mainStatusInfo
+	do
+		append "This is your main status info. " + stats.playeractions + " actions have been performed."
 
 when game starts
-	start introduction mode
+	//start introduction mode
 	cls
 	player.location is entry hall
 	say "The heavy wooden door closes behind you with an ear shattering sound that echoes in this huge hall for what feels like minutes."
