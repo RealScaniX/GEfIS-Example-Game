@@ -2,7 +2,7 @@ This is Second floor by ScaniX
 
 there is a place called second floor
 	its exits are {"down": "passage.upstairs"}
-	its intro is "You are now on the second floor entry hall."
+	its intro is "You are now on the second floor."
 	its description is @[secfloordesc]
 
 function secfloordesc
