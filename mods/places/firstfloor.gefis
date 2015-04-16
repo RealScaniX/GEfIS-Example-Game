@@ -1,0 +1,11 @@
+This is Second floor by ScaniX
+
+there is a place called second floor
+	its exits are {"down": "passage.upstairs"}
+	its intro is "You are now on the second floor entry hall."
+	its description is @[secfloordesc]
+
+function secfloordesc
+	do
+		say "This is the second floor. Right behind you is the stairway [link go down]down[/link] into the entry hall."
+		return ""

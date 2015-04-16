@@ -1,6 +1,6 @@
 This is navigation by ScaniX
 
-entity place is a thing
+entity Place is a thing
    attributes
       bool known
       list persons
@@ -8,17 +8,27 @@ entity place is a thing
       map exits   // either a place or a door
 		text intro	// text to be said when first entering a place
 		number illumination // is there a light in this place?
+		bool navigatable is true // if false we are somewhere that cannot be entered/left by normal means
+		key key is master key
 
-entity door is a thing
+entity Passage is an Entity
+	attributes
+		place origin
+		place destination
+		bool passable is true
+
+entity FlexiblePassage is a Passage
+
+entity Door is a FlexiblePassage
+	its passable is false
    attributes
       bool locked
       bool open
-      place destination
-      place source
       key key
 
-entity key is an item
-   attributes
+entity Key is an item
+
+there is a key called master key
 
 action navigate
    understand
@@ -26,21 +36,72 @@ action navigate
    modes
       main
    do
+		// NOTE: if there are closed doors inbetween... we just assume the player opened, went through and closed them again
+		// NOTE: if there are locked doors inbetween... we should have set one of the places to !navigatable
       say "You want to go " + destination.name + "."
-      if destination is a place
-         say "This is a place."
-      else
-         say "This is not a place."
-         if entry hall.exits.(destination.name) is a place
-            say "But there is an exit called " + destination.name + " leading to a place."
+		// can we navigate at all?
+		if not player.location.navigatable
+			say "[one of]You cannot leave this place.[or]There is no easy way out from here.[or]You see no exit.[at random]"
+			return
+		// find target
+		if destination is a place
+         say destination.name+" is a place."
+			// we can go there if it is known and we can navigate
+			if destination.known
+				if destination.navigatable
+					go to place destination
+					return
+			else
+				say "You don't know such a place."
+				return
+		else
+         say destination.name+" is not a place."
+			// no place, but is that the name of an exit?
+			if player.location.exits has destination.name
+				// it's a direction
+				now exit is player.location.exits.(destination.name)
+				if exit is a place
+					say "The exit " + destination.name + " leads to the place " + exit + "."
+					go to place exit
+				else if exit is a passage
+					say "The exit " + exit.name + " is a passage between "+exit.origin+" and "+exit.destination+"."
+					if player.location is exit.origin
+						say "Following the passage forward."
+						go to place exit.destination
+					else if player.location is exit.destination
+						say "Following the passage backwards."
+						go to place exit.origin
+					else
+						say "We seem to have run into an error..."
+			else
+				say "You don't know such a place nor a path leading to it."
       end
+
+function gotoplace
+	understand
+		go to place [destination]
+	do
+		if not destination is a place
+			say "The destination is no place! :(\n"
+			return
+		now player.location is destination
+		if not player.location.known
+			now player.location.known is true
+			say player.location.intro
+		//do look around
 
 action lookaround
 	understand
 		look around
 	do
-		if not player.location.known
-			now player.location.known is true
-			say player.location.intro
-		else
-			say player.location.description
+		say player.location.description
+
+
+action entest
+	do
+		now x is new place
+		say "key is: " + x.key
+		say "."
+		now y is new door
+		say "passable: " + y.passable
+

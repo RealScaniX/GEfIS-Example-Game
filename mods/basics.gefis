@@ -30,7 +30,7 @@ function lightsource_update
 		player.lightsteps = player.lightsteps + 1
 		if player.lightsteps > this.steps
 			say "Your lightsource just went dark. As your eyes have been adjusted to this [if this.illumination > 70]blinding[else if this.illumination > 40]bright[else if this.illumination > 20]small[else]dim[end] light you need a few seconds to see anything in the dark that now surrounds you."
-			player.light is null
+			now player.light is null
 			return false
 		else if player.lightsteps is this.steps - 2
 			say "Your lightsource starts flickering..."
@@ -48,7 +48,6 @@ function setlight
 	do
 		player.lightsteps = 0
 		player.light = light
-		say "your new light has illum: " + light.illumination
 		player.illumination = light.illumination
 
 there is a playercharacter called Player

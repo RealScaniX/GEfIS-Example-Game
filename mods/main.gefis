@@ -15,11 +15,12 @@ function mainprompt
 		// light update
 		if player.light is a lightsource
 			if not player.light.lit
-				player.illumination is 0
+				now player.illumination is 0
 			else
-				player.illumination is player.light.illumination
+				now player.illumination is player.light.illumination
 			end
 		end
+		say "\nYou are here: " + player.location
 		say "\nYou can see the following things:"
 
 function mainStatusInfo
@@ -29,6 +30,6 @@ function mainStatusInfo
 when game starts
 	//start introduction mode
 	cls
-	player.location is entry hall
+	now player.location is entry hall
 	say "The heavy wooden door closes behind you with an ear shattering sound that echoes in this huge hall for what feels like minutes."
 	//do look around
