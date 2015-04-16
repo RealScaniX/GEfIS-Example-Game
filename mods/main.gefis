@@ -5,8 +5,8 @@ Uses places by ScaniX
 mode Main
    its prompt is "[one of]What's next?[or]You decided to...[or]What are you going to do?[at random]"
    its status info is "[mainStatusInfo]"
-   before action do
-      say "Your command: " + user.input + "\n"
+//   before action do
+//      say "Your command: " + user.input + "\n"
    after action do
       mainprompt
 
