@@ -25,7 +25,7 @@ function mainprompt
 
 function mainStatusInfo
 	do
-		append "This is your main status info. " + stats.playeractions + " actions have been performed."
+		append "This is your main status info. " + user.actions + " actions have been performed."
 
 when game starts
 	//start introduction mode
