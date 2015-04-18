@@ -17,14 +17,31 @@ entity Passage is an Entity
 		place destination
 		bool passable is true
 
-entity FlexiblePassage is a Passage
-
-entity Door is a FlexiblePassage
+entity Door is a Passage
 	its passable is false
    attributes
       bool locked
       bool open
       key key
+
+entity Stairway is a Passage
+	its passable is @[stairwaytrip]
+
+function stairwaytrip
+	do
+		if chance of (player.location.illumination + player.illumination) in 50
+			// all fine
+			return true
+		otherwise
+			// player tripped in the dark
+			if player.location is this.origin
+				// moving up
+				say "You trip because of the dim light and hit your knee on the step. *ouch!*\n"
+			else
+				// moving down
+				say "Halfway down you misplace your foot in the dark and were coming down faster than planned."
+			// still managed to get to the destination though
+			return true
 
 entity Key is an item
 
@@ -65,14 +82,15 @@ action navigate
 					go to place exit
 				else if exit is a passage
 					say "The exit " + exit.name + " is a passage between "+exit.origin+" and "+exit.destination+"."
-					if player.location is exit.origin
-						say "Following the passage forward."
-						go to place exit.destination
-					else if player.location is exit.destination
-						say "Following the passage backwards."
-						go to place exit.origin
-					else
-						say "We seem to have run into an error..."
+					if exit.passable
+						if player.location is exit.origin
+							say "Following the passage forward."
+							go to place exit.destination
+						else if player.location is exit.destination
+							say "Following the passage backwards."
+							go to place exit.origin
+						else
+							say "We seem to have run into an error..."
 			else
 				say "You don't know such a place nor a path leading to it."
       end
