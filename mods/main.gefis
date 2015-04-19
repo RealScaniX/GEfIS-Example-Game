@@ -20,8 +20,28 @@ function mainprompt
 				now player.illumination is player.light.illumination
 			end
 		end
-		say "\nYou are here: " + player.location
-		say "\nYou can see the following things:"
+		say "\nYou are here: [link look around][append player.location][/link]\n"
+		// items
+		now visitems is [visibleitemlist]
+		if visitems.# > 0
+			say "You can see the following things: "
+			now i is 0
+			for each item in visitems
+				if i > 0
+					say ", "
+				say "[link look at $|take $][append item.name][/link]"
+				now i is i + 1
+			say "\n"
+		// exits
+		if player.location.exits.# > 0
+			say "You see these potential exits: "
+			now i is 0
+			for each exit <= exname in player.location.exits
+				if i > 0
+					say ", "
+				say "[link go $][append exname][/link]"
+				now i is i + 1
+			say "\n"
 
 function mainStatusInfo
 	do
@@ -30,6 +50,7 @@ function mainStatusInfo
 when game starts
 	//start introduction mode
 	cls
-	now player.location is entry hall
+	//now player.location is entry hall
 	say "The heavy wooden door closes behind you with an ear shattering sound that echoes in this huge hall for what feels like minutes."
+	go to place entry hall
 	//do look around

@@ -1,0 +1,18 @@
+This is Inventorying by ScaniX
+
+Entity playercharacter
+	attributes
+		list inventory
+
+action takeitem
+	understand
+		take [item]
+		pick up [item]
+	do
+		// do we see this item in the place?
+		say "You want to take " + item.name + "."
+		if player.location.items has item
+			// yes
+			say "you see that."
+		else
+			say "you don't see that."

@@ -55,45 +55,40 @@ action navigate
    do
 		// NOTE: if there are closed doors inbetween... we just assume the player opened, went through and closed them again
 		// NOTE: if there are locked doors inbetween... we should have set one of the places to !navigatable
-      say "You want to go " + destination.name + "."
+      //say "You want to go " + destination.name + "."
 		// can we navigate at all?
 		if not player.location.navigatable
 			say "[one of]You cannot leave this place.[or]There is no easy way out from here.[or]You see no exit.[at random]"
 			return
 		// find target
 		if destination is a place
-         say destination.name+" is a place."
+         //say destination.name+" is a place."
 			// we can go there if it is known and we can navigate
 			if destination.known
 				if destination.navigatable
 					go to place destination
 					return
-			else
-				say "You don't know such a place."
-				return
 		else
-         say destination.name+" is not a place."
-			// no place, but is that the name of an exit?
+         //say destination.name+" is not a place."
+			// no place, but is that the name of a passage?
 			if player.location.exits has destination.name
-				// it's a direction
 				now exit is player.location.exits.(destination.name)
 				if exit is a place
-					say "The exit " + destination.name + " leads to the place " + exit + "."
+					//say "The exit " + destination.name + " leads to the place " + exit + "."
 					go to place exit
 				else if exit is a passage
-					say "The exit " + exit.name + " is a passage between "+exit.origin+" and "+exit.destination+"."
+					//say "The exit " + exit.name + " is a passage between "+exit.origin+" and "+exit.destination+"."
 					if exit.passable
 						if player.location is exit.origin
-							say "Following the passage forward."
+							//say "Following the passage forward."
 							go to place exit.destination
 						else if player.location is exit.destination
-							say "Following the passage backwards."
+							//say "Following the passage backwards."
 							go to place exit.origin
 						else
 							say "We seem to have run into an error..."
-			else
-				say "You don't know such a place nor a path leading to it."
-      end
+				return
+		say "You don't know such a place nor a path leading to it."
 
 function gotoplace
 	understand

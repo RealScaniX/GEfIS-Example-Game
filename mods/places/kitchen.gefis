@@ -1,1 +1,17 @@
 This is Kitchen by ScaniX
+
+there is a place called Kitchen
+	its exits are {"south": "kitchendoor"}
+   its description is "This is your kitchen."
+	its intro is "The wooden door opens with a screeching sound and reveals... a kitchen."
+
+when play begins
+	add cellar key to kitchen.items
+	now apple is a new thing called "Apple"
+	now apple.description is "This apple must be of wax. Otherwise it wouldn't look so edible anymore."
+	add apple to kitchen.items
+
+there is a Door called kitchendoor
+	its origin is kitchen
+	its destination is entry hall
+	its passable is true
