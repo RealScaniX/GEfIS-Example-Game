@@ -48,7 +48,7 @@ function mainStatusInfo
 		append "This is your main status info. " + user.actions + " actions have been performed."
 
 when game starts
-	//start introduction mode
+	start introduction mode
 	cls
 	//now player.location is entry hall
 	say "The heavy wooden door closes behind you with an ear shattering sound that echoes in this huge hall for what feels like minutes."

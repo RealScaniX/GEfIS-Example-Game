@@ -45,25 +45,3 @@ function visibleitemlist
 action end game
 	do
 		end game
-
-
-/******************************************************************************************************************************
-
-Debugging stuff
-
-*******************************************************************************************************************************/
-function dump
-	understand
-		dump [something]
-	do
-		say "Dump of " + something.name + ":\n"
-		if something is a entity
-			say "Entity with these attributes:"
-			for each val <= name in something
-				say "- " + name + ": " + val + "."
-		else if something is a list
-			say "List/Map with these values:"
-			for each val <= name in something
-				say "- " + name + ": " + val + "."
-		else
-			say "That is an unknown value."
