@@ -2,9 +2,11 @@ This is gefis one basics by ScaniX
 
 Entity Thing is an Entity
    attributes
-      text description
+		text description
+		list actions are {"look at", "take"}
 
 entity item is a thing
+	its actions are {"look at", "take"}
    attributes
       number weight
 
@@ -40,6 +42,10 @@ function visibleitemlist
 		// items of place
 		for each item in player.location.items
 			add item to itemlist
+		// passages of place
+		for each item in player.location.exits
+			if item is a passage
+				add item to itemlist
 		return itemlist
 
 action end game

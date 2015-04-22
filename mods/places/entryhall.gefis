@@ -1,7 +1,7 @@
 This is Entry hall by ScaniX
 
 There is a place called Entry hall
-   its exits are {"north": "kitchendoor", "down": "cellar", "up": "passage.upstairs"}
+   its exits are {"north": kitchen door, "down": cellar, "up": passage.upstairs}
 	its intro is "You are now in the entry hall."
 	its description is @[entryhalldesc]
 

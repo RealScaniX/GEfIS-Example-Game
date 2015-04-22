@@ -5,8 +5,6 @@ Uses places by ScaniX
 mode Main
    its prompt is "[one of]What's next?[or]You decided to...[or]What are you going to do?[at random]"
    its status info is "[mainStatusInfo]"
-//   before action do
-//      say "Your command: " + user.input + "\n"
    after action do
       mainprompt
 
@@ -29,7 +27,7 @@ function mainprompt
 			for each item in visitems
 				if i > 0
 					say ", "
-				say "[link look at $|take $][append item.name][/link]"
+				say "<link [for each act in item.actions][append act]|[end]>" + item.name + "</link>"
 				now i is i + 1
 			say "\n"
 		// exits
@@ -47,10 +45,5 @@ function mainStatusInfo
 	do
 		append "This is your main status info. " + user.actions + " actions have been performed."
 
-when game starts
-	start introduction mode
-	cls
-	//now player.location is entry hall
-	say "The heavy wooden door closes behind you with an ear shattering sound that echoes in this huge hall for what feels like minutes."
-	go to place entry hall
-	//do look around
+when play ends
+   say "goodbye world!"

@@ -1,6 +1,7 @@
 This is navigation by ScaniX
 
 entity Place is a thing
+	its actions are {"look at $"}
    attributes
       bool known
       list persons
@@ -11,21 +12,84 @@ entity Place is a thing
 		bool navigatable is true // if false we are somewhere that cannot be entered/left by normal means
 		key key is master key
 
-entity Passage is an Entity
+entity Passage is a Thing
+	its description is @[passagedesc]
+	its actions are {"look at $", "go $"}
 	attributes
 		place origin
 		place destination
 		bool passable is true
 
+function passagedesc
+	do
+		if player.location is this.destination and this.origin.known
+			return "This leads to the " + this.origin + "."
+		else if player.location is this.origin and this.destination.known
+			return "This leads to the " + this.destination + "."
+
 entity Door is a Passage
-	its passable is false
+	its passable is @[doortrip]
+	its actions are {"look at $", "open $", "close $"}
+	its description is @[doordesc]
    attributes
       bool locked
       bool open
       key key
 
+function doordesc
+	do
+		return "The door looks pretty normal for [a|an][if this.open]open[else]closed[end] door. " + [passagedesc]
+
+function doortrip
+	do
+		if this.locked
+			say "This door is locked."
+			return false
+		else if not this.open
+			do open this
+		return true
+
+action opendoor
+	understand
+		open [d]
+	do
+		if not (d is a Door)
+			say "You don't know how to open this."
+			return
+		if not (player.location.exits has d)
+			say "You don't see this here."
+			return
+		now d.open is true
+		play "doorHandle.mp3" on audio channel sound with volume 100
+		//flush
+		//sleep 1
+		play "doorOpen.mp3" on audio channel sound with volume 100
+		//flush
+		//sleep 2
+		say "You open the door."
+
+action closedoor
+	understand
+		close [d]
+	do
+		if not (d is a Door)
+			say "You don't know how to close this."
+			return
+		if not (player.location.exits has d)
+			say "You don't see this here."
+			return
+		now d.open is false
+		play "doorHandle.mp3" on audio channel sound with volume 100
+		//flush
+		//sleep 1
+		play "doorClose.mp3" on audio channel sound with volume 100
+		//flush
+		//sleep 2
+		say "You close the door."
+
 entity Stairway is a Passage
 	its passable is @[stairwaytrip]
+	its actions are {"look at", "go $"}
 
 function stairwaytrip
 	do
@@ -68,27 +132,38 @@ action navigate
 				if destination.navigatable
 					go to place destination
 					return
+		else if destination is a passage
+			followpassage destination
+			return
 		else
          //say destination.name+" is not a place."
 			// no place, but is that the name of a passage?
 			if player.location.exits has destination.name
+				say "It is an exit."
 				now exit is player.location.exits.(destination.name)
 				if exit is a place
-					//say "The exit " + destination.name + " leads to the place " + exit + "."
+					say "The exit " + destination.name + " leads to the place " + exit + "."
 					go to place exit
 				else if exit is a passage
-					//say "The exit " + exit.name + " is a passage between "+exit.origin+" and "+exit.destination+"."
-					if exit.passable
-						if player.location is exit.origin
-							//say "Following the passage forward."
-							go to place exit.destination
-						else if player.location is exit.destination
-							//say "Following the passage backwards."
-							go to place exit.origin
-						else
-							say "We seem to have run into an error..."
+					followpassage exit
 				return
 		say "You don't know such a place nor a path leading to it."
+
+function followpassage
+	understand
+		followpassage [p]
+	do
+		//say "The exit " + exit.name + " is a passage between "+exit.origin+" and "+exit.destination+"."
+		if p.passable
+			if player.location is p.origin
+				//say "Following the passage forward."
+				go to place p.destination
+			else if player.location is p.destination
+				//say "Following the passage backwards."
+				go to place p.origin
+			else
+				say "We seem to have run into an error..."
+
 
 function gotoplace
 	understand
