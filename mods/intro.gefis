@@ -9,6 +9,7 @@ mode Introduction
 		say "This is supposed to show some of the features of GEfIS.\n"
 		say "You can view this page in [link \"/?dev=true&game=gefis+one&restart=true\"]developer mode[/link] and check out all the scripts and files that are the input for this little game."
 		say "There also is the [link \"/help\"]documentation[/link] that might help to clear things up.\n"
+		say "And finally: There is the <link \"https://github.com/RealScaniX/GEfIS-Example-Game\">GitHub of this game</link> for those of you who want to check out and play around with the sources.\n"
    after action do
       say "\nYou are currently in the introduction mode, you can enjoy the links above or do one of the following:"
       say "[link start game]start the game[/link] "
