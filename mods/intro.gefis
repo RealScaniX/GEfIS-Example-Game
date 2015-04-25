@@ -23,44 +23,35 @@ function introtalk
 		if user.canceled
 			return
 		show "<i>\"You think he will make it?\"</i>" in overlay ne
-		flush
+		wait for 3 seconds
 		if user.canceled
 			return
-		sleep 3
 		show "<i>\"He should if he wants to get in.\"</i>" in overlay nw
-		flush
+		wait for 3 seconds
 		if user.canceled
 			return
-		sleep 3
 		hide overlay ne
 		show "<i>\"Yeah, he better got the balls to bring that ball to us.\"</i>" in overlay se
-		flush
+		wait for 3 seconds
 		if user.canceled
 			return
-		sleep 3
 		hide overlay nw
 		show "<i>\"Otherwise he won't belong to us...\"</i>" in overlay ne
-		flush
+		wait for 3 seconds
 		if user.canceled
 			return
-		sleep 3
 		hide overlay se
 		show "<i>\"And he better not tries any tricks.\"</i>" in overlay nw
-		flush
+		wait for 3 seconds
 		if user.canceled
 			return
-		sleep 3
 		hide overlay ne
 		show "<i>\"Yeah! You hear that? No cheating, we are watching you!\"</i>" in overlay se
-		flush
+		wait for 3 seconds
 		if user.canceled
 			return
-		sleep 3
 		hide overlay nw
-		flush
-		if user.canceled
-			return
-		sleep 2
+		wait for 2 seconds
 
 action startgame
 	modes
@@ -83,9 +74,17 @@ action startgame
 		hide overlay ne with style "default"
 		hide overlay nw with style "default"
 		hide overlay se with style "default"
-		play "frontDoorClose.mp3" on audio channel sound with volume 100
+		say "You barely listen to the voices behind you. Your heart is thumping in your chest as you are standing alone in this big abandoned house."
+		say "All you can think about is that this is the worst thing they could have asked you to do. Your fear of the dark has been a problem ever after that accursed accident."
+		say "Your mind travels back in time and you see that black nothingness in front of you again while in reality you are still standing in a big moonlit rectangle on the
+				floor with the shadow of a boy inside of it..."
+		wait
+		say "As if adjusting to your imagination, the rectangle continuously becomes narrower until it is a thin line and then vanishes completely."
+		wait for 4 seconds
+		play "entrydoor.mp3" on audio channel sound with volume 100
 		flush
-		sleep 2
-		say "The heavy wooden door closes behind you with an ear shattering sound that echoes in this huge hall for what feels like minutes."
+		say "The heavy wooden door closes behind you with an ear shattering sound that echoes in this huge hall for what feels like minutes to you. Motionless you keep standing in
+				the dark, listening to the sounds of anything that could have been awakened by this noise."
+		say "But all you can hear is your own breathing. At least for now."
 		go to place entry hall
 		switch to main mode

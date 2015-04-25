@@ -64,11 +64,11 @@ action opendoor
 			return
 		now d.open is true
 		play "doorHandle.mp3" on audio channel sound with volume 100
-		//flush
-		//sleep 1
+		flush
+		sleep 0.95
 		play "doorOpen.mp3" on audio channel sound with volume 100
-		//flush
-		//sleep 2
+		flush
+		sleep 0.5
 		say "You open the door."
 
 action closedoor
@@ -86,11 +86,11 @@ action closedoor
 			return
 		now d.open is false
 		play "doorHandle.mp3" on audio channel sound with volume 100
-		//flush
-		//sleep 1
+		flush
+		sleep 0.95
 		play "doorClose.mp3" on audio channel sound with volume 100
-		//flush
-		//sleep 2
+		flush
+		sleep 0.5
 		say "You close the door."
 
 entity Stairway is a Passage
