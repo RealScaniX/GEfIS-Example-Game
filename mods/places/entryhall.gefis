@@ -11,9 +11,6 @@ function entryhalldesc
 		say "In front of you there are stairs leading [link go up]up[/link]."
 		return ""
 
-there is a key called cellar key
-   its description is "You see a pretty rusty key."
-
 there is a Stairway called upstairs
 	its origin is entry hall
 	its destination is second floor

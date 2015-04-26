@@ -1,1 +1,11 @@
 This is Cellar by ScaniX
+
+there is a place called Cellar
+   its description is "This is the cellar."
+
+there is a door called cellar door
+	its origin is cellar
+	its destination is entry hall
+	its open is false
+	its locked is true
+   its key is cellar key

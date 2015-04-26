@@ -4,15 +4,54 @@ Entity playercharacter
 	attributes
 		list inventory
 
+Entity item
+	attributes
+		number carried is 0
+
 action takeitem
 	understand
-		take [item]
-		pick up [item]
+		take [itm]
+		pick up [itm]
 	do
 		// do we see this item in the place?
-		say "You want to take " + item.name + "."
-		if player.location.items has item
-			// yes
-			say "you see that."
+		now itm is [resolveitem itm]
+		if itm is null
+			say "You don't see that."
+			return
+		// Own that already?
+// does not work with multiple owned items of the same entity
+//		if itm.container is player
+//			say "You already have that."
+//			return
+		// Item?
+		if not itm is a item
+			say "That cannot be taken."
+			return
+		// Carryable?
+		if not itm.carryable
+			say "You cannot carry that."
+			return;
+		// Find current container
+		now itmcontainer is null
+		if player.location.items has itm
+			now itmcontainer is player.location.items
 		else
-			say "you don't see that."
+			for each cnt in player.location.items
+				if cnt is a container && cnt.items has itm
+					now itmcontainer is cnt
+					break
+		// Remove from container
+		if not (itmcontainer is null)
+			remove itm from itmcontainer.items
+		else
+			// if container is null, we don't see that either
+			say "You don't see that here."
+			return
+		// Add to player inventory
+		if player.inventory has itm
+			// increase count
+			now itm.carried is itm.carried + 1
+		else
+			add itm to player.inventory
+			now itm.carried is 1
+		say "You took the " + itm.name + "."

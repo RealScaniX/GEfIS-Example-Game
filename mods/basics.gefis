@@ -2,12 +2,14 @@ This is gefis one basics by ScaniX
 
 Entity Thing is an Entity
    attributes
+		bool discovered is true
 		text description
-		list actions are {"look at", "take"}
+		list actions are {"look at"}
 
-entity item is a thing
+entity Item is a Thing
 	its actions are {"look at", "take"}
    attributes
+		bool carryable is true
       number weight
 
 entity playercharacter is a thing
@@ -17,7 +19,38 @@ entity playercharacter is a thing
 there is a playercharacter called Player
 	its location is entry hall
 
-action looky
+Entity container is a thing
+	its actions are {"look at", "open", "close"}
+	attributes
+		bool locked is false
+		bool open is false
+		bool known is false
+		list items
+
+function openclosecontainer
+	understand
+		openclosecontainer [d], [state]
+	do
+		if not (d is a container)
+			say "You don't know how to open this."
+			return
+		if not (player.location.items has d)
+			say "You don't see this here."
+			return
+		if d.open is state
+			if d.open
+				say "Isn't it open enough for you?"
+			else
+				say "It already is closed. It might not be airtight, but there is nothing you can do about it."
+			return
+		now d.open is state
+		if d.open and !d.known
+			now d.known is true
+			for each itm in d.items
+				now itm.discovered is true
+		say "You [if state]open[else]close[end] the [+d.name]."
+
+action lookat
 	understand
 		look [smt]
 		look at [smt]
@@ -40,14 +73,69 @@ function visibleitemlist
 	do
 		now itemlist is a new list
 		// items of place
-		for each item in player.location.items
-			add item to itemlist
+		for each itm in player.location.items
+			if itm.discovered
+				add itm to itemlist
+				if itm is a container and itm.open
+					for each containeritem in itm.items
+						if containeritem.discovered
+							add containeritem to itemlist
 		// passages of place
-		for each item in player.location.exits
-			if item is a passage
-				add item to itemlist
+		//for each itm in player.location.exits
+		//	if itm is a passage
+		//		add itm to itemlist
 		return itemlist
+
+function resolveitem
+	understand
+		resolveitem [itm]
+	do
+		//say "item is a phrase? "
+		if itm is a Phrase
+			//say "yes."
+			now vlist is [visibleitemlist]
+			if vlist has itm
+				//say "is visible"
+				now itm is vlist.(key of itm in vlist)
+			else
+				//say "is not visible"
+				now itm is null
+			//if itm is a entity
+			//	say "resolved to: " + itm
+			//else
+			//	say "could not resolve"
+		//else
+		//	say "no."
+		return itm
 
 action end game
 	do
 		end game
+
+action open
+	understand
+		open [d]
+	do
+		now d is [resolveitem d]
+		if d is null
+			say "You don't see that here."
+		else if d is a Door
+			openclosedoor d, true
+		else if d is a container
+			openclosecontainer d, true
+		else
+			say "You don't know how to open this."
+
+action close
+	understand
+		close [d]
+	do
+		now d is [resolveitem d]
+		if d is null
+			say "You don't see that here."
+		else if d is a Door
+			openclosedoor d, false
+		else if d is a container
+			openclosecontainer d, false
+		else
+			say "You don't know how to close this."

@@ -1,6 +1,6 @@
 This is navigation by ScaniX
 
-entity Place is a thing
+entity Place is a Thing
 	its actions are {"look at $"}
    attributes
       bool known
@@ -49,9 +49,9 @@ function doortrip
 			do open this
 		return true
 
-action opendoor
+function openclosedoor
 	understand
-		open [d]
+		openclosedoor [d], [state]
 	do
 		if not (d is a Door)
 			say "You don't know how to open this."
@@ -59,39 +59,23 @@ action opendoor
 		if not (player.location.exits has d)
 			say "You don't see this here."
 			return
+		if d.open is state
+			if d.open
+				say "Isn't it open enough for you?"
+			else
+				say "It already is closed. It might not be airtight, but there is nothing you can do about it."
+			return
+		now d.open is state
+		play "doorHandle.mp3" on audio channel sound with volume 100
+		flush
+		sleep 0.95
 		if d.open
-			say "Isn't it open enough for you?"
-			return
-		now d.open is true
-		play "doorHandle.mp3" on audio channel sound with volume 100
-		flush
-		sleep 0.95
-		play "doorOpen.mp3" on audio channel sound with volume 100
+			play "doorOpen.mp3" on audio channel sound with volume 100
+		else
+			play "doorClose.mp3" on audio channel sound with volume 100
 		flush
 		sleep 0.5
-		say "You open the door."
-
-action closedoor
-	understand
-		close [d]
-	do
-		if not (d is a Door)
-			say "You don't know how to close this."
-			return
-		if not (player.location.exits has d)
-			say "You don't see this here."
-			return
-		if not d.open
-			say "It already is closed. It might not be airtight, but there is nothing you can do about it."
-			return
-		now d.open is false
-		play "doorHandle.mp3" on audio channel sound with volume 100
-		flush
-		sleep 0.95
-		play "doorClose.mp3" on audio channel sound with volume 100
-		flush
-		sleep 0.5
-		say "You close the door."
+		say "You [if state]open[else]close[end] the door."
 
 entity Stairway is a Passage
 	its passable is @[stairwaytrip]

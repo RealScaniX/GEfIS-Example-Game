@@ -24,10 +24,10 @@ function mainprompt
 		if visitems.# > 0
 			say "You can see the following things: "
 			now i is 0
-			for each item in visitems
+			for each itm in visitems
 				if i > 0
 					say ", "
-				say "<link [for each act in item.actions][append act]|[end]>" + item.name + "</link>"
+				say "<link [for each act in itm.actions][append act]|[end]>" + itm.name + "</link>"
 				now i is i + 1
 			say "\n"
 		// exits
@@ -43,7 +43,13 @@ function mainprompt
 
 function mainStatusInfo
 	do
-		append "This is your main status info. " + user.actions + " actions have been performed."
+		// count items
+		now itmcount is 0
+		for each itm in player.inventory
+			now itmcount is itmcount + itm.carried
+		return "<b>GEfIS One</b>\n
+					You performed " + user.actions + " actions.\n
+					You own [if itmcount > 0][+itmcount] things.[else]nothing."
 
 when play ends
    say "goodbye world!"

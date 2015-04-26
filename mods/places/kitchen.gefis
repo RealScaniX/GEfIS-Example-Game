@@ -2,16 +2,56 @@ This is Kitchen by ScaniX
 
 there is a place called Kitchen
 	its exits are {"south": kitchen door}
-   its description is "This is your kitchen."
+   its description is @[kitchendesc]
 	its intro is "The wooden door opens with a screeching sound and reveals... a kitchen."
+	its items are {kitchen door, apple, kitchen cupboard}
 
-when play begins
-	add cellar key to kitchen.items
-	now apple is a new thing called "Apple"
-	now apple.description is "This apple must be of wax. Otherwise it wouldn't look so edible anymore."
-	add apple to kitchen.items
+there is a key called cellar key
+	its discovered is false
+   its description is "You see a pretty rusty key."
+
+there is a Item called apple
+	its discovered is false
+	its description is @[appledesc]
+
+there is a container called kitchen cupboard
+	its description is @[cupboarddesc]
+	its items are {cellar key}
+	its discovered is false
+
+function cupboarddesc
+	do
+		if this.open
+			say "It is a pretty normal kitchen cupboard with cups and even more dishes."
+			if this.items has cellar key
+				say "There is an old key lying on the bottom shelf."
+		else if this.known
+			say "This is the boring kitchen cupboard."
+		else
+			say "A closed cupboard makes you wonder what magical things it might behold..."
+
+function kitchendesc
+	do
+		say "It is evident that no one has cooked a meal in here for a very long time. Dust and spiderwebs cover the whole place like everywhere else in this house. "
+		say "There are still pots, pans and dishes lying around as if whoever owned this place no longer cared about them."
+		say "Other than a weird apple and a closed - and thus very suspicious - cupboard, there does not seem to be anything of interest here."
+		if apple exists
+			now apple.discovered is true
+		now kitchen cupboard.discovered is true
+
+function appledesc
+	do
+		if this.name is "wax apple"
+			return "It is still not a real apple. But if you get real hungry, you might take a bite anyway..."
+		else
+			now this.name is "wax apple"
+			return "This apple must be of wax. Otherwise it wouldn't look so edible anymore."
 
 there is a Door called kitchen door
 	its origin is kitchen
 	its destination is entry hall
 	its open is false
+
+when play starts
+	now fussel is a new item called "the fussel"
+	add fussel to kitchen cupboard.items
