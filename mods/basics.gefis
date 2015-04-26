@@ -46,9 +46,19 @@ function openclosecontainer
 		now d.open is state
 		if d.open and !d.known
 			now d.known is true
+			//for each itm in d.items
+			//	now itm.discovered is true
+		say "You [if state]open[else]close[end] the [+d.name]."
+
+function discovercontainer
+	understand
+		discovercontainer [d]
+	do
+		if not (d is a container)
+			return
+		if d.open or d.known
 			for each itm in d.items
 				now itm.discovered is true
-		say "You [if state]open[else]close[end] the [+d.name]."
 
 action lookat
 	understand
@@ -57,15 +67,9 @@ action lookat
 		examine [smt]
 	do
 		// can you see that?
-		now vlist is [visibleitemlist]
-		if vlist has smt
-			// is resolved to an item already?
-			if smt is item
-				say item.description
-			else
-				// get real item from list
-				now realitem is vlist.(key of smt in vlist)
-				say realitem.description
+		now smt is [resolveitem smt]
+		if smt is a thing
+			say smt.description
 		else
 			say "You don't see that."
 
@@ -90,22 +94,19 @@ function resolveitem
 	understand
 		resolveitem [itm]
 	do
-		//say "item is a phrase? "
+		now vlist is [visibleitemlist]
+		// add inventory stuff
+		for each x in player.inventory
+			add x to vlist
+		// add location
+		add player.location to vlist
 		if itm is a Phrase
-			//say "yes."
-			now vlist is [visibleitemlist]
 			if vlist has itm
-				//say "is visible"
 				now itm is vlist.(key of itm in vlist)
 			else
-				//say "is not visible"
 				now itm is null
-			//if itm is a entity
-			//	say "resolved to: " + itm
-			//else
-			//	say "could not resolve"
-		//else
-		//	say "no."
+		else if not (vlist has itm)
+			now itm is null
 		return itm
 
 action end game

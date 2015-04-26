@@ -25,6 +25,7 @@ function cupboarddesc
 			say "It is a pretty normal kitchen cupboard with cups and even more dishes."
 			if this.items has cellar key
 				say "There is an old key lying on the bottom shelf."
+			discovercontainer this
 		else if this.known
 			say "This is the boring kitchen cupboard."
 		else
@@ -54,4 +55,6 @@ there is a Door called kitchen door
 
 when play starts
 	now fussel is a new item called "the fussel"
+	now fussel.description is "Beware! It's the fussel!!!"
+	now fussel.discovered is false
 	add fussel to kitchen cupboard.items

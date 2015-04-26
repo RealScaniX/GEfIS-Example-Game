@@ -46,7 +46,7 @@ function doortrip
 			say "This door is locked."
 			return false
 		else if not this.open
-			do open this
+			openclosedoor this, true
 		return true
 
 function openclosedoor
@@ -129,7 +129,7 @@ action navigate
          //say destination.name+" is not a place."
 			// no place, but is that the name of a passage?
 			if player.location.exits has destination.name
-				say "It is an exit."
+				//say "It is an exit."
 				now exit is player.location.exits.(destination.name)
 				if exit is a place
 					say "The exit " + destination.name + " leads to the place " + exit + "."

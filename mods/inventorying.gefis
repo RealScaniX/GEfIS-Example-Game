@@ -34,7 +34,7 @@ action takeitem
 		// Find current container
 		now itmcontainer is null
 		if player.location.items has itm
-			now itmcontainer is player.location.items
+			now itmcontainer is player.location
 		else
 			for each cnt in player.location.items
 				if cnt is a container && cnt.items has itm
