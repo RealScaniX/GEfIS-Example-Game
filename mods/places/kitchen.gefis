@@ -35,7 +35,9 @@ function kitchendesc
 	do
 		say "It is evident that no one has cooked a meal in here for a very long time. Dust and spiderwebs cover the whole place like everywhere else in this house. "
 		say "There are still pots, pans and dishes lying around as if whoever owned this place no longer cared about them."
-		say "Other than a weird apple and a closed - and thus very suspicious - cupboard, there does not seem to be anything of interest here."
+		say "Other than a [if kitchen.items has apple or kitchen.items has wax apple]weird apple and a[end]
+				[if kitchen cupboard.known]boring[else if not (kitchen cupboard.open)]closed - and thus very suspicious -[else]suspicious[end] 
+				cupboard, there does not seem to be anything of interest here."
 		if apple exists
 			now apple.discovered is true
 		now kitchen cupboard.discovered is true

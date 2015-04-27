@@ -25,9 +25,7 @@ function mainprompt
 			say "You can see the following things: "
 			now i is 0
 			for each itm in visitems
-				if i > 0
-					say ", "
-				say "<link [for each act in itm.actions][append act]|[end]>" + itm.name + "</link>"
+				say "[if i > 0], [end]<link [for each act in itm.actions][append act]|[end]>" + itm.name + "</link>"
 				now i is i + 1
 			say "\n"
 		// exits
@@ -49,7 +47,7 @@ function mainStatusInfo
 			now itmcount is itmcount + itm.carried
 		return "<b>GEfIS One</b>\n
 					You performed " + user.actions + " actions.\n
-					You own [if itmcount > 0][+itmcount] things.[else]nothing."
+					You own [if itmcount > 0]<link inventory>[+itmcount] thing[if itmcount > 1]s[end]</link>.[else]nothing."
 
 when play ends
    say "goodbye world!"

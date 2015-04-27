@@ -43,6 +43,10 @@ action takeitem
 		// Remove from container
 		if not (itmcontainer is null)
 			remove itm from itmcontainer.items
+		else if player.inventory has itm
+			// we haven't found it anywhere else, so I guess we already own it
+			say "Be happy! You already own that."
+			return
 		else
 			// if container is null, we don't see that either
 			say "You don't see that here."
@@ -55,3 +59,19 @@ action takeitem
 			add itm to player.inventory
 			now itm.carried is 1
 		say "You took the " + itm.name + "."
+
+action inventorying
+	understand
+		inv
+		inventory
+	do
+		if player.inventory is empty
+			say "[one of]Sadly[or]Unfortunately[at random], you[one of] have nothing[or] don't have anything[or]r pockets are empty[at random]."
+		else
+			say "A [one of]look[or]glimpse[at random] into your [one of]pockets[or]storage unit[or]secret stash[at random] reveals [if player.inventory.# > 1]these[else]this[end]
+					[one of]wonderful[or]puzzling[or]amazing[or]obscure[or]intruiging[at random] thing[if player.inventory.# > 1]s[end]:"
+			now i is 0
+			for each itm in player.inventory
+				say "[if i > 0], [end]<link [for each act in itm.actions][if not (act is \"take\")][append act]|[end][end]>" + itm.name + "</link>"
+				now i is i + 1
+			say "\n"
