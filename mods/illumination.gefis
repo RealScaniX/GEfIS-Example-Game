@@ -2,8 +2,8 @@ This is Illumination by ScaniX
 
 entity playercharacter is a thing
 	attributes
-		number illumination // this value defines how much the player can "see"
-		lightsource light   // in the beginning we only have matches
+		number illumination  // this value defines how much the player can "see"
+		lightsource light    // in the beginning we only have matches
 		number lightsteps   // after every step we increment this value, e.g. matches only work for five actions or 1 navigation (== 5 steps)
 
 entity lightsource is a thing

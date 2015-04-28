@@ -15,6 +15,8 @@ entity Item is a Thing
 entity playercharacter is a thing
 	attributes
 		place location
+		number fear is 30
+		number glow is 0  // the inner light value of the player
 
 there is a playercharacter called Player
 	its location is entry hall
