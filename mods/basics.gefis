@@ -1,5 +1,9 @@
 This is gefis one basics by ScaniX
 
+There is a ValueSponge called Globals
+	its MusicVolume is 100
+	its SoundVolume is 100
+
 Entity Thing is an Entity
    attributes
 		bool discovered is true
@@ -11,6 +15,22 @@ entity Item is a Thing
    attributes
 		bool carryable is true
       number weight
+
+entity Sound is a Thing
+	its actions are {"listen to"}
+
+entity Equippable is a Thing
+	attributes
+		bool equipped
+		text equipmethod	// name of function to put this on
+
+entity Weapon is a Equippable
+	its equipmethod is "equipweapon"
+
+entity Armor is a Equippable
+	its equipmethod is "equiparmor"
+	attributes
+		list bodyparts		// "head", "top", "legs", "hands", "waist": you cannot wear two armors at the same time that cover the same region
 
 entity playercharacter is a thing
 	attributes
@@ -72,7 +92,9 @@ action lookat
 	do
 		// can you see that?
 		now smt is [resolveitem smt]
-		if smt is a thing
+		if smt is a sound
+			say "Looking at a sound makes your head feel dizzy..."
+		else if smt is a thing
 			say smt.description
 		else
 			say "You don't see that."

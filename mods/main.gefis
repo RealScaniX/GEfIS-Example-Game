@@ -46,12 +46,23 @@ function mainStatusInfo
 		for each itm in player.inventory
 			now itmcount is itmcount + itm.carried
 		return "<b>GEfIS One</b>\n
+					<div style=\"float:right;\">
+						<htmlbar \"Fear\" [+player.fear]/100>
+						<htmlbar \"Light\" [+player.illumination]/100>
+						<htmlbar \"Glow\" [+random number between 1 and 100]/100>
+					</div>
+					<div style=\"display:inline-block;\">
+					You performed " + user.actions + " actions.\n
+					You own [if itmcount > 0]<link inventory>[+itmcount] thing[if itmcount > 1]s[end]</link>.[else]nothing.\n
+					</div>
+					<div style=\"clear:both;\"></div>"
+/*		return "<b>GEfIS One</b>\n
 					<div style=\"float:right;\"><htmlbar \"Fear\" [+player.fear]/100></div>
 					You performed " + user.actions + " actions.\n
 					<div style=\"float:right;\"><htmlbar \"Light\" [+player.illumination]/100></div>
 					You own [if itmcount > 0]<link inventory>[+itmcount] thing[if itmcount > 1]s[end]</link>.[else]nothing.\n
 					<div style=\"float:right;\"><htmlbar \"Glow\" [+random number between 1 and 100]/100></div>
-					<div style=\"clear:both;\"></div>"
+					<div style=\"clear:both;\"></div>" */
 
 when play ends
    say "goodbye world!"
