@@ -250,3 +250,15 @@ action lookaround
 		look around
 	do
 		say player.location.description
+
+// navigation shortcuts
+action navshortcuts
+	understand
+		up
+		down
+		north
+		south
+		east
+		west
+	do
+		do "go [+user.input]"
