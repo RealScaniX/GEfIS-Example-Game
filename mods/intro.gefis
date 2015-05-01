@@ -2,20 +2,31 @@ This is Introduction Mode by ScaniX
 
 mode Introduction
    its prompt is "Introduction"
-   its status info is "... Intro ..."
+   its status info is "[introstatus]"
    on start do
 		cls
-		say "Hello and welcome to the test game (yeah, what a great name)!\n"
+		say "[image one.png]\n"
+		say "Hello and welcome to Gefis One!\n"
 		say "This is supposed to show some of the features of GEfIS.\n"
-		say "You can view this page in [link \"/?dev=true&game=gefis+one&restart=true\"]developer mode[/link] and check out all the scripts and files that are the input for this little game."
-		say "There also is the [link \"/help\"]documentation[/link] that might help to clear things up.\n"
-		say "And finally: There is the <link \"https://github.com/RealScaniX/GEfIS-Example-Game\">GitHub of this game</link> for those of you who want to check out and play around with the sources.\n"
+		say "This game is played in a similar way as a text adventure, although you will be able to do most of the things by just clicking on the links.\n 
+				You can type \"[link help]help[/link]\" at any time if you need some help with the available commands."
    after action do
-      say "\nYou are currently in the introduction mode, you can enjoy the links above or do one of the following:"
+      say "\nYou are currently in the introduction mode, you can check out the links on top or do one of the following:"
       say "[link start game]start the game[/link] "
       say "[link end game]end the game[/link] "
       say "[link restart]restart[/link] "
       say "\n"
+
+action help
+	do
+		say "Note to self: Remember to write the help texts!"
+
+function introstatus
+	do
+		append "<b>GEfIS One</b>\n"
+		append "You can view this page in [link \"/?dev=true&game=gefis+one&restart=true\"]developer mode[/link] and check out all the scripts and files that are the input for this game.\n"
+		append "There also is the [link \"/help\"]documentation[/link] that might help to clear things up.\n"
+		append "And finally there is the <link \"https://github.com/RealScaniX/GEfIS-Example-Game\">GitHub of this game</link> for those of you who want to check out and play around with the sources.\n"
 
 function introtalk
 	do
@@ -81,10 +92,10 @@ action startgame
 		wait
 		say "As if adjusting to your imagination, the rectangle continuously becomes narrower until it is a thin line and then vanishes completely."
 		wait for 4 seconds
-		play "entrydoor.mp3" on audio channel sound with volume 100
+		play "entrydoor.mp3" on audio channel "sound" with volume 100
 		flush
 		say "The heavy wooden door closes behind you with an ear shattering sound that echoes in this huge hall for what feels like minutes to you. Motionless you keep standing in
 				the dark, listening to the sounds of anything that could have been awakened by this noise."
 		say "But all you can hear is your own breathing. At least for now."
-		go to place entry hall
+		goToPlace entry hall
 		switch to main mode

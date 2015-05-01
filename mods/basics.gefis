@@ -4,6 +4,14 @@ There is a ValueSponge called Globals
 	its MusicVolume is 100
 	its SoundVolume is 100
 
+when play begins
+	stop audio channel "music"
+	stop audio channel "sound"
+	stop audio channel "ambience"
+
+when play resumes
+	stop audio channel "sound"
+
 Entity Thing is an Entity
    attributes
 		bool discovered is true
@@ -41,17 +49,18 @@ entity playercharacter is a thing
 there is a playercharacter called Player
 	its location is entry hall
 
-Entity container is a thing
+Entity container is an item
 	its actions are {"look at", "open", "close"}
+	its carryable is false
 	attributes
 		bool locked is false
 		bool open is false
 		bool known is false
 		list items
 
-function openclosecontainer
+function setContainer
 	understand
-		openclosecontainer [d], [state]
+		setContainer [d], [state]
 	do
 		if not (d is a container)
 			say "You don't know how to open this."
@@ -126,6 +135,8 @@ function resolveitem
 			add x to vlist
 		// add location
 		add player.location to vlist
+		if itm is a text
+			now itm is a new Phrase called itm
 		if itm is a Phrase
 			if vlist has itm
 				now itm is vlist.(key of itm in vlist)
@@ -147,9 +158,9 @@ action open
 		if d is null
 			say "You don't see that here."
 		else if d is a Door
-			openclosedoor d, true
+			setDoor d, true
 		else if d is a container
-			openclosecontainer d, true
+			setContainer d, true
 		else
 			say "You don't know how to open this."
 
@@ -161,8 +172,8 @@ action close
 		if d is null
 			say "You don't see that here."
 		else if d is a Door
-			openclosedoor d, false
+			setDoor d, false
 		else if d is a container
-			openclosecontainer d, false
+			setContainer d, false
 		else
 			say "You don't know how to close this."

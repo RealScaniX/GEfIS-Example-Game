@@ -1,11 +1,23 @@
 This is Cellar by ScaniX
 
 there is a place called Cellar
+	its ambience is "edjaGhosty.ogg"
+	its exits are {"up": cellar door}
    its description is "This is the cellar."
+	its intro is @[cellarintro]
+
+function cellarintro
+	do
+		say "The cellar. If the boys have done their job right, the ball would be somewhere around here for sure."
 
 there is a door called cellar door
 	its origin is cellar
 	its destination is entry hall
 	its open is false
 	its locked is true
-   its key is cellar key
+   its key is rusty key
+
+there is a key called rusty key
+	its discovered is false
+   its description is "You see a pretty rusty key."
+

@@ -6,17 +6,13 @@ there is a place called Kitchen
 	its intro is "The wooden door opens with a screeching sound and reveals... a kitchen."
 	its items are {kitchen door, apple, kitchen cupboard}
 
-there is a key called cellar key
-	its discovered is false
-   its description is "You see a pretty rusty key."
-
 there is a Item called apple
 	its discovered is false
 	its description is @[appledesc]
 
 there is a container called kitchen cupboard
 	its description is @[cupboarddesc]
-	its items are {cellar key}
+	its items are {rusty key}
 	its discovered is false
 
 function cupboarddesc
