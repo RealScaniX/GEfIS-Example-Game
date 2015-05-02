@@ -17,10 +17,6 @@ mode Introduction
       say "[link restart]restart[/link] "
       say "\n"
 
-action help
-	do
-		say "Note to self: Remember to write the help texts!"
-
 function introstatus
 	do
 		append "<b>GEfIS One</b>\n"

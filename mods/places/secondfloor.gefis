@@ -1,5 +1,9 @@
 This is Second floor by ScaniX
 
+there is a Stairway called upstairs
+	its origin is alternative entry hall
+	its destination is second floor
+
 there is a place called second floor
 	its exits are {"down": passage.upstairs}
 	its intro is "You are now on the second floor."

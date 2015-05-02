@@ -38,6 +38,35 @@ function mainprompt
 				say "[link go $][append exname][/link]"
 				now i is i + 1
 			say "\n"
+		// navi
+		now str is ""
+		now navikey is ""
+		now destinations is {"northwest", "north", "northeast", "up",
+									"west", "here", "east", null,
+									"southwest", "south", "southeast", "down"}
+		now icons is {"NW", "N", "NE", "up",
+									"W", "Here", "E", null,
+									"SW", "S", "SE", "down"}
+		for j from 0 to destinations.# - 1
+			now d is destinations.(j)
+			str = str + "<div class=\"uioverlay\" style=\"position:relative;margin:2px;padding:3px;width:80px;background-color:rgba(250,250,250,0.3);text-align:center;display:inline-block;\">"
+			if d is not null
+				now disp is icons.(j)
+				if d is "here"
+					str = str + "<link look around>[+disp]</link>"
+				else if player.location.exits has d
+					navikey = navikey + d
+					str = str + "<link go [+d]>[+disp]</link>"
+				else
+					str = str + "&nbsp;"
+			else
+				str = str + "&nbsp;"
+			str = str + "</div>"
+			if (j+1) % 4 == 0
+				str = str + "<br/>"
+		if navikey is not globals.lastnavi
+			show str in overlay "ne" with style "default"
+			globals.lastnavi = navikey
 
 function mainStatusInfo
 	do
@@ -56,24 +85,12 @@ function mainStatusInfo
 					You performed " + user.actions + " actions and own [if itmcount > 0]<link inventory>[+itmcount] thing[if itmcount > 1]s[end]</link>.[else]nothing.\n
 					</div>
 					<div style=\"clear:both;\"></div>"
-/*		return "<b>GEfIS One</b>\n
-					<div style=\"float:right;\"><htmlbar \"Fear\" [+player.fear]/100></div>
-					You performed " + user.actions + " actions.\n
-					<div style=\"float:right;\"><htmlbar \"Light\" [+player.illumination]/100></div>
-					You own [if itmcount > 0]<link inventory>[+itmcount] thing[if itmcount > 1]s[end]</link>.[else]nothing.\n
-					<div style=\"float:right;\"><htmlbar \"Glow\" [+random number between 1 and 100]/100></div>
-					<div style=\"clear:both;\"></div>" */
-
-when play begins
-	addToInv marble pouch
-	addToInv walkman
 
 // When adding new items, we have to make sure they appear in old savegames in the player inventory
-when play resumes
-	if not (player.inventory has marble pouch)
-		addToInv marble pouch
-	if not (player.inventory has walkman)
-		addToInv walkman
+when play begins or resumes
+	addToInv marble pouch
+	addToInv walkman
+	addToInv box of matches
 
 when play ends
    say "goodbye world!"

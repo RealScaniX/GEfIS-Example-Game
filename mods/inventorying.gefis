@@ -90,7 +90,7 @@ action inventorying
 					[one of]wonderful[or]puzzling[or]amazing[or]obscure[or]intruiging[at random] thing[if player.inventory.# > 1]s[end]:"
 			now i is 0
 			for each itm in player.inventory
-				say "[if i > 0], [end][invItemLink itm]"
+				say "[if i > 0], [end][invItemLink itm][if itm.carried > 1] x [+itm.carried][end]"
 				now i is i + 1
 			say "\n"
 

@@ -1,0 +1,12 @@
+This is Alternative Entry hall by ScaniX
+
+There is a place called alternative entry hall
+	its intro is ""
+	its description is @[alternativeentryhalldesc]
+
+function alternativeentryhalldesc
+	do
+		say "This is the entry hall. It is a dark and eerie place..."
+		say "In front of you there are stairs leading [link go up]up[/link]."
+		return ""
+

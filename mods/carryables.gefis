@@ -14,7 +14,24 @@ there is a marble called red marble
 there is a container called marble pouch
 	its description is "This your trusty bag of colorful marbles. It would be more impressive if you hadn't just lost all of them in a game recently."
 	its items are {red marble}
+	its carryable is true
 
 there is an item called walkman
 	its combatUse is true
 
+there is an item called box of matches
+	its actions are {"use", "look at"}
+	its description is @"These are your lucky matches. \"Lucky\", because you consider yourself lucky that your mother hasn't noticed you carrying those around in your 
+						pocket... yet.\nShaking it and listening closely to the rattling sound of the matches inside, you [one of]guess[or]estimate[or]calculate[at random] there are
+						precisely [+random number between 2 and 12] of them left."
+	its useFunction is "lightmatch"
+
+function lightmatch
+	do
+		set lightsource lightsource.match
+		say "You pick out one of the remaining [+random number between 2 and 12] matches and ignite it on the rough side of the box."
+		say "A small flash and tiny sparks are the first things that can be seen in the dark, then the small flame casts a flickering light that makes the shadows 
+				around you dance. You are wondering if that makes you even more uneasy than before..."
+
+when play begins or resumes
+	add "take" to marble pouch.actions

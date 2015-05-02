@@ -53,15 +53,17 @@ entity Door is a Passage
 function doordesc
 	do
 		append "The door looks pretty normal for [a|an][if this.open]open[else]closed[end] door.[if this.open][+passagedesc][end]\n"
+/*
 		if this.locked
 			play "doorLocked.mp3" on audio channel "sound" with volume 100
 			append "A push on the door handle reveals that this door is locked."
+*/
 
 function doortrip
 	do
 		if this.locked
-			say "The [+this.name] is locked."
 			play "doorLocked.mp3" on audio channel "sound" with volume 100
+			say "The [+this.name] is locked."
 			return false
 		else if not this.open
 			setDoor this, true
@@ -95,8 +97,8 @@ function setDoor
 				say "It already is closed. It might not be airtight, but there is nothing you can do about it."
 			return
 		if d.locked and state
-			say "The [+d.name] is locked."
 			play "doorLocked.mp3" on audio channel "sound" with volume 100
+			say "A push on the door handle reveals that this door is locked."
 			return
 		now d.open is state
 		play "doorHandle.mp3" on audio channel "sound" with volume 100
@@ -151,6 +153,17 @@ function usekey
 			now k is this
 			invoke action "unlockwithkey"
 
+function resolveDestination
+	understand
+		resolveDestination [itm]
+	do
+		if itm is a Phrase
+			for each x in player.location.exits
+				if x is itm
+					return x
+		end
+		return itm
+
 action navigate
    understand
       go [destination]
@@ -158,6 +171,7 @@ action navigate
       main
    do
       //say "You want to go " + destination.name + "."
+		now destination is [resolveDestination destination]
 		// can we navigate at all?
 		if not player.location.navigatable
 			say "[one of]You cannot leave this place.[or]There is no easy way out from here.[or]You see no exit.[at random]"

@@ -1,7 +1,7 @@
 This is Entry hall by ScaniX
 
 There is a place called Entry hall
-   its exits are {"north": kitchen door, "down": cellar door, "up": passage.upstairs}
+   its exits are {"north": kitchen door, "down": cellar door}
 	its items are {cellar door}
 	its intro is ""
 	its description is @[entryhalldesc]
@@ -12,6 +12,45 @@ function entryhalldesc
 		say "In front of you there are stairs leading [link go up]up[/link]."
 		return ""
 
-there is a Stairway called upstairs
-	its origin is entry hall
-	its destination is second floor
+when play begins or resumes
+	// some locked doors (never to be opened)
+	//-west
+	now wd is a new door called "west door" 
+	now wd.locked is true
+	now entry hall.exits.west is wd
+	//-east
+	now ed is a new door called "east door" 
+	now ed.locked is true
+	now entry hall.exits.east is ed
+	//-northeast
+	now ned is a new door called "north east door" 
+	now ned.locked is true
+	now entry hall.exits.northeast is ned
+	//-south
+	now sd is a new door called "main entrance" 
+	now sd.locked is true
+	now sd.preproc is @[mainentrancetrip]
+	now entry hall.exits.south is sd
+	//-broken stairs
+	now stairs is a new Stairway called "broken stairway"
+	now stairs.origin is entry hall
+	now stairs.destination is entry hall
+	now stairs.passable is false
+	now stairs.discovered is true
+	now stairs.description is "Despite the darkness, you can see that the stairway is going nowhere. After a few meters the steps are cracked and further up they 
+								are completely caved in. Judging by what you can see from down here, you are pretty sure that it is not a good idea to visit the second floor."
+	now stairs.preproc is "brokenstairwaydesc"
+	add stairs to entry hall.items
+	now entry hall.exits.up is stairs
+
+function brokenstairwaydesc
+	do
+		say this.description
+
+function mainentrancetrip
+	do
+		if this.locked
+			say "You cannot leave yet. You haven't found what you came here for."
+		else
+			say "You won!"
+

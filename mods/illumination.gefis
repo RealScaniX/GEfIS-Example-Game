@@ -37,9 +37,3 @@ The match. Not much light and is used up quite fast.
 there is a lightsource called match
 	its illumination is 10
 	its steps is 5
-
-action light match
-	do
-		set lightsource lightsource.match
-		say "A small flash and some sparks are the first things that can be seen in the dark, then the small flame cast a flickering light that makes the shadows around you dance before your eyes."
-		say "You are wondering whether you are even feeling more uneasy now..."

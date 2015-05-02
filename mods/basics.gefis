@@ -16,6 +16,8 @@ Entity Thing is an Entity
    attributes
 		bool discovered is true
 		text description
+		text smell is "This smells like nothing really."
+		text taste is "You'd rather not taste that. For now."
 		list actions are {"look at"}
 
 entity Item is a Thing
@@ -68,6 +70,32 @@ action lookat
 		else
 			say "You don't see that."
 
+action smell
+	understand
+		smell [smt]
+	do
+		// can you see that?
+		now smt is [resolveitem smt]
+		if smt is a sound
+			say "The sound smells kind of green. With a little bit of monday morning mixed into it."
+		else if smt is a thing
+			say smt.smell
+		else
+			say "You don't see that."
+
+action taste
+	understand
+		taste [smt]
+	do
+		// can you see that?
+		now smt is [resolveitem smt]
+		if smt is a sound
+			say "The sound tastes like no other sound that you've tasted before. Well, except the one of those church bells."
+		else if smt is a thing
+			say smt.taste
+		else
+			say "You don't see that."
+
 function visibleitemlist
 	do
 		now itemlist is a new list
@@ -111,10 +139,6 @@ function resolveitem
 		else if not (vlist has itm)
 			now itm is null
 		return itm
-
-action end game
-	do
-		end game
 
 action open
 	understand
@@ -191,4 +215,32 @@ action use
 			invoke function t.useFunction on t
 		else
 			say "You don't know how to use this."
+
+action help
+	do
+		say "<b>Help</b>\n"
+		say "To accomplish things in this game, you can use simple sentences like in the old adventure games.\nDon't try some complex stuff though or the game wouldn't understand you
+				and answer with something lame and dissappointing.\n"
+		say "\n<div style=\"background-color:rgba(120, 120, 120, 0.2);\">"
+		say "<b>\></b> <i>Grab that bloody door unlocking device from behind that fricking cell bars</i>\n"
+		say "Sorry, but I couldn't understand you.\n"
+		say "</div>"
+		say "\nBut if you keep the sentence short and precise, your actions will have a higher chance of success."
+		say "\n<div style=\"background-color:rgba(120, 120, 120, 0.2);\">"
+		say "<b>\></b> <i>take red key</i>\n"
+		say "You cannot get the stupid key, because the accursed cell bars are in the way!\n"
+		say "</div>"
+		say "\nYeah, well... I bet you get the point anyway."
+		say "\n<hr/>\n"
+		say "Here is a list of actions that can be performed in the game:"
+		say "look at <i>something</i>\n"
+		say "unlock <i>something</i> with <i>some key</i>\n"
+		say "smell <i>something</i>\n"
+		say "taste <i>something</i>\n"
+		say "close <i>something</i>\n"
+		say "open <i>something</i>\n"
+		say "take <i>something</i>\n"
+		say "drop <i>something</i>\n"
+		say "put <i>something</i> into <i>somewhere</i>\n"
+		say "go <i>somewhere</i>\n"
 
