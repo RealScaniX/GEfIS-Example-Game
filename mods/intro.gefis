@@ -29,35 +29,35 @@ function introtalk
 		flush
 		if user.canceled
 			return
-		show "<i>\"You think he will make it?\"</i>" in overlay ne
+		show "<i>\"You think he will make it?\"</i>" in overlay "ne"
 		wait for 3 seconds
 		if user.canceled
 			return
-		show "<i>\"He should if he wants to get in.\"</i>" in overlay nw
+		show "<i>\"He should if he wants to get in.\"</i>" in overlay "nw"
 		wait for 3 seconds
 		if user.canceled
 			return
-		hide overlay ne
-		show "<i>\"Yeah, he better got the balls to bring that ball to us.\"</i>" in overlay se
+		hide overlay "ne"
+		show "<i>\"Yeah, he better got the balls to bring that ball to us.\"</i>" in overlay "se"
 		wait for 3 seconds
 		if user.canceled
 			return
-		hide overlay nw
-		show "<i>\"Otherwise he won't belong to us...\"</i>" in overlay ne
+		hide overlay "nw"
+		show "<i>\"Otherwise he won't belong to us...\"</i>" in overlay "ne"
 		wait for 3 seconds
 		if user.canceled
 			return
-		hide overlay se
-		show "<i>\"And he better not tries any tricks.\"</i>" in overlay nw
+		hide overlay "se"
+		show "<i>\"And he better not tries any tricks.\"</i>" in overlay "nw"
 		wait for 3 seconds
 		if user.canceled
 			return
-		hide overlay ne
-		show "<i>\"Yeah! You hear that? No cheating, we are watching you!\"</i>" in overlay se
+		hide overlay "ne"
+		show "<i>\"Yeah! You hear that? No cheating, we are watching you!\"</i>" in overlay "se"
 		wait for 3 seconds
 		if user.canceled
 			return
-		hide overlay nw
+		hide overlay "nw"
 		wait for 2 seconds
 
 action startgame
@@ -71,16 +71,16 @@ action startgame
 		flush
 		sleep 2
 		cls
-		hide overlay ne with style "default"
-		hide overlay nw with style "default"
-		hide overlay se with style "default"
-		hide overlay ne with style "border-width:3px;padding:20px;"
-		hide overlay nw with style "border-width:3px;padding:20px;"
-		hide overlay se with style "border-width:3px;padding:20px;"
+		hide overlay "ne" with style "default"
+		hide overlay "nw" with style "default"
+		hide overlay "se" with style "default"
+		hide overlay "ne" with style "border-width:3px;padding:20px;"
+		hide overlay "nw" with style "border-width:3px;padding:20px;"
+		hide overlay "se" with style "border-width:3px;padding:20px;"
 		introtalk
-		hide overlay ne with style "default"
-		hide overlay nw with style "default"
-		hide overlay se with style "default"
+		hide overlay "ne" with style "default"
+		hide overlay "nw" with style "default"
+		hide overlay "se" with style "default"
 		say "You barely listen to the voices behind you. Your heart is thumping in your chest as you are standing alone in this big abandoned house."
 		say "All you can think about is that this is the worst thing they could have asked you to do. Your fear of the dark has been a problem ever after that accursed accident."
 		say "Your mind travels back in time and you see that black nothingness in front of you again while in reality you are still standing in a big moonlit rectangle on the
