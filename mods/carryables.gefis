@@ -1,0 +1,20 @@
+This is Carryables by ScaniX
+/*
+ *		This file contains some inventory items that are not bound to a specific place or enemy in the game.
+ */
+
+Entity Marble is an Item
+	its description is @"This is a [+this.color] marble."
+	attributes
+		text color
+		
+there is a marble called red marble
+	its color is "red"
+
+there is a container called marble pouch
+	its description is "This your trusty bag of colorful marbles. It would be more impressive if you hadn't just lost all of them in a game recently."
+	its items are {red marble}
+
+there is an item called walkman
+	its combatUse is true
+

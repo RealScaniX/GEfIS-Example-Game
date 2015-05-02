@@ -12,17 +12,16 @@ action takeitem
 	understand
 		take [itm]
 		pick up [itm]
+		put [itm] into your pocket
+		put [itm] into inventory
+		take the [itm]
+		pick up the [itm]
 	do
 		// do we see this item in the place?
 		now itm is [resolveitem itm]
 		if itm is null
 			say "You don't see that."
 			return
-		// Own that already?
-// does not work with multiple owned items of the same entity
-//		if itm.container is player
-//			say "You already have that."
-//			return
 		// Item?
 		if not itm is a item
 			say "That cannot be taken."
@@ -30,19 +29,19 @@ action takeitem
 		// Carryable?
 		if not itm.carryable
 			say "You cannot carry that."
-			return;
+			return
 		// Find current container
-		now itmcontainer is null
+		now currContainer is null
 		if player.location.items has itm
-			now itmcontainer is player.location
+			now currContainer is player.location
 		else
 			for each cnt in player.location.items
 				if cnt is a container && cnt.items has itm
-					now itmcontainer is cnt
+					now currContainer is cnt
 					break
 		// Remove from container
-		if not (itmcontainer is null)
-			remove itm from itmcontainer.items
+		if not (currContainer is null)
+			remove itm from currContainer.items
 		else if player.inventory has itm
 			// we haven't found it anywhere else, so I guess we already own it
 			say "Be happy! You already own that."
@@ -52,13 +51,32 @@ action takeitem
 			say "You don't see that here."
 			return
 		// Add to player inventory
+		addToInv itm
+		say "You took the " + itm.name + "."
+
+action dropitem
+	understand
+		drop [itm]
+	do
+		// do we own this?
+		now itm is [resolveitem itm]
+		if not [playerOwns itm]
+			say "You cannot drop what isn't yours."
+			return
+		now cnt is player.location
+		invoke action "putinto"
+
+function addToInv
+	understand
+		addToInv [itm]
+	do
+		now itm.discovered is true
 		if player.inventory has itm
 			// increase count
 			now itm.carried is itm.carried + 1
 		else
 			add itm to player.inventory
 			now itm.carried is 1
-		say "You took the " + itm.name + "."
 
 action inventorying
 	understand
@@ -72,6 +90,30 @@ action inventorying
 					[one of]wonderful[or]puzzling[or]amazing[or]obscure[or]intruiging[at random] thing[if player.inventory.# > 1]s[end]:"
 			now i is 0
 			for each itm in player.inventory
-				say "[if i > 0], [end]<link [for each act in itm.actions][if not (act is \"take\")][append act]|[end][end]>" + itm.name + "</link>"
+				say "[if i > 0], [end][invItemLink itm]"
 				now i is i + 1
 			say "\n"
+
+function playerOwns
+	understand
+		playerOwns [itm]
+	do
+		for each t in player.inventory
+			if t is itm
+				return true
+			else if t is a container and [isInContainer itm, t]
+				return true
+		return false
+
+function getInventoryContainer
+	understand
+		getInventoryContainer [lst], [itm], [retval]
+	do
+		for each t in lst
+			if t is itm and t.discovered
+				return retval
+			else if t is a container
+				now cnt is [getInventoryContainer t.items, itm, t]
+				if cnt is not null
+					return cnt
+		return null

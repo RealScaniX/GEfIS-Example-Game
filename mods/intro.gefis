@@ -2,7 +2,7 @@ This is Introduction Mode by ScaniX
 
 mode Introduction
    its prompt is "Introduction"
-   its status info is "[introstatus]"
+   its status info is @[introstatus]
    on start do
 		cls
 		say "[image one.png]\n"

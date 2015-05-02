@@ -3,13 +3,14 @@ This is Main Mode by ScaniX
 Uses places by ScaniX
 
 mode Main
-   its prompt is "[one of]What's next?[or]You decided to...[or]What are you going to do?[at random]"
-   its status info is "[mainStatusInfo]"
+   its prompt is @"[one of]What's next?[or]You decided to...[or]What are you going to do?[at random]"
+   its status info is @[mainStatusInfo]
    after action do
       mainprompt
 
 function mainprompt
 	do
+		say "\n"
 		// light update
 		if player.light is a lightsource
 			if not player.light.lit
@@ -18,11 +19,10 @@ function mainprompt
 				now player.illumination is player.light.illumination
 			end
 		end
-		say "\nYou are here: [link look around][append player.location][/link]\n"
 		// items
 		now visitems is [visibleitemlist]
 		if visitems.# > 0
-			say "You can see the following things: "
+			say "You notice these things: "
 			now i is 0
 			for each itm in visitems
 				say "[if i > 0], [end]<link [for each act in itm.actions][append act]|[end]>" + itm.name + "</link>"
@@ -30,7 +30,7 @@ function mainprompt
 			say "\n"
 		// exits
 		if player.location.exits.# > 0
-			say "You see these potential exits: "
+			say "Those appear to be the exits: "
 			now i is 0
 			for each exit <= exname in player.location.exits
 				if i > 0
@@ -52,8 +52,8 @@ function mainStatusInfo
 						<htmlbar \"Glow\" [+random number between 1 and 100]/100>
 					</div>
 					<div style=\"display:inline-block;\">
-					You performed " + user.actions + " actions.\n
-					You own [if itmcount > 0]<link inventory>[+itmcount] thing[if itmcount > 1]s[end]</link>.[else]nothing.\n
+					You are here: [link look around][append player.location][/link]\n
+					You performed " + user.actions + " actions and own [if itmcount > 0]<link inventory>[+itmcount] thing[if itmcount > 1]s[end]</link>.[else]nothing.\n
 					</div>
 					<div style=\"clear:both;\"></div>"
 /*		return "<b>GEfIS One</b>\n
@@ -63,6 +63,17 @@ function mainStatusInfo
 					You own [if itmcount > 0]<link inventory>[+itmcount] thing[if itmcount > 1]s[end]</link>.[else]nothing.\n
 					<div style=\"float:right;\"><htmlbar \"Glow\" [+random number between 1 and 100]/100></div>
 					<div style=\"clear:both;\"></div>" */
+
+when play begins
+	addToInv marble pouch
+	addToInv walkman
+
+// When adding new items, we have to make sure they appear in old savegames in the player inventory
+when play resumes
+	if not (player.inventory has marble pouch)
+		addToInv marble pouch
+	if not (player.inventory has walkman)
+		addToInv walkman
 
 when play ends
    say "goodbye world!"

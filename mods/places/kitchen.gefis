@@ -1,6 +1,6 @@
 This is Kitchen by ScaniX
 
-there is a place called Kitchen
+there is a place called kitchen
 	its exits are {"south": kitchen door}
    its description is @[kitchendesc]
 	its intro is "The wooden door opens with a screeching sound and reveals... a kitchen."
@@ -14,12 +14,13 @@ there is a container called kitchen cupboard
 	its description is @[cupboarddesc]
 	its items are {rusty key}
 	its discovered is false
+	its listContentsOnLook is false
 
 function cupboarddesc
 	do
 		if this.open
 			say "It is a pretty normal kitchen cupboard with cups and even more dishes."
-			if this.items has cellar key
+			if this.items has rusty key
 				say "There is an old key lying on the bottom shelf."
 			discovercontainer this
 		else if this.known
@@ -44,7 +45,7 @@ function appledesc
 			return "It is still not a real apple. But if you get real hungry, you might take a bite anyway..."
 		else
 			now this.name is "wax apple"
-			return "This apple must be of wax. Otherwise it wouldn't look so edible anymore."
+			return "This apple must be made of wax. Otherwise it wouldn't look so edible anymore."
 
 there is a Door called kitchen door
 	its origin is kitchen

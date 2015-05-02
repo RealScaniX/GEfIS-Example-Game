@@ -78,34 +78,6 @@ action unlock
 		now k is [resolveitem user.input]
 		invoke action "unlockwithkey"
 
-action unlockwithkey
-	understand
-		unlock [d] with [k]
-		unlock the [d] with the [k]
-		unlock [d] with a [k]
-		unlock the [d] with a [k]
-	do
-		now d is [resolveitem d]
-		now k is [resolveitem k]
-		if d is null
-			say "You don't see that here."
-			return
-		if k is null
-			say "You don't see that here."
-			return
-		if not (k is a key)
-			say "You cannot open anything using [a|an][+k.name]."
-			return
-		if not (player.inventory has k)
-			say "[one of]Wishful thinking will not let that key materialzie in your hand. Or will it?[or]Sticking your hand into your pocket you regretfully realize that you don't have this key.[at random]"
-			return
-		if d is a door or d is a container
-			if d.key is k
-				now d.locked is false
-				say "You successfully unlock the [+d.name] using the [+k.name]."
-			else
-				say "[one of]You try every possible angle, but that key will not open the [+d.name].[or]Sheer force will not make that key fit either. The [+d.name] stays locked.[at random]"
-
 function setDoor
 	understand
 		setDoor [d], [state]
@@ -160,6 +132,24 @@ function stairwaytrip
 			return true
 
 entity Key is an item
+	its actions are {"look at", "use", "take"}
+	its useFunction is "usekey"
+
+function usekey
+	do
+		if not [playerOwns this]
+			say "You should take that before using it."
+			return
+		say "Now that you have the [+this.name] in your hand, what will you unlock with it?"
+		ask "Use it with..."
+		if user.canceled
+			return
+		now d is [resolveitem user.input]
+		if d is null
+			say "You cannot unlock what isn't even there."
+		else
+			now k is this
+			invoke action "unlockwithkey"
 
 action navigate
    understand
