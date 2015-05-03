@@ -8,7 +8,6 @@ entity Place is a Thing
       list items
       map exits   // either a place or a door
 		text intro	// text to be said when first entering a place
-		number illumination // is there a light in this place?
 		bool navigatable is true // if false we are somewhere that cannot be entered/left by normal means
 		text ambience    // name of audio track for ambience
 		text music		// name of audio track for music
@@ -43,7 +42,7 @@ function passagedesc
 entity Door is a Passage
 	its preproc is "doortrip"
 	its passable is @this.open
-	its actions are {"look at $", "open $", "close $"}
+	its actions are {"look at", "open", "close", "unlock"}
 	its description is @[doordesc]
    attributes
       bool locked
@@ -220,7 +219,6 @@ function followpassage
 			else
 				say "We seem to have run into an error..."
 
-
 function goToPlace
 	understand
 		goToPlace [destination]
@@ -253,9 +251,15 @@ action lookaround
 	understand
 		look around
 	do
+		if player.illumination < 5
+			say "In the total darkness you see totally nothing."
+			return
 		say player.location.description
+		for each itm in player.location.items
+			itm.discovered = true
 
 // navigation shortcuts
+/*
 action navshortcuts
 	understand
 		up
@@ -266,3 +270,25 @@ action navshortcuts
 		west
 	do
 		do "go [+user.input]"
+*/
+
+understand
+	"n" as "go north"
+	"ne" as "go northeast"
+	"e" as "go east"
+	"s" as "go south"
+	"se" as "go southeast"
+	"sw" as "go southwest"
+	"nw" as "go northwest"
+	"w" as "go west"
+	"north" as "go north"
+	"northeast" as "go northeast"
+	"east" as "go east"
+	"south" as "go south"
+	"southeast" as "go southeast"
+	"southwest" as "go southwest"
+	"northwest" as "go northwest"
+	"west" as "go west"
+	"up" as "go up"
+	"down" as "go down"
+

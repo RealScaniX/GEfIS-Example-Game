@@ -1,0 +1,52 @@
+This is Events by ScaniX
+
+Uses Thoughts by ScaniX
+
+Entity playercharacter
+	attributes
+		list events
+
+Entity place
+	attributes
+		list events
+
+Entity event is an Entity
+	attributes
+		number probability
+		number delay
+		text eventproc
+		bool repeat is false
+		bool always is false		// if true, this event will also trigger if another event already was triggered
+
+// Ignore first event check: no events after loading the game
+when play begins or resumes
+	temps.eventsEnabled = false
+
+/*
+ *		This is the event processing which happens in the after action script before the prompt
+ */
+before function mainprompt
+	eventInvoked = false
+	// get list of events from player and location
+	now eventlist is a new list
+	for each ev in player.location.events
+		add ev to eventlist
+	for each ev in player.events
+		add ev to eventlist
+	now toberemoved is a new list
+	for each ev in eventlist
+		if ev.delay > 0
+			ev.delay = ev.delay - 1
+			continue
+		if (eventInvoked or temps.eventsEnabled) and not ev.always
+			continue
+		if (random number between 1 and 100) <= ev.probability
+			eventInvoked = true
+			invoke function ev.eventproc on ev
+			if !ev.repeat
+				add ev to toberemoved
+			// not breaking loop, all delays have to be decreased
+	for each ev in toberemoved
+		remove ev from player.events
+	temps.eventsEnabled = true
+

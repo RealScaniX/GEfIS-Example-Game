@@ -11,14 +11,6 @@ mode Main
 function mainprompt
 	do
 		say "\n"
-		// light update
-		if player.light is a lightsource
-			if not player.light.lit
-				now player.illumination is 0
-			else
-				now player.illumination is player.light.illumination
-			end
-		end
 		// items
 		now visitems is [visibleitemlist]
 		if visitems.# > 0
@@ -44,12 +36,12 @@ function mainprompt
 		now destinations is {"northwest", "north", "northeast", "up",
 									"west", "here", "east", null,
 									"southwest", "south", "southeast", "down"}
-		now icons is {"NW", "N", "NE", "up",
+		now icons is {"NW", "N", "NE", "/\\",
 									"W", "Here", "E", null,
-									"SW", "S", "SE", "down"}
+									"SW", "S", "SE", "\\/"}
 		for j from 0 to destinations.# - 1
 			now d is destinations.(j)
-			str = str + "<div class=\"uioverlay\" style=\"position:relative;margin:2px;padding:3px;width:80px;background-color:rgba(250,250,250,0.3);text-align:center;display:inline-block;\">"
+			str = str + "<div class=\"uioverlay\" style=\"font-size:12px;position:relative;margin:2px;padding:2px;width:27px;background-color:rgba(250,250,250,0.3);text-align:center;display:inline-block;\">"
 			if d is not null
 				now disp is icons.(j)
 				if d is "here"
@@ -64,9 +56,9 @@ function mainprompt
 			str = str + "</div>"
 			if (j+1) % 4 == 0
 				str = str + "<br/>"
-		if navikey is not globals.lastnavi
-			show str in overlay "ne" with style "default"
-			globals.lastnavi = navikey
+		if navikey is not temps.lastnavi
+			show str in overlay "se" with style "margin-bottom:300px;"
+			temps.lastnavi = navikey
 
 function mainStatusInfo
 	do

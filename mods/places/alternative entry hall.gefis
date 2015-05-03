@@ -1,12 +1,23 @@
 This is Alternative Entry hall by ScaniX
 
 There is a place called alternative entry hall
-	its intro is ""
+	its intro is @[alternativeentryhallintro]
 	its description is @[alternativeentryhalldesc]
+	its illumination is 40
+
+function alternativeentryhallintro
+	do
+		say "You don't know how long you were gone. It takes you a few seconds to remember what happened."
+		say "One thing was instantly evident: You were no longer lying in the cellar."
+		say "It wasn't really that dark here either, there was some "
+		soothe 20, "nice blue light"
+		say " shining from behind you."
 
 function alternativeentryhalldesc
 	do
-		say "This is the entry hall. It is a dark and eerie place..."
-		say "In front of you there are stairs leading [link go up]up[/link]."
+		say "This looks pretty similar to the entry hall from before, but there are... differences."
+		say "This biggest one is probably the thing you see before you ahen you turn towards the entrance."
+		say "Or better yet: What once has been the entrance..."
+		say "\n"
+		soothe 30, "To be continued..."
 		return ""
-

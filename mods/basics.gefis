@@ -4,6 +4,9 @@ There is a ValueSponge called Globals
 	its MusicVolume is 100
 	its SoundVolume is 100
 
+There is a ValueSponge called temps
+	it is static
+
 when play begins
 	stop audio channel "music"
 	stop audio channel "sound"
@@ -56,8 +59,11 @@ action lookat
 	understand
 		look [smt]
 		look at [smt]
-		examine [smt]
+		look at the [smt]
 	do
+		if player.illumination < 5
+			say "In the total darkness you see totally nothing."
+			return
 		// can you see that?
 		now smt is [resolveitem smt]
 		if smt is a sound
@@ -198,7 +204,7 @@ action unlockwithkey
 			else
 				say "[one of]You try every possible angle, but that key will not open the [+d.name].[or]Sheer force will not make that key fit either. The [+d.name] stays locked.[at random]"
 		else
-			say "You don't know how to unlock this with the [+k.name] or anything else for that matter."
+			say "You don't know how to unlock this with the [+k.name] (or anything else for that matter)."
 
 action use
 	understand
@@ -244,3 +250,5 @@ action help
 		say "put <i>something</i> into <i>somewhere</i>\n"
 		say "go <i>somewhere</i>\n"
 
+understand
+	"look" as "look around"

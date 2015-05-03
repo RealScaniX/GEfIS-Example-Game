@@ -1,5 +1,9 @@
 This is Illumination by ScaniX
 
+entity Place 
+   attributes
+		number illumination // is there a light in this place?
+
 entity playercharacter is a thing
 	attributes
 		number illumination  // this value defines how much the player can "see"
@@ -10,18 +14,30 @@ entity lightsource is a thing
 	attributes
 		number illumination
 		number steps // how many steps does this last?
-		bool lit is @[lightsource_update] // we expect a specific light source to have a function here
+		bool lit is false // we expect a specific light source to have a function here
+
+there is an event called light_update_event
+	its eventproc is "lightsource_update"
+	its always is true
+	its repeat is true
+	its probability is 100
 
 function lightsource_update
 	do
 		player.lightsteps = player.lightsteps + 1
-		if player.lightsteps > this.steps
-			say "Your lightsource just went dark. As your eyes have been adjusted to this [if this.illumination > 70]blinding[else if this.illumination > 40]bright[else if this.illumination > 20]small[else]dim[end] light you need a few seconds to see anything in the dark that now surrounds you."
-			now player.light is null
-			return false
-		else if player.lightsteps is this.steps - 2
-			say "Your lightsource starts flickering..."
-		return true
+		now l is player.light
+		if l is not null
+			if player.lightsteps > l.steps
+				say "Your lightsource just went dark. As your eyes have been adjusted to this
+						[if l.illumination > 70]blinding[else if l.illumination > 40]bright[else if l.illumination > 20]small[else]dim[end]
+						light you need a few seconds to see anything in the dark that now surrounds you."
+				now player.light is null
+				return false
+			else if player.lightsteps is l.steps - 2
+				say "Your lightsource starts flickering..."
+		player.illumination = player.location.illumination
+		if player.light is a lightsource and player.light.lit
+			player.illumination = player.illumination + player.light.illumination
 
 function setlight
 	understand
@@ -29,7 +45,7 @@ function setlight
 	do
 		player.lightsteps = 0
 		player.light = light
-		player.illumination = light.illumination
+		//player.illumination = light.illumination
 
 /*
 The match. Not much light and is used up quite fast.
@@ -37,3 +53,42 @@ The match. Not much light and is used up quite fast.
 there is a lightsource called match
 	its illumination is 10
 	its steps is 5
+	its lit is true
+
+function fright
+	understand
+		fright [amount], [msg]
+		fright [amount]
+	do
+		if msg is not empty
+			say "<span style=\"text-shadow: 0px 1px 1px #FF0000;filter:dropshadow(color=#FF0000, offx=0, offy=1);\">[+msg]</span>"
+		now fear is player.fear
+		fear = fear + amount
+		if fear >= 100
+			fear = 90
+			goToPlace alternative entry hall
+		player.fear = fear
+
+function soothe
+	understand
+		soothe [amount], [msg]
+		soothe [amount]
+	do
+		if msg is not empty
+			say "<span style=\"text-shadow: 0px 1px 1px #2040FF;filter:dropshadow(color=#2040FF, offx=0, offy=1);\">[+msg]</span>"
+		now fear is player.fear
+		fear = fear - amount
+		if fear < 0
+			fear = 0
+		player.fear = fear
+		
+when play begins or resumes
+	add light_update_event to player.events
+
+before function goToPlace
+	now illu is destination.illumination
+	if player.light is not null and player.light.lit
+		illu = illu + player.light.illumination
+	if illu < 10
+		say "You'd rather not go there without any light."
+		return

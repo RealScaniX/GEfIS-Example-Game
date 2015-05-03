@@ -5,6 +5,7 @@ there is a place called kitchen
    its description is @[kitchendesc]
 	its intro is "The wooden door opens with a screeching sound and reveals... a kitchen."
 	its items are {kitchen door, apple, kitchen cupboard}
+	its illumination is 10
 
 there is a Item called apple
 	its discovered is false
@@ -53,7 +54,7 @@ there is a Door called kitchen door
 	its open is false
 
 when play starts
-	now fussel is a new item called "the fussel"
+	now fussel is a new item called "fussel"
 	now fussel.description is "Beware! It's the fussel!!!"
 	now fussel.discovered is false
 	add fussel to kitchen cupboard.items

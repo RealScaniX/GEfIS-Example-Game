@@ -5,12 +5,27 @@ There is a place called Entry hall
 	its items are {cellar door}
 	its intro is ""
 	its description is @[entryhalldesc]
+	its illumination is 10
 
 function entryhalldesc
 	do
 		say "This is the entry hall. It is a dark and eerie place..."
 		say "In front of you there are stairs leading [link go up]up[/link]."
+		add entryhallevent to player.events
 		return ""
+
+there is an event called entryhallevent 
+	its probability is 100
+	its eventproc is "entryhalltestevent"
+
+function eventproc
+	do
+		say "say something!"
+		ask "something?"
+		loop "edjaGhosty.ogg" on audio channel "ambience"
+		wait
+		stop audio channel "ambience"
+
 
 when play begins or resumes
 	// some locked doors (never to be opened)

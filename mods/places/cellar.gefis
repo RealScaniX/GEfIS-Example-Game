@@ -8,7 +8,10 @@ there is a place called Cellar
 
 function cellarintro
 	do
-		say "The cellar. If the boys have done their job right, the ball would be somewhere around here for sure."
+		say "The cellar. If the boys did their job right, the ball would be somewhere around here for sure."
+		say "You really cannot help, but even a boy your age without a history like yours would get "
+		fright 10, "frightened"
+		say " down here."
 
 there is a door called cellar door
 	its origin is cellar
@@ -21,3 +24,97 @@ there is a key called rusty key
 	its discovered is false
    its description is "You see a pretty rusty key."
 
+when play starts or resumes
+	now ev is a new event called "cellarevent"
+	ev.delay = 0
+	ev.probability = 100
+	ev.always = true
+	ev.repeat = true
+	ev.eventproc = "cellarevent"
+	add ev to cellar.events
+	globals.cellarevent = 0
+	// stuff
+	now crates is a new thing called "crates"
+	crates.description = "They are closed and probably full of crap the old owner did not want anymore. The thick layer of dust let's you assume that the ball isn't hidden in there."
+	crates.discovered = false
+	add crates to cellar.items
+
+function cellarevent
+	do
+		if globals.cellarevent is 0
+			wait for 12 seconds
+			say "Where the hell do those "
+			fright 20, "freaky sounds"
+			say " come from? "
+			flush
+			sleep 3
+			say "Some old chimney? "
+			flush
+			sleep 1
+			say "Water pipes? "
+			flush
+			sleep 1
+			say "."
+			flush
+			sleep 0.3
+			say "."
+			flush
+			sleep 0.3
+			say ". "
+			flush
+			sleep 0.3
+			say "Monsters?"
+			this.delay = 1
+			if player.light is not null
+				now player.lightsteps is 2
+		else if globals.cellarevent is 1
+			play "doorClose.ogg" on audio channel "sound" with volume 100
+			now cellar door.open is false
+			now cellar door.locked is true
+			removeFromInv rusty key
+			removeFromInv box of matches
+			flush
+			sleep 2
+			say "What!? No!!! "
+			fright 35, "Someone closed the cellar door.\n"
+			wait for 3 seconds
+			say "\"This isn't funny anymore.\", you shout out into the dark, \"Who is up there?\"\n"
+			wait for 6 seconds
+			say "When there is no answer, you run up the stairs to open the door. "
+			wait for 3 seconds
+			play "doorLocked.mp3" on audio channel "sound"
+			flush
+			sleep 0.8
+			say "No. "
+			play "doorLocked.mp3" on audio channel "sound"
+			flush
+			sleep 0.7
+			say "No. "
+			play "doorLocked.mp3" on audio channel "sound"
+			flush
+			sleep 0.6
+			say "No! "
+			wait for 2 seconds
+			say "Why is it locked now?"
+			wait for 2 seconds
+			say "\"Hello?\", you shout again, \"Come on, let me out of here!\"\n"
+			this.delay = 0
+		else if globals.cellarevent is 2
+			addToInv box of matches
+			say "You fumble around in your pockets, but the key is gone."
+			this.delay = 2
+			if player.light is not null
+				now player.lightsteps is 4
+		else
+			play "cat.ogg" on audio channel "sound"
+			flush
+			sleep 0.7
+			say "\"Whoah!\", you jumped at the "
+			fright 0, "sudden sound"
+			say ". The fact that it was only a cat - wherever it suddenly appeared from - doesn't help you anymore as you were already frightened too much."
+			wait for 15 seconds
+			say "The positive things are: It has already been pitch black here, so there was no difference when the world went black before your eyes. Another nice thing is
+					that the crate you collapsed upon seems to be stuffed with soft things."
+			wait
+			fright 10
+		globals.cellarevent = globals.cellarevent + 1

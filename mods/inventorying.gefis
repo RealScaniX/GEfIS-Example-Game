@@ -42,7 +42,7 @@ action takeitem
 		// Remove from container
 		if not (currContainer is null)
 			remove itm from currContainer.items
-		else if player.inventory has itm
+		else if [playerOwns itm]
 			// we haven't found it anywhere else, so I guess we already own it
 			say "Be happy! You already own that."
 			return
@@ -77,6 +77,17 @@ function addToInv
 		else
 			add itm to player.inventory
 			now itm.carried is 1
+
+function removeFromInv
+	understand
+		removeFromInv [itm]
+	do
+		if [playerOwns itm]
+			now currContainer is [getInventoryContainer player.inventory, itm, player.inventory]
+			if currContainer is a container or currContainer is a place
+				remove itm from currContainer.items
+			else
+				remove itm from player.inventory
 
 action inventorying
 	understand
