@@ -31,7 +31,7 @@ function lightmatch
 		set lightsource lightsource.match
 		say "You pick out one of the remaining [+random number between 2 and 12] matches and ignite it on the rough side of the box."
 		say "A small flash and tiny sparks are the first things that can be seen in the dark, then the small flame casts a flickering light that makes the shadows 
-				around you dance. You are wondering if that makes you even more uneasy than before..."
+				around you dance. You are wondering if that makes you even more uneasy..."
 
 understand
 	"light match" as "use box of matches"

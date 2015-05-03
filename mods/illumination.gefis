@@ -62,12 +62,10 @@ function fright
 	do
 		if msg is not empty
 			say "<span style=\"text-shadow: 0px 1px 1px #FF0000;filter:dropshadow(color=#FF0000, offx=0, offy=1);\">[+msg]</span>"
-		now fear is player.fear
-		fear = fear + amount
-		if fear >= 100
-			fear = 90
+		player.fear = player.fear + amount
+		if player.fear >= 100
+			player.fear = 90
 			goToPlace alternative entry hall
-		player.fear = fear
 
 function soothe
 	understand
@@ -76,11 +74,9 @@ function soothe
 	do
 		if msg is not empty
 			say "<span style=\"text-shadow: 0px 1px 1px #2040FF;filter:dropshadow(color=#2040FF, offx=0, offy=1);\">[+msg]</span>"
-		now fear is player.fear
-		fear = fear - amount
-		if fear < 0
-			fear = 0
-		player.fear = fear
+		player.fear = player.fear - amount
+		if player.fear < 0
+			player.fear = 0
 		
 when play begins or resumes
 	add light_update_event to player.events

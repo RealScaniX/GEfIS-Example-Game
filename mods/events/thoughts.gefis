@@ -7,11 +7,14 @@ when play begins or resumes
 	ev.eventproc = "chainofthought"
 	ev.repeat = true
 	add ev to player.events
-	
+
+there is a valuesponge called globals
+	its introthoughts is 0
+
 function chainofthought
 	do
-		play "drop[one of]A[or]B[or]C[or]D[at random].ogg" on audio channel "sound" with volume 100
-		if not globals.cellarEvent
+		//play "drop[one of]A[or]B[or]C[or]D[at random].ogg" on audio channel "sound" with volume 100
+		if globals.cellarEvent is 0
 			// reset delay
 			this.delay = 5
 			this.probability = 50

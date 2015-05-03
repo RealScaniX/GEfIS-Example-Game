@@ -66,11 +66,10 @@ function mainStatusInfo
 		now itmcount is 0
 		for each itm in player.inventory
 			now itmcount is itmcount + itm.carried
-		return "<b>GEfIS One</b>\n
-					<div style=\"float:right;\">
+		return "<div style=\"float:right;\">
 						<htmlbar \"Fear\" [+player.fear]/100>
 						<htmlbar \"Light\" [+player.illumination]/100>
-						<htmlbar \"Glow\" [+random number between 1 and 100]/100>
+						<htmlbar \"Glow\" [+player.glow]/100>
 					</div>
 					<div style=\"display:inline-block;\">
 					You are here: [link look around][append player.location][/link]\n

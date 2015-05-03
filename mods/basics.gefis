@@ -1,8 +1,7 @@
 This is gefis one basics by ScaniX
 
 There is a ValueSponge called Globals
-	its MusicVolume is 100
-	its SoundVolume is 100
+	its chapter is 0
 
 There is a ValueSponge called temps
 	it is static
@@ -252,3 +251,24 @@ action help
 
 understand
 	"look" as "look around"
+
+function saychapter
+	understand
+		saychapter [chap]
+	do
+		sleep 0.7
+		play "elevatoreyeOpenClose.mp3" on audio channel "sound"
+		flush
+		sleep 0.7
+		now chapternames is {"A simple task", "The circle of keys"}
+		say "\n\n"
+		say "<div style=\"text-align:center;\">"
+		say "<span style=\"font-size:38px;letter-spacing:2px;\">[if chap > 0]Chapter [+chap][else]Prologue[end]</span>\n"
+		say "<span style=\"font-size:24px;letter-spacing:4px;font-style:italic;\">[+chapternames.(chap)]</span>\n"
+		say "<image \"chapter.png\">\n"
+		say "</div>"
+		say "\n\n"
+		flush
+		sleep 2
+
+

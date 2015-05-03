@@ -25,23 +25,23 @@ there is a key called rusty key
    its description is "You see a pretty rusty key."
 
 when play starts or resumes
-	now ev is a new event called "cellarevent"
+	now ev is a new event called "cellarEvent"
 	ev.delay = 0
 	ev.probability = 100
 	ev.always = true
 	ev.repeat = true
-	ev.eventproc = "cellarevent"
+	ev.eventproc = "cellarEvent"
 	add ev to cellar.events
-	globals.cellarevent = 0
+	globals.cellarEvent = 0
 	// stuff
 	now crates is a new thing called "crates"
 	crates.description = "They are closed and probably full of crap the old owner did not want anymore. The thick layer of dust let's you assume that the ball isn't hidden in there."
 	crates.discovered = false
 	add crates to cellar.items
 
-function cellarevent
+function cellarEvent
 	do
-		if globals.cellarevent is 0
+		if globals.cellarEvent is 0
 			wait for 12 seconds
 			say "Where the hell do those "
 			fright 20, "freaky sounds"
@@ -67,7 +67,7 @@ function cellarevent
 			this.delay = 1
 			if player.light is not null
 				now player.lightsteps is 2
-		else if globals.cellarevent is 1
+		else if globals.cellarEvent is 1
 			play "doorClose.ogg" on audio channel "sound" with volume 100
 			now cellar door.open is false
 			now cellar door.locked is true
@@ -99,13 +99,14 @@ function cellarevent
 			wait for 2 seconds
 			say "\"Hello?\", you shout again, \"Come on, let me out of here!\"\n"
 			this.delay = 0
-		else if globals.cellarevent is 2
+		else if globals.cellarEvent is 2
 			addToInv box of matches
 			say "You fumble around in your pockets, but the key is gone."
 			this.delay = 2
 			if player.light is not null
 				now player.lightsteps is 4
 		else
+			globals.chapter = 1
 			play "cat.ogg" on audio channel "sound"
 			flush
 			sleep 0.7
@@ -116,5 +117,7 @@ function cellarevent
 			say "The positive things are: It has already been pitch black here, so there was no difference when the world went black before your eyes. Another nice thing is
 					that the crate you collapsed upon seems to be stuffed with soft things."
 			wait
+			cls
+			saychapter 1
 			fright 10
-		globals.cellarevent = globals.cellarevent + 1
+		globals.cellarEvent = globals.cellarEvent + 1

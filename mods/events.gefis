@@ -38,10 +38,10 @@ before function mainprompt
 		if ev.delay > 0
 			ev.delay = ev.delay - 1
 			continue
-		if (eventInvoked or temps.eventsEnabled) and not ev.always
+		if (eventInvoked or !temps.eventsEnabled) and not ev.always
 			continue
 		if (random number between 1 and 100) <= ev.probability
-			eventInvoked = true
+			eventInvoked = not ev.always
 			invoke function ev.eventproc on ev
 			if !ev.repeat
 				add ev to toberemoved

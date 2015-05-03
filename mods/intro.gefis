@@ -71,6 +71,7 @@ action startgame
 		flush
 		sleep 2
 		cls
+		saychapter 0
 		hide overlay "ne" with style "default"
 		hide overlay "nw" with style "default"
 		hide overlay "se" with style "default"
@@ -94,4 +95,5 @@ action startgame
 				the dark, listening to the sounds of anything that could have been awakened by this noise."
 		say "But all you can hear is your own breathing. At least for now."
 		goToPlace entry hall
+		mainprompt
 		switch to main mode
