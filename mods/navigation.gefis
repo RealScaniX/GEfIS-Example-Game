@@ -106,7 +106,7 @@ function setDoor
 		if d.open
 			play "doorOpen.mp3" on audio channel "sound" with volume 100
 		else
-			play "doorClose.mp3" on audio channel "sound" with volume 100
+			play "doorClose.ogg" on audio channel "sound" with volume 100
 		flush
 		sleep 0.5
 		say "You [if state]open[else]close[end] the door."
