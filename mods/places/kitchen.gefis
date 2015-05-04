@@ -6,6 +6,7 @@ there is a place called kitchen
 	its intro is "The wooden door opens with a screeching sound and reveals... a kitchen."
 	its items are {kitchen door, apple, kitchen cupboard}
 	its illumination is 10
+	its music is "Quinns Song-First Night.mp3"
 
 there is a Item called apple
 	its discovered is false
@@ -31,7 +32,7 @@ function cupboarddesc
 
 function kitchendesc
 	do
-		say "It is evident that no one has cooked a meal in here for a very long time. Dust and spiderwebs cover the whole place like everywhere else in this house. "
+		say "It is evident that no one has prepared a meal in here for a very long time. Dust and spiderwebs cover the whole place like everywhere else in this house. "
 		say "There are still pots, pans and dishes lying around as if whoever owned this place no longer cared about them."
 		say "Other than a [if kitchen.items has apple or kitchen.items has wax apple]weird apple and a[end]
 				[if kitchen cupboard.known]boring[else if not (kitchen cupboard.open)]closed - and thus very suspicious -[else]suspicious[end] 

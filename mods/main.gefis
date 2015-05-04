@@ -10,7 +10,7 @@ mode Main
 
 function mainprompt
 	do
-		say "\n"
+		say "\nYou are here: [link look around][append player.location][/link]\n"
 		// items
 		now visitems is [visibleitemlist]
 		if visitems.# > 0

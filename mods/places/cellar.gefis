@@ -112,10 +112,10 @@ function cellarEvent
 			sleep 0.7
 			say "\"Whoah!\", you jumped at the "
 			fright 0, "sudden sound"
-			say ". The fact that it was only a cat - wherever it suddenly appeared from - doesn't help you anymore as you were already frightened too much."
+			say ". The fact that it was only a cat - wherever it suddenly appeared from - doesn't help you anymore as you are already too frightened."
 			wait for 15 seconds
-			say "The positive things are: It has already been pitch black here, so there was no difference when the world went black before your eyes. Another nice thing is
-					that the crate you collapsed upon seems to be stuffed with soft things."
+			say "The positive things are: It is already pitch black here, so there is no difference when the world goes black before your eyes. Another nice thing is
+					that the crate you just collapsed upon seems to be stuffed with soft things."
 			wait
 			cls
 			saychapter 1

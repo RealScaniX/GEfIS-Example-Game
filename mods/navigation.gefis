@@ -234,18 +234,8 @@ function goToPlace
 
 function updateaudio
 	do
-		if not (globals.ambiencetrack is player.location.ambience)
-			if player.location.ambience is null
-				stop audio channel "ambience"
-			else
-				loop player.location.ambience on audio channel "ambience"
-			now globals.ambiencetrack is player.location.ambience
-		if not (globals.musictrack is player.location.music)
-			if player.location.music is null
-				stop audio channel "music"
-			else
-				loop player.location.music on audio channel "music"
-			now globals.musictrack is player.location.music
+		playambience player.location.ambience
+		playmusic player.location.music
 
 action lookaround
 	understand

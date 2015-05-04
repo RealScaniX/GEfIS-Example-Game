@@ -257,7 +257,7 @@ function saychapter
 		saychapter [chap]
 	do
 		sleep 0.7
-		play "elevatoreyeOpenClose.mp3" on audio channel "sound"
+		play "elevatoreyeOpenClose.mp3" on audio channel "sound" with volume 10
 		flush
 		sleep 0.7
 		now chapternames is {"A simple task", "The circle of keys"}
@@ -271,4 +271,28 @@ function saychapter
 		flush
 		sleep 2
 
+function playmusic
+	understand
+		playmusic [track]
+	do
+		//say "play music: [+track], current music: [+globals.musictrack]\n"
+		if globals.musictrack is track
+			return
+		if track is null
+			stop audio channel "music"
+		else
+			loop track on audio channel "music" with volume 45
+		now globals.musictrack is track
+
+function playambience
+	understand
+		playambience [track]
+	do
+		if globals.ambiencetrack is track
+			return
+		if track is null
+			stop audio channel "ambience"
+		else
+			loop track on audio channel "ambience" with volume 90
+		now globals.ambiencetrack is track
 

@@ -52,7 +52,7 @@ action takeitem
 			return
 		// Add to player inventory
 		addToInv itm
-		say "You took the " + itm.name + "."
+		say "You take the " + itm.name + "."
 
 action dropitem
 	understand

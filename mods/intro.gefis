@@ -72,6 +72,7 @@ action startgame
 		sleep 2
 		cls
 		saychapter 0
+		playmusic "Quinns Song-First Night.mp3"
 		hide overlay "ne" with style "default"
 		hide overlay "nw" with style "default"
 		hide overlay "se" with style "default"
@@ -94,6 +95,7 @@ action startgame
 		say "The heavy wooden door closes behind you with an ear shattering sound that echoes in this huge hall for what feels like minutes to you. Motionless you keep standing in
 				the dark, listening to the sounds of anything that could have been awakened by this noise."
 		say "But all you can hear is your own breathing. At least for now."
+		wait
 		goToPlace entry hall
-		mainprompt
+		user.actions = 0
 		switch to main mode

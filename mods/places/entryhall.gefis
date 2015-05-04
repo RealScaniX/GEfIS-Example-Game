@@ -6,6 +6,7 @@ There is a place called Entry hall
 	its intro is ""
 	its description is @[entryhalldesc]
 	its illumination is 10
+	its music is "Quinns Song-First Night.mp3"
 
 function entryhalldesc
 	do

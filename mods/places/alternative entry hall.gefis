@@ -4,6 +4,7 @@ There is a place called alternative entry hall
 	its intro is @[alternativeentryhallintro]
 	its description is @[alternativeentryhalldesc]
 	its illumination is 40
+	its music is "Quinns Song-A New Man.mp3"
 
 function alternativeentryhallintro
 	do
