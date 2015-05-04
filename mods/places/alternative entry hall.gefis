@@ -5,6 +5,18 @@ There is a place called alternative entry hall
 	its description is @[alternativeentryhalldesc]
 	its illumination is 40
 	its music is "Quinns Song-A New Man.mp3"
+	its events are {alternativeentryhallsoothe}
+
+there is an event called alternativeentryhallsoothe
+	its eventproc is "alternativeentryhallsoothe"
+	its always is true
+	its repeat is true
+	its delay is 1
+
+function alternativeentryhallsoothe
+	do
+		now x is ((player.fear+5) / 5) % 100
+		soothe x, "[one of]The blue light calms your nerves.[or]The weird magical light soothes you.[or]The blue light seems to burn the darkness in you away.[at random]"
 
 function alternativeentryhallintro
 	do
@@ -16,9 +28,8 @@ function alternativeentryhallintro
 
 function alternativeentryhalldesc
 	do
-		say "This looks pretty similar to the entry hall from before, but there are... differences."
-		say "This biggest one is probably the thing you see before you ahen you turn towards the entrance."
+		say "This looks pretty similar to the entry hall from before, but there are differences."
+		say "This biggest one is probably the thing you see before you when you turn towards the entrance."
 		say "Or better yet: What once has been the entrance..."
-		say "\n"
-		soothe 30, "To be continued..."
+		say "\n<i>To be continued...</i>"
 		return ""

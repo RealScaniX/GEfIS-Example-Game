@@ -73,7 +73,7 @@ function soothe
 		soothe [amount]
 	do
 		if msg is not empty
-			say "<span style=\"text-shadow: 0px 1px 1px #2040FF;filter:dropshadow(color=#2040FF, offx=0, offy=1);\">[+msg]</span>"
+			say "<span style=\"text-shadow: 0px 1px 1px #2080FF;filter:dropshadow(color=#2080FF, offx=0, offy=1);\">[+msg]</span>"
 		player.fear = player.fear - amount
 		if player.fear < 0
 			player.fear = 0

@@ -14,14 +14,12 @@ entity Place is a Thing
 
 when play resumes
 	stop audio channel "sound"
-	if globals.ambiencetrack is null
-		stop audio channel "ambience"
-	else
-		loop globals.ambiencetrack on audio channel "ambience"
-	if globals.musictrack is null
-		stop audio channel "music"
-	else
-		loop globals.musictrack on audio channel "music"
+	now x is globals.ambiencetrack
+	globals.ambiencetrack = "xxx"
+	playambience x
+	now x is globals.musictrack
+	globals.musictrack = "xxx"
+	playmusic x
 
 entity Passage is a Thing
 	its description is @[passagedesc]

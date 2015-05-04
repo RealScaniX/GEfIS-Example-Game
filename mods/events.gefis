@@ -12,8 +12,8 @@ Entity place
 
 Entity event is an Entity
 	attributes
-		number probability
-		number delay
+		number probability is 100
+		number delay is 0
 		text eventproc
 		bool repeat is false
 		bool always is false		// if true, this event will also trigger if another event already was triggered

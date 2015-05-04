@@ -293,6 +293,9 @@ function playambience
 		if track is null
 			stop audio channel "ambience"
 		else
-			loop track on audio channel "ambience" with volume 90
+			loop track on audio channel "ambience" with volume 80
 		now globals.ambiencetrack is track
 
+action wait
+	do
+		say "[one of]You decide to do... nothing.[or]Time to take a deep breath.[or]You're taking a second to think about your situation.[at random]"
