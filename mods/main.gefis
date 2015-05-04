@@ -31,6 +31,7 @@ function mainprompt
 				now i is i + 1
 			say "\n"
 		// navi
+/*
 		now str is ""
 		now navikey is ""
 		now destinations is {"northwest", "north", "northeast", "up",
@@ -59,9 +60,35 @@ function mainprompt
 		if navikey is not temps.lastnavi
 			show str in overlay "se" with style "margin-bottom:300px;"
 			temps.lastnavi = navikey
+*/
 
 function mainStatusInfo
 	do
+		// navi
+		now str is ""
+		now destinations is {"northwest", "north", "northeast", "up",
+									"west", "here", "east", null,
+									"southwest", "south", "southeast", "down"}
+		now icons is {"NW", "N", "NE", "/\\",
+									"W", "Here", "E", null,
+									"SW", "S", "SE", "\\/"}
+		for j from 0 to destinations.# - 1
+			now d is destinations.(j)
+			str = str + "<div style=\"float:left;font-size:12px;display:inline-block;border:1px solid rgba(55,55,55,0.35);position:relative;margin:0px;padding:4px 3px;width:27px;text-align:center;\">"
+			if d is not null
+				now disp is icons.(j)
+				if d is "here"
+					str = str + "<link look around>[+disp]</link>"
+				else if player.location.exits has d
+					navikey = navikey + d
+					str = str + "<link go [+d]>[+disp]</link>"
+				else
+					str = str + "&nbsp;"
+			else
+				str = str + "&nbsp;"
+			str = str + "</div>"
+			if (j+1) % 4 == 0
+				str = str + "<br style=\"clear:both;\"/>"
 		// count items
 		now itmcount is 0
 		for each itm in player.inventory
@@ -70,7 +97,7 @@ function mainStatusInfo
 						<htmlbar \"Fear\" [+player.fear]/100>
 						<htmlbar \"Light\" [+player.illumination]/100>
 						<htmlbar \"Glow\" [+player.glow]/100>
-					</div>
+					</div><div style=\"float:right;margin:0px 8px 0px 0px;border:1px solid rgba(55,55,55,0.35);line-height:normal;\">[+str]</div>
 					<div style=\"display:inline-block;\">
 					You are here: [link look around][append player.location][/link]\n
 					You performed " + user.actions + " actions and own [if itmcount > 0]<link inventory>[+itmcount] thing[if itmcount > 1]s[end]</link>.[else]nothing.\n
