@@ -102,12 +102,12 @@ function cellarEvent
 			say "\"Hello?\", you shout again, \"Come on, let me out of here!\"\n"
 			this.delay = 0
 		else if globals.cellarEvent is 2
-			addToInv box of matches
 			say "You fumble around in your pockets, but the key is gone."
 			this.delay = 2
 			if player.light is not null
 				now player.lightsteps is 4
 		else
+			addToInv box of matches
 			globals.chapter = 1
 			play "cat.ogg" on audio channel "sound"
 			flush
