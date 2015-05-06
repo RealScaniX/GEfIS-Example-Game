@@ -1,0 +1,146 @@
+This is Combat by ScaniX
+
+Entity Combatant is an Entity
+	attributes
+		number constitution     // either darkness or nothing (as the player health is processed differently)
+		number hp					// current health, is set to health at the beginning of the fight
+		number strength			// either light or darkness
+		text attackProc			// called to attack, the return value is damage done
+		text woundProc				// called to receive damage, if this returns true the combatant is defeated and the fight is over
+										// the damage to process will be stored in the variable "dmg"
+		text introProc				// called when the fight starts
+		list dropTable				// list of items that the enemy will drop after being defeated in the form {Entity item, number probability}
+		bool blocks					// if true, the combatant tries to block an attack, reducing the damage
+
+Entity Combat is an Entity
+	attributes
+		combatant player
+		combatant enemy 
+		bool enemyStarts is false
+		bool finished is false
+
+Entity Item
+	attributes
+		bool combatUse is false
+
+There is a Combat called currentFight
+	it is static // don't save
+	its player is a new Combatant called "player"
+
+mode Fight
+   its prompt is "Fight!"
+   its status info is @[fightStatusInfo]
+	before action do
+		currentFight.playersTurn = true
+		currentFight.player.blocks = false
+		currentFight.enemy.blocks = false
+   after action do
+		if !currentFight.playersTurn
+			invoke function "doEnemyTurn" on currentFight.enemy
+		if currentFight.finished
+			end mode
+		else
+			fightPrompt
+	on start do
+		fightPrepare
+
+function fightStatusInfo
+	do
+		say ""
+
+function fightPrompt
+	do
+		say "What are you going to do? [link attack]attack[/link]"
+
+function fightPrepare
+	do
+		currentFight.finished = false
+		/************************************
+				fill in enemy values
+		*************************************/
+		now currentFight.enemy.hp is currentFight.enemy.constitution
+		/************************************
+				fill in player values
+		*************************************/
+		// player health is taken from feat, no need to set a hp here
+		currentFight.player.strength = player.glow / 2 + player.illumination / 2
+		// add weapon strength
+		/************************************
+				enemy has the first attack?
+		*************************************/
+		if currentFight.enemy.introProc is not null
+			invoke function currentFight.enemy.introProc on currentFight.enemy
+		now currentFight.playersTurn is !currentFight.enemyStarts
+
+function startFight
+	understand
+		startFight [enmy]
+	do
+		if not (enmy is a combatant)
+			return
+		now currentFight.enemy is enmy
+		now currentFight.enemyStarts is false // todo: calculate somehow depending on the situation
+		start Fight mode
+
+
+function doEnemyTurn
+	do
+		// attack player
+		if currentFight.enemy.attackProc is not null
+			now dmg is [invoke function currentFight.enemy.attackProc on currentFight.enemy]
+			if dmg > 0
+				if [invoke function currentFight.player.woundProc on currentFight.player]
+					// the player already ran home because of his fear
+					currentFight.finished = true
+		
+function playerAttack
+	do
+		// roll dice to get attack damage
+		return 10
+		
+function playerWound
+	do
+		now fearGain is dmg
+		// reduce by glow
+		// reduce by block
+		if this.blocks
+			fearGain = fearGain / 2
+		return [fright fearGain]
+		
+when play starts or resumes
+	currentFight.player.attackProc = "playerAttack"
+	currentFight.player.woundProc = "playerWound"
+
+action flee
+	modes
+		fight
+	do
+		say "you fled"
+		currentFight.finished = true
+
+action block
+	modes
+		fight
+	do
+		currentFight.player.blocks = true
+
+action attack
+	modes
+		fight
+	do
+		now currentFight.playersTurn is false
+		now dmg is [invoke function currentFight.player.attackProc on currentFight.player]
+		if dmg > 0
+			if [invoke function currentFight.enemy.woundProc on currentFight.enemy]
+				// the player killed it
+				say "You won!"
+				// drop something
+				currentFight.finished = true
+		
+action use item
+	modes
+		fight
+	do
+		// list all combat usable items and ask player what he wants to use
+		say "What do you want to use? ..."
+		

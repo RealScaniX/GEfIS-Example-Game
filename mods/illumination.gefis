@@ -64,8 +64,10 @@ function fright
 			say "<span style=\"text-shadow: 0px 1px 1px #FF0000;filter:dropshadow(color=#FF0000, offx=0, offy=1);\">[+msg]</span>"
 		player.fear = player.fear + amount
 		if player.fear >= 100
-			player.fear = 90
+			player.fear = 99
 			goToPlace alternative entry hall
+			return true
+		return false
 
 function soothe
 	understand
