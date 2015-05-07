@@ -1,5 +1,11 @@
 This is GEfIS One by ScaniX
 
+It starts with the introduction mode
+
+
+/****************************************************
+ *   Basics
+ */
 Uses gefis one basics by ScaniX
 Uses containers by ScaniX
 Uses navigation by ScaniX
@@ -8,8 +14,14 @@ Uses Main Mode by ScaniX
 Uses Introduction Mode by ScaniX
 Uses Inventorying by ScaniX
 Uses Illumination by ScaniX
-Uses Combat by ScaniX
 Uses Carryables by ScaniX
 Uses Events by ScaniX
 
-It starts with the introduction mode
+
+/****************************************************
+ *   Combat and Combatants
+ */
+Uses Combat by ScaniX
+Uses player combatant by ScaniX
+Uses dark spark by ScaniX
+

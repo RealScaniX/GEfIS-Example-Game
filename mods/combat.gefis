@@ -10,13 +10,16 @@ Entity Combatant is an Entity
 										// the damage to process will be stored in the variable "dmg"
 		text introProc				// called when the fight starts
 		list dropTable				// list of items that the enemy will drop after being defeated in the form {Entity item, number probability}
-		bool blocks					// if true, the combatant tries to block an attack, reducing the damage
+		bool defends				// if true, the combatant tries to block an attack, reducing the damage
+		number level				// the level of the enemy (1-10), for a player the glow is used
+		bool firstEncounter is true		// false if the player already encountered this
 
 Entity Combat is an Entity
 	attributes
 		combatant player
 		combatant enemy 
 		bool enemyStarts is false
+		bool playersTurn is false		// true as long the player did not invoke a fight action (block, attack, use item)
 		bool finished is false
 
 Entity Item
@@ -25,35 +28,24 @@ Entity Item
 
 There is a Combat called currentFight
 	it is static // don't save
-	its player is a new Combatant called "player"
+	its player is player Combatant
 
 mode Fight
    its prompt is "Fight!"
    its status info is @[fightStatusInfo]
 	before action do
 		currentFight.playersTurn = true
-		currentFight.player.blocks = false
-		currentFight.enemy.blocks = false
+		currentFight.player.defends = false
+		currentFight.enemy.defends = false
    after action do
-		if !currentFight.playersTurn
-			invoke function "doEnemyTurn" on currentFight.enemy
 		if currentFight.finished
 			end mode
 		else
-			fightPrompt
+			if !currentFight.playersTurn
+				invoke function "doEnemyTurn" on currentFight.enemy
+			if !currentFight.finished
+				fightPrompt
 	on start do
-		fightPrepare
-
-function fightStatusInfo
-	do
-		say ""
-
-function fightPrompt
-	do
-		say "What are you going to do? [link attack]attack[/link]"
-
-function fightPrepare
-	do
 		currentFight.finished = false
 		/************************************
 				fill in enemy values
@@ -62,15 +54,28 @@ function fightPrepare
 		/************************************
 				fill in player values
 		*************************************/
-		// player health is taken from feat, no need to set a hp here
-		currentFight.player.strength = player.glow / 2 + player.illumination / 2
+		// player health is taken from fear, no need to set a hp here
+		currentFight.player.strength = 3 + (player.glow / 2 + player.illumination / 3) % 10000 // modulo converts it to an int ^-^
 		// add weapon strength
 		/************************************
 				enemy has the first attack?
 		*************************************/
 		if currentFight.enemy.introProc is not null
 			invoke function currentFight.enemy.introProc on currentFight.enemy
+		currentFight.enemy.firstEncounter = false
 		now currentFight.playersTurn is !currentFight.enemyStarts
+
+function fightStatusInfo
+	do
+		return "<div style=\"float:right;\">
+						<htmlbar \"Enemy\" [+currentFight.enemy.hp]/[+currentFight.enemy.constitution]>
+						<htmlbar \"Fear\" [+player.fear]/100>
+					</div>Your opponent: [+currentFight.enemy.name]\n
+							Your strength: [+currentFight.player.strength]"
+
+function fightPrompt
+	do
+		say "What are you going to do? [link attack]attack[/link] [link defend]defend[/link] [link use item]use item[/link] [link flee]flee[/link]"
 
 function startFight
 	understand
@@ -82,7 +87,6 @@ function startFight
 		now currentFight.enemyStarts is false // todo: calculate somehow depending on the situation
 		start Fight mode
 
-
 function doEnemyTurn
 	do
 		// attack player
@@ -93,54 +97,59 @@ function doEnemyTurn
 					// the player already ran home because of his fear
 					currentFight.finished = true
 		
-function playerAttack
-	do
-		// roll dice to get attack damage
-		return 10
-		
-function playerWound
-	do
-		now fearGain is dmg
-		// reduce by glow
-		// reduce by block
-		if this.blocks
-			fearGain = fearGain / 2
-		return [fright fearGain]
-		
-when play starts or resumes
-	currentFight.player.attackProc = "playerAttack"
-	currentFight.player.woundProc = "playerWound"
-
+/*
+ *		Player actions
+ */
 action flee
 	modes
 		fight
 	do
-		say "you fled"
-		currentFight.finished = true
+		say "Do you really want to get away from here?"
+		ask whether "Flee?"
+		if !user.consented or user.canceled
+			return
+		now currentFight.playersTurn is false
+		now enemyName is currentFight.enemy.name
+		now enemyLevel is currentFight.enemy.level
+		if random number between 1 and 100 < 80
+			say "you fled"
+			currentFight.finished = true
+		else
+			say "you don't get away fast enough."
 
-action block
+action defend
 	modes
 		fight
 	do
-		currentFight.player.blocks = true
+		now currentFight.playersTurn is false
+		now enemyName is currentFight.enemy.name
+		now enemyLevel is currentFight.enemy.level
+		currentFight.player.defends = true
 
 action attack
 	modes
 		fight
 	do
 		now currentFight.playersTurn is false
+		now enemyName is currentFight.enemy.name
+		now enemyLevel is currentFight.enemy.level
 		now dmg is [invoke function currentFight.player.attackProc on currentFight.player]
 		if dmg > 0
 			if [invoke function currentFight.enemy.woundProc on currentFight.enemy]
 				// the player killed it
 				say "You won!"
 				// drop something
+				// add experience points (glow)
+				if player.glow < enemyLevel * 10
+					player.glow = player.glow + (enemyLevel * 10 - player.glow) / 2
 				currentFight.finished = true
 		
 action use item
 	modes
 		fight
 	do
+		now enemyName is currentFight.enemy.name
+		now enemyLevel is currentFight.enemy.level
 		// list all combat usable items and ask player what he wants to use
 		say "What do you want to use? ..."
 		

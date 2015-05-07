@@ -55,10 +55,10 @@ there is a lightsource called match
 	its steps is 5
 	its lit is true
 
-function fright
+function scare
 	understand
-		fright [amount], [msg]
-		fright [amount]
+		scare [amount], [msg]
+		scare [amount]
 	do
 		if msg is not empty
 			say "<span style=\"text-shadow: 0px 1px 1px #FF0000;filter:dropshadow(color=#FF0000, offx=0, offy=1);\">[+msg]</span>"

@@ -1,4 +1,29 @@
 This is Dark Spark by ScaniX
 
-there is an enemy called dark spark
-	its 
+there is a Combatant called dark spark
+	its attackProc is "darkSparkAttack"
+	its woundProc is "darkSparkWound"
+	its introProc is "darkSparkIntro"
+	its strength is 20
+	its constitution is 20
+	its level is 1
+
+function darkSparkIntro
+	do
+		if this.firstEncounter
+			say "You suddenly notice a point in front of you that seems to be even darker than its surroundings.
+					When it starts to move, you brace yourself for an attack."
+
+function darkSparkAttack
+	do
+		say this.name + " is attacking with 5 damage."
+		return 5
+
+function darkSparkWound
+	do
+		say this.name + " is bleeding for [+dmg] damage."
+		this.hp = this.hp - dmg
+		if this.hp < 5
+			say "The dark spark flickers. Other than with normal lights, this one gets brighter when flickering."
+		return this.hp <= 0
+

@@ -1,0 +1,59 @@
+This is player combatant by ScaniX
+
+there is a Combatant called player combatant
+	its attackProc is "playerAttack"
+	its woundProc is "playerWound"
+	its strength is 0
+	its constitution is 0
+
+function playerAttack
+	do
+		// say attack text
+		now weaponName is "[one of]bare hands[or]fists[or]feet[at random]"
+		say "[one of]You lounge forward and attack the [+enemyName] with your [+weaponName].
+				[or]You try to hit the enemy with your [+weaponName].
+				[at random]"
+		// roll for hit
+		if chance of 50 in (100 - player.glow + enemyLevel * 10)
+			// crit?
+			if chance of 5
+				say "Seeing an opening you take your chance and manage to hit the [+enemyName] at a vulnerable point."
+				return this.strength * 2
+			else
+				// roll dice to get attack damage
+				now dmg is this.strength * (random number between 0.9 and 1.1)
+				if dmg < 3
+					say "You graze the enemy with your [+weaponName]."
+				else if dmg < 10
+					say "You hit the [+enemyName]."
+				return dmg
+		else
+			say "[one of]
+				Miscalculating the movements of your opponent, you miss it by a few centimeters.[or]
+				You underestimated the speed of the [+enemyName] and could not hit it.[or]
+				The [+enemyName] deflected the blow.
+				[at random]"
+			return 0
+		
+function playerWound
+	do
+		now fearGain is dmg
+		// dodge
+		if chance of player.glow in 100 + enemyLevel * 10
+			say "[one of]Using your catlike reflexes, you dodge the attack and purr as you stay completely unharmed.[at random]"
+			return false
+		// reduce by glow
+		fearGain = fearGain - player.glow / 4
+		if fearGain <= 0
+			say "The attack of the [+enemyName] is too weak to be able to scare you any longer."
+			return false
+		// reduce by block
+		if this.defends
+			fearGain = fearGain / 2
+		if player.fear + fearGain >= 100
+			say "[one of]Your bravery is dwindling while the fear overcomes you.
+					[or]The [+enemyName] is too strong for and you have to surrender.
+					[or]You lack the mental strength to push aside the fear for even a second longer.
+					[at random]"
+		return [scare fearGain]
+		
