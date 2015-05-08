@@ -1,5 +1,14 @@
 This is Combat by ScaniX
 
+Entity Combat is an Entity
+	attributes
+		combatant player
+		combatant enemy 
+		bool enemyStarts is false
+		bool playersTurn is false		// true as long the player did not invoke a fight action (block, attack, use item)
+		bool finished is true			// if we are not fighting, it is finished
+		list events
+
 Entity Combatant is an Entity
 	attributes
 		number constitution     // either darkness or nothing (as the player health is processed differently)
@@ -14,17 +23,14 @@ Entity Combatant is an Entity
 		number level				// the level of the enemy (1-10), for a player the glow is used
 		bool firstEncounter is true		// false if the player already encountered this
 
-Entity Combat is an Entity
-	attributes
-		combatant player
-		combatant enemy 
-		bool enemyStarts is false
-		bool playersTurn is false		// true as long the player did not invoke a fight action (block, attack, use item)
-		bool finished is false
-
 Entity Item
 	attributes
 		bool combatUse is false
+
+before function updateaudio
+	if !currentFight.finished
+		// keep playing fight music
+		return
 
 There is a Combat called currentFight
 	it is static // don't save
@@ -46,6 +52,9 @@ mode Fight
 			if !currentFight.finished
 				fightPrompt
 	on start do
+		globals.fightMusic = "Exciting Trailer.mp3"
+		playMusic globals.fightMusic
+		playAmbience null
 		currentFight.finished = false
 		/************************************
 				fill in enemy values
@@ -64,6 +73,9 @@ mode Fight
 			invoke function currentFight.enemy.introProc on currentFight.enemy
 		currentFight.enemy.firstEncounter = false
 		now currentFight.playersTurn is !currentFight.enemyStarts
+	on end do
+		updateaudio
+		mainPrompt
 
 function fightStatusInfo
 	do
@@ -75,7 +87,8 @@ function fightStatusInfo
 
 function fightPrompt
 	do
-		say "What are you going to do? [link attack]attack[/link] [link defend]defend[/link] [link use item]use item[/link] [link flee]flee[/link]"
+		eventProcessing
+		say "\nWhat are you going to do? [link attack]attack[/link] [link defend]defend[/link] [link use item]use item[/link] [link flee]flee[/link]"
 
 function startFight
 	understand
@@ -144,6 +157,12 @@ action attack
 					player.glow = player.glow + (enemyLevel * 10 - player.glow) / 2
 				currentFight.finished = true
 		
+before action use
+	now t is [resolveitem t]
+	if t is an item and !t.combatUse
+		say "You cannot use that now."
+		return
+
 action use item
 	modes
 		fight
@@ -153,3 +172,7 @@ action use item
 		// list all combat usable items and ask player what he wants to use
 		say "What do you want to use? ..."
 		
+
+action fight
+	do
+		startFight dark spark

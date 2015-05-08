@@ -11,6 +11,11 @@ entity Place is a Thing
 		bool navigatable is true // if false we are somewhere that cannot be entered/left by normal means
 		text ambience    // name of audio track for ambience
 		text music		// name of audio track for music
+		text afterProc		// an optional function that is called before the main afterProc function
+
+before function mainPrompt
+	if player.location.afterProc is not null
+		invoke function player.location.afterProc
 
 when play resumes
 	stop audio channel "sound"
@@ -132,7 +137,7 @@ function stairwaytrip
 
 entity Key is an item
 	its actions are {"look at", "use", "take"}
-	its useFunction is "usekey"
+	its useProc is "usekey"
 
 function usekey
 	do

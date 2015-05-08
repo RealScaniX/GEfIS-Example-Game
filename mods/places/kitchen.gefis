@@ -7,6 +7,7 @@ there is a place called kitchen
 	its items are {kitchen door, apple, kitchen cupboard}
 	its illumination is 10
 	its music is "Quinns Song-First Night.mp3"
+	its afterProc is "afterProcKitchen"
 
 there is a Item called apple
 	its discovered is false
@@ -59,3 +60,12 @@ when play starts
 	now fussel.description is "Beware! It's the fussel!!!"
 	now fussel.discovered is false
 	add fussel to kitchen cupboard.items
+	now globals.kitchenTape is a new music tape called "music tape"
+	globals.kitchenTape.discovered = false
+
+function afterProcKitchen
+	do
+		if !globals.kitchenTape.discovered and ([playerOwns apple] or [playerOwns wax apple])
+			add globals.kitchenTape to kitchen.items
+			globals.kitchenTape.discovered = true
+			say "Oh! There was a music tape beneath it."

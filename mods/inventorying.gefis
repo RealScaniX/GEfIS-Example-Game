@@ -82,12 +82,17 @@ function removeFromInv
 	understand
 		removeFromInv [itm]
 	do
+		if itm is a text
+			now itm is [resolveItem itm]
 		if [playerOwns itm]
-			now currContainer is [getInventoryContainer player.inventory, itm, player.inventory]
-			if currContainer is a container or currContainer is a place
-				remove itm from currContainer.items
+			if itm.carried > 1
+				itm.carried = itm.carried - 1
 			else
-				remove itm from player.inventory
+				now currContainer is [getInventoryContainer player.inventory, itm, player.inventory]
+				if currContainer is a container or currContainer is a place
+					remove itm from currContainer.items
+				else
+					remove itm from player.inventory
 
 action inventorying
 	understand

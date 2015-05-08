@@ -27,7 +27,7 @@ entity Item is a Thing
    attributes
 		bool carryable is true
       number weight
-		text useFunction
+		text useProc
 
 entity Sound is a Thing
 	its actions are {"listen to"}
@@ -216,8 +216,8 @@ action use
 			setDoor t, (not t.open)
 		else if t is a container
 			setContainer t, (not t.open)
-		else if t has "useFunction"
-			invoke function t.useFunction on t
+		else if t has "useProc"
+			invoke function t.useProc on t
 		else
 			say "You don't know how to use this."
 
