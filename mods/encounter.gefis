@@ -25,7 +25,7 @@ before function mainPrompt
 			for each enc in player.location.encounters
 				if z < enc.probability
 					// start fight
-					globals.encounterCooldown = 5
+					globals.encounterCooldown = 10
 					startFight enc.enemy
 					return
 				z = z - enc.probability

@@ -300,3 +300,11 @@ function playambience
 action wait
 	do
 		say "[one of]You decide to do... nothing.[or]Time to take a deep breath.[or]You're taking a second to think about your situation.[at random]"
+
+action smellaround
+	understand
+		smell
+	do
+		smt = player.location
+		invoke action "smell"
+

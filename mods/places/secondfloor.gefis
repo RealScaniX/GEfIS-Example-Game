@@ -24,5 +24,7 @@ function secfloordesc
 
 when play begins or resumes
 	now door is a new doorPassage
-	door.origin = first floor
-	door.destination = child's room
+	door.origin = second floor
+	door.destination = kid's room
+	second floor.exits.door = door
+
