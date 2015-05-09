@@ -248,6 +248,7 @@ action help
 		say "drop <i>something</i>\n"
 		say "put <i>something</i> into <i>somewhere</i>\n"
 		say "go <i>somewhere</i>\n"
+		say "wait\n"
 
 understand
 	"look" as "look around"
