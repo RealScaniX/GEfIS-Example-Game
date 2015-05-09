@@ -41,7 +41,7 @@ action takeitem
 					break
 		// Remove from container
 		if not (currContainer is null)
-			remove itm from currContainer.items
+			removeFromContainer currContainer, itm
 		else if [playerOwns itm]
 			// we haven't found it anywhere else, so I guess we already own it
 			say "Be happy! You already own that."
@@ -64,7 +64,9 @@ action dropitem
 			say "You cannot drop what isn't yours."
 			return
 		now cnt is player.location
-		invoke action "putinto"
+		now currContainer is [getInventoryContainer player.inventory, itm, player.inventory]
+		//invoke action "putintodirect"
+		putIntoDirect
 
 function addToInv
 	understand
@@ -85,12 +87,12 @@ function removeFromInv
 		if itm is a text
 			now itm is [resolveItem itm]
 		if [playerOwns itm]
-			if itm.carried > 1
+			if itm.carried > 0
 				itm.carried = itm.carried - 1
-			else
+			if itm.carried == 0
 				now currContainer is [getInventoryContainer player.inventory, itm, player.inventory]
 				if currContainer is a container or currContainer is a place
-					remove itm from currContainer.items
+					removeFromContainer currContainer, itm
 				else
 					remove itm from player.inventory
 
@@ -133,3 +135,9 @@ function getInventoryContainer
 				if cnt is not null
 					return cnt
 		return null
+
+function invItemLink
+	understand
+		invItemLink [itm]
+	do
+		return "<link [for each act in itm.actions][if not (act is \"take\")][append act]|[end][end]>" + itm.name + "</link>"

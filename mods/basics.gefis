@@ -101,36 +101,36 @@ action taste
 		else
 			say "You don't see that."
 
-function visibleitemlist
+function visibleItemList
+	understand
+		visibleItemList [ext]
 	do
 		now itemlist is a new list
 		// items of place
 		for each itm in player.location.items
 			if itm.discovered
-				add itm to itemlist
-				addContainerItems itm, false
-		// passages of place
-		//for each itm in player.location.exits
-		//	if itm is a passage
-		//		add itm to itemlist
+				if ext
+					now inf is a new list
+					add itm to inf
+					add player.location.itemCount.(itm.name) to inf
+					add player.location to inf
+					add inf to itemlist
+				else
+					add itm to itemlist
+				addContainerItems itm, false, ext
 		return itemlist
-
-function invItemLink
-	understand
-		invItemLink [itm]
-	do
-		return "<link [for each act in itm.actions][if not (act is \"take\")][append act]|[end][end]>" + itm.name + "</link>"
 
 function resolveitem
 	understand
 		resolveitem [itm]
 	do
-		now vlist is [visibleitemlist]
+		// copy only items from visibleitemlist
+		now vlist is [visibleitemlist false]
 		// add inventory stuff
 		for each x in player.inventory
 			add x to vlist
 			now itemlist is vlist						// workaround until byref of arrays work in functions
-			addContainerItems x, true //, vlist    // we create a local that is resolvable from inside of the function addContainerItems
+			addContainerItems x, true, false       // we create a local that is resolvable from inside of the function addContainerItems
 			now vlist is itemlist						// then put the results back into our local variable
 		// add location
 		add player.location to vlist

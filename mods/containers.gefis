@@ -1,14 +1,20 @@
 This is containers by ScaniX
 
 Entity container is an item
-	its actions are {"look at", "open", "close"}
+	its actions are {"look at", "open", "close", "take"}
 	its carryable is false
 	attributes
 		bool locked is false
 		bool open is false
 		bool known is false
 		list items
+		map itemCount
 		bool listContentsOnLook is true
+
+Entity Place
+	attributes
+      list items
+		map itemCount
 
 function setContainer
 	understand
@@ -52,13 +58,20 @@ function discovercontainer
 
 function addContainerItems
 	understand
-		addContainerItems [cnt], [includeClosed]
+		addContainerItems [cnt], [includeClosed], [ext]
 	do
 		if cnt is a container and not cnt.locked and (cnt.open or includeClosed) // locked is not an issue here as we check the discovered flag of the items
 			for each containeritem in cnt.items
 				if containeritem.discovered
-					add containeritem to itemlist
-					addContainerItems containeritem, includeClosed
+					if ext
+						now inf is a new list
+						add containeritem to inf
+						add cnt.itemCount.(containeritem.name) to inf
+						add cnt to inf
+						add inf to itemlist
+					else
+						add containeritem to itemlist
+					addContainerItems containeritem, includeClosed, ext
 
 function isInContainer
 	understand
@@ -119,6 +132,9 @@ action putinto
 		else if not cnt.open and cnt.locked
 			say "The [+cnt.name] is locked."
 			return
+		else if not cnt.known
+			say "You probably should take a peek in it first."
+			return
 		// Find current container
 		now currContainer is null
 		if player.location.items has itm
@@ -128,9 +144,13 @@ action putinto
 				if cnt2 is a container && cnt2.items has itm
 					now currContainer is cnt2
 					break
+		putIntoDirect
+
+function putIntoDirect
+	do
 		// if the thing is not owned, but the container is, we take the item first
-		if [playerOwns currContainer] and currContainer is not null
-			addToInv itm
+		//if [playerOwns currContainer] and currContainer is not null
+		//	addToInv itm
 		// Remove from container
 		if currContainer is null
 			if [playerOwns itm]
@@ -140,10 +160,39 @@ action putinto
 				// if container is null, we don't see that either
 				say "You don't see that here."
 				return
+		// remove from old container
+		removeFromContainer currContainer, itm
+//		if cnt is a container or cnt is a place
+//			removeFromContainer currContainer, itm
+//		else
+//			removeFromInv itm
 		// Add to container
-		if currContainer is a container or currContainer is a place
-			remove itm from currContainer.items
-		else
-			remove itm from player.inventory
-		add itm to cnt.items
+		addToContainer cnt, itm
 		say "You [one of]put[or]drop[or]kick[or]throw[at random] the [+itm.name] into the [+cnt.name]."
+
+function removeFromContainer
+	understand
+		removeFromContainer [cnt], [itm]
+	do
+		if cnt is a container or cnt is a place
+			cnt.itemCount.(itm.name) = cnt.itemCount.(itm.name) - 1
+			if cnt.itemCount.(itm.name) == 0
+				remove itm from cnt.items
+				if [playerOwns cnt]
+					itm.carried = itm.carried - 1
+		else
+			removeFromInv itm
+
+function addToContainer
+	understand
+		addToContainer [cnt], [itm]
+	do
+		if cnt is a container or cnt is a place
+			cnt.itemCount.(itm.name) = cnt.itemCount.(itm.name) + 1
+			if cnt.itemCount.(itm.name) == 1
+				add itm to cnt.items
+				if [playerOwns cnt]
+					itm.carried = itm.carried + 1
+		else
+			addToInv itm
+

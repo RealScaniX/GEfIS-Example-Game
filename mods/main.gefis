@@ -12,12 +12,19 @@ function mainprompt
 	do
 		say "\nYou are here: [link look around][append player.location][/link]\n"
 		// items
-		now visitems is [visibleitemlist]
+		now visitems is [visibleitemlist true]
 		if visitems.# > 0
 			say "You notice these things: "
 			now i is 0
-			for each itm in visitems
+			for each inf in visitems
+				itm = inf.0
+				amount = inf.1
+				cnt = inf.2
 				say "[if i > 0], [end]<link [for each act in itm.actions][append act]|[end]>" + itm.name + "</link>"
+				if amount > 1
+					say " x [+amount]"
+				if cnt is not null and not (cnt is a place)
+					say " (in [+cnt.name])"
 				now i is i + 1
 			say "\n"
 		// exits
@@ -30,37 +37,6 @@ function mainprompt
 				say "[link go $][append exname][/link]"
 				now i is i + 1
 			say "\n"
-		// navi
-/*
-		now str is ""
-		now navikey is ""
-		now destinations is {"northwest", "north", "northeast", "up",
-									"west", "here", "east", null,
-									"southwest", "south", "southeast", "down"}
-		now icons is {"NW", "N", "NE", "/\\",
-									"W", "Here", "E", null,
-									"SW", "S", "SE", "\\/"}
-		for j from 0 to destinations.# - 1
-			now d is destinations.(j)
-			str = str + "<div class=\"uioverlay\" style=\"font-size:12px;position:relative;margin:2px;padding:2px;width:27px;background-color:rgba(250,250,250,0.3);text-align:center;display:inline-block;\">"
-			if d is not null
-				now disp is icons.(j)
-				if d is "here"
-					str = str + "<link look around>[+disp]</link>"
-				else if player.location.exits has d
-					navikey = navikey + d
-					str = str + "<link go [+d]>[+disp]</link>"
-				else
-					str = str + "&nbsp;"
-			else
-				str = str + "&nbsp;"
-			str = str + "</div>"
-			if (j+1) % 4 == 0
-				str = str + "<br/>"
-		if navikey is not temps.lastnavi
-			show str in overlay "se" with style "margin-bottom:300px;"
-			temps.lastnavi = navikey
-*/
 
 function mainStatusInfo
 	do
