@@ -34,6 +34,10 @@ function setContainer
 			return
 		now d.open is state
 		say "You [if state]open[else]close[end] the [+d.name]."
+		// show contents on first open
+		if d.open and !d.known
+			now smt is d
+			invoke action "lookat"
 
 function discovercontainer
 	understand
