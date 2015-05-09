@@ -152,7 +152,7 @@ action open
 		now d is [resolveitem d]
 		if d is null
 			say "You don't see that here."
-		else if d is a Door
+		else if d is a doorPassage
 			setDoor d, true
 		else if d is a container
 			setContainer d, true
@@ -166,7 +166,7 @@ action close
 		now d is [resolveitem d]
 		if d is null
 			say "You don't see that here."
-		else if d is a Door
+		else if d is a doorPassage
 			setDoor d, false
 		else if d is a container
 			setContainer d, false
@@ -194,7 +194,7 @@ action unlockwithkey
 		if not (player.inventory has k)
 			say "[one of]Wishful thinking will not let that key materialzie in your hand. Or will it?[or]Sticking your hand into your pocket you regretfully realize that you don't have this key.[at random]"
 			return
-		if d is a door or d is a container
+		if d is a doorPassage or d is a container
 			if not d.locked
 				say "You (or someone else) already successfully unlocked the [+d.name]."
 			else if d.key is k
@@ -212,7 +212,7 @@ action use
 		now t is [resolveitem t]
 		if t is null
 			say "You don't see that here."
-		else if t is a Door
+		else if t is a doorPassage
 			setDoor t, (not t.open)
 		else if t is a container
 			setContainer t, (not t.open)

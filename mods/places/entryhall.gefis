@@ -31,19 +31,19 @@ function eventproc
 when play begins or resumes
 	// some locked doors (never to be opened)
 	//-west
-	now wd is a new door called "west door" 
+	now wd is a new doorPassage called "west door" 
 	now wd.locked is true
 	now entry hall.exits.west is wd
 	//-east
-	now ed is a new door called "east door" 
+	now ed is a new doorPassage called "east door" 
 	now ed.locked is true
 	now entry hall.exits.east is ed
 	//-northeast
-	now ned is a new door called "north east door" 
+	now ned is a new doorPassage called "north east door" 
 	now ned.locked is true
 	now entry hall.exits.northeast is ned
 	//-south
-	now sd is a new door called "main entrance" 
+	now sd is a new doorPassage called "main entrance" 
 	now sd.locked is true
 	now sd.preproc is @[mainentrancetrip]
 	now entry hall.exits.south is sd

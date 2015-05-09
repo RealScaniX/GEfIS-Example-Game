@@ -27,11 +27,6 @@ Entity Item
 	attributes
 		bool combatUse is false
 
-before function updateaudio
-	if !currentFight.finished
-		// keep playing fight music
-		return
-
 There is a Combat called currentFight
 	it is static // don't save
 	its player is player Combatant
@@ -64,7 +59,7 @@ mode Fight
 				fill in player values
 		*************************************/
 		// player health is taken from fear, no need to set a hp here
-		currentFight.player.strength = 3 + (player.glow / 2 + player.illumination / 3) % 10000 // modulo converts it to an int ^-^
+		currentFight.player.strength = 3 + (player.glow / 2 + player.illumination / 4) % 10000 // modulo converts it to an int ^-^
 		// add weapon strength
 		/************************************
 				enemy has the first attack?
@@ -73,6 +68,7 @@ mode Fight
 			invoke function currentFight.enemy.introProc on currentFight.enemy
 		currentFight.enemy.firstEncounter = false
 		now currentFight.playersTurn is !currentFight.enemyStarts
+		fightPrompt
 	on end do
 		updateaudio
 		mainPrompt
@@ -109,8 +105,40 @@ function doEnemyTurn
 				if [invoke function currentFight.player.woundProc on currentFight.player]
 					// the player already ran home because of his fear
 					currentFight.finished = true
+
+	
+/************************************************************************************************
+ *		Altering functions during combat
+ */
+before function updateaudio
+	if !currentFight.finished
+		// keep playing fight music
+		return
+
+before action navigate
+	if !currentFight.finished
+		say "You cannot leave in the middle of a fight."
+		return	
 		
-/*
+before action takeitem
+	if !currentFight.finished
+		say "You have to hold your greed at bay until after this fight."
+		return	
+		
+before action dropitem
+	if !currentFight.finished
+		say "This is not the time to sort out the trash."
+		return	
+		
+before action use
+	if !currentFight.finished
+		now t is [resolveitem t]
+		if t is an item and !t.combatUse
+			say "You cannot use that now."
+			return
+
+		
+/************************************************************************************************
  *		Player actions
  */
 action flee
@@ -124,7 +152,7 @@ action flee
 		now currentFight.playersTurn is false
 		now enemyName is currentFight.enemy.name
 		now enemyLevel is currentFight.enemy.level
-		if random number between 1 and 100 < 80
+		if chance of 80
 			say "you fled"
 			currentFight.finished = true
 		else
@@ -156,12 +184,6 @@ action attack
 				if player.glow < enemyLevel * 10
 					player.glow = player.glow + (enemyLevel * 10 - player.glow) / 2
 				currentFight.finished = true
-		
-before action use
-	now t is [resolveitem t]
-	if t is an item and !t.combatUse
-		say "You cannot use that now."
-		return
 
 action use item
 	modes

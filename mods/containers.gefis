@@ -6,7 +6,7 @@ Entity container is an item
 	attributes
 		bool locked is false
 		bool open is false
-		bool known is false
+		bool known is false			// we looked inside
 		list items
 		map itemCount
 		bool listContentsOnLook is true
@@ -23,11 +23,6 @@ function setContainer
 		if not (d is a container)
 			say "You don't know how to open this."
 			return
-/*
-		if not (player.location.items has d)
-			say "You don't see this here."
-			return
-*/
 		if d.open is state
 			if d.open
 				say "Isn't it open enough for you?"
@@ -38,11 +33,6 @@ function setContainer
 			say "The [+d.name] is locked."
 			return
 		now d.open is state
-		/*
-		if d.open and !d.known
-			now d.known is true
-			for each itm in d.items
-				now itm.discovered is true*/
 		say "You [if state]open[else]close[end] the [+d.name]."
 
 function discovercontainer
@@ -92,6 +82,7 @@ function listContents
 	do
 		if cnt is a container
 			if cnt.open
+				cnt.known = true
 				say "It contains: "
 				if cnt.items is empty
 					say "[one of]Nothing[or]Air[or]Space for stuff[or]A yearning to be filled[at random]."
@@ -176,10 +167,10 @@ function removeFromContainer
 	do
 		if cnt is a container or cnt is a place
 			cnt.itemCount.(itm.name) = cnt.itemCount.(itm.name) - 1
-			if cnt.itemCount.(itm.name) == 0
+			if cnt.itemCount.(itm.name) <= 0
 				remove itm from cnt.items
-				if [playerOwns cnt]
-					itm.carried = itm.carried - 1
+			if [playerOwns cnt]
+				itm.carried = itm.carried - 1
 		else
 			removeFromInv itm
 
@@ -188,11 +179,29 @@ function addToContainer
 		addToContainer [cnt], [itm]
 	do
 		if cnt is a container or cnt is a place
-			cnt.itemCount.(itm.name) = cnt.itemCount.(itm.name) + 1
-			if cnt.itemCount.(itm.name) == 1
+			if not (cnt.items has itm)
 				add itm to cnt.items
-				if [playerOwns cnt]
-					itm.carried = itm.carried + 1
+				cnt.itemCount.(itm.name) = 1
+			else
+				cnt.itemCount.(itm.name) = cnt.itemCount.(itm.name) + 1
+			if [playerOwns cnt]
+				itm.carried = itm.carried + 1
 		else
 			addToInv itm
+
+before function mainPrompt
+	if !temps.itemCountFixed
+		temps.itemCountFixed = true
+		for each p in place.*
+			fixItemCount p
+
+function fixItemCount
+	understand 
+		fixItemCount [cnt]
+	do
+		for each itm in cnt.items
+			if not (cnt.itemCount has itm.name) or cnt.itemCount.(itm.name) == 0
+				cnt.itemCount.(itm.name) = 1
+			if itm is a container
+				fixItemCount itm
 

@@ -15,7 +15,7 @@ function cellarintro
 		scare 10, "frightened"
 		say " down here."
 
-there is a door called cellar door
+there is a doorPassage called cellar door
 	its origin is cellar
 	its destination is entry hall
 	its open is false
@@ -70,6 +70,7 @@ function cellarEvent
 			if player.light is not null
 				now player.lightsteps is 2
 		else if globals.cellarEvent is 1
+			wait for 5 seconds
 			play "doorClose.ogg" on audio channel "sound" with volume 100
 			now cellar door.open is false
 			now cellar door.locked is true
@@ -116,7 +117,7 @@ function cellarEvent
 			scare 4, "sudden sound"
 			say ". The fact that it was only a cat - wherever it suddenly appeared from - doesn't help you anymore as you are already too frightened."
 			wait for 15 seconds
-			say "The positive things are: It is already pitch black here, so there is no difference when the world goes black before your eyes. Another nice thing is
+			say "The positive things are: It is already pitch black here, so there is no difference when the world goes black in front of your eyes. Another nice thing is
 					that the crate you just collapsed upon seems to be stuffed with soft things."
 			wait
 			playmusic "Quinns Song-A New Man.mp3"

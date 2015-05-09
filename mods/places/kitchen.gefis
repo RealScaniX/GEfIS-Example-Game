@@ -48,9 +48,11 @@ function appledesc
 			return "It is still not a real apple. But if you get real hungry, you might take a bite anyway..."
 		else
 			now this.name is "wax apple"
+			now kitchen.itemCount.wax apple is kitchen.itemCount.apple
+			remove "apple" from kitchen.itemCount
 			return "This apple must be made of wax. Otherwise it wouldn't look so edible anymore."
 
-there is a Door called kitchen door
+there is a doorPassage called kitchen door
 	its origin is kitchen
 	its destination is entry hall
 	its open is false
@@ -66,6 +68,7 @@ when play starts
 function afterProcKitchen
 	do
 		if !globals.kitchenTape.discovered and ([playerOwns apple] or [playerOwns wax apple])
-			add globals.kitchenTape to kitchen.items
+			addToContainer kitchen, globals.kitchenTape
+			//add globals.kitchenTape to kitchen.items
 			globals.kitchenTape.discovered = true
 			say "Oh! There was a music tape beneath it."

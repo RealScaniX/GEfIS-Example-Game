@@ -1,15 +1,28 @@
 This is Second floor by ScaniX
 
+there is a place called second floor
+	its exits are {"down": passage.upstairs}
+	its intro is @[secfloorintro]
+	its description is @[secfloordesc]
+	its regions is {"house", "second floor"}
+	its illumination is 10
+
 there is a Stairway called upstairs
 	its origin is alternative entry hall
 	its destination is second floor
 
-there is a place called second floor
-	its exits are {"down": passage.upstairs}
-	its intro is "You are now on the second floor."
-	its description is @[secfloordesc]
+function secfloorintro
+	do
+		say "After two dozens of steps you finally reach the second floor. There is are corridors to your left and right, which would be west and east. 
+			  In addition, there is a door right in front of you."
+		addEncounter "house", dark spark, 30
 
 function secfloordesc
 	do
 		say "This is the second floor. Right behind you is the stairway [link go down]down[/link] into the entry hall."
 		return ""
+
+when play begins or resumes
+	now door is a new doorPassage
+	door.origin = first floor
+	door.destination = child's room

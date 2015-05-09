@@ -6,6 +6,9 @@ There is a place called alternative entry hall
 	its illumination is 40
 	its music is "Quinns Song-A New Man.mp3"
 	its events are {alternativeentryhallsoothe}
+	its pacified is true
+	its exits are {"up": upstairs}
+	its regions is {"house", "first floor"}
 
 there is an event called alternativeentryhallsoothe
 	its eventproc is "alternativeentryhallsoothe"
@@ -15,14 +18,16 @@ there is an event called alternativeentryhallsoothe
 
 function alternativeentryhallsoothe
 	do
+		if player.fear < 4
+			return
 		now x is ((player.fear+5) / 5) % 100
 		soothe x, "[one of]The blue light calms your nerves.[or]The weird magical light soothes you.[or]The blue light seems to burn the darkness in you away.[at random]"
 
 function alternativeentryhallintro
 	do
 		say "You don't know how long you were gone. It takes you a few seconds to remember what happened."
-		say "One thing was instantly evident: You were no longer lying in the cellar."
-		say "It wasn't really that dark here either, there was some "
+		say "One thing was instantly evident: You are no longer lying in the cellar."
+		say "It isn't really that dark here either, there is some "
 		soothe 20, "nice blue light"
 		say " shining from behind you."
 

@@ -5,12 +5,13 @@ entity Place is a Thing
    attributes
       bool known
       list persons
-      map exits   // either a place or a door
+      map exits   // either a place or a doorPassage
 		text intro	// text to be said when first entering a place
 		bool navigatable is true // if false we are somewhere that cannot be entered/left by normal means
 		text ambience    // name of audio track for ambience
 		text music		// name of audio track for music
 		text afterProc		// an optional function that is called before the main afterProc function
+		list regions				// the regions this place belongs to
 
 before function mainPrompt
 	if player.location.afterProc is not null
@@ -41,7 +42,7 @@ function passagedesc
 		else if player.location is this.origin and this.destination.known
 			return "This leads to the " + this.destination + "."
 
-entity Door is a Passage
+entity doorPassage is a Passage
 	its preproc is "doortrip"
 	its passable is @this.open
 	its actions are {"look at", "open", "close", "unlock"}
@@ -85,7 +86,7 @@ function setDoor
 	understand
 		setDoor [d], [state]
 	do
-		if not (d is a Door)
+		if not (d is a doorPassage)
 			say "You don't know how to open this."
 			return
 		if not (player.location.exits has d)
@@ -168,8 +169,6 @@ function resolveDestination
 action navigate
    understand
       go [destination]
-   modes
-      main
    do
       //say "You want to go " + destination.name + "."
 		now destination is [resolveDestination destination]

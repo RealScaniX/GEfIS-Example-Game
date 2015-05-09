@@ -1,0 +1,42 @@
+This is Encounter by ScaniX
+
+An Encounter is an Entity
+	attributes
+		Combatant enemy
+		number probability
+
+A Place
+	attributes
+		list encounters
+		bool pacified is false
+
+before function mainPrompt
+	if globals.encounterCooldown > 0
+		globals.encounterCooldown = globals.encounterCooldown - 1
+	if !player.location.pacified and globals.encounterCooldown <= 0
+		now max is 0
+		now nix is 0
+		for each enc in player.location.encounters
+			max = max + 100
+			nix = nix + (100 - enc.probability)
+		now z is random number between 0 and max
+		if z >= nix
+			z = z - nix
+			for each enc in player.location.encounters
+				if z < enc.probability
+					// start fight
+					globals.encounterCooldown = 5
+					startFight enc.enemy
+					return
+				z = z - enc.probability
+
+function addEncounter
+	understand
+		addEncounter [reg], [enmy], [prob]
+	do
+		now enc is a new encounter called (enmy.name + " encounter")
+		enc.probability = prob
+		enc.enemy = enmy
+		for each p in place.*
+			if p.regions has reg
+				add enc to p.encounters
