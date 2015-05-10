@@ -120,9 +120,5 @@ function cellarEvent
 			say "The positive things are: It is already pitch black here, so there is no difference when the world goes black in front of your eyes. Another nice thing is
 					that the crate you just collapsed upon seems to be stuffed with soft things."
 			wait
-			playmusic "Quinns Song-A New Man.mp3"
-			playambience null
-			cls
-			saychapter 1
-			scare 10
+			chapterAdvance
 		globals.cellarEvent = globals.cellarEvent + 1

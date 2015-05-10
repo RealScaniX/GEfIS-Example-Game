@@ -17,6 +17,7 @@ Uses Illumination by ScaniX
 Uses Carryables by ScaniX
 Uses Events by ScaniX
 Uses Encounter by ScaniX
+Uses Chapter Transitions by ScaniX
 
 
 /****************************************************
@@ -25,4 +26,7 @@ Uses Encounter by ScaniX
 Uses Combat by ScaniX
 Uses player combatant by ScaniX
 Uses dark spark by ScaniX
+Uses unarmed weapon by ScaniX
+Uses dagger weapon by ScaniX
+Uses light sword weapon by ScaniX
 

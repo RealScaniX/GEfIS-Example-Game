@@ -8,24 +8,26 @@ there is a Combatant called player combatant
 
 function playerAttack
 	do
+		// find weapon
+		now wpn is unarmed
+		now ilist is [inventoryList]
+		for each itm in ilist
+			if itm is a weapon and itm.equipped
+				wpn = itm
+				break
 		// say attack text
-		now weaponName is "[one of]bare hands[or]fists[or]feet[at random]"
-		say "[one of]You lounge forward and attack the [+enemyName] with your [+weaponName].
-				[or]You try to hit the enemy with your [+weaponName].
-				[at random]"
+		invoke function wpn.attackProc
 		// roll for hit
 		if chance of 50 in (100 - player.glow + enemyLevel * 10)
 			// crit?
-			if chance of 5
+			if chance of wpn.critChance
 				say "Seeing an opening you take your chance and manage to hit the [+enemyName] at a vulnerable point."
 				return this.strength * 2
 			else
 				// roll dice to get attack damage
-				now dmg is this.strength * (random number between 0.9 and 1.1)
-				if dmg < 3
-					say "You graze the enemy with your [+weaponName]."
-				else if dmg < 10
-					say "You hit the [+enemyName]."
+				now dmgFactor is random number between 0.9 and 1.1
+				now dmg is this.strength * dmgFactor
+				invoke function wpn.hitProc
 				return dmg
 		else
 			say "[one of]

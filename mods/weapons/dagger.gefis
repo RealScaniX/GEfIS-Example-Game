@@ -1,0 +1,7 @@
+this is dagger weapon by scanix
+
+there is a weapon called dagger
+	it is static
+	its strength is 5
+	its attackProc is "daggerWeaponAttack"
+	its weaponName is @"[one of]tiny blade[or]knife[or]dagger[at random]"

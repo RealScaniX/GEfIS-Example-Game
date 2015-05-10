@@ -23,6 +23,37 @@ Entity Combatant is an Entity
 		number level				// the level of the enemy (1-10), for a player the glow is used
 		bool firstEncounter is true		// false if the player already encountered this
 
+entity Weapon is a Equippable
+	its useProc is "equipItem"
+	attributes
+		number strength
+		text attackProc is "defaultWeaponAttack"
+		text hitProc is "defaultWeaponHit"
+		number critChance is 5
+		text weaponName is @this.name
+
+function defaultWeaponAttack
+	do
+		now weaponName is wpn.weaponName
+		say "[one of]You lounge forward and attack the [+enemyName] with your [+weaponName].
+				[or]You try to hit the enemy with your [+weaponName].
+				[at random]"
+
+function defaultWeaponHit
+	do
+		now weaponName is wpn.weaponName
+		if dmgFactor < 0.95
+			say "You graze the enemy with your [+weaponName]."
+		else if dmgFactor > 1.05
+			say "You're able to land a nice hit with your [+weaponName]."
+		else
+			say "You hit the [+enemyName]."
+
+entity Armor is a Equippable
+	its useProc is "equipItem"
+	attributes
+		list bodyparts		// "head", "top", "legs", "hands", "waist": you cannot wear two armors at the same time that cover the same region
+
 Entity Item
 	attributes
 		bool combatUse is false
@@ -31,6 +62,10 @@ There is a Combat called currentFight
 	it is static // don't save
 	its player is player Combatant
 
+
+/************************************************************************************************
+ *		The fighting mode
+ */
 mode Fight
    its prompt is "Fight!"
    its status info is @[fightStatusInfo]
@@ -61,12 +96,22 @@ mode Fight
 		// player health is taken from fear, no need to set a hp here
 		currentFight.player.strength = 3 + (player.glow / 2 + player.illumination / 4) % 10000 // modulo converts it to an int ^-^
 		// add weapon strength
+		now wpn is unarmed
+		now ilist is [inventoryList]
+		for each itm in ilist
+			if itm is a weapon and itm.equipped
+				wpn = itm
+				break
+		currentFight.player.strength = currentFight.player.strength + wpn.strength
 		/************************************
 				enemy has the first attack?
 		*************************************/
-		if currentFight.enemy.introProc is not null
-			invoke function currentFight.enemy.introProc on currentFight.enemy
-		currentFight.enemy.firstEncounter = false
+		if currentFight.enemy.firstEncounter
+			if currentFight.enemy.introProc is not null
+				invoke function currentFight.enemy.introProc on currentFight.enemy
+			currentFight.enemy.firstEncounter = false
+		else
+			say "A [+currentFight.enemy.name] is attacking you."
 		now currentFight.playersTurn is !currentFight.enemyStarts
 		fightPrompt
 	on end do
@@ -193,8 +238,40 @@ action use item
 		now enemyLevel is currentFight.enemy.level
 		// list all combat usable items and ask player what he wants to use
 		say "What do you want to use? ..."
-		
 
+action unequip
+	understand
+		unequip [itm]
+	do
+		if itm is an equippable
+			if itm.equipped
+				itm.equipped = false
+				say "You unequip the [+itm.name]."
+			else
+				say "You already have."
+		else
+			say "You cannot even equip that in the first place."
+
+function equipItem
+	do
+		if this.equipped
+			if this is a weapon
+				say "You already wield the [+this.name]."
+			else
+				say "You already wear the [+this.name]."
+			return
+		now ilist is [inventoryList]
+		for each itm in ilist
+			if this is a weapon
+				if itm is a weapon and itm.equipped
+					say "You unequip the [+itm.name]. "
+					itm.equipped = false
+					break
+			else
+				// unequip colliding parts
+		say "You equip the [+this.name]."
+		this.equipped = true
+		
 action fight
 	do
 		startFight dark spark

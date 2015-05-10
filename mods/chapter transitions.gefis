@@ -1,0 +1,50 @@
+this is chapter transitions by ScaniX
+
+function chapterAdvance
+	do
+		globals.chapter = globals.chapter + 1
+		if 0 is globals.chapter
+			cls
+			saychapter 0
+			playmusic "Quinns Song-First Night.mp3"
+			hide overlay "ne" with style "default"
+			hide overlay "nw" with style "default"
+			hide overlay "se" with style "default"
+			hide overlay "ne" with style "border-width:3px;padding:20px;"
+			hide overlay "nw" with style "border-width:3px;padding:20px;"
+			hide overlay "se" with style "border-width:3px;padding:20px;"
+			introtalk
+			hide overlay "ne" with style "default"
+			hide overlay "nw" with style "default"
+			hide overlay "se" with style "default"
+			say "You barely listen to the voices behind you. Your heart is thumping in your chest as you are standing alone in this big abandoned house."
+			say "All you can think about is that this is the worst thing they could have asked you to do. Your fear of the dark has been a problem ever after that accursed accident."
+			say "Your mind travels back in time and you see that black nothingness in front of you again while in reality you are still standing in a big moonlit rectangle on the
+					floor with the shadow of a boy inside of it..."
+			wait
+			say "As if adjusting to your imagination, the rectangle continuously becomes narrower until it is a thin line and then vanishes completely."
+			wait for 4 seconds
+			play "entrydoor.mp3" on audio channel "sound" with volume 100
+			flush
+			say "The heavy wooden door closes behind you with an ear shattering sound that echoes in this huge hall for what feels like minutes to you. Motionless you keep standing in
+					the dark, listening to the sounds of anything that could have been awakened by this noise."
+			say "But all you can hear is your own breathing. At least for now."
+			wait
+			goToPlace entry hall
+			user.actions = 0
+			switch to main mode
+		else if 1 is globals.chapter
+			playmusic "Quinns Song-A New Man.mp3"
+			playambience null
+			cls
+			saychapter globals.chapter
+			scare 10
+		else if 2 is globals.chapter
+
+function scrollAway
+	do
+		for i from 1 to 30
+			say "\n"
+			flush
+			sleep 0.1
+		cls

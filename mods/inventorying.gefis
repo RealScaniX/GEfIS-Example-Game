@@ -73,6 +73,8 @@ function addToInv
 		addToInv [itm]
 	do
 		now itm.discovered is true
+		if itm is a equippable
+			now itm.equipped is false
 		if player.inventory has itm
 			// increase count
 			now itm.carried is itm.carried + 1
@@ -90,6 +92,8 @@ function removeFromInv
 			if itm.carried > 0
 				itm.carried = itm.carried - 1
 			if itm.carried == 0
+				if itm is a equippable
+					now itm.equipped is false				
 				now currContainer is [getInventoryContainer player.inventory, itm, player.inventory]
 				if currContainer is a container or currContainer is a place
 					removeFromContainer currContainer, itm
@@ -108,7 +112,7 @@ action inventorying
 					[one of]wonderful[or]puzzling[or]amazing[or]obscure[or]intruiging[at random] thing[if player.inventory.# > 1]s[end]:"
 			now i is 0
 			for each itm in player.inventory
-				say "[if i > 0], [end][invItemLink itm][if itm.carried > 1] x [+itm.carried][end]"
+				say "[if i > 0], [end][invItemLink itm][if itm is an equippable and itm.equipped]*[end][if itm.carried > 1] x [+itm.carried][end]"
 				now i is i + 1
 			say "\n"
 

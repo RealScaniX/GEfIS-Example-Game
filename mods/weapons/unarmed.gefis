@@ -1,0 +1,7 @@
+this is unarmed weapon by scanix
+
+there is a weapon called unarmed
+	it is static
+	its strength is 0
+	its description is "unarmed fighting, yeah."
+	its weaponName is @"[one of]bare hand[or]fist[or]foot[at random]"

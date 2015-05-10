@@ -1,7 +1,7 @@
 This is gefis one basics by ScaniX
 
 There is a ValueSponge called Globals
-	its chapter is 0
+	its chapter is -1
 
 There is a ValueSponge called temps
 	it is static
@@ -23,7 +23,7 @@ Entity Thing is an Entity
 		list actions are {"look at"}
 
 entity Item is a Thing
-	its actions are {"look at", "take"}
+	its actions are {"look at", "use", "take"}
    attributes
 		bool carryable is true
       number weight
@@ -32,18 +32,9 @@ entity Item is a Thing
 entity Sound is a Thing
 	its actions are {"listen to"}
 
-entity Equippable is a Thing
+entity Equippable is an item
 	attributes
 		bool equipped
-		text equipmethod	// name of function to put this on
-
-entity Weapon is a Equippable
-	its equipmethod is "equipweapon"
-
-entity Armor is a Equippable
-	its equipmethod is "equiparmor"
-	attributes
-		list bodyparts		// "head", "top", "legs", "hands", "waist": you cannot wear two armors at the same time that cover the same region
 
 entity playercharacter is a thing
 	attributes
@@ -120,6 +111,16 @@ function visibleItemList
 				addContainerItems itm, false, ext
 		return itemlist
 
+function inventoryList
+	do
+		now ilist is a new list
+		for each x in player.inventory
+			add x to ilist
+			now itemlist is ilist						// workaround until byref of arrays work in functions
+			addContainerItems x, true, false       // we create a local that is resolvable from inside of the function addContainerItems
+			now ilist is itemlist						// then put the results back into our local variable
+		return ilist
+
 function resolveitem
 	understand
 		resolveitem [itm]
@@ -127,11 +128,9 @@ function resolveitem
 		// copy only items from visibleitemlist
 		now vlist is [visibleitemlist false]
 		// add inventory stuff
-		for each x in player.inventory
+		now ilist is [inventoryList]
+		for each x in ilist
 			add x to vlist
-			now itemlist is vlist						// workaround until byref of arrays work in functions
-			addContainerItems x, true, false       // we create a local that is resolvable from inside of the function addContainerItems
-			now vlist is itemlist						// then put the results back into our local variable
 		// add location
 		add player.location to vlist
 		if itm is a text
@@ -223,7 +222,8 @@ action use
 
 action help
 	do
-		say "<b>Help</b>\n"
+		story log off
+		say "<h3>Help</h3>\n"
 		say "To accomplish things in this game, you can use simple sentences like in the old adventure games.\nDon't try some complex stuff though or the game wouldn't understand you
 				and answer with something lame and dissappointing.\n"
 		say "\n<div style=\"background-color:rgba(120, 120, 120, 0.2);\">"
@@ -236,6 +236,7 @@ action help
 		say "You cannot get the stupid key, because the accursed cell bars are in the way!\n"
 		say "</div>"
 		say "\nYeah, well... I bet you get the point anyway."
+		wait
 		say "\n<hr/>\n"
 		say "Here is a list of actions that can be performed in the game:"
 		say "look at <i>something</i>\n"
@@ -249,6 +250,14 @@ action help
 		say "put <i>something</i> into <i>somewhere</i>\n"
 		say "go <i>somewhere</i>\n"
 		say "wait\n"
+		wait
+		say "\n<hr/>\n"
+		say "To save your progress before heading into danger, you can use a <link quicksave>quicksave</link> and then a <link quickload>quickload</link> after everything went 
+				wrong. Note that this save game is lost when you leave the game session.\n"
+		say "To have a longer lasting save, use the <link save game>save game</link> command. You can load the game again by using <link load game>load game</link>. Note that all 
+				those actions can be performed by clicking on the corresponding icon in the config popup on the upper left."
+		wait
+		story log on
 
 understand
 	"look" as "look around"
