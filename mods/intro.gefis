@@ -21,9 +21,13 @@ mode Introduction
 function introstatus
 	do
 		append "<b>GEfIS One</b>\n"
-		append "You can view this page in [link \"/?dev=true&game=gefis+one&restart=true\"]developer mode[/link] and check out all the scripts and files that are the input for this game.\n"
-		append "There also is the [link \"/help\"]documentation[/link] that might help to clear things up.\n"
-		append "And finally there is the <link \"https://github.com/RealScaniX/GEfIS-Example-Game\">GitHub of this game</link> for those of you who want to check out and play around with the sources.\n"
+		append "You can view this page in [link \"/?dev=true&game=gefis+one&restart=true\"]developer mode[/link] and check out 
+					all the scripts and files that are the input for this game.\n"
+		append "There also is the [link \"/help\"]documentation[/link] that might help to clear things up. If you think you found a bug, 
+					you can use [link \"http://bugs.scanix.de\"]Mantis[/link], the bug tracking system. To talk about the game, you can use 
+					the [link \"http://forum.scanix.de\"]forum[/link].\n"
+		append "And finally there is the <link \"https://github.com/RealScaniX/GEfIS-Example-Game\">GitHub</link> of this game for those 
+					of you who want to check out and play around with the sources.\n"
 
 function introtalk
 	do
