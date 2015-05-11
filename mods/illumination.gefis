@@ -35,7 +35,6 @@ function lightsource_update
 						[if l.illumination > 70]blinding[else if l.illumination > 40]bright[else if l.illumination > 20]small[else]dim[end]
 						light you need a few seconds to see anything in the dark that now surrounds you."
 				now player.light is null
-				return false
 			else if player.lightsteps is l.steps - 2
 				say "Your lightsource starts flickering..."
 		player.illumination = player.location.illumination
