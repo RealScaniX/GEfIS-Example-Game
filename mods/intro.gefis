@@ -20,6 +20,8 @@ mode Introduction
 
 function introstatus
 	do
+		if globals.gameStarted
+			return "<h3>Thank you for taking the time to test this!</h3> ^-^"
 		append "<b>GEfIS One</b>\n"
 		append "You can view this page in [link \"/?dev=true&game=gefis+one&restart=true\"]developer mode[/link] and check out 
 					all the scripts and files that are the input for this game.\n"
@@ -28,6 +30,8 @@ function introstatus
 					the [link \"http://forum.scanix.de\"]forum[/link].\n"
 		append "And finally there is the <link \"https://github.com/RealScaniX/GEfIS-Example-Game\">GitHub</link> of this game for those 
 					of you who want to check out and play around with the sources.\n"
+		append "\nPlease note that this is still in development. Here is a current estimation of the progress:\n
+					<htmlbar \"Engine\" 70/100>&nbsp;<htmlbar \"Game\" 30/100>&nbsp;<htmlbar \"Dox\" 5/100><br/>"
 
 function introtalk
 	do
@@ -72,6 +76,7 @@ action startgame
 		start
 		start game
 	do
+		globals.gameStarted = true
       say "\nGood luck!\n"
 		flush
 		sleep 2

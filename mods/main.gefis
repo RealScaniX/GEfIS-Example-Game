@@ -69,9 +69,9 @@ function mainStatusInfo
 		now itmcount is 0
 		for each itm in player.inventory
 			now itmcount is itmcount + itm.carried
-		return "<div style=\"float:right;\">
-						<htmlbar \"Fear\" [+player.fear]/100>
-						<htmlbar \"Light\" [+player.illumination]/100>
+		return "<div style=\"float:right;line-height:0px;\">
+						<htmlbar \"Fear\" [+player.fear]/100><br/>
+						<htmlbar \"Light\" [+player.illumination]/100><br/>
 						<htmlbar \"Glow\" [+player.glow]/100>
 					</div><div style=\"float:right;margin:0px 8px 0px 0px;border:1px solid rgba(55,55,55,0.35);line-height:normal;\">[+str]</div>
 					<div style=\"display:inline-block;\">

@@ -218,7 +218,7 @@ action use
 		else if t has "useProc"
 			invoke function t.useProc on t
 		else
-			say "You don't know how to use this."
+			say "[one of]You don't know how to use this[or]This is totally useless[or]Maybe this is like art: Looking at it is all it is good for[at random]."
 
 action help
 	do
