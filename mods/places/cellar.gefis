@@ -43,7 +43,8 @@ when play starts or resumes
 
 function cellarEvent
 	do
-		if globals.cellarEvent is 0
+		globals.cellarEvent = globals.cellarEvent + 1
+		if globals.cellarEvent is 1
 			wait for 12 seconds
 			say "Where the hell do those "
 			scare 20, "freaky sounds"
@@ -69,7 +70,7 @@ function cellarEvent
 			this.delay = 1
 			if player.light is not null
 				now player.lightsteps is 2
-		else if globals.cellarEvent is 1
+		else if globals.cellarEvent is 2
 			wait for 5 seconds
 			play "doorClose.ogg" on audio channel "sound" with volume 100
 			now cellar door.open is false
@@ -102,14 +103,13 @@ function cellarEvent
 			wait for 2 seconds
 			say "\"Hello?\", you shout again, \"Come on, let me out of here!\"\n"
 			this.delay = 0
-		else if globals.cellarEvent is 2
+		else if globals.cellarEvent is 3
 			say "You fumble around in your pockets, but the key is gone."
 			this.delay = 2
 			if player.light is not null
 				now player.lightsteps is 4
 		else
 			addToInv box of matches
-			globals.chapter = 1
 			play "cat.ogg" on audio channel "sound"
 			flush
 			sleep 0.7
@@ -121,4 +121,3 @@ function cellarEvent
 					that the crate you just collapsed upon seems to be stuffed with soft things."
 			wait
 			chapterAdvance
-		globals.cellarEvent = globals.cellarEvent + 1

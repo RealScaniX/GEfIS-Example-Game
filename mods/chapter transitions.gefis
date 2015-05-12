@@ -40,11 +40,13 @@ function chapterAdvance
 			saychapter globals.chapter
 			scare 10
 		else if 2 is globals.chapter
+			cls
+			saychapter globals.chapter
 
 function scrollAway
 	do
 		for i from 1 to 30
-			say "\n"
+			say "\n\n"
 			flush
-			sleep 0.1
+			sleep 0.2
 		cls
