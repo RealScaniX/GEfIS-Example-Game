@@ -40,6 +40,7 @@ function chapterAdvance
 			cellar door.description = @[cellardoordesc]
 			cellar door.locked = true
 			cellar door.key = null
+			kitchen door.destination = alternative entry hall
 			kitchen.ambience = "27077__daveincamas__clockticks_noecho.ogg"
 			ticking sound.soundDesc = "The loud ticking of the grandfather clock tells you that you are still in the entry hall. Well, ... at least <b>an</b> entry hall."
 			playmusic "Quinns Song-A New Man.mp3", 100
