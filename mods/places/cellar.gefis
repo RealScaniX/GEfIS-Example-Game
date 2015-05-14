@@ -34,7 +34,7 @@ function cellarDoorDesc
 				append "Being placed on the side of the stairway, this should lead down into the cellar. It looks a bit older and the door handle and lock are both a bit rusty."
 		else
 			append "The cellar door has gone through some changes as well. The old lock has gone and has been replaced by five metal bars in different colors."
-			now barCount is 5 - globals.openedCellarBars
+			now barCount is 5 - globals.entranceLocksOpened
 			append "\n[one of]At the moment[or]Currently[or]Now[at random] [+barCount] of them [if barCount == 1]is[else]are[end] closed."
 
 there is a key called rusty key

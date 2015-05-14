@@ -89,7 +89,7 @@ function useflashlight
 		else
 			setlightsource lightsource.flashlight
 			if player.light is flashlight // could have been blocked
-				say "You turn on the flashlight and immediately feel better to have something in your hand to fight the darkness back."
+				say "You turn on the flashlight and immediately feel better to have something in your hand that pushes back the darkness."
 				if lightsource.flashlight.usedSteps > lightsource.flashlight.steps / 2
 					say "Unfortunately you get the feeling that the battery in this thing is getting empty."
 

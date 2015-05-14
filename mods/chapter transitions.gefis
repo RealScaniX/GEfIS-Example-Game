@@ -13,6 +13,7 @@ function chapterAdvance
 			hide overlay "ne" with style "border-width:3px;padding:20px;"
 			hide overlay "nw" with style "border-width:3px;padding:20px;"
 			hide overlay "se" with style "border-width:3px;padding:20px;"
+			playambience "27077__daveincamas__clockticks.ogg", 10
 			introtalk
 			hide overlay "ne" with style "default"
 			hide overlay "nw" with style "default"
@@ -22,15 +23,18 @@ function chapterAdvance
 			say "All you can think about is that this is the worst thing they could have asked you to do. Your fear of the dark has been a problem ever after that accursed accident."
 			say "Your mind travels back in time and you see that black nothingness in front of you again while in reality you are still standing in a big moonlit rectangle on the
 					floor with the shadow of a boy inside of it..."
+			playambience "27077__daveincamas__clockticks.ogg", 20
 			wait
 			say "As if adjusting to your imagination, the rectangle continuously becomes narrower until it is a thin line and then vanishes completely."
+			playambience "27077__daveincamas__clockticks.ogg", 30
 			wait for 4 seconds
 			play "entrydoor.mp3" on audio channel "sound" with volume 100
-			playambience "27077__daveincamas__clockticks.ogg", 50
+			playambience "27077__daveincamas__clockticks.ogg", 40
 			flush
 			say "The heavy wooden door closes behind you with an ear shattering sound that echoes in this huge hall for what feels like minutes to you. Motionless you keep standing in
 					the dark, listening to the sounds of anything that could have been awakened by this noise."
 			say "But all you can hear is your own breathing and some ticking sound. At least for now."
+			playambience "27077__daveincamas__clockticks.ogg", 50
 			wait
 			goToPlace entry hall
 			user.actions = 0

@@ -68,6 +68,6 @@ function addOneTimeEvent
 		addOneTimeEvent [procName]
 	do
 		now evt is a new event
-		evt.repeat = false
+		evt.always = true
 		evt.eventProc = procName
 		add evt to player.events

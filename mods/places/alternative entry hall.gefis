@@ -47,7 +47,33 @@ function alternativeentryhallintro
 there is a doorPassage called entrance
 	its locked is true
 	its preproc is @[entrancetrip]
+	its description is @[entranceDesc]
 	
+function entranceDesc
+	do
+		say "What has once been a normal front door of this house is now a huge circular stone plate. It seems to be made of some kind of blue, glowing marble. Although you 
+				suspect that this isn't really a thing you could find in a normal quarry."
+		say "On the outer ring there are five metallic keyholes with the colors blue, red, orange, green, and purple."
+		if globals.entranceLocksOpened > 0
+			now clist is a new list
+			for each col in {"blue", "red", "orange", "green", "purple"}
+				if globals.("entranceLock_[+col]")
+					add col to clist
+			if clist.# == 1
+				say "You managed to unlock the [+clist.0] lock."
+			else
+				say "You already opened the "
+				now i is 0
+				for each col in clist
+					i = i + 1
+					say "[if i == clist.#] and [else if i > 1], [end][+col]"
+				say " locks."
+		say "In the center there is [if globals.entranceLocksOpened >= 5]another keyhole that opened up after you unlocked all five other locks[else]a white or silver metal cover
+				that hides something of importance, at least that is your impression when you look at it[end]."
+		say "The blue light seems to fill up the large hall completely and is moving somehow, like sunbeams below the rippled surface of the ocean. It kinda has the same effect on 
+				you as well. You feel like nothing can hurt you here."
+		
+
 function entrancetrip
 	do
 		say "Nope!"
@@ -56,13 +82,13 @@ function entrancetrip
 function alternativeentryhalldesc
 	do
 		say "Looking around, you notice that this hall looks very similar to the entry hall from before, but there are differences."
-		say "This biggest one is probably the thing you see in front of you when you turn towards the [link look at|open|unlock|close]entrance[/link]."
-		say "Or better yet: What once has been the entrance..."
-		say "\n<i>To be continued...</i>"
+		say "The biggest one is probably the thing you see in front of you when you turn towards the [link look at|open|unlock|close]entrance[/link]."
+		say "Or better yet: What once has been the entrance."
 		return ""
 
 before action unlockwithkey
 	do
 		if d is entrance
-			// check keys: blue, red, orange, green, black
+			// check keys: blue, red, orange, green, purple
+			say "That key does not fit here."
 			return

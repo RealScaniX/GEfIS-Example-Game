@@ -20,7 +20,9 @@ function mainprompt
 				itm = inf.0
 				amount = inf.1
 				cnt = inf.2
-				say "[if i > 0], [end]<link [for each act in itm.actions][append act]|[end]>" + itm.name + "</link>"
+				if cnt is not null and not (cnt is a place) and player.illumination < 10
+					continue
+				say "[if i > 0], [end][actionLink itm]"
 				if amount > 1
 					say " x [+amount]"
 				if cnt is not null and not (cnt is a place)
@@ -37,6 +39,12 @@ function mainprompt
 				say "[link go $][append exname][/link]"
 				now i is i + 1
 			say "\n"
+
+function actionLink
+	understand
+		actionLink [itm]
+	do
+		return "<link [for each act in itm.actions][append act]|[end]>[+itm.name]</link>"
 
 function mainStatusInfo
 	do

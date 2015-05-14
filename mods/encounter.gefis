@@ -41,3 +41,5 @@ function addEncounter
 		for each p in place.*
 			if p.regions has reg
 				add enc to p.encounters
+		if globals.encounterCooldown < 5
+			globals.encounterCooldown = 5

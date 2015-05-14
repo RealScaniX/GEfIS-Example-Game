@@ -22,7 +22,6 @@ there is a container called marble pouch
 The match. Not much light and is used up quite fast.
 */
 there is an item called box of matches
-	its actions are {"use", "look at"}
 	its description is @"These are your lucky matches. \"Lucky\", because you consider yourself lucky that your mother hasn't noticed you carrying those around in your 
 						pocket... yet.\nShaking it and listening closely to the rattling sound of the matches inside, you [one of]guess[or]estimate[or]calculate[at random] there are
 						precisely [+random number between 2 and 12] of them left."
