@@ -16,14 +16,25 @@ function darkSparkIntro
 
 function darkSparkAttack
 	do
-		say this.name + " is attacking with 5 damage."
-		return 5
+		if chance of 10
+			say this.name + " attacks you with a "
+			scare 0, "sudden darkness"
+			say ".\n"
+			return 10			
+		else
+			say this.name + " is using "
+			scare 0, "flickering lights"
+			say " to scare you."
+			return 5
 
 function darkSparkWound
 	do
-		say this.name + " is bleeding for [+dmg] damage."
+		if dmg < 7
+			say "The [+this.name]'s darkness loses density."
+		else
+			say "A few of [+this.name]'s particles got smashed."
 		this.hp = this.hp - dmg
-		if this.hp < 5
-			say "The dark spark flickers. Other than with normal lights, this one gets brighter when flickering."
-		return this.hp <= 0
+		if this.hp < 7
+			say "The dark spark flickers. Other than normal lights, this one becomes brighter when flickering."
+		return this.hp < 1
 

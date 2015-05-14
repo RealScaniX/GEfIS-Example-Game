@@ -17,7 +17,6 @@ mode Introduction
       say "\nYou are currently in the introduction mode, you can check out the links on top or do one of the following:"
       say "[link start game]start the game[/link] "
       say "[link load game]load a save game[/link] "
-      say "[link end game]end the game[/link] "
       say "[link restart]restart[/link] "
       say "\n"
 

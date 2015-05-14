@@ -2,9 +2,69 @@ This is kid's room by ScaniX
 
 there is a place called kid's room
 	its smell is "This place smells of a fun that is long forgotten."
+	its music is "Quinns Song-First Night.mp3"
 	its ambience is "27077__daveincamas__clockticks_noecho.ogg"
-	its ambienceVolume is 10
-	//its items are {flashlight, battery}
+	its exits are {"south": kidsroomdoor}
+	its ambienceVolume is 7
+	its items are {kidsroomdoor, kidsRoomWardrobe, kidsRoomCabinet, kidsRoomDesk, train wagons}
+	its description is @[kidsRoomDesc]
+	its intro is "You know a kid's room when you see one, no matter how long the kid is gone. And this one is a kid's room.\n
+			On the right of the door there is a bed just about your size. A wardrobe stands in front of the right wall next to a smaller cabinet with drawers.\n
+			There is a huge desk in front of the window, practically spanning from wall to wall. It would not make doing your homework a greater experience, but you'd
+			guess it would be more comfortable than your small table at home."
+
+function kidsRoomDesc
+	do
+		say "Looking around for something interesting besides the furniture, you cannot fail but notice the remarkable chaos of toys all across the floor."
+		say "Although those are mostly simple, wooden toys, you cannot help but envy the boy (it obviously has been a boy) for his lifestyle."
+		if !globals.trainwagonsexamined
+			say "The most interesting toys would be a group of [link look at train wagons]train wagons[/link] that seem to be specifically arranged somehow."
+			train wagons.discovered = true
+
+there is a thing called train wagons
+	its discovered is false
+	its description is @[trainWagonsDesc]
+
+function trainWagonsDesc
+	do
+		if !globals.trainwagonsexamined
+			addOneTimeEvent "trainWagonsDescEvt"
+			return ""
+		else
+			return "Well, those wagons... do not interest you anymore."
+
+function trainWagonsDescEvt
+	do
+		say "After you move around in front of the desk and look down upon the wagons, you can see that they form a word:"
+		wait
+		say "HELP\n"
+		wait
+		say "Just before the goosebumps manage to invade your skin, you realize that this is just another attempt of the other boys to scare you."
+		say "You pick up one of the wagons to start changing this word into something else to make fun of them. Just then your fingers brush the dust off of it and you realize 
+				something else:"
+		wait
+		say "The layer of dust was perfectly intact on all of them. No one has touched them for years. They are just like a "
+		scare 5, "silent cry for help"
+		say " from the past."
+		say "You immediately drop the wagon and it falls back into place. Only your fingerprints are there to prove that you've touched it at all.\nHello, goosebumps!"
+		wait
+		globals.trainwagonsexamined = true
+
+there is a container called kidsRoomWardrobe
+	its name is "wardrobe"
+	
+there is a container called kidsRoomCabinet
+	its name is "cabinet"
+	its items are {flashlight}
+	
+there is a thing called kidsRoomDesk
+	its name is "desk"
+
+there is a doorPassage called kidsroomdoor
+	it is private
+	its name is "door"
+	its origin is second floor
+	its destination is kid's room
 
 there is a lightsource called flashlight
 	its illumination is 20

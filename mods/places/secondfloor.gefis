@@ -1,9 +1,9 @@
 This is Second floor by ScaniX
 
 there is a place called second floor
-	its exits are {"down": passage.stairway}
+	its exits are {"down": passage.stairway, "north": kidsroomdoor}
 	its intro is @[secfloorintro]
-	its items are {stairway}
+	its items are {stairway, kidsroomdoor}
 	its description is @[secfloordesc]
 	its regions is {"house", "second floor"}
 	its illumination is 10
@@ -37,14 +37,5 @@ function secfloorintro
 
 function secfloordesc
 	do
-		say "This is the second floor. Right behind you is the stairway [link go down]down[/link] into the entry hall."
-		return ""
-
-when play begins or resumes
-	now door is a new doorPassage called "door"
-	door.origin = second floor
-	door.destination = kid's room
-	second floor.exits.north = door
-	add door to second floor.items
-
-
+		append "This is the second floor. Right behind you is the stairway [link go down]down[/link] into the entry hall."
+		return

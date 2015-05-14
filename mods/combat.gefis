@@ -69,6 +69,17 @@ There is a Combat called currentFight
 mode Fight
    its prompt is "Fight!"
    its status info is @[fightStatusInfo]
+	allowed actions
+		attack
+		unequip
+		defend
+		use item
+		use
+		usewith
+		lookat
+		smell
+		taste
+		listen
 	before action do
 		currentFight.playersTurn = true
 		currentFight.player.defends = false
@@ -229,11 +240,12 @@ action attack
 		if dmg > 0
 			if [invoke function currentFight.enemy.woundProc on currentFight.enemy]
 				// the player killed it
-				say "You won!"
+				say "The [+enemyName] dissolves to rejoin the shadows."
 				// drop something
 				// add experience points (glow)
 				if player.glow < enemyLevel * 10
 					player.glow = player.glow + (enemyLevel * 10 - player.glow) / 2
+					say "As your foe melts away in front of you, you cannot help but feel more confident in yourself having subdued that creature."
 				currentFight.finished = true
 
 action use item

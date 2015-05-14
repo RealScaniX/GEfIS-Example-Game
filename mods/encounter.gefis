@@ -34,6 +34,7 @@ function addEncounter
 	understand
 		addEncounter [reg], [enmy], [prob]
 	do
+		say "You cannot shake off the feeling that your presence has has just awakened something."
 		now enc is a new encounter called (enmy.name + " encounter")
 		enc.probability = prob
 		enc.enemy = enmy

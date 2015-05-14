@@ -88,5 +88,5 @@ before function goToPlace
 	if player.light is not null and player.light.lit
 		illu = illu + player.light.illumination
 	if illu < 10
-		say "You'd rather not go there without any light."
+		say "Staring into the [one of]darkness[or]pitch black hole[at random] in front of you, you decide that you'd rather not go there without any light."
 		return

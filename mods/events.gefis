@@ -63,3 +63,11 @@ function eventProcessing
 				// not breaking loop, all delays have to be decreased
 		temps.eventsEnabled = true
 
+function addOneTimeEvent
+	understand
+		addOneTimeEvent [procName]
+	do
+		now evt is a new event
+		evt.repeat = false
+		evt.eventProc = procName
+		add evt to player.events
