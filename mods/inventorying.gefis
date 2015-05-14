@@ -145,3 +145,13 @@ function invItemLink
 		invItemLink [itm]
 	do
 		return "<link [for each act in itm.actions][if not (act is \"take\")][append act]|[end][end]>" + itm.name + "</link>"
+
+function inventoryList
+	do
+		now ilist is a new list
+		for each x in player.inventory
+			add x to ilist
+			now itemlist is ilist						// workaround until byref of arrays work in functions
+			addContainerItems x, true, false       // we create a local that is resolvable from inside of the function addContainerItems
+			now ilist is itemlist						// then put the results back into our local variable
+		return ilist

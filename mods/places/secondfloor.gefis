@@ -1,19 +1,37 @@
 This is Second floor by ScaniX
 
 there is a place called second floor
-	its exits are {"down": passage.upstairs}
+	its exits are {"down": passage.stairway}
 	its intro is @[secfloorintro]
+	its items are {stairway}
 	its description is @[secfloordesc]
 	its regions is {"house", "second floor"}
 	its illumination is 10
+	its music is "Quinns Song-First Night.mp3"
+	its ambience is "27077__daveincamas__clockticks_noecho.ogg"
+	its ambienceVolume is 25
 
-there is a Stairway called upstairs
+there is a Stairway called stairway
 	its origin is alternative entry hall
 	its destination is second floor
+	its description is @[stairwayDesc]
+
+function stairwayDesc
+	do
+		if player.location is alternative entry hall
+			say "This version of the stairway looks intact and should take you safely up to the second floor."
+		else
+			if !globals.stairwayfright
+				globals.stairwayfright = true
+				say "Looking down the stairs, you wonder if tripping and falling down the whole length would result in a broken neck."
+				say "You suddenly shiver and freeze as you feel hands upon your back."
+				say "Slowly turning your head, you see nothing at all and finally realize that it was only your shirt settling against your skin."
+			else
+				say "There are almost as many steps downwards as there are upwards."
 
 function secfloorintro
 	do
-		say "After two dozens of steps you finally reach the second floor. There is are corridors to your left and right, which would be west and east. 
+		say "After two dozens of steps you finally reach the second floor. The corridor continues to your left and right, leading to the west and east wings. 
 			  In addition, there is a door right in front of you."
 		addEncounter "house", dark spark, 30
 
@@ -23,8 +41,10 @@ function secfloordesc
 		return ""
 
 when play begins or resumes
-	now door is a new doorPassage
+	now door is a new doorPassage called "door"
 	door.origin = second floor
 	door.destination = kid's room
-	second floor.exits.door = door
+	second floor.exits.north = door
+	add door to second floor.items
+
 

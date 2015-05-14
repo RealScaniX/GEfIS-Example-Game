@@ -52,10 +52,20 @@ function playerWound
 		// reduce by block
 		if this.defends
 			fearGain = fearGain / 2
-		if player.fear + fearGain >= 100
+			say "Your defense is weakening the attack. "
+		if fearGain > 40
+			say "You are absolutely terrified by your opponent."
+		else if fearGain > 20
+			say "The [+enemyName] scares you a lot."
+		else if fearGain > 10
+			say "The [+enemyName] frightenes you."
+		else 
+			say "Your fear increases a little."
+		if [scare fearGain]
 			say "[one of]Your bravery is dwindling while the fear overcomes you.
-					[or]The [+enemyName] is too strong for and you have to surrender.
+					[or]The [+enemyName] is too strong for you, forcing you to surrender.
 					[or]You lack the mental strength to push aside the fear for even a second longer.
 					[at random]"
-		return [scare fearGain]
+			return true
+		return false
 		

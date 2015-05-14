@@ -18,6 +18,9 @@ there is a container called marble pouch
 	its items are {red marble}
 	its carryable is true
 
+/*
+The match. Not much light and is used up quite fast.
+*/
 there is an item called box of matches
 	its actions are {"use", "look at"}
 	its description is @"These are your lucky matches. \"Lucky\", because you consider yourself lucky that your mother hasn't noticed you carrying those around in your 
@@ -25,9 +28,15 @@ there is an item called box of matches
 						precisely [+random number between 2 and 12] of them left."
 	its useProc is "lightmatch"
 
+there is a lightsource called match
+	its illumination is 10
+	its steps is 5
+	its lit is true
+
 function lightmatch
 	do
-		set lightsource lightsource.match
+		lightsource.match.usedSteps = 0
+		setlightsource lightsource.match
 		say "You pick out one of the remaining [+random number between 2 and 12] matches and ignite it on the rough side of the box."
 		say "A small flash and tiny sparks are the first things that can be seen in the dark, then the small flame casts a flickering light that makes the shadows 
 				around you dance. You are wondering if that makes you even more uneasy..."

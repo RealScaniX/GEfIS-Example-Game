@@ -8,7 +8,6 @@ entity playercharacter is a thing
 	attributes
 		number illumination  // this value defines how much the player can "see"
 		lightsource light    // in the beginning we only have matches
-		number lightsteps   // after every step we increment this value, e.g. matches only work for five actions or 1 navigation (== 5 steps)
 
 entity item
 	attributes
@@ -17,6 +16,7 @@ entity item
 entity lightsource is an item
 	attributes
 		number steps // how many steps does this last?
+		number usedSteps // how many steps are used
 		bool lit is false // we expect a specific light source to have a function here
 
 there is an event called light_update_event
@@ -27,15 +27,15 @@ there is an event called light_update_event
 
 function lightsource_update
 	do
-		player.lightsteps = player.lightsteps + 1
 		now l is player.light
 		if l is not null
-			if player.lightsteps > l.steps
+			l.usedSteps = l.usedSteps + 1
+			if l.usedSteps > l.steps
 				say "Your lightsource just went dark. As your eyes have been adjusted to this
 						[if l.illumination > 70]blinding[else if l.illumination > 40]bright[else if l.illumination > 20]small[else]dim[end]
 						light you need a few seconds to see anything in the dark that now surrounds you."
 				now player.light is null
-			else if player.lightsteps is l.steps - 2
+			else if l.usedSteps is l.steps - 2
 				say "Your lightsource starts flickering..."
 		player.illumination = player.location.illumination
 		if player.light is a lightsource and player.light.lit
@@ -47,19 +47,13 @@ function lightsource_update
 
 function setlight
 	understand
-		set lightsource [light]
+		setlightsource [light]
 	do
-		player.lightsteps = 0
+		if light is not null
+			if light.usedSteps >= light.steps
+				say "There is no more light in the [+light.name]."
+				return
 		player.light = light
-		//player.illumination = light.illumination
-
-/*
-The match. Not much light and is used up quite fast.
-*/
-there is a lightsource called match
-	its illumination is 10
-	its steps is 5
-	its lit is true
 
 function scare
 	understand

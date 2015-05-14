@@ -8,6 +8,8 @@ there is a place called kitchen
 	its illumination is 10
 	its music is "Quinns Song-First Night.mp3"
 	its afterProc is "afterProcKitchen"
+	its ambience is "27077__daveincamas__clockticks.ogg"
+	its ambienceVolume is 20
 
 there is a Item called apple
 	its discovered is false
@@ -33,14 +35,18 @@ function cupboarddesc
 
 function kitchendesc
 	do
-		say "It is evident that no one has prepared a meal in here for a very long time. Dust and spiderwebs cover the whole place like everywhere else in this house. "
-		say "There are still pots, pans and dishes lying around as if whoever owned this place no longer cared about them."
-		say "Other than a [if kitchen.items has apple or kitchen.items has wax apple]weird apple and a[end]
-				[if kitchen cupboard.known]boring[else if not (kitchen cupboard.open)]closed - and thus very suspicious -[else]suspicious[end] 
-				cupboard, there does not seem to be anything of interest here."
-		if apple exists
-			now apple.discovered is true
-		now kitchen cupboard.discovered is true
+		if globals.chapter < 1
+			say "It is evident that no one has prepared a meal in here for a very long time. Dust and spiderwebs cover the whole place like everywhere else in this house. "
+			say "There are still pots, pans and dishes lying around as if whoever owned this place no longer cared about them."
+			say "Other than a [if kitchen.items has apple or kitchen.items has wax apple]weird apple and a[end]
+					[if kitchen cupboard.known]boring[else if not (kitchen cupboard.open)]closed - and thus very suspicious -[else]suspicious[end] 
+					cupboard, there does not seem to be anything of interest here."
+			if apple exists
+				now apple.discovered is true
+			now kitchen cupboard.discovered is true
+		else
+			say "This version of the kitchen differs not a lot from your first visit. There is just a bit less dust and grime everywhere."
+			say "Still the shadows seem to be... darker than before."
 
 function appledesc
 	do
@@ -72,3 +78,8 @@ function afterProcKitchen
 			//add globals.kitchenTape to kitchen.items
 			globals.kitchenTape.discovered = true
 			say "Oh! There was a music tape beneath it."
+		// tick volume change
+		if kitchen door.open
+			resume audio channel "ambience" with volume 20
+		else
+			resume audio channel "ambience" with volume 1

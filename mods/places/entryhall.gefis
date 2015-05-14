@@ -2,16 +2,21 @@ This is Entry hall by ScaniX
 
 There is a place called entry hall
    its exits are {"north": kitchen door, "down": cellar door}
-	its items are {cellar door}
+	its items are {cellar door, ticking sound}
 	its intro is ""
 	its description is @[entryhalldesc]
 	its illumination is 10
 	its music is "Quinns Song-First Night.mp3"
+	its ambience is "27077__daveincamas__clockticks.ogg"
+	its ambienceVolume is 50
 
 function entryhalldesc
 	do
-		say "This is the entry hall. It is a dark and eerie place..."
-		say "In front of you there are stairs leading [link go up]up[/link]."
+		say "This is the entry hall. It might have been an impressive room with its height that stretches over two floors, the big stairway and the expensive looking
+				wooden stuff like wardrobes, small tables, a huge clock and those tall weird things you can hang your coat or hat on."
+		say "But today, after years of neglecting, the dust and its new, tiny and crawling inhabitants have made it into a dark and eerie place."
+		say "In front of you there is a stairway leading [link go up]up[/link] and there is a door on the left side of it, which obviously leeds [link down]down[/link] into the 
+				cellar. There are other doors to the west, east, north and northeast."
 		add entryhallevent to player.events
 		return ""
 
@@ -26,7 +31,6 @@ function eventproc
 		loop "edjaGhosty.ogg" on audio channel "ambience"
 		wait
 		stop audio channel "ambience"
-
 
 when play begins or resumes
 	// some locked doors (never to be opened)
@@ -58,6 +62,10 @@ when play begins or resumes
 	now stairs.preproc is "brokenstairwaydesc"
 	add stairs to entry hall.items
 	now entry hall.exits.up is stairs
+
+there is a sound called ticking sound
+	its soundDesc is "The regular ticks of the large grandfather clock are both calming and terrifying. After thinking about it for a second, you come to the conclusion
+						that the boys must have wound it up again."
 
 function brokenstairwaydesc
 	do

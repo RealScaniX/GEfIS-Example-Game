@@ -6,9 +6,12 @@ There is a place called alternative entry hall
 	its illumination is 40
 	its music is "Quinns Song-A New Man.mp3"
 	its events are {alternativeentryhallsoothe}
+	its items are {ticking sound, entrance, cellar door, stairway}
 	its pacified is true
-	its exits are {"up": upstairs}
+	its exits are {"up": stairway, "down": cellar door, "south": entrance, "north": kitchen door, "north east": northeast door, "west": west door, "east": east door}
 	its regions is {"house", "first floor"}
+	its ambience is "27077__daveincamas__clockticks_noecho.ogg"
+	its ambienceVolume is 40
 
 there is an event called alternativeentryhallsoothe
 	its eventproc is "alternativeentryhallsoothe"
@@ -16,25 +19,50 @@ there is an event called alternativeentryhallsoothe
 	its repeat is true
 	its delay is 1
 
+there is a doorPassage called northeast door
+	its locked is true
+
+there is a doorPassage called east door
+	its locked is true
+
+there is a doorPassage called west door
+	its locked is true
+
 function alternativeentryhallsoothe
 	do
 		if player.fear < 4
 			return
 		now x is ((player.fear+5) / 5) % 100
-		soothe x, "[one of]The blue light calms your nerves.[or]The weird magical light soothes you.[or]The blue light seems to burn the darkness in you away.[at random]"
+		soothe x, "[one of]The blue light calms your nerves.[or]The weird magical light soothes you.[or]The blue light seems to burn the darkness around you away.[at random]"
 
 function alternativeentryhallintro
 	do
 		say "You don't know how long you were gone. It takes you a few seconds to remember what happened."
-		say "One thing was instantly evident: You are no longer lying in the cellar."
+		say "One thing is instantly evident: You are no longer lying in the cellar."
 		say "It isn't really that dark here either, there is some "
 		soothe 20, "nice blue light"
 		say " shining from behind you."
+		say "You slowly stand up and do some stretching to get rid of the numb feeling in your body."
+
+there is a doorPassage called entrance
+	its locked is true
+	its preproc is @[entrancetrip]
+	
+function entrancetrip
+	do
+		say "Nope!"
+		return false
 
 function alternativeentryhalldesc
 	do
-		say "This looks pretty similar to the entry hall from before, but there are differences."
-		say "This biggest one is probably the thing you see before you when you turn towards the entrance."
+		say "Looking around, you notice that this hall looks very similar to the entry hall from before, but there are differences."
+		say "This biggest one is probably the thing you see in front of you when you turn towards the [link look at|open|unlock|close]entrance[/link]."
 		say "Or better yet: What once has been the entrance..."
 		say "\n<i>To be continued...</i>"
 		return ""
+
+before action unlockwithkey
+	do
+		if d is entrance
+			// check keys: blue, red, orange, green, black
+			return

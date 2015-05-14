@@ -1,12 +1,14 @@
 This is Cellar by ScaniX
 
 there is a place called Cellar
-	its ambience is "edjaGhosty.ogg"
+	its music is "edjaGhosty.ogg"
 	its exits are {"up": cellar door}
+	its items are {cellar door}
    its description is "This is without any doubt the cellar. There is - if that is possible - even more dust here than above. You can see a broken light bulb in the middle of
 							the room, hanging from an old cable.\nThe dominating feature however is a large amount of boxes which is almost covering the whole floor. They are also stapled
 							up to the ceiling or at least to a height over your head, so that you can barely see anything of the walls."
 	its intro is @[cellarintro]
+	its regions are {"cellar"} // no "house" region as we want exactly one opponent here
 
 function cellarintro
 	do
@@ -17,6 +19,7 @@ function cellarintro
 
 there is a doorPassage called cellar door
 	its origin is cellar
+	its description is "Being placed on the side of the stairway, this should lead down into the cellar. It looks a bit older and the door handle and lock are both a bit rusty."
 	its destination is entry hall
 	its open is false
 	its locked is true
@@ -69,7 +72,7 @@ function cellarEvent
 			say "Monsters?"
 			this.delay = 1
 			if player.light is not null
-				now player.lightsteps is 2
+				now player.light.usedSteps is 2
 		else if globals.cellarEvent is 2
 			wait for 5 seconds
 			play "doorClose.ogg" on audio channel "sound" with volume 100
@@ -104,10 +107,10 @@ function cellarEvent
 			say "\"Hello?\", you shout again, \"Come on, let me out of here!\"\n"
 			this.delay = 0
 		else if globals.cellarEvent is 3
-			say "You fumble around in your pockets, but the key is gone."
+			say "You fumble around in your pockets, but the key is gone. It is probably still sticking in the lock from the outside."
 			this.delay = 2
 			if player.light is not null
-				now player.lightsteps is 4
+				now player.light.usedSteps is 4
 		else
 			addToInv box of matches
 			play "cat.ogg" on audio channel "sound"

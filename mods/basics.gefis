@@ -21,16 +21,19 @@ Entity Thing is an Entity
 		text smell is "This smells like nothing really."
 		text taste is "You'd rather not taste that. For now."
 		list actions are {"look at"}
+		text useProc
+		text useWithProc
 
 entity Item is a Thing
 	its actions are {"look at", "use", "take"}
    attributes
 		bool carryable is true
       number weight
-		text useProc
 
 entity Sound is a Thing
 	its actions are {"listen to"}
+	attributes
+		text soundDesc is "You hear nothing special."
 
 entity Equippable is an item
 	attributes
@@ -92,6 +95,19 @@ action taste
 		else
 			say "You don't see that."
 
+action listen
+	understand
+		listen to [smt]
+	do
+		// can you see that?
+		now smt is [resolveitem smt]
+		if smt is null
+			say "You don't hear that."
+		else if not smt is a sound
+			say "There isn't really a sound to it. Unless you smash it into a wall, of course..."
+		else 
+			say smt.soundDesc
+
 function visibleItemList
 	understand
 		visibleItemList [ext]
@@ -111,16 +127,6 @@ function visibleItemList
 				addContainerItems itm, false, ext
 		return itemlist
 
-function inventoryList
-	do
-		now ilist is a new list
-		for each x in player.inventory
-			add x to ilist
-			now itemlist is ilist						// workaround until byref of arrays work in functions
-			addContainerItems x, true, false       // we create a local that is resolvable from inside of the function addContainerItems
-			now ilist is itemlist						// then put the results back into our local variable
-		return ilist
-
 function resolveitem
 	understand
 		resolveitem [itm]
@@ -131,6 +137,9 @@ function resolveitem
 		now ilist is [inventoryList]
 		for each x in ilist
 			add x to vlist
+		// add enemy
+		if !currentFight.finished
+			add currentFight.enemy to vlist
 		// add location
 		add player.location to vlist
 		if itm is a text
@@ -204,6 +213,23 @@ action unlockwithkey
 		else
 			say "You don't know how to unlock this with the [+k.name] (or anything else for that matter)."
 
+action usewith
+	understand
+		use [t] with [itm]
+		use [t] on [itm]
+	do
+		if t is an item and ![playerOwns t]
+			say "You should probably take the [+t.name] first."
+		if t is an item and t.useWithProc is not null
+			invoke function t.useWithProc on t
+		else if t is an item and t.useWithProc is not null
+			t2 = itm
+			itm = t
+			t = t2
+			invoke action usewith
+		else
+			invoke action use
+
 action use
 	understand
 		use [t]
@@ -215,6 +241,8 @@ action use
 			setDoor t, (not t.open)
 		else if t is a container
 			setContainer t, (not t.open)
+		else if t is an item and ![playerOwns t]
+			say "You should probably take it first."
 		else if t has "useProc"
 			invoke function t.useProc on t
 		else
@@ -256,6 +284,7 @@ action help
 				wrong. Note that this save game is lost when you leave the game session.\n"
 		say "To have a longer lasting save, use the <link save game>save game</link> command. You can load the game again by using <link load game>load game</link>. Note that all 
 				those actions can be performed by clicking on the corresponding icon in the config popup on the upper left."
+		say "You can check out the [link \"/dox/?/Credits\"]credits[/link] to see the artists that (willingly or not) took part in the creation of this game."
 		wait
 		story log on
 
@@ -283,27 +312,30 @@ function saychapter
 
 function playmusic
 	understand
-		playmusic [track]
+		playmusic [track], [vol]
 	do
-		//say "play music: [+track], current music: [+globals.musictrack]\n"
+		now globals.musicVolume is vol
 		if globals.musictrack is track
+			resume audio channel "music" with volume vol
 			return
 		if track is null
 			stop audio channel "music"
 		else
-			loop track on audio channel "music" with volume 45
+			loop track on audio channel "music" with volume vol
 		now globals.musictrack is track
 
 function playambience
 	understand
-		playambience [track]
+		playambience [track], [vol]
 	do
+		now globals.ambienceVolume is vol
 		if globals.ambiencetrack is track
+			resume audio channel "ambience" with volume vol
 			return
 		if track is null
 			stop audio channel "ambience"
 		else
-			loop track on audio channel "ambience" with volume 80
+			loop track on audio channel "ambience" with volume vol
 		now globals.ambiencetrack is track
 
 action wait

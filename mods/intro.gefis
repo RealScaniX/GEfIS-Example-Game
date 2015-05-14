@@ -45,7 +45,7 @@ function introtalk
 		wait for 3 seconds
 		if user.canceled
 			return
-		show "<i>\"He should if he wants to get in.\"</i>" in overlay "nw"
+		show "<i>\"He should, if he wants to get in.\"</i>" in overlay "nw"
 		wait for 3 seconds
 		if user.canceled
 			return

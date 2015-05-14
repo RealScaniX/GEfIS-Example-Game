@@ -14,12 +14,12 @@ entity music tape is an item
 function stopTheWalkman
 	do
 		if !currentFight.finished
-			playMusic null
+			playMusic null, 100
 			play "tapeScramble.ogg" on audio channel "sound" with volume 50
 			say "Your walkman claims his next victim and eats up the tape..."
 			flush
 			sleep 1
-			playMusic globals.fightMusic
+			playMusic globals.fightMusic, 100
 
 function useTheWalkman
 	do
@@ -48,7 +48,7 @@ function useTheWalkman
 			globals.walkmanUse = globals.walkmanUse + 1
 			removeFromInv "music tape"
 			// play music
-			playMusic "I Feel You.mp3"
+			playMusic "I Feel You.mp3", 100
 			// add event to return to normal music after a few steps
 			now tapeBroken is a new event called "tapeBreaking"
 			tapeBroken.delay = 3

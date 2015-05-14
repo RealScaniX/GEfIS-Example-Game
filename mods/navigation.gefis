@@ -9,7 +9,9 @@ entity Place is a Thing
 		text intro	// text to be said when first entering a place
 		bool navigatable is true // if false we are somewhere that cannot be entered/left by normal means
 		text ambience    // name of audio track for ambience
+		number ambienceVolume is 80
 		text music		// name of audio track for music
+		number musicVolume is 70
 		text afterProc		// an optional function that is called before the main afterProc function
 		list regions				// the regions this place belongs to
 
@@ -21,10 +23,10 @@ when play resumes
 	stop audio channel "sound"
 	now x is globals.ambiencetrack
 	globals.ambiencetrack = "xxx"
-	playambience x
+	playambience x, globals.ambienceVolume
 	now x is globals.musictrack
 	globals.musictrack = "xxx"
-	playmusic x
+	playmusic x, globals.musicVolume
 
 entity Passage is a Thing
 	its description is @[passagedesc]
@@ -55,11 +57,6 @@ entity doorPassage is a Passage
 function doordesc
 	do
 		append "The door looks pretty normal for [a|an][if this.open]open[else]closed[end] door.[if this.open][+passagedesc][end]\n"
-/*
-		if this.locked
-			play "doorLocked.mp3" on audio channel "sound" with volume 100
-			append "A push on the door handle reveals that this door is locked."
-*/
 
 function doortrip
 	do
@@ -235,8 +232,8 @@ function goToPlace
 
 function updateaudio
 	do
-		playambience player.location.ambience
-		playmusic player.location.music
+		playambience player.location.ambience, player.location.ambienceVolume
+		playmusic player.location.music, player.location.musicVolume
 
 action lookaround
 	understand
@@ -248,20 +245,6 @@ action lookaround
 		say player.location.description
 		for each itm in player.location.items
 			itm.discovered = true
-
-// navigation shortcuts
-/*
-action navshortcuts
-	understand
-		up
-		down
-		north
-		south
-		east
-		west
-	do
-		do "go [+user.input]"
-*/
 
 understand
 	"n" as "go north"

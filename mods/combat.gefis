@@ -9,7 +9,7 @@ Entity Combat is an Entity
 		bool finished is true			// if we are not fighting, it is finished
 		list events
 
-Entity Combatant is an Entity
+Entity Combatant is a thing
 	attributes
 		number constitution     // either darkness or nothing (as the player health is processed differently)
 		number hp					// current health, is set to health at the beginning of the fight
@@ -81,10 +81,12 @@ mode Fight
 				invoke function "doEnemyTurn" on currentFight.enemy
 			if !currentFight.finished
 				fightPrompt
+			else
+				end mode
 	on start do
 		globals.fightMusic = "Exciting Trailer.mp3"
-		playMusic globals.fightMusic
-		playAmbience null
+		playMusic globals.fightMusic, 100
+		playAmbience null, 100
 		currentFight.finished = false
 		/************************************
 				fill in enemy values
@@ -106,6 +108,7 @@ mode Fight
 		/************************************
 				enemy has the first attack?
 		*************************************/
+		say "\n"
 		if currentFight.enemy.firstEncounter
 			if currentFight.enemy.introProc is not null
 				invoke function currentFight.enemy.introProc on currentFight.enemy
@@ -147,6 +150,8 @@ function doEnemyTurn
 		if currentFight.enemy.attackProc is not null
 			now dmg is [invoke function currentFight.enemy.attackProc on currentFight.enemy]
 			if dmg > 0
+				now enemyName is currentFight.enemy.name
+				now enemyLevel is currentFight.enemy.level
 				if [invoke function currentFight.player.woundProc on currentFight.player]
 					// the player already ran home because of his fear
 					currentFight.finished = true
@@ -197,8 +202,9 @@ action flee
 		now currentFight.playersTurn is false
 		now enemyName is currentFight.enemy.name
 		now enemyLevel is currentFight.enemy.level
-		if chance of 80
-			say "you fled"
+		if player.location.navigatable and (chance of 80 - enemyLevel * 10)
+			say "You manage to slip away and your opponent seems not interested enough to follow you."
+			player.location = alternative entry hall
 			currentFight.finished = true
 		else
 			say "you don't get away fast enough."
@@ -237,7 +243,20 @@ action use item
 		now enemyName is currentFight.enemy.name
 		now enemyLevel is currentFight.enemy.level
 		// list all combat usable items and ask player what he wants to use
-		say "What do you want to use? ..."
+		say "What do you want to use?"
+		now ilist is [inventoryList]
+		now clist is a new list
+		for each itm in ilist
+			if itm.combatUse
+				add itm to clist
+		if clist.# is 0
+			say "You don't seem to have anything on you that could be used in combat."
+		else
+			i = 0
+			for each itm in clist
+				say "[if i > 0], [end]<link use [+itm.name]>[+itm.name]</link>"
+				i = i + 1
+			say "\n"
 
 action unequip
 	understand

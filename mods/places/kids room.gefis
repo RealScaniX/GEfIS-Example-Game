@@ -2,3 +2,59 @@ This is kid's room by ScaniX
 
 there is a place called kid's room
 	its smell is "This place smells of a fun that is long forgotten."
+	its ambience is "27077__daveincamas__clockticks_noecho.ogg"
+	its ambienceVolume is 10
+	its items are {flashlight, battery}
+
+there is a lightsource called flashlight
+	its illumination is 20
+	its steps is 50
+	its usedSteps is 20
+	its useProc is "useflashlight"
+
+there is an item called battery
+	its useProc is "usebattery"
+	its useWithProc is "usebatterywith"
+
+there is an item called magic battery
+	its useProc is "usebattery"
+	its useWithProc is "usebatterywith"
+
+function useflashlight
+	do
+		if player.light is lightsource.flashlight
+			setlightsource null
+			say "You turn off the flashlight to conserve the battery power."
+		else
+			setlightsource lightsource.flashlight
+			if player.light is flashlight // could have been blocked
+				say "You turn on the flashlight and immediately feel better to have something in your hand to fight the darkness back."
+				if lightsource.flashlight.usedSteps > lightsource.flashlight.steps / 2
+					say "Unfortunately you get the feeling that the battery in this thing is getting empty."
+
+function usebattery
+	do
+		if [playerOwns flashlight]
+			if flashlight.steps > 1000
+				say "You see no reason to remove the super battery from the flashlight ever again."
+				return
+			else if this is magic battery
+				say "You put the extraordinary battery into the flashlight. You are pretty sure that this is the last time you will need a new battery."
+				flashlight.steps = 500000
+				flashlight.illumination = 30
+			else
+				say "You exchange the battery of the flashlight with a new one."
+			flashlight.usedSteps = 0
+			removeFromInv battery
+		else
+			say "You don't know what to do with the battery."
+
+function usebatterywith
+	do
+		if itm is flashlight
+			invoke function usebattery
+		else
+			say "That does not need a battery."
+
+
+			
