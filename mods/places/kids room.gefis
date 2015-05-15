@@ -76,6 +76,7 @@ there is a lightsource called flashlight
 there is an item called battery
 	its useProc is "usebattery"
 	its useWithProc is "usebatterywith"
+	its description is "A lot of scientists have worked hard for years for you to be able to hold this wondrous source of power in your small hands."
 
 there is an item called magic battery
 	its useProc is "usebattery"
@@ -116,7 +117,7 @@ function usebattery
 function usebatterywith
 	do
 		if itm is flashlight
-			invoke function usebattery
+			invoke function "usebattery"
 		else
 			say "That does not need a battery."
 
