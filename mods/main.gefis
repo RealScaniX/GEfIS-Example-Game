@@ -46,6 +46,19 @@ function actionLink
 	do
 		return "<link [for each act in itm.actions][append act]|[end]>[+itm.name]</link>"
 
+add resource "/img/dir_down.png" as "down icon"
+add resource "/img/dir_up.png" as "up icon"
+add resource "/img/dir_north.png" as "north icon"
+add resource "/img/dir_south.png" as "south icon"
+add resource "/img/dir_west.png" as "west icon"
+add resource "/img/dir_east.png" as "east icon"
+add resource "/img/dir_northeast.png" as "northeast icon"
+add resource "/img/dir_southeast.png" as "southeast icon"
+add resource "/img/dir_southwest.png" as "southwest icon"
+add resource "/img/dir_northwest.png" as "northwest icon"
+add resource "/img/dir_none.png" as "none icon"
+add resource "/img/dir_look.png" as "look icon"
+
 function mainStatusInfo
 	do
 		// navi
@@ -53,12 +66,12 @@ function mainStatusInfo
 		now destinations is {"northwest", "north", "northeast", "up",
 									"west", "here", "east", null,
 									"southwest", "south", "southeast", "down"}
-		now icons is {"NW", "N", "NE", "/\\",
-									"W", "Here", "E", null,
-									"SW", "S", "SE", "\\/"}
+		now icons is {"[image \"northwest icon\"]", "[image \"north icon\"]", "[image \"northeast icon\"]", "[image \"up icon\"]",
+									"[image \"west icon\"]", "[image \"look icon\"]", "[image \"east icon\"]", null,
+									"[image \"southwest icon\"]", "[image \"south icon\"]", "[image \"southeast icon\"]", "[image \"down icon\"]"}
 		for j from 0 to destinations.# - 1
 			now d is destinations.(j)
-			str = str + "<div style=\"float:left;font-size:12px;display:inline-block;border:1px solid rgba(55,55,55,0.35);position:relative;margin:0px;padding:4px 3px;width:27px;text-align:center;\">"
+			str = str + "<div style=\"float:left;font-size:12px;display:inline-block;position:relative;margin:0px;padding:0px;width:27px;text-align:center;\">"
 			if d is not null
 				now disp is icons.(j)
 				if d is "here"
@@ -67,24 +80,25 @@ function mainStatusInfo
 					navikey = navikey + d
 					str = str + "<link go [+d]>[+disp]</link>"
 				else
-					str = str + "&nbsp;"
+					str = str + "[image \"none icon\"]"
 			else
 				str = str + "&nbsp;"
 			str = str + "</div>"
 			if (j+1) % 4 == 0
 				str = str + "<br style=\"clear:both;\"/>"
 		// count items
-		now itmcount is 0
-		for each itm in player.inventory
+		now invitems is [inventoryList]
+		for each itm in invitems
 			now itmcount is itmcount + itm.carried
 		return "<div style=\"float:right;line-height:0px;\">
 						<htmlbar \"Fear\" [+player.fear]/100><br/>
 						<htmlbar \"Light\" [+player.illumination]/100><br/>
 						<htmlbar \"Glow\" [+player.glow]/100>
-					</div><div style=\"float:right;margin:0px 8px 0px 0px;border:1px solid rgba(55,55,55,0.35);line-height:normal;\">[+str]</div>
+					</div><div style=\"float:right;margin:0px 18px 0px 0px;line-height:normal;\">[+str]</div>
 					<div style=\"display:inline-block;\">
 					You are here: [link look around][append player.location][/link]\n
-					You performed " + user.actions + " actions and own [if itmcount > 0]<link inventory>[+itmcount] thing[if itmcount > 1]s[end]</link>.[else]nothing.\n
+					You performed " + user.actions + " actions and own [if itmcount > 0]<link inventory>[+itmcount] thing[if itmcount > 1]s[end]</link>.[else]nothing.[end]\n
+					[if player.light is not null]You are carrying this light: [+player.light.name]\n[end]
 					</div>
 					<div style=\"clear:both;\"></div>"
 

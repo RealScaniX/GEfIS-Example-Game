@@ -128,7 +128,7 @@ action putinto
 			say "The [+cnt.name] is locked."
 			return
 		else if not cnt.known
-			say "You probably should take a peek in it first."
+			say "You probably should take a peek inside first."
 			return
 		// Find current container
 		now currContainer is null
@@ -174,7 +174,7 @@ function removeFromContainer
 			if cnt.itemCount.(itm.name) <= 0
 				remove itm from cnt.items
 			if [playerOwns cnt]
-				itm.carried = itm.carried - 1
+				changeCarried itm, -1
 		else
 			removeFromInv itm
 
@@ -189,7 +189,7 @@ function addToContainer
 			else
 				cnt.itemCount.(itm.name) = cnt.itemCount.(itm.name) + 1
 			if [playerOwns cnt]
-				itm.carried = itm.carried + 1
+				changeCarried itm, 1
 		else
 			addToInv itm
 
@@ -198,14 +198,17 @@ before function mainPrompt
 		temps.itemCountFixed = true
 		for each p in place.*
 			fixItemCount p
+		for each itm in player.inventory
+			if itm is a container
+				fixItemCount itm
 
 function fixItemCount
 	understand 
 		fixItemCount [cnt]
 	do
 		for each itm in cnt.items
-			if not (cnt.itemCount has itm.name) or cnt.itemCount.(itm.name) == 0
-				cnt.itemCount.(itm.name) = 1
+			if not (cnt.itemCount has itm.id) or cnt.itemCount.(itm.id) == 0
+				cnt.itemCount.(itm.id) = 1
 			if itm is a container
 				fixItemCount itm
 

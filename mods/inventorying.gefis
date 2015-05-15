@@ -80,10 +80,10 @@ function addToInv
 			now itm.equipped is false
 		if player.inventory has itm
 			// increase count
-			now itm.carried is itm.carried + 1
+			changeCarried itm, 1
 		else
 			add itm to player.inventory
-			now itm.carried is 1
+			changeCarried itm, 1
 
 function removeFromInv
 	understand
@@ -92,8 +92,7 @@ function removeFromInv
 		if itm is a text
 			now itm is [resolveItem itm]
 		if [playerOwns itm]
-			if itm.carried > 0
-				itm.carried = itm.carried - 1
+			changeCarried itm, -1
 			if itm.carried == 0
 				if itm is a equippable
 					now itm.equipped is false				
@@ -148,6 +147,16 @@ function invItemLink
 		invItemLink [itm]
 	do
 		return "<link [for each act in itm.actions][if not (act is \"take\")][append act]|[end][end]>" + itm.name + "</link>"
+
+function changeCarried
+	understand
+		changeCarried [itm], [amount]
+	do
+		if amount > 0 || itm.carried > 0 // amount is only -1 or 1
+			itm.carried = itm.carried + amount
+		if itm is a container
+			for each citm in itm.items
+				changeCarried citm, amount
 
 function inventoryList
 	do
