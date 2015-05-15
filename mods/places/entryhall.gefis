@@ -15,7 +15,7 @@ function entryhalldesc
 		say "This is the entry hall. It might have been an impressive room with its height that stretches over two floors, the big stairway and the expensive looking
 				wooden stuff like wardrobes, small tables, a huge clock and those tall weird things you can hang your coat or hat on."
 		say "But today, after years of neglecting, the dust and its new, tiny and crawling inhabitants have made it into a dark and eerie place."
-		say "In front of you there is a stairway leading [link go up]up[/link] and there is a door on the left side of it, which obviously leeds [link down]down[/link] into the 
+		say "In front of you there is a stairway leading [link go up]up[/link] and there is a door on the left side of it, which obviously leads [link down]down[/link] into the 
 				cellar. There are other doors to the west, east, north and northeast."
 		add entryhallevent to player.events
 		return ""

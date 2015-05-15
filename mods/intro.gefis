@@ -23,7 +23,7 @@ mode Introduction
 function introstatus
 	do
 		if globals.gameStarted
-			return "<h3>Thank you for taking the time to test this!</h3> ^-^"
+			return "<h3>Thank you for taking the time to play this!</h3> ^-^"
 		append "<b>GEfIS One</b>\n"
 		append "You can view this page in [link \"/?dev=true&game=gefis+one&restart=true\"]developer mode[/link] and check out 
 					all the scripts and files that are the input for this game.\n"
