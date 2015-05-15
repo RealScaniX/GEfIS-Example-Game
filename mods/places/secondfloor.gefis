@@ -1,7 +1,7 @@
 This is Second floor by ScaniX
 
 there is a place called second floor
-	its exits are {"down": passage.stairway, "north": kidsroomdoor}
+	its exits are {"down": passage.stairway, "north": kidsroomdoor, "west": west wing, "east": east wing}
 	its intro is @[secfloorintro]
 	its items are {stairway, kidsroomdoor}
 	its description is @[secfloordesc]

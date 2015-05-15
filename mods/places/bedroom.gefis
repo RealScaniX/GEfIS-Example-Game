@@ -1,0 +1,51 @@
+this is bedroom by scanix
+
+there is a place called bedroom
+	its exits are {"south": westwingNorthDoor}
+	its items are {bed, left nightstand, right nightstand}
+	its music is "Quinns Song-First Night.mp3"
+
+there is a container called left nightstand
+	its description is @"It's a small wooden table with some drawers and a lamp on top of it.[if this.open] You can see a magazine about cars, some advertisements for a finance
+			software and a small black book with business cards. Can it get any more boring than that?[end]"
+
+there is a container called right nightstand
+	its description is @"It's a small wooden table with some drawers and a lamp on top of it.[if this.open] In the drawers there is some uninteresting adult stuff like a few books,
+			glasses, a pen and a crosswords puzzle magazine.[if !globals.rubberStickExamined] Oh, but what's that?[end][end]"
+	its items are {vibrator}
+
+there is a thing called vibrator
+	it is private  // oh, yes
+	its name is "rubber stick"
+	its description is @[rubberStickDesc]
+	its smell is "Smells like rubber."
+	its taste is "Mmh... no."
+	
+function rubberStickDesc
+	do
+		if !globals.rubberStickExamined
+			globals.rubberStickExamined = true
+			addOneTimeEvent "rubberStickExamine"
+		else
+			return "Now that you have the battery, you cannot think of anything else to do with that."
+
+function rubberStickExamine
+	do
+		say "It looks like a gray, short stick. You take the weird thing into your hand and turn it around. It feels a bit rubbery and isn't very heavy."
+		wait for 5 seconds
+		say "Wondering what that might be good for, you finally notice a switch on the bottom."
+		wait
+		loop "181493__toiletrolltube__vibrator-26-1-11.ogg" on audio channel "sound" with volume 80
+		flush
+		sleep 1
+		say "You almost drop it when it starts to vibrate in your hand. For some reason you start to look around for anyone who might have noticed that sound."
+		flush
+		sleep 5
+		say "You wait for a few seconds, but that seems to be all that thing is capable of. From time to time the frequency seems to change, but that is all.
+				You come to the conclusion that this is used to massage sore muscles or something like that."
+		wait
+		stop audio channel "sound"
+		say "You turn it off again and are just about to put it back, when you have an idea."
+		wait
+		say "You open the lid on the bottom and take out the battery. At least that part might come in handy."
+		addToInv battery

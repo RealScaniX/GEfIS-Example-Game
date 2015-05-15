@@ -1,0 +1,32 @@
+this is east wing by ScaniX
+
+there is a place called east wing
+	its intro is "You are now in the eastern part of the corridor. In front of you the corridor ends in a wall. There are doors to 
+						your left and right."
+	its items are {eastwingSouthDoor, eastwingNorthDoor, storage compartment}
+	its exits are {"east": second floor, "south": eastwingSouthDoor, "north": eastwingNorthDoor, "up": attic hatch}
+	its description is @[eastWingDesc]
+	its illumination is 10
+	its music is "Quinns Song-First Night.mp3"
+	its ambience is "27077__daveincamas__clockticks_noecho.ogg"
+	its ambienceVolume is 7
+
+function eastWingDesc
+	do
+		say "There are slits in the wallpaper of the eastern wall. There seems to be a small door that conceals some sort of compartment."
+		storage compartment.discovered = true
+
+there is a doorPassage called eastwingSouthDoor
+	its name is "south door"
+	it is private
+	its origin is east wing
+	its destination is second floor bathroom
+	
+there is a doorPassage called eastwingNorthDoor
+	its name is "north door"
+	it is private
+	its origin is east wing
+	its destination is bedroom
+
+there is a container called storage compartment
+	its discovered is false

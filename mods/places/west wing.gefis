@@ -1,0 +1,54 @@
+this is west wing by ScaniX
+
+there is a place called west wing
+	its intro is "You are now in the western part of the corridor. In front of you the corridor ends in a plain wall, but there are doors to your left and right. There also is a
+						hatch above you."
+	its items are {westwingSouthDoor, westwingNorthDoor, attic hatch}
+	its exits are {"east": second floor, "south": westwingSouthDoor, "north": westwingNorthDoor, "up": attic hatch}
+	its illumination is 10
+	its music is "Quinns Song-First Night.mp3"
+	its ambience is "27077__daveincamas__clockticks_noecho.ogg"
+	its ambienceVolume is 7
+
+there is a doorPassage called westwingSouthDoor
+	it is private
+	its name is "south door"
+	its origin is west wing
+	its destination is second floor bathroom
+	
+there is a doorPassage called westwingNorthDoor
+	it is private
+	its name is "north door"
+	its origin is west wing
+	its destination is bedroom
+
+there is a doorPassage called attic hatch
+	it is private
+	its name is "hatch"
+	its locked is true
+	its origin is west wing
+	its destination is attic
+	its preProc is "hatchPreProc"
+	its description is @[hatchDesc]
+
+function hatchDesc
+	do
+		if this.open
+			append "Now that it is open and the ladder is standing in front of you, there is nothing holding you back. Nothing but your fear, that is."
+		else
+			append "It leads to the attic, that's for sure. The small rope that should be dangling down is missing and so you cannot open it unless you learn to fly.\n"
+			append "Levitation would be fine, too."
+
+function hatchPreProc
+	do
+		say "You cannot reach it."
+
+before function setDoor
+	if d is attic hatch
+		if state is attic hatch.open
+			say "Done. To be honest: It already was [if state]open[else]closed[end] before you even started."
+		else if state
+			say "You cannot open that without anything to reach it."
+		else
+			say "There is no need to close that again."
+		return

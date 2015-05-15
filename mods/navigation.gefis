@@ -183,6 +183,8 @@ action navigate
 				else if exit is a passage and exit.destination is destination or exit.origin is destination
 					followpassage exit
 					return
+			say "You cannot go there from here."
+			return
 		else if destination is a passage
 			followpassage destination
 			return
@@ -193,7 +195,7 @@ action navigate
 				//say "It is an exit."
 				now exit is player.location.exits.(destination.name)
 				if exit is a place
-					say "The exit " + destination.name + " leads to the place " + exit + "."
+					//say "The exit " + destination.name + " leads to the place " + exit + "."
 					goToPlace exit
 				else if exit is a passage
 					followpassage exit

@@ -4,8 +4,8 @@ there is a place called kid's room
 	its smell is "This place smells of a fun that is long forgotten."
 	its music is "Quinns Song-First Night.mp3"
 	its ambience is "27077__daveincamas__clockticks_noecho.ogg"
-	its exits are {"south": kidsroomdoor}
 	its ambienceVolume is 7
+	its exits are {"south": kidsroomdoor}
 	its items are {kidsroomdoor, kidsRoomWardrobe, kidsRoomCabinet, kidsRoomDesk, train wagons}
 	its description is @[kidsRoomDesc]
 	its intro is "You know a kid's room when you see one, no matter how long the kid is gone. And this one is a kid's room.\n
@@ -98,6 +98,9 @@ function usebattery
 		if [playerOwns flashlight]
 			if flashlight.steps > 1000
 				say "You see no reason to remove the super battery from the flashlight ever again."
+				return
+			else if flashlight.usedSteps < flashlight.steps
+				say "You should wait until the current battery is really empty."
 				return
 			else if this is magic battery
 				say "You put the extraordinary battery into the flashlight. You are pretty sure that this is the last time you will need a new battery."
