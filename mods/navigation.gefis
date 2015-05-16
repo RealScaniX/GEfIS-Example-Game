@@ -10,7 +10,7 @@ entity Place is a Thing
 		bool navigatable is true // if false we are somewhere that cannot be entered/left by normal means
 		text ambience    // name of audio track for ambience
 		number ambienceVolume is 80
-		text music		// name of audio track for music
+		text music is "Quinns Song-First Night.mp3"		// name of audio track for music
 		number musicVolume is 70
 		text afterProc		// an optional function that is called before the main afterProc function
 		list regions				// the regions this place belongs to
@@ -30,7 +30,7 @@ when play resumes
 
 entity Passage is a Thing
 	its description is @[passagedesc]
-	its actions are {"look at $", "go $"}
+	its actions are {"look at", "go"}
 	attributes
 		text preproc		// the name of a function to call before trying to use this passage
 		place origin
@@ -47,7 +47,7 @@ function passagedesc
 entity doorPassage is a Passage
 	its preproc is "doortrip"
 	its passable is @this.open
-	its actions are {"look at", "open", "close", "unlock"}
+	its actions are {"look at", "open", "close", "unlock", "go"}
 	its description is @[doordesc]
    attributes
       bool locked
@@ -56,7 +56,7 @@ entity doorPassage is a Passage
 
 function doordesc
 	do
-		append "The door looks pretty normal for [a|an][if this.open]open[else]closed[end] door.[if this.open][+passagedesc][end]\n"
+		append "The door looks pretty normal for [a|an][if this.open]open[else]closed[end] door.[if this.open] [+passagedesc][end]\n"
 
 function doortrip
 	do

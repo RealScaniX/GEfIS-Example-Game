@@ -65,7 +65,9 @@ function playerWound
 			say "[one of]Your bravery is dwindling while the fear overcomes you.
 					[or]The [+enemyName] is too strong for you, forcing you to surrender.
 					[or]You lack the mental strength to push aside the fear for even a second longer.
-					[at random]"
+					[at random]\n"
+			say "\nYou are not sure how you got here, but you are lying on the floor in the entry hall again. Maybe you just ran [one of]like crazy[or]away in panic[at random] and 
+					ended up collapsing in your safe place."
 			return true
 		return false
 		

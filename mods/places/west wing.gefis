@@ -14,7 +14,7 @@ there is a doorPassage called westwingSouthDoor
 	it is private
 	its name is "south door"
 	its origin is west wing
-	its destination is second floor bathroom
+	its destination is upperBathroom
 	
 there is a doorPassage called westwingNorthDoor
 	it is private

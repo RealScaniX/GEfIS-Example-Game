@@ -4,15 +4,14 @@ there is a Combatant called dark spark
 	its attackProc is "darkSparkAttack"
 	its woundProc is "darkSparkWound"
 	its introProc is "darkSparkIntro"
-	its strength is 20
+	its strength is 5
 	its constitution is 20
 	its level is 1
 
 function darkSparkIntro
 	do
-		if this.firstEncounter
-			say "You suddenly notice a point in front of you that seems to be even darker than its surroundings.
-					When it starts to move, you brace yourself for an attack."
+		say "You suddenly notice a point in front of you that seems to be even darker than its surroundings.
+				When it starts to move, you brace yourself for an attack."
 
 function darkSparkAttack
 	do
@@ -20,12 +19,12 @@ function darkSparkAttack
 			say this.name + " attacks you with a "
 			scare 0, "sudden darkness"
 			say ".\n"
-			return 10			
+			return (random number between 0.9 and 1.1) * this.strength * 2
 		else
 			say this.name + " is using "
 			scare 0, "flickering lights"
 			say " to scare you."
-			return 5
+			return (random number between 0.9 and 1.1) * this.strength
 
 function darkSparkWound
 	do
@@ -36,5 +35,17 @@ function darkSparkWound
 		this.hp = this.hp - dmg
 		if this.hp < 7
 			say "The dark spark flickers. Other than normal lights, this one becomes brighter when flickering."
+		// drop green key
+		if !this.droppedItem and this.hp < 1
+			say "The density of particles of the dark spark seems to have decreased below a value that is necessary for the mass attraction that keeps it together. Soon more and 
+					more of the small antilights fly away from the cloud until they are all gone."
+			if this.encounterCounter > 4 && chance of 30
+				say "A purple key drops from within the darkness and falls to the floor."
+				add purple key to player.location.items
+				this.droppedItem = true
+			else if this.encounterCounter > 1
+				say "You try to grab the purple item or get a better look at it, but you cannot reach it."
+			else
+				say "Just as your opponent slips away, you manage to spot a purple something in the dark cloud."
 		return this.hp < 1
 

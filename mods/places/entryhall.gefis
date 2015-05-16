@@ -1,7 +1,7 @@
 This is Entry hall by ScaniX
 
 There is a place called entry hall
-   its exits are {"north": kitchen door, "down": cellar door}
+   its exits are {"north": kitchen door, "down": cellar door, "west": locked door, "northwest": locked door, "east": locked door, "northeast": locked door}
 	its items are {cellar door, ticking sound}
 	its intro is ""
 	its description is @[entryhalldesc]
@@ -9,6 +9,9 @@ There is a place called entry hall
 	its music is "Quinns Song-First Night.mp3"
 	its ambience is "27077__daveincamas__clockticks.ogg"
 	its ambienceVolume is 50
+
+there is a doorPassage called locked door
+	its locked is true
 
 function entryhalldesc
 	do
@@ -33,19 +36,6 @@ function eventproc
 		stop audio channel "ambience"
 
 when play begins or resumes
-	// some locked doors (never to be opened)
-	//-west
-	now wd is a new doorPassage called "west door" 
-	now wd.locked is true
-	now entry hall.exits.west is wd
-	//-east
-	now ed is a new doorPassage called "east door" 
-	now ed.locked is true
-	now entry hall.exits.east is ed
-	//-northeast
-	now ned is a new doorPassage called "north east door" 
-	now ned.locked is true
-	now entry hall.exits.northeast is ned
 	//-south
 	now sd is a new doorPassage called "main entrance" 
 	now sd.locked is true

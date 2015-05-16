@@ -34,12 +34,15 @@ function addEncounter
 	understand
 		addEncounter [reg], [enmy], [prob]
 	do
+		if enmy is not a combatant
+			say "Error: The [+enmy.name] is not a combatant."
+			return
 		say "You cannot shake off the feeling that your presence has has just awakened something."
 		now enc is a new encounter called (enmy.name + " encounter")
 		enc.probability = prob
 		enc.enemy = enmy
 		for each p in place.*
-			if p.regions has reg
+			if reg is null or p.regions has reg
 				add enc to p.encounters
 		if globals.encounterCooldown < 5
 			globals.encounterCooldown = 5

@@ -1,0 +1,73 @@
+this is bathroom by scanix
+
+a bathroom is a place
+	its description is @[bathroomDesc]
+	
+there is a bathroom called lowerBathroom
+	its name is "bathroom"
+	its items are {mirror, sink}
+	its exits are {"east": lowerBathroomDoor}
+	its intro is @[lowerBathroomIntro]
+	its illumination is 10
+
+there is a bathroom called upperBathroom
+	its name is "bathroom"
+	its items are {mirror, sink, bath tub, shower}
+	its exits are {"north": westwingSouthDoor}
+	its intro is @[upperBathroomIntro]
+
+function lowerBathroomIntro
+	do
+		lowerBathroomDoor.name = "bathroom door"
+		say "Entering the small room, you are delighted to notice that there are very few places for a monster to hide in here."
+
+function upperBathroomIntro
+	do
+		westwingSouthDoor.name = "bathroom door"
+		say "You step into the room and the first thing you notice is the echo of your steps caused by the tiled floor and walls."
+
+there is a thing called mirror
+	its description is @[bathroomMirrorDesc]
+
+there is a thing called bath tub
+
+there is a thing called sink
+
+there is a thing called shower
+
+function bathroomDesc
+	do
+		say "It is a normal bathroom. There is a toilet, a sink and a mirror cabinet above it. "
+		if this is upperBathroom
+			say "This is quite a bit larger than your bathroom at home. It contains a shower <b>and</b> a bath tub."
+		else
+			say "This one is a bit smaller than the one at home, but you guess that it's because this one is only for guests."
+
+function bathroomMirrorDesc
+	do
+		if globals.mirrorSmash is player.location.id
+			say "You wonder if all the little yous in the mirror shards belong to the same person or if one of them is a better friend."
+		else 
+			say "The mirror is a bit dusty and covered in some grime, but you can still see 
+					[if player.glow < 25]the face of a sad boy staring back at you[else if player.glow < 50]the face of a boy looking expectantly back at you[else if player.glow < 75]a
+					boy that looks like you a lot[else]yourself[end]."
+			if !globals.reflectionEncounterAdded
+				globals.reflectionEncounterAdded = true
+				addEncounter "house", reflection, 30
+			else if player.glow < 25 and globals.mirrorSmash is null && chance of 70
+				addOneTimeEvent "bathroomMirrorSmash"
+			else if player.glow < 50 and chance of 30
+				say "For a moment you think that the movements of the guy in the mirror do not match your own."
+
+function bathroomMirrorSmash
+	do
+		if globals.mirrorSmash is not null
+			return
+		globals.mirrorSmash = player.location.id
+		play "233607__agaxly__breaking-glass-1.ogg" on audio channel "sound" with volume 100
+		flush
+		sleep 2
+		say "The sudden sound would have startled you. "
+		flush
+		sleep 2
+		say "If it hadn't been your fist that has smashed the mirror."

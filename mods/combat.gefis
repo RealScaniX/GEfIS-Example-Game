@@ -21,7 +21,8 @@ Entity Combatant is a thing
 		list dropTable				// list of items that the enemy will drop after being defeated in the form {Entity item, number probability}
 		bool defends				// if true, the combatant tries to block an attack, reducing the damage
 		number level				// the level of the enemy (1-10), for a player the glow is used
-		bool firstEncounter is true		// false if the player already encountered this
+		number encounterCounter // the number of encounters we had with this
+		bool droppedItem			// if true, this enemy already dropped the loot
 
 entity Weapon is a Equippable
 	its useProc is "equipItem"
@@ -120,12 +121,12 @@ mode Fight
 				enemy has the first attack?
 		*************************************/
 		say "\n"
-		if currentFight.enemy.firstEncounter
+		if currentFight.enemy.encounterCounter is 0
 			if currentFight.enemy.introProc is not null
 				invoke function currentFight.enemy.introProc on currentFight.enemy
-			currentFight.enemy.firstEncounter = false
 		else
 			say "A [+currentFight.enemy.name] is attacking you."
+		currentFight.enemy.encounterCounter = currentFight.enemy.encounterCounter + 1
 		now currentFight.playersTurn is !currentFight.enemyStarts
 		fightPrompt
 	on end do
@@ -245,7 +246,7 @@ action attack
 				// add experience points (glow)
 				if player.glow < enemyLevel * 10
 					player.glow = player.glow + (enemyLevel * 10 - player.glow) / 2
-					say "As your foe melts away in front of you, you cannot help but feel more confident in yourself having subdued that creature."
+					say "As your foe disappears in front of you, you cannot help but feel more confident in yourself having subdued that creature."
 				currentFight.finished = true
 
 action use item
