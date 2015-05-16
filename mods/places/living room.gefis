@@ -1,0 +1,10 @@
+this is living room by scanix
+
+there is a place called living room
+	its exits are {"south": northeast door, "north": garden door}
+
+there is a doorPassage called garden door
+	its origin is living room
+	its destination is garden
+
+

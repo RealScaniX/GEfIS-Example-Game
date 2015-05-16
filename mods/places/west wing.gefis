@@ -9,6 +9,7 @@ there is a place called west wing
 	its music is "Quinns Song-First Night.mp3"
 	its ambience is "27077__daveincamas__clockticks_noecho.ogg"
 	its ambienceVolume is 7
+	its description is @[westWingDesc]
 
 there is a doorPassage called westwingSouthDoor
 	it is private
@@ -30,6 +31,11 @@ there is a doorPassage called attic hatch
 	its destination is attic
 	its preProc is "hatchPreProc"
 	its description is @[hatchDesc]
+
+function westWingDesc
+	do
+		append "This is the west wing corridor. There are two doors to the side of it and a hatch leading into the attic.[if attic hatch.open] The ladder to the attic is standing
+				in the middle of the corridor and waits to be used.[end]"
 
 function hatchDesc
 	do

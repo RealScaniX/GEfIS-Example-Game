@@ -18,17 +18,31 @@ there is a container called marble pouch
 	its items are {red marble}
 	its carryable is true
 
-there is a key called red key
+a circle key is a key
+	its description is @"The metal feels slightly warm to the touch. Other than that this seems to be a pretty normal [+this.color] key with a circular head piece"
+	attributes
+		text color
 
-there is a key called orange key
+there is a circle key called red key
+	its color is "red"
 
-there is a key called blue key
+there is a circle key called orange key
+	its color is "orange"
 
-there is a key called purple key
+there is a circle key called blue key
+	its color is "blue"
 
-there is a key called green key
+there is a circle key called purple key
+	its color is "purple"
 
-there is a key called key of light
+there is a circle key called green key
+	its color is "green"
+
+there is a circle key called key of light
+	its color is "white"
+	its illumination is 40
+	its description is "This key seems to be made of pure light, which wouldn't make sense as you can clearly touch it. Still you keep thinking that this thing does not belong
+			in the reality."
 
 /*
 The match. Not much light and is used up quite fast.

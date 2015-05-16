@@ -1,0 +1,70 @@
+this is garden by scanix
+
+there is a place called garden
+	its intro is @[gardenIntro]
+	its exits are {"south": garden door}
+	its illumination is 15
+
+entity gardenTile is a place
+	its illumination is 15
+	attributes
+		text blocked		// tall tree or something that blocks you from going there
+
+function gardenIntro
+	do
+		say "You step out into the cool night and look around. "
+		addOneTimeEvent "gardenCreation"
+
+function gardenCreation
+	do
+		flush
+		// generate garden tiles
+		width = 7
+		height = 8
+		entranceX = integer value of (random number between (width / 2) and (width * 2 / 3))
+		// create tiles
+		now tiles is a new map
+		for v from 0 to height-1
+			now row is a new map
+			if v is 1
+				say "This garden really looks bigger than expected. "
+			else if v is 2
+				say "In the sparse moonlight you can see some bushes and large trees. "
+			else if v is 5
+				say "The grass could use a shaving, that's for sure. "
+			else if v is 7
+				say "If you lean a bit to the left, you can catch a glimpse of some wooden structure in the back. "
+			flush
+			for h from 0 to width-1
+				now tile is a new gardenTile
+				// blocked
+				if (h % 2 == 0) && (v % 2 == 0) && chance of 20
+					tile.blocked = "[one of]dense bush[or]big tree[at random]"
+				row.(h) = tile
+			tiles.(v) = row
+		say "\n"
+		tiles.(height-1).(entranceX) = garden
+		say "Garden is at [+height-1], [+entranceX]."
+		// Set exits
+		for v from 0 to height-1
+			for h from 0 to width-1
+				tile = tiles.(v).(h)
+				// add exits
+				if v > 0 && tiles.(v-1).(h).blocked is null
+					t = tiles.(v-1).(h)
+					add {"north": t} to tile.exits
+				if v < height-1 && tiles.(v+1).(h).blocked is null
+					t = tiles.(v+1).(h)
+					add {"south": t} to tile.exits
+				if h > 0 && tiles.(v).(h-1).blocked is null
+					t = tiles.(v).(h-1)
+					add {"west": t} to tile.exits
+				if h < width-1 && tiles.(v).(h+1).blocked is null
+					t = tiles.(v).(h+1)
+					add {"east": t} to tile.exits
+		globals.gardenTiles = tiles
+
+				
+		
+				
+

@@ -108,7 +108,7 @@ mode Fight
 				fill in player values
 		*************************************/
 		// player health is taken from fear, no need to set a hp here
-		currentFight.player.strength = 3 + (player.glow / 2 + player.illumination / 4) % 10000 // modulo converts it to an int ^-^
+		currentFight.player.strength = integer value of (player.glow / 2 + player.illumination / 15)
 		// add weapon strength
 		now wpn is unarmed
 		now ilist is [inventoryList]
@@ -136,7 +136,7 @@ mode Fight
 function fightStatusInfo
 	do
 		return "<div style=\"float:right;\">
-						<htmlbar \"Enemy\" [+currentFight.enemy.hp]/[+currentFight.enemy.constitution]>
+						<htmlbar \"Enemy\" [+currentFight.enemy.hp]/[+currentFight.enemy.constitution]><br/>
 						<htmlbar \"Fear\" [+player.fear]/100>
 					</div>Your opponent: [+currentFight.enemy.name]\n
 							Your strength: [+currentFight.player.strength]"

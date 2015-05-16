@@ -175,6 +175,9 @@ action navigate
 			return
 		// find target
 		if destination is a place and destination.known
+			if destination is player.location
+				say "You are already there."
+				return
 			// look for passage to that place
 			for each exit in player.location.exits
 				if exit is destination

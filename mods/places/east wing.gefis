@@ -4,7 +4,7 @@ there is a place called east wing
 	its intro is "You are now in the eastern part of the corridor. In front of you the corridor ends in a wall. There are doors to 
 						your left and right."
 	its items are {eastwingSouthDoor, eastwingNorthDoor, storage compartment}
-	its exits are {"east": second floor, "south": eastwingSouthDoor, "north": eastwingNorthDoor, "up": attic hatch}
+	its exits are {"west": second floor, "south": eastwingSouthDoor, "north": eastwingNorthDoor}
 	its description is @[eastWingDesc]
 	its illumination is 10
 	its music is "Quinns Song-First Night.mp3"
@@ -20,6 +20,7 @@ there is a doorPassage called eastwingSouthDoor
 	its name is "south door"
 	it is private
 	its origin is east wing
+	its locked is true
 	its destination is second floor bathroom
 	
 there is a doorPassage called eastwingNorthDoor

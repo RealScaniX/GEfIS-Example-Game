@@ -8,7 +8,7 @@ There is a place called alternative entry hall
 	its events are {alternativeentryhallsoothe}
 	its items are {ticking sound, entrance, cellar door, stairway}
 	its pacified is true
-	its exits are {"up": stairway, "down": cellar door, "south": entrance, "north": kitchen door, "northeast": northeast door, "northwest": west door, "west": lowerBathroomDoor, "east": east door}
+	its exits are {"up": stairway, "down": cellar door, "south": entrance, "north": kitchen door, "northeast": northeast door, "northwest": northwest door, "west": lowerBathroomDoor, "east": east door}
 	its regions is {"house", "first floor"}
 	its ambience is "27077__daveincamas__clockticks_noecho.ogg"
 	its ambienceVolume is 40
@@ -21,12 +21,16 @@ there is an event called alternativeentryhallsoothe
 
 there is a doorPassage called northeast door
 	its locked is true
+	its origin is alternative entry hall
+	its destination is living room
 
 there is a doorPassage called east door
 	its locked is true
+	its origin is alternative entry hall
 
-there is a doorPassage called west door
+there is a doorPassage called northwest door
 	its locked is true
+	its origin is alternative entry hall
 
 there is a doorPassage called lowerBathroomDoor
 	its origin is alternative entry hall
@@ -36,7 +40,7 @@ function alternativeentryhallsoothe
 	do
 		if player.fear < 4
 			return
-		now x is ((player.fear+5) / 5) % 100
+		now x is integer value of ((player.fear+5) / 5)
 		soothe x, "[one of]The blue light calms your nerves.[or]The weird magical light soothes you.[or]The blue light seems to burn the darkness around you away.[at random]"
 
 function alternativeentryhallintro
@@ -57,7 +61,7 @@ function entranceDesc
 	do
 		say "What has once been a normal front door of this house is now a huge circular stone plate. It seems to be made of some kind of blue, glowing marble. Although you 
 				suspect that this isn't really a thing you could find in a normal quarry."
-		say "On the outer ring there are five metallic keyholes with the colors blue, red, orange, green, and purple."
+		say "On the outer ring there are five metallic keyholes with the colors blue, red, orange, green, and purple. "
 		if globals.entranceLocksOpened > 0
 			now clist is a new list
 			for each col in {"blue", "red", "orange", "green", "purple"}
@@ -72,6 +76,8 @@ function entranceDesc
 					i = i + 1
 					say "[if i == clist.#] and [else if i > 1], [end][+col]"
 				say " locks."
+		else
+			say "\n"
 		say "In the center there is [if globals.entranceLocksOpened >= 5]another keyhole that opened up after you unlocked all five other locks[else]a white or silver metal cover
 				that hides something of importance, at least that is your impression when you look at it[end]."
 		say "The blue light seems to fill up the large hall completely and is moving somehow, like sunbeams below the rippled surface of the ocean. It kinda has the same effect on 
@@ -93,6 +99,55 @@ function alternativeentryhalldesc
 before action unlockwithkey
 	do
 		if d is entrance
-			// check keys: blue, red, orange, green, purple
-			say "That key does not fit here."
+			k = [resolveItem k]
+			if k is null
+				say "You don't see that here."
+			else if k is not a key
+				say "You will have a difficult time unlocking it with the [+k.name]."
+			else if not [playerOwns k]
+				say "You should take that first."
+			else
+				// check keys: blue, red, orange, green, purple
+				if k is a circle key
+					globals.circleKey = k
+					addOneTimeEvent "entranceUnlocking"
+				else
+					say "That key does not fit here."
 			return
+
+function entranceUnlocking
+	do
+		now k is globals.circleKey
+		say "You stick the [+k.name] into the [+k.color] keyhole and turn it counterclockwise until you hear a clicking sound and cannot move the key anymore."
+		flush
+		sleep 3
+		if k is key of light
+			// finale!
+			return
+		else if k is orange key
+			say "You hear something unlocking in the northeast corner of this hall."
+			northeast door.locked = false
+		else if k is red key
+			say "You hear something unlocking on the upper floor."
+			eastwingSouthDoor.locked = false
+		else if k is blue key
+			say "You hear something unlocking on the east side of this hall."
+			east door.locked = false
+		else if k is green key
+			say "You hear a distant unlocking sound to the northeast."
+			garden door.locked = false
+		else if k is purple key
+			say "You hear something unlocking on the west side of this hall."
+			northwest door.locked = false
+		globals.("entranceLock_[+k.color]") = true
+		globals.entranceLocksOpened = globals.entranceLocksOpened + 1
+		if globals.entranceLocksOpened == 5
+			say "This time the sound is even louder than before and echoes through the hall. Then some mechanic inside starts to stir.\n
+					Another second later the white plate begins to move aside and finally reveals... another keyhole."
+			cellar door.locked = false
+		flush
+		sleep 3
+		say "There is a rumbling sound coming from the cellar door."
+		if globals.entranceLocksOpened == 5
+			say "If your math is correct (and your teacher would probably doubt that), all five bars of the cellar door should be open now."
+

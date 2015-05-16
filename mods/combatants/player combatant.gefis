@@ -34,7 +34,7 @@ function playerAttack
 				Miscalculating the movements of your opponent, you miss it by a few centimeters.[or]
 				You underestimated the speed of the [+enemyName] and could not hit it.[or]
 				The [+enemyName] deflected the blow.
-				[at random]"
+				[at random]\n"
 			return 0
 		
 function playerWound
