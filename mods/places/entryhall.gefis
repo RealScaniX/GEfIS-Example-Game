@@ -19,7 +19,7 @@ function entryhalldesc
 				wooden stuff like wardrobes, small tables, a huge clock and those tall weird things you can hang your coat or hat on."
 		say "But today, after years of neglecting, the dust and its new, tiny and crawling inhabitants have made it into a dark and eerie place."
 		say "In front of you there is a stairway leading [link go up]up[/link] and there is a door on the left side of it, which obviously leads [link down]down[/link] into the 
-				cellar. There are other doors to the west, east, north and northeast."
+				cellar. There are other doors to the west, east, north, northwest and northeast."
 		add entryhallevent to player.events
 		return ""
 

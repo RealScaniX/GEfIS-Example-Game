@@ -72,6 +72,8 @@ action unlock
 	understand
 		unlock [d]
 	do
+		//if d is a doorPassage and !d.locked
+		//	say "The [+d.name] isn't even locked."
 		say "What will you use to unlock it with?"
 		ask "Key?"
 		if user.canceled or user.input is empty

@@ -28,6 +28,7 @@ function upperBathroomIntro
 
 there is a thing called mirror
 	its description is @[bathroomMirrorDesc]
+	its sound is "Looking at your reflection, you think that you might be better off listening to someone else."
 
 there is a thing called bath tub
 

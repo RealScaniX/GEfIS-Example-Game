@@ -9,6 +9,7 @@ there is a place called bedroom
 there is a container called left nightstand
 	its description is @"It's a small wooden table with some drawers and a lamp on top of it.[if this.open] You can see a magazine about cars, some advertisements for a finance
 			software and a small black book with business cards. Can it get any more boring than that?[end]"
+	its listContentsOnLook is false
 
 there is a container called right nightstand
 	its description is @"It's a small wooden table with some drawers and a lamp on top of it.[if this.open] In the drawers there is some uninteresting adult stuff like a few books,
@@ -21,6 +22,7 @@ there is a thing called vibrator
 	its description is @[rubberStickDesc]
 	its smell is "Smells like rubber."
 	its taste is "Mmh... no."
+	its sound is @"[if globals.rubberStickExamined]It does not make a sound when it's turned off[else]It doesn't make a sound.[end]."
 	
 function bedroomIntro
 	do
@@ -30,13 +32,13 @@ function bedroomIntro
 function rubberStickDesc
 	do
 		if !globals.rubberStickExamined
-			globals.rubberStickExamined = true
 			addOneTimeEvent "rubberStickExamine"
 		else
 			return "Now that you have the battery, you cannot think of anything else to do with that."
 
 function rubberStickExamine
 	do
+		globals.rubberStickExamined = true
 		say "It looks like a gray, short stick. You take the weird thing into your hand and turn it around. It feels a bit rubbery and isn't very heavy."
 		wait for 5 seconds
 		say "Wondering what that might be good for, you finally notice a switch on the bottom."

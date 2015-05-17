@@ -5,7 +5,7 @@ there is a place called Cellar
 	its exits are {"up": cellar door}
 	its items are {cellar door}
    its description is "This is without any doubt the cellar. There is - if that is possible - even more dust here than above. You can see a broken light bulb in the middle of
-							the room, hanging from an old cable.\nThe dominating feature however is a large amount of boxes which is almost covering the whole floor. They are also stapled
+							the room, hanging from an old cable.\nThe dominating feature however is a large amount of boxes almost covering the whole floor. They are also stapled
 							up to the ceiling or at least to a height over your head, so that you can barely see anything of the walls."
 	its intro is @[cellarintro]
 	its regions are {"cellar"} // no "house" region as we want exactly one opponent here
@@ -35,7 +35,7 @@ function cellarDoorDesc
 		else
 			append "The cellar door has gone through some changes as well. The old lock has gone and has been replaced by five metal bars in different colors."
 			now barCount is 5 - globals.entranceLocksOpened
-			append "\n[one of]At the moment[or]Currently[or]Now[at random] [+barCount] of them [if barCount == 1]is[else]are[end] closed."
+			append "\n[one of]At the moment[or]Currently[or]Now[at random] [if barCount == 5]all[else][+barCount][end] of them [if barCount == 1]is[else]are[end] closed."
 
 there is a key called rusty key
 	its discovered is false

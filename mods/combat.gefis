@@ -11,18 +11,20 @@ Entity Combat is an Entity
 
 Entity Combatant is a thing
 	attributes
-		number constitution     // either darkness or nothing (as the player health is processed differently)
-		number hp					// current health, is set to health at the beginning of the fight
-		number strength			// either light or darkness
-		text attackProc			// called to attack, the return value is damage done
-		text woundProc				// called to receive damage, if this returns true the combatant is defeated and the fight is over
-										// the damage to process will be stored in the variable "dmg"
-		text introProc				// called when the fight starts
-		list dropTable				// list of items that the enemy will drop after being defeated in the form {Entity item, number probability}
-		bool defends				// if true, the combatant tries to block an attack, reducing the damage
-		number level				// the level of the enemy (1-10), for a player the glow is used
-		number encounterCounter // the number of encounters we had with this
-		bool droppedItem			// if true, this enemy already dropped the loot
+		number constitution						// either darkness or nothing (as the player health is processed differently)
+		number hp									// current health, is set to health at the beginning of the fight
+		number strength							// either light or darkness
+		text attackProc							// called to attack, the return value is damage done
+		text woundProc								// called to receive damage, if this returns true the combatant is defeated and the fight is over
+														// the damage to process will be stored in the variable "dmg"
+		text introProc								// called when the fight starts
+		list dropTable								// list of items that the enemy will drop after being defeated in the form {Entity item, number probability}
+		bool defends								// if true, the combatant tries to block an attack, reducing the damage
+		number level								// the level of the enemy (1-10), for a player the glow is used
+		number encounterCounter					// the number of encounters we had with this
+		bool droppedItem							// if true, this enemy already dropped the loot
+		number specialAttackPrepare is 0		// preparing a special attack
+		number specialAttackCooldown is 0	// cooldown for special attack, automatically managed in combat, enemy only has to check if > 0 to not allow special attack
 
 entity Weapon is a Equippable
 	its useProc is "equipItem"
@@ -36,13 +38,14 @@ entity Weapon is a Equippable
 function defaultWeaponAttack
 	do
 		now weaponName is wpn.weaponName
+		now temps.weaponName is weaponName
 		say "[one of]You lounge forward and attack the [+enemyName] with your [+weaponName].
 				[or]You try to hit the enemy with your [+weaponName].
 				[at random]"
 
 function defaultWeaponHit
 	do
-		now weaponName is wpn.weaponName
+		now weaponName is temps.weaponName
 		if dmgFactor < 0.95
 			say "You graze the enemy with your [+weaponName]."
 		else if dmgFactor > 1.05
@@ -104,6 +107,7 @@ mode Fight
 				fill in enemy values
 		*************************************/
 		now currentFight.enemy.hp is currentFight.enemy.constitution
+		now currentFight.enemy.specialAttackPrepare is 0
 		/************************************
 				fill in player values
 		*************************************/
@@ -160,6 +164,10 @@ function doEnemyTurn
 	do
 		// attack player
 		if currentFight.enemy.attackProc is not null
+			if currentFight.enemy.specialAttackPrepare > 0
+				currentFight.enemy.specialAttackCooldown = 5
+			else if currentFight.enemy.specialAttackCooldown > 0
+				currentFight.enemy.specialAttackCooldown = currentFight.enemy.specialAttackCooldown - 1
 			now dmg is [invoke function currentFight.enemy.attackProc on currentFight.enemy]
 			if dmg > 0
 				now enemyName is currentFight.enemy.name
@@ -239,9 +247,11 @@ action attack
 		now enemyLevel is currentFight.enemy.level
 		now dmg is [invoke function currentFight.player.attackProc on currentFight.player]
 		if dmg > 0
+			debugsay "Player attack DMG: [+dmg]"
 			if [invoke function currentFight.enemy.woundProc on currentFight.enemy]
 				// the player killed it
-				say "The [+enemyName] dissolves to rejoin the shadows."
+				// there already has been enough text in the enemy woundproc
+				//say "The [+enemyName] dissolves to rejoin the shadows."
 				// drop something
 				// add experience points (glow)
 				if player.glow < enemyLevel * 10

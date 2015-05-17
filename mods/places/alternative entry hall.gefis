@@ -61,7 +61,7 @@ function entranceDesc
 	do
 		say "What has once been a normal front door of this house is now a huge circular stone plate. It seems to be made of some kind of blue, glowing marble. Although you 
 				suspect that this isn't really a thing you could find in a normal quarry."
-		say "On the outer ring there are five metallic keyholes with the colors blue, red, orange, green, and purple. "
+		say "On the outer ring there are five metallic keyholes in the colors blue, red, orange, green, and purple. "
 		if globals.entranceLocksOpened > 0
 			now clist is a new list
 			for each col in {"blue", "red", "orange", "green", "purple"}

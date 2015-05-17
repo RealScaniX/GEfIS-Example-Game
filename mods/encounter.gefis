@@ -11,9 +11,9 @@ A Place
 		bool pacified is false
 
 before function mainPrompt
-	if globals.encounterCooldown > 0
-		globals.encounterCooldown = globals.encounterCooldown - 1
-	if !player.location.pacified and globals.encounterCooldown <= 0
+	if temps.encounterCooldown > 0
+		temps.encounterCooldown = temps.encounterCooldown - 1
+	if !player.location.pacified and temps.encounterCooldown <= 0
 		now max is 0
 		now nix is 0
 		for each enc in player.location.encounters
@@ -25,7 +25,7 @@ before function mainPrompt
 			for each enc in player.location.encounters
 				if z < enc.probability
 					// start fight
-					globals.encounterCooldown = 10
+					temps.encounterCooldown = 10
 					startFight enc.enemy
 					return
 				z = z - enc.probability
@@ -44,5 +44,8 @@ function addEncounter
 		for each p in place.*
 			if reg is null or p.regions has reg
 				add enc to p.encounters
-		if globals.encounterCooldown < 5
-			globals.encounterCooldown = 5
+		if temps.encounterCooldown < 5
+			temps.encounterCooldown = 5
+
+when play starts or resumes
+	temps.encounterCooldown = 3

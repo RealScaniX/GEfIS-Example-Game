@@ -15,11 +15,16 @@ function darkSparkIntro
 
 function darkSparkAttack
 	do
-		if chance of 10
-			say this.name + " attacks you with a "
+		if this.specialAttackPrepare > 0
+			this.specialAttackPrepare = 0
+			say "The dark spark's particles only to gather around you and enclose you in a "
 			scare 0, "sudden darkness"
 			say ".\n"
 			return (random number between 0.9 and 1.1) * this.strength * 2
+		else if this.specialAttackCooldown == 0 && chance of 40
+			this.specialAttackPrepare = 1
+			say "Instead of attacking you, the dark particle cloud seems to get ready for something."
+			return 0
 		else
 			say this.name + " is using "
 			scare 0, "flickering lights"

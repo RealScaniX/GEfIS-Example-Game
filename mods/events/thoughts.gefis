@@ -9,7 +9,7 @@ when play begins or resumes
 	add ev to player.events
 
 there is a valuesponge called globals
-	its introthoughts is 0
+	its thoughtIndex is 0
 
 function chainofthought
 	do
@@ -17,18 +17,38 @@ function chainofthought
 		if globals.cellarEvent is 0
 			// reset delay
 			this.delay = 5
-			this.probability = 50
-			if 0 is globals.introthoughts
-				say "You start to think that this might not be such a good idea after all. <i>What if something happens to you when you trip in the dark and no one is here to help?</i>"
+			if 0 is globals.thoughtIndex
+				say "\nYou start to think that this might not be such a good idea after all. <i>What if something happens to you when you trip in the dark and no one is here to help?</i>"
 				this.delay = 2
 				this.probability = 80
-			else if 1 is globals.introthoughts
-				say "<i>Then again: Maybe it is time to stop being such a pussy and get over your fear. You will miss all those upcoming nights in the clubhouse if you keep being
+			else if 1 is globals.thoughtIndex
+				say "\n<i>Then again: Maybe it is time to stop being such a pussy and get over your fear. You will miss all those upcoming nights in the clubhouse if you keep being
 						frightened.</i>"
 				this.delay = 2
 				this.probability = 80
-			else if 2 is globals.introthoughts
-				say "<i>Well, that whole fear thing won't matter if you don't manage to find that stupid ball in this dark house anyway...</i>"
-			if globals.introthoughts < 100
-				globals.introthoughts = globals.introthoughts + 1
+			else if 2 is globals.thoughtIndex
+				say "\n<i>Well, that whole fear thing won't matter if you don't manage to find that stupid ball in this dark house anyway...</i>"
+			if globals.thoughtIndex < 10
+				globals.thoughtIndex = globals.thoughtIndex + 1
+		else if globals.chapter is 1	
+			// reset delay
+			this.delay = 5
+			if globals.thoughtIndex < 100
+				globals.thoughtIndex = 100
+				this.probability = 30
+			else
+				if 100 is globals.thoughtIndex
+					say "\nYour [actionLink scar] is itching and you scratch your left arm in a reflex. You soon pull your hand back when you touched some "
+					scare 1, "unpleasant memories"
+					say ".\n"
+					globals.scarVisible = true
+				if globals.thoughtIndex < 110
+					globals.thoughtIndex = globals.thoughtIndex + 1
 
+there is a thing called scar
+	its description is "This is your life long reminder of the tragedy. Your left arm has been broken badly and there has been an open flesh wound as well. There has even been
+			a little infection caused by the rusty metal to top it off. Still, you would be glad if you were the only one that got injured."
+	//its smell is "The scar smells of dead dog."
+	its smell is "The scar smells of suffering and death."
+	its taste is "Licking across your skin, you get a salty taste in your mouth, not too different from tears."
+	its sound is "It it could, it would tell a horrible story."

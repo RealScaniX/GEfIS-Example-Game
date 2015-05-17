@@ -65,6 +65,8 @@ function scare
 		player.fear = player.fear + amount
 		if player.fear >= 100
 			player.fear = 99
+			if currentFight.finished && alternative entry hall.known // do not say this when entering chapter 1
+				say "Your fear is stopping you from going any further and you have the strong urge to be back where you are safe."
 			goToPlace alternative entry hall
 			return true
 		return false

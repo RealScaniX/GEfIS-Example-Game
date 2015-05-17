@@ -20,18 +20,18 @@ Entity Thing is an Entity
 		text description
 		text smell is "This smells like nothing really."
 		text taste is "You'd rather not taste that. For now."
-		list actions are {"look at"}
+		text sound is null // if something is not a sound but still has a sound to it
+		list actions are {"look at", "listen to", "smell", "taste"}
 		text useProc
 		text useWithProc
 
 entity Item is a Thing
-	its actions are {"look at", "use", "take"}
+	its actions are {"look at", "use", "take", "smell", "taste"}
    attributes
 		bool carryable is true
       number weight
 
 entity Sound is a Thing
-	its actions are {"listen to"}
 	attributes
 		text soundDesc is "You hear nothing special."
 
@@ -103,7 +103,9 @@ action listen
 		now smt is [resolveitem smt]
 		if smt is null
 			say "You don't hear that."
-		else if not smt is a sound
+		else if smt.sound is not null
+			say smt.sound
+		else if smt is not a sound
 			say "There isn't really a sound to it. Unless you smash it into a wall, of course..."
 		else 
 			say smt.soundDesc
@@ -142,6 +144,10 @@ function resolveitem
 			add currentFight.enemy to vlist
 		// add location
 		add player.location to vlist
+		// add scar
+		if globals.scarVisible
+			add scar to vlist
+		// convert from string
 		if itm is a text
 			now itm is a new Phrase called itm
 		if itm is a Phrase
@@ -330,7 +336,8 @@ function playambience
 	do
 		now globals.ambienceVolume is vol
 		if globals.ambiencetrack is track
-			resume audio channel "ambience" with volume vol
+			if track is not null
+				resume audio channel "ambience" with volume vol
 			return
 		if track is null
 			stop audio channel "ambience"

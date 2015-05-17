@@ -19,7 +19,7 @@ there is a container called marble pouch
 	its carryable is true
 
 a circle key is a key
-	its description is @"The metal feels slightly warm to the touch. Other than that this seems to be a pretty normal [+this.color] key with a circular head piece"
+	its description is @"The metal feels slightly warm to the touch. Other than that this seems to be a pretty normal [+this.color] key with a circular head piece."
 	attributes
 		text color
 
@@ -51,6 +51,8 @@ there is an item called box of matches
 	its description is @"These are your lucky matches. \"Lucky\", because you consider yourself lucky that your mother hasn't noticed you carrying those around in your 
 						pocket... yet.\nShaking it and listening closely to the rattling sound of the matches inside, you [one of]guess[or]estimate[or]calculate[at random] there are
 						precisely [+random number between 2 and 12] of them left."
+	its smell is "This smells of forbidden adventure."
+	its taste is "You shouldn't get that wet if you want the matches to still work."
 	its useProc is "lightmatch"
 
 there is a lightsource called match
@@ -64,7 +66,7 @@ function lightmatch
 		setlightsource lightsource.match
 		say "You pick out one of the remaining [+random number between 2 and 12] matches and ignite it on the rough side of the box."
 		say "A small flash and tiny sparks are the first things that can be seen in the dark, then the small flame casts a flickering light that makes the shadows 
-				around you dance. You are wondering if that makes you even more uneasy..."
+				dance around you. You are wondering if that makes you even more uneasy than standing in the dark..."
 
 understand
 	"light match" as "use box of matches"

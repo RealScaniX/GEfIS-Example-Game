@@ -52,6 +52,11 @@ function trainWagonsDescEvt
 
 there is a container called kidsRoomWardrobe
 	its name is "wardrobe"
+	its items are {dusty clothes}
+
+there is a thing called dusty clothes
+	its description is "Those boy clothes look to be your size, but not your style. They are also really dusty and judging from the holes in them they at least match the taste
+		of some moths."
 	
 there is a container called kidsRoomCabinet
 	its name is "cabinet"
@@ -71,6 +76,7 @@ there is a lightsource called flashlight
 	its steps is 50
 	its usedSteps is 20
 	its useProc is "useflashlight"
+	its description is "It is a bit old, but it still appears to be in working condition. Being too stupid to have brought your own flashlight, you are happy to have found this."
 	its lit is true
 
 there is an item called battery

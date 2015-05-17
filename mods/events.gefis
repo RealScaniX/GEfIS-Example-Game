@@ -67,6 +67,7 @@ function addOneTimeEvent
 	understand
 		addOneTimeEvent [procName]
 	do
+		temps.encounterCooldown = temps.encounterCooldown + 1 // no fighting if we add a story event
 		now evt is a new event
 		evt.always = true
 		evt.eventProc = procName
