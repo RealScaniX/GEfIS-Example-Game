@@ -46,6 +46,7 @@ function reflectionWound
 			if this.encounterCounter > 4 && chance of 30
 				say "Some of the shards rejoin for a second to show the reflection of a blue key. Then it suddenly is like a projection into your side of the mirror and materializes
 						completely, before hitting the floor."
+				play "clong.ogg" on audio channel "sound" with volume 100
 				add blue key to player.location.items
 				this.droppedItem = true
 			else if this.encounterCounter > 1

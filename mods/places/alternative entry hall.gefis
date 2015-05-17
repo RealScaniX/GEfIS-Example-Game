@@ -4,7 +4,7 @@ There is a place called alternative entry hall
 	its intro is @[alternativeentryhallintro]
 	its description is @[alternativeentryhalldesc]
 	its illumination is 40
-	its music is "Quinns Song-A New Man.mp3"
+	its music is "Infinite Perspective.mp3"
 	its events are {alternativeentryhallsoothe}
 	its items are {ticking sound, entrance, cellar door, stairway}
 	its pacified is true
@@ -59,7 +59,7 @@ there is a doorPassage called entrance
 	
 function entranceDesc
 	do
-		say "What has once been a normal front door of this house is now a huge circular stone plate. It seems to be made of some kind of blue, glowing marble. Although you 
+		say "What once has been the normal front door of this house is now a huge circular stone plate. It seems to be made of some kind of blue, glowing marble. Although you 
 				suspect that this isn't really a thing you could find in a normal quarry."
 		say "On the outer ring there are five metallic keyholes in the colors blue, red, orange, green, and purple. "
 		if globals.entranceLocksOpened > 0

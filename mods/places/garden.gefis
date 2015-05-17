@@ -9,6 +9,7 @@ entity gardenTile is a place
 	its illumination is 15
 	its description is @[gardenTileDesc]
 	its regions are {"anywhere", "outside", "garden"}
+	its music is "Anamalie.mp3"
 	attributes
 		text blocked		// tall tree or something that blocks you from going there
 		number x
@@ -16,7 +17,6 @@ entity gardenTile is a place
 
 function gardenIntro
 	do
-		say "You step out into the cool night and take a look around. "
 		addOneTimeEvent "gardenCreation"
 
 function gardenTileDesc
@@ -25,6 +25,8 @@ function gardenTileDesc
 
 function gardenCreation
 	do
+		chapterAdvance
+		say "You step out into the cool night and take a look around. "
 		flush
 		sleep 1
 		// generate garden tiles

@@ -4,7 +4,6 @@ function chapterAdvance
 	do
 		globals.chapter = globals.chapter + 1
 		if 0 is globals.chapter
-			cls
 			saychapter 0
 			playmusic "Quinns Song-First Night.mp3", 100
 			hide overlay "ne" with style "default"
@@ -47,19 +46,21 @@ function chapterAdvance
 			cellar door.locked = true
 			cellar door.key = null
 			cellar door.destination = alternative entry hall
-			cellar.music = null
+			cellar.music = "Quinns Song-A New Man.mp3"
 			cellar.events = {}
 			addEncounter "cellar", nightmare, 100
 			kitchen door.destination = alternative entry hall
 			kitchen.ambience = "27077__daveincamas__clockticks_noecho.ogg"
 			ticking sound.soundDesc = "The loud ticking of the grandfather clock tells you that you are still in the entry hall. Well, ... at least <b>an</b> entry hall."
-			playmusic "Quinns Song-A New Man.mp3", 100
+			playmusic alternative entry hall.music, alternative entry hall.musicVolume
 			playambience null, 100
-			cls
 			saychapter globals.chapter
 			scare 10
 		else if 2 is globals.chapter
-			cls
+			saychapter globals.chapter
+		else if 3 is globals.chapter
+			saychapter globals.chapter
+		else if 4 is globals.chapter
 			saychapter globals.chapter
 
 function scrollAway
@@ -69,3 +70,28 @@ function scrollAway
 			flush
 			sleep 0.2
 		cls
+
+function saychapter
+	understand
+		saychapter [chap]
+	do
+		show "" in overlay "nw" with style "background:white;border:none;width:100%;height:100%;"
+		flush
+		sleep 1
+		cls
+		sleep 0.7
+		play "elevatoreyeOpenClose.mp3" on audio channel "sound" with volume 10
+		flush
+		sleep 0.7
+		now chapternames is {"A simple task", "The circle of keys", "Somewhere green", "Letting go", "Welcome to the club"}
+		say "\n\n"
+		say "<div style=\"text-align:center;\">"
+		say "<span style=\"font-size:38px;letter-spacing:2px;\">[if chap > 0]Chapter [+chap][else if chap == 4]Epilogue[else]Prologue[end]</span>\n"
+		say "<span style=\"font-size:24px;letter-spacing:4px;font-style:italic;\">[+chapternames.(chap)]</span>\n"
+		say "<image \"chapter.png\">\n"
+		say "</div>"
+		say "\n\n"
+		flush
+		hide overlay "nw" with style "default"
+		flush
+		sleep 2

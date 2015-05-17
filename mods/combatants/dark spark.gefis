@@ -46,6 +46,7 @@ function darkSparkWound
 					more of the small antilights fly away from the cloud until they are all gone."
 			if this.encounterCounter > 4 && chance of 30
 				say "A purple key drops from within the darkness and falls to the floor."
+				play "clong.ogg" on audio channel "sound" with volume 100
 				add purple key to player.location.items
 				this.droppedItem = true
 			else if this.encounterCounter > 1

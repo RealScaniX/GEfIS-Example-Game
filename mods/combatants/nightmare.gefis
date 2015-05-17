@@ -25,13 +25,13 @@ function nightmareWound
 
 function nightmareIntro
 	do
-		say "As you enter the cellar again it doesn't look like before at all. "
+		say "As you enter the cellar for the second time, everything is different. Nothing looks the same."
 		flush
 		sleep 3
-		say "This doesn't mean that this room isn't familiar to you."
+		say "It doesn't mean that this room isn't familiar to you, though."
 		flush
 		sleep 3
-		say "The only light comes from a plain lightbulb that is hanging on a cable from the ceiling in the middle of the room, but it is more than enough to see everything."
+		say "The only light comes from a plain lightbulb that is hanging on a cable from the ceiling in the middle of the room, but it is more than enough to see everything. "
 		say "The large room is pretty tidy, all the boxes with stuff, tools and machinery is neatly sorted into shelves on the left and right walls. The storage rack on the right 
 				is especial heavily loaded and seems a bit unstable."
 		say "On the back wall there is the workbench your father used to work at when he was still there."
@@ -39,11 +39,11 @@ function nightmareIntro
 		say "\n\"Get the ball!\", you hear your former self calling from the left."
 		say "Then that damn ball comes rolling at a high speed towards the shelve and crashes into it, bending one of the metal feet backwards. The boy who has once been 
 				you comes running after it, closely followed by a furry creature that somehow appears blurry to you."
-		say "With a loud sound the screws that held the rack on the wall at the top come shooting out of their holes.
-		say "Someone seems to have pushed the \"slowmo\" button on the remote, because everything is happening at a fraction of its normal speed now."
+		say "With a loud sound the screws that held the rack on the wall at the top come shooting out of their holes."
+		say "Someone seems to have pushed the \"slowmo\" button on the remote, because the following things are happening at a fraction of their normal speed."
 		wait
-		say "\nYou see your other you turning towards you and shiver at the evil grin on his face. Then the shelve falls over, the top hits the light bulb and smashes it to pieces. 
-				For some reason it does not get any darker and you still have to watch everything for a second time."
+		say "\nYou see your other you turn his head towards you and you shiver at the evil grin on his face. Then the shelve falls over, the top frame hits the light bulb and 
+				smashes it to pieces. For some reason it does not get any darker and you still have to watch everything for a second time."
 		say "After some of the heavy tools fall out and hit them to the ground, the metal structure comes crashing down on the two unfortunate friends and you hear a terrible 
 				whining sound from the creature."
 		wait
@@ -58,9 +58,9 @@ function nightmareIntro
 		say "Lying there in the dark, crying and hurting all over, you will shout for help, but no one will come."
 		wait
 		say "Until finally the whining will stop. So will the panting and the breathing altogether."
-		wait for 6 seconds
+		wait for 10 seconds
 		say "\"Enough!\", you shout between sobs, \"It was an accident! I'm sorry!\"\n"
-		wait for 2 seconds
+		wait for 7 seconds
 		say "\"So very sorry...\""
 		wait
 		say "\nSuddenly your other body fades away and the shelves are pushed upwards."

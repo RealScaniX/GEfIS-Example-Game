@@ -38,7 +38,7 @@ function chainofthought
 				this.probability = 30
 			else
 				if 100 is globals.thoughtIndex
-					say "\nYour [actionLink scar] is itching and you scratch your left arm in a reflex. You soon pull your hand back when you touched some "
+					say "\nYour [actionLink scar] is itching and you scratch your left arm in a reflex. You soon pull your hand back when you touch some "
 					scare 1, "unpleasant memories"
 					say ".\n"
 					globals.scarVisible = true

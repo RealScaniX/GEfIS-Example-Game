@@ -56,11 +56,11 @@ function playerWound
 			fearGain = fearGain / 2
 			say "Your defense [one of]is weakening[or]reduces the effect of[at random] the attack. "
 		debugsay " defense reduction --> [+fearGain]"
-		if fearGain > 40
+		if fearGain >= 40
 			say "You are absolutely terrified by your opponent."
-		else if fearGain > 20
+		else if fearGain >= 20
 			say "The [+enemyName] scares you a lot."
-		else if fearGain > 7
+		else if fearGain >= 7
 			say "The [+enemyName] frightenes you."
 		else 
 			say "Your fear increases a little."
