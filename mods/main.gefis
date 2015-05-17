@@ -44,19 +44,6 @@ function actionLink
 	do
 		return "<link [for each act in itm.actions][append act]|[end]>[+itm.name]</link>"
 
-add resource "/img/dir_down.png" as "down icon"
-add resource "/img/dir_up.png" as "up icon"
-add resource "/img/dir_north.png" as "north icon"
-add resource "/img/dir_south.png" as "south icon"
-add resource "/img/dir_west.png" as "west icon"
-add resource "/img/dir_east.png" as "east icon"
-add resource "/img/dir_northeast.png" as "northeast icon"
-add resource "/img/dir_southeast.png" as "southeast icon"
-add resource "/img/dir_southwest.png" as "southwest icon"
-add resource "/img/dir_northwest.png" as "northwest icon"
-add resource "/img/dir_none.png" as "none icon"
-add resource "/img/dir_look.png" as "look icon"
-
 function mainStatusInfo
 	do
 		// navi
@@ -96,7 +83,7 @@ function mainStatusInfo
 					<div style=\"display:inline-block;\">
 					You are here: [link look around][append player.location][/link]\n
 					You performed " + user.actions + " actions and own [if itmcount > 0]<link inventory>[+itmcount] thing[if itmcount > 1]s[end]</link>.[else]nothing.[end]\n
-					[if player.light is not null]You are carrying this light: [+player.light.name]\n[end]
+					[if player.light is not null]You are carrying this light: [+player.light.name] ([+player.light.illumination])\n[end]
 					</div>
 					<div style=\"clear:both;\"></div>"
 

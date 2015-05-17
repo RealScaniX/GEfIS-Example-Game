@@ -9,6 +9,7 @@ There is a place called entry hall
 	its music is "Quinns Song-First Night.mp3"
 	its ambience is "27077__daveincamas__clockticks.ogg"
 	its ambienceVolume is 50
+	its regions are {"anywhere", "house", "first floor"}
 
 there is a doorPassage called locked door
 	its locked is true

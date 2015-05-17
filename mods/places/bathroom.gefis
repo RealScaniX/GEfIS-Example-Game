@@ -9,12 +9,14 @@ there is a bathroom called lowerBathroom
 	its exits are {"east": lowerBathroomDoor}
 	its intro is @[lowerBathroomIntro]
 	its illumination is 10
+	its regions are {"anywhere", "house", "first floor"}
 
 there is a bathroom called upperBathroom
 	its name is "bathroom"
 	its items are {mirror, sink, bath tub, shower}
 	its exits are {"north": westwingSouthDoor}
 	its intro is @[upperBathroomIntro]
+	its regions are {"anywhere", "house", "second floor"}
 
 function lowerBathroomIntro
 	do

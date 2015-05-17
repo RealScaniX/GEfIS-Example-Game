@@ -5,11 +5,11 @@ there is a place called second floor
 	its intro is @[secfloorintro]
 	its items are {stairway, kidsroomdoor}
 	its description is @[secfloordesc]
-	its regions is {"house", "second floor"}
 	its illumination is 10
 	its music is "Quinns Song-First Night.mp3"
 	its ambience is "27077__daveincamas__clockticks_noecho.ogg"
 	its ambienceVolume is 25
+	its regions are {"anywhere", "house", "second floor"}
 
 there is a Stairway called stairway
 	its origin is alternative entry hall
@@ -33,7 +33,7 @@ function secfloorintro
 	do
 		say "After two dozens of steps you finally reach the second floor. The corridor continues to your left and right, leading to the west and east wings. 
 			  In addition, there is a door right in front of you."
-		addEncounter null, dark spark, 30
+		addEncounter "anywhere", dark spark, 30
 
 function secfloordesc
 	do

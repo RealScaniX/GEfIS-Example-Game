@@ -67,7 +67,8 @@ function addOneTimeEvent
 	understand
 		addOneTimeEvent [procName]
 	do
-		temps.encounterCooldown = temps.encounterCooldown + 1 // no fighting if we add a story event
+		temps.encounterCooldown = temps.encounterCooldown + 2 // no fighting if we add a story event, 1 is subtractec immediately, so use 2
+		debugSay "Increased encounter cooldown to [+temps.encounterCooldown]"
 		now evt is a new event
 		evt.always = true
 		evt.eventProc = procName

@@ -1,6 +1,8 @@
 this is attic by scanix
 
 there is a place called attic
+	its intro is @[atticIntro]
+	its regions are {"anywhere", "house", "third floor"}
 
 there is an item called air gun
 
@@ -8,3 +10,7 @@ there is an item called cord
 	its description is "This is the cord or thread that you've found in the sewing room. It is about two meters long, you'd guess."
 
 there is an item called hook
+
+function atticIntro
+	do
+		addEncounter "anywhere", forgotten echo, 30

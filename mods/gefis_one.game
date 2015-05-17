@@ -4,12 +4,28 @@ It starts with the introduction mode
 
 
 /****************************************************
+ *   Resources
+ */
+add resource "/img/dir_down.png" as "down icon"
+add resource "/img/dir_up.png" as "up icon"
+add resource "/img/dir_north.png" as "north icon"
+add resource "/img/dir_south.png" as "south icon"
+add resource "/img/dir_west.png" as "west icon"
+add resource "/img/dir_east.png" as "east icon"
+add resource "/img/dir_northeast.png" as "northeast icon"
+add resource "/img/dir_southeast.png" as "southeast icon"
+add resource "/img/dir_southwest.png" as "southwest icon"
+add resource "/img/dir_northwest.png" as "northwest icon"
+add resource "/img/dir_none.png" as "none icon"
+add resource "/img/dir_look.png" as "look icon"
+
+
+/****************************************************
  *   Basics
  */
 Uses gefis one basics by ScaniX
 Uses containers by ScaniX
 Uses navigation by ScaniX
-Uses places by ScaniX
 Uses Main Mode by ScaniX
 Uses Introduction Mode by ScaniX
 Uses Inventorying by ScaniX
@@ -21,12 +37,31 @@ Uses Chapter Transitions by ScaniX
 
 
 /****************************************************
+ *   Places
+ */
+Use Kitchen by ScaniX
+Use Cellar by ScaniX
+Use Entry hall by ScaniX
+Use Alternative Entry hall by ScaniX
+Use Second floor by ScaniX
+Use kid's room by ScaniX
+Use west wing by scanix
+use east wing by scanix
+use bedroom by scanix
+use bathroom by scanix
+use attic by scanix
+use garden by scanix
+use living room by scanix
+
+
+/****************************************************
  *   Combat and Combatants
  */
 Uses Combat by ScaniX
 Uses player combatant by ScaniX
 Uses dark spark by ScaniX
 Uses reflection by ScaniX
+Uses nightmare by ScaniX
 Uses unarmed weapon by ScaniX
 Uses dagger weapon by ScaniX
 Uses light sword weapon by ScaniX

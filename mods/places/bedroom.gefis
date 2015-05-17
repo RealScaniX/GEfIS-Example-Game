@@ -5,6 +5,7 @@ there is a place called bedroom
 	its items are {bed, left nightstand, right nightstand}
 	its music is "Quinns Song-First Night.mp3"
 	its intro is @[bedroomIntro]
+	its regions are {"anywhere", "house", "second floor"}
 
 there is a container called left nightstand
 	its description is @"It's a small wooden table with some drawers and a lamp on top of it.[if this.open] You can see a magazine about cars, some advertisements for a finance

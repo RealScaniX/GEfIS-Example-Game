@@ -11,9 +11,12 @@ A Place
 		bool pacified is false
 
 before function mainPrompt
+	if player.location is cellar
+		temps.encounterCooldown = 0
+	debugSay "Encounter check, cooldown is [+temps.encounterCooldown]"
 	if temps.encounterCooldown > 0
 		temps.encounterCooldown = temps.encounterCooldown - 1
-	if !player.location.pacified and temps.encounterCooldown <= 0
+	else if !player.location.pacified
 		now max is 0
 		now nix is 0
 		for each enc in player.location.encounters

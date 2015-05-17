@@ -1,23 +1,32 @@
 this is garden by scanix
 
-there is a place called garden
+there is a gardenTile called garden
 	its intro is @[gardenIntro]
 	its exits are {"south": garden door}
 	its illumination is 15
 
 entity gardenTile is a place
 	its illumination is 15
+	its description is @[gardenTileDesc]
+	its regions are {"anywhere", "outside", "garden"}
 	attributes
 		text blocked		// tall tree or something that blocks you from going there
+		number x
+		number y
 
 function gardenIntro
 	do
-		say "You step out into the cool night and look around. "
+		say "You step out into the cool night and take a look around. "
 		addOneTimeEvent "gardenCreation"
+
+function gardenTileDesc
+	do
+		debugSay "Position [+this.x], [+this.y]"
 
 function gardenCreation
 	do
 		flush
+		sleep 1
 		// generate garden tiles
 		width = 7
 		height = 8
@@ -28,40 +37,45 @@ function gardenCreation
 			now row is a new map
 			if v is 1
 				say "This garden really looks bigger than expected. "
+				wait for 1 seconds
 			else if v is 2
-				say "In the sparse moonlight you can see some bushes and large trees. "
+				say "In the sparse moonlight you can see some bushes and large trees."
+				wait for 3 seconds
 			else if v is 5
-				say "The grass could use a shaving, that's for sure. "
+				say "The grass could use a shaving, that's for sure."
+				wait for 5 seconds
 			else if v is 7
 				say "If you lean a bit to the left, you can catch a glimpse of some wooden structure in the back. "
-			flush
+				flush
 			for h from 0 to width-1
-				now tile is a new gardenTile
+				if (h == entranceX) && (v == height-1)
+					now tile is garden
+				else
+					now tile is a new gardenTile called "[one of]somewhere green[or]a grassy area[or]in the garden[at random]"
+					tile.encounters = garden.encounters
 				// blocked
 				if (h % 2 == 0) && (v % 2 == 0) && chance of 20
 					tile.blocked = "[one of]dense bush[or]big tree[at random]"
+				tile.x = h
+				tile.y = v
 				row.(h) = tile
 			tiles.(v) = row
 		say "\n"
-		tiles.(height-1).(entranceX) = garden
-		say "Garden is at [+height-1], [+entranceX]."
+		//tiles.(height-1).(entranceX) = garden
+		//say "Garden is at [+height-1], [+entranceX]."
 		// Set exits
 		for v from 0 to height-1
 			for h from 0 to width-1
 				tile = tiles.(v).(h)
 				// add exits
 				if v > 0 && tiles.(v-1).(h).blocked is null
-					t = tiles.(v-1).(h)
-					add {"north": t} to tile.exits
+					tile.exits.north = tiles.(v-1).(h)
 				if v < height-1 && tiles.(v+1).(h).blocked is null
-					t = tiles.(v+1).(h)
-					add {"south": t} to tile.exits
+					tile.exits.south = tiles.(v+1).(h)
 				if h > 0 && tiles.(v).(h-1).blocked is null
-					t = tiles.(v).(h-1)
-					add {"west": t} to tile.exits
+					tile.exits.west = tiles.(v).(h-1)
 				if h < width-1 && tiles.(v).(h+1).blocked is null
-					t = tiles.(v).(h+1)
-					add {"east": t} to tile.exits
+					tile.exits.east = tiles.(v).(h+1)
 		globals.gardenTiles = tiles
 
 				

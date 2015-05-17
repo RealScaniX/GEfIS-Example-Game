@@ -1,0 +1,79 @@
+this is nightmare by scanix
+
+there is a combatant called nightmare
+	its constitution is 200
+	its strength is 40
+	its fightMusic is null		// start music manually later on
+	its attackProc is "nightmareAttack"
+	its woundProc is "nightmareWound"
+	its introProc is "nightmareIntro"
+
+function nightmareAttack
+	do
+		return 40
+
+function nightmareWound
+	do
+		this.hp = this.hp - dmg
+		if this.hp < this.constitution / 8
+			this.strength = 5
+		else if this.hp < this.constitution / 4
+			this.strength = 10
+		else if this.hp < this.constitution / 2
+			this.strength = 25
+		return this.hp < 1
+
+function nightmareIntro
+	do
+		say "As you enter the cellar again it doesn't look like before at all. "
+		flush
+		sleep 3
+		say "This doesn't mean that this room isn't familiar to you."
+		flush
+		sleep 3
+		say "The only light comes from a plain lightbulb that is hanging on a cable from the ceiling in the middle of the room, but it is more than enough to see everything."
+		say "The large room is pretty tidy, all the boxes with stuff, tools and machinery is neatly sorted into shelves on the left and right walls. The storage rack on the right 
+				is especial heavily loaded and seems a bit unstable."
+		say "On the back wall there is the workbench your father used to work at when he was still there."
+		wait
+		say "\n\"Get the ball!\", you hear your former self calling from the left."
+		say "Then that damn ball comes rolling at a high speed towards the shelve and crashes into it, bending one of the metal feet backwards. The boy who has once been 
+				you comes running after it, closely followed by a furry creature that somehow appears blurry to you."
+		say "With a loud sound the screws that held the rack on the wall at the top come shooting out of their holes.
+		say "Someone seems to have pushed the \"slowmo\" button on the remote, because everything is happening at a fraction of its normal speed now."
+		wait
+		say "\nYou see your other you turning towards you and shiver at the evil grin on his face. Then the shelve falls over, the top hits the light bulb and smashes it to pieces. 
+				For some reason it does not get any darker and you still have to watch everything for a second time."
+		say "After some of the heavy tools fall out and hit them to the ground, the metal structure comes crashing down on the two unfortunate friends and you hear a terrible 
+				whining sound from the creature."
+		wait
+		say "You were lucky on that day that the real heavy stuff was lying on the other half of the rack. The buzz saw wasn't turned on and there wasn't even 
+				a saw blade in it. But as you lay there on your stomach and the heavy machine hit your left arm, it didn't really matter."
+		say "You are unconsciously holding your scar as you hear your bone break again and see a part of it penetrating the skin."
+		say "Loud whining and heavy panting with a rattling sound in it fills the room. Your own shadow doesn't make a sound, but slowly turns his head and gazes evilly through 
+				the twisted shelves at you."
+		wait
+		say "\nTears start to fill your eyes and run down your cheeks. You know that this will go on for hours. There will be no light, only frightening sounds."
+		say "You will try to reach out, but you cannot get close enough. You will try to get out from under there, but you are not strong enough."
+		say "Lying there in the dark, crying and hurting all over, you will shout for help, but no one will come."
+		wait
+		say "Until finally the whining will stop. So will the panting and the breathing altogether."
+		wait for 6 seconds
+		say "\"Enough!\", you shout between sobs, \"It was an accident! I'm sorry!\"\n"
+		wait for 2 seconds
+		say "\"So very sorry...\""
+		wait
+		say "\nSuddenly your other body fades away and the shelves are pushed upwards."
+		wait for 2 seconds
+		say "A large paw with claws then takes a hold of the rack and throws it backwards with ease where it crashes into the workbench."
+		wait for 20 seconds
+		// start music here
+		globals.fightMusic = "Motherlode.mp3"
+		playMusic globals.fightMusic, 80
+		say "\nYou are confronted with a tall furry creature, that is standing on its hind paws like a bear. Long, sharp claws are protuding from all of its paws and drool is 
+				dripping from the teeth which are no less sharp, but somehow twisted."
+		say "The head is smashed and one of its eyes is missing while blood is seeping out of the open cracks. A metal bar is sticking in its chest, piercing the lungs."
+		say "The long tongue licks over the pointy teeth before it goes into an attacking pose and starts the fight with a "
+		scare 10, "threatening growl"
+		say ".\n"
+		wait for 20 seconds

@@ -11,20 +11,22 @@ Entity Combat is an Entity
 
 Entity Combatant is a thing
 	attributes
-		number constitution						// either darkness or nothing (as the player health is processed differently)
-		number hp									// current health, is set to health at the beginning of the fight
-		number strength							// either light or darkness
-		text attackProc							// called to attack, the return value is damage done
-		text woundProc								// called to receive damage, if this returns true the combatant is defeated and the fight is over
-														// the damage to process will be stored in the variable "dmg"
-		text introProc								// called when the fight starts
-		list dropTable								// list of items that the enemy will drop after being defeated in the form {Entity item, number probability}
-		bool defends								// if true, the combatant tries to block an attack, reducing the damage
-		number level								// the level of the enemy (1-10), for a player the glow is used
-		number encounterCounter					// the number of encounters we had with this
-		bool droppedItem							// if true, this enemy already dropped the loot
-		number specialAttackPrepare is 0		// preparing a special attack
-		number specialAttackCooldown is 0	// cooldown for special attack, automatically managed in combat, enemy only has to check if > 0 to not allow special attack
+		number constitution									// either darkness or nothing (as the player health is processed differently)
+		number hp												// current health, is set to health at the beginning of the fight
+		number strength										// either light or darkness
+		text attackProc										// called to attack, the return value is damage done
+		text woundProc											// called to receive damage, if this returns true the combatant is defeated and the fight is over
+																	//		the damage to process will be stored in the variable "dmg"
+		text introProc											// called when the fight starts
+		list dropTable											// list of items that the enemy will drop after being defeated in the form {Entity item, number probability}
+		bool defends											// if true, the combatant tries to block an attack, reducing the damage
+		number level											// the level of the enemy (1-10), for a player the glow is used
+		number encounterCounter								// the number of encounters we had with this
+		bool droppedItem										// if true, this enemy already dropped the loot
+		number specialAttackPrepare is 0					// preparing a special attack
+		number specialAttackCooldown is 0				// cooldown for special attack, automatically managed in combat, 
+																	//		enemy only has to check if > 0 to not allow special attack
+		text fightMusic is "Exciting Trailer.mp3"		// track to play during fight
 
 entity Weapon is a Equippable
 	its useProc is "equipItem"
@@ -84,6 +86,8 @@ mode Fight
 		smell
 		taste
 		listen
+		flee
+		inventorying
 	before action do
 		currentFight.playersTurn = true
 		currentFight.player.defends = false
@@ -99,8 +103,8 @@ mode Fight
 			else
 				end mode
 	on start do
-		globals.fightMusic = "Exciting Trailer.mp3"
-		playMusic globals.fightMusic, 100
+		globals.fightMusic = currentFight.enemy.fightMusic
+		playMusic globals.fightMusic, 80
 		playAmbience null, 100
 		currentFight.finished = false
 		/************************************

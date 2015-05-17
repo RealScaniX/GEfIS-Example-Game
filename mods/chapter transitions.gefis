@@ -41,9 +41,15 @@ function chapterAdvance
 			switch to main mode
 		else if 1 is globals.chapter
 			// transform places
+			cellar.illumination = 30
 			cellar door.description = @[cellardoordesc]
+			cellar door.open = false
 			cellar door.locked = true
 			cellar door.key = null
+			cellar door.destination = alternative entry hall
+			cellar.music = null
+			cellar.events = {}
+			addEncounter "cellar", nightmare, 100
 			kitchen door.destination = alternative entry hall
 			kitchen.ambience = "27077__daveincamas__clockticks_noecho.ogg"
 			ticking sound.soundDesc = "The loud ticking of the grandfather clock tells you that you are still in the entry hall. Well, ... at least <b>an</b> entry hall."

@@ -17,9 +17,9 @@ function darkSparkAttack
 	do
 		if this.specialAttackPrepare > 0
 			this.specialAttackPrepare = 0
-			say "The dark spark's particles only to gather around you and enclose you in a "
-			scare 0, "sudden darkness"
-			say ".\n"
+			say "The dark spark's particles scatter only to gather around you again and enclose you in an "
+			scare 0, "impenetrable darkness"
+			say " for a second.\n"
 			return (random number between 0.9 and 1.1) * this.strength * 2
 		else if this.specialAttackCooldown == 0 && chance of 40
 			this.specialAttackPrepare = 1
@@ -53,4 +53,5 @@ function darkSparkWound
 			else
 				say "Just as your opponent slips away, you manage to spot a purple something in the dark cloud."
 		return this.hp < 1
+
 
