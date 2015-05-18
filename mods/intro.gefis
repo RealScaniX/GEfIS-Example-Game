@@ -102,7 +102,7 @@ action help
 		say "[image \"/img/mode_timedanykey.png\"] - The game will continue shortly, but you can press a key to continue <b>now</b> if you are an impatient fellow."
 		say "[image \"/img/mode_sleep.png\"] - You aren't supposed to do anything, just read the text or look at the picture and wait for more."
 		say "[image \"/img/mode_input.png\"] - The game has asked you something, please enter the answer."
-		say "[image \"/img/mode_number.png\"] - The game has given you numeric options. Just hit on a number to continue."
+		say "[image \"/img/mode_number.png\"] - The game has given you numeric options. Just hit a number key to continue."
 		say "[image \"/img/mode_timeout.png\"] - You have limited time to answer this. So be quick about it. Who knows what will happen if you miss your chance?"
 		say "[image \"/img/mode_yesno.png\"] - It is a simple question: Yes or no? Just hit Y or N on the keyboard."
 		say "\n"
