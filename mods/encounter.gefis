@@ -16,6 +16,8 @@ before function mainPrompt
 	debugSay "Encounter check, cooldown is [+temps.encounterCooldown]"
 	if temps.encounterCooldown > 0
 		temps.encounterCooldown = temps.encounterCooldown - 1
+	else if user.action is "lookat"
+		// no encounter when looking around
 	else if !player.location.pacified
 		now max is 0
 		now nix is 0
@@ -40,7 +42,8 @@ function addEncounter
 		if enmy is not a combatant
 			say "Error: The [+enmy.name] is not a combatant."
 			return
-		say "You cannot shake off the feeling that your presence has has just awakened something."
+		if enmy is not nightmare
+			say "You cannot shake off the feeling that your presence has has just awakened something."
 		now enc is a new encounter called (enmy.name + " encounter")
 		enc.probability = prob
 		enc.enemy = enmy

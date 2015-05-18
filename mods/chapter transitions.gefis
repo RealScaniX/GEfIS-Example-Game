@@ -88,7 +88,7 @@ function saychapter
 		say "<div style=\"text-align:center;\">"
 		say "<span style=\"font-size:38px;letter-spacing:2px;\">[if chap > 0]Chapter [+chap][else if chap == 4]Epilogue[else]Prologue[end]</span>\n"
 		say "<span style=\"font-size:24px;letter-spacing:4px;font-style:italic;\">[+chapternames.(chap)]</span>\n"
-		say "<image \"chapter.png\">\n"
+		say "<image chapter.png>\n"
 		say "</div>"
 		say "\n\n"
 		flush

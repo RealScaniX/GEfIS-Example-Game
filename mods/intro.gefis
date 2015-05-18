@@ -6,18 +6,20 @@ mode Introduction
 	allowed actions
 		help
 		startgame
+		about
    on start do
 		cls
-		say "[image one.png]\n"
+		say "<center>[image one.png]</center>\n"
 		say "Hello and welcome to Gefis One!\n"
-		say "This is supposed to show some of the features of GEfIS.\n"
-		say "This game is played in a similar way as a text adventure, although you will be able to do most of the things by just clicking on the links.\n 
-				You can type \"[link help]help[/link]\" at any time if you need some help with the available commands."
+		say "This game is played in a very similar fashion to a text adventure. Although you will be able to do most of the things by just clicking 
+				on the links, you can still type in all of the commands manually."
    after action do
-      say "\nYou are currently in the introduction mode, you can check out the links on top or do one of the following:"
-      say "[link start game]start the game[/link] "
-      say "[link load game]load a save game[/link] "
-      say "[link restart]restart[/link] "
+      say "\nYou are currently in the main menu. You can do one of the following:"
+      say "[link help]help[/link] - Shows helpful information about how to play this game."
+      say "[link about]about[/link] - Shows some info about this game."
+      say "[link start game]start the game[/link] - Starts the game from the beginning."
+      say "[link load game]load a save game[/link] - Return to the game where you saved it."
+      say "[link restart]restart[/link] - Restart this session. This makes more sense from within the game as you are already pretty much at the beginning."
       say "\n"
 
 function introstatus
@@ -25,15 +27,87 @@ function introstatus
 		if globals.gameStarted
 			return "<h3>Thank you for taking the time to play this!</h3> ^-^"
 		append "<b>GEfIS One</b>\n"
-		append "You can view this page in [link \"/?dev=true&game=gefis+one&restart=true\"]developer mode[/link] and check out 
+
+action about
+	do
+		story log off
+		say "This game has started as a simple showcase of the features of GEfIS, but has since grown to a complete little game project in itself. I am working 
+					on this more now than on the engine which is complete enough to support this game.\n"
+		say "\nYou can view this page in [link \"/?dev=true&game=gefis+one&restart=true\"]developer mode[/link] and check out 
 					all the scripts and files that are the input for this game.\n"
-		append "There also is the [link \"/help\"]documentation[/link] that might help to clear things up. If you think you found a bug, 
-					you can use [link \"http://bugs.scanix.de\"]Mantis[/link], the bug tracking system. To talk about the game, you can use 
-					the [link \"http://forum.scanix.de\"]forum[/link].\n"
-		append "And finally there is the <link \"https://github.com/RealScaniX/GEfIS-Example-Game\">GitHub</link> of this game for those 
+		say "There also is the [link \"/help\"]documentation[/link] that might help to clear things up. If you think you found a bug, 
+					you can use [link \"http://bugs.scanix.de\"]Mantis[/link], the bug tracking system.\n
+					To talk about the game, you can visit the [link \"http://forum.scanix.de\"]forum[/link].\n"
+		say "And finally there is the <link \"https://github.com/RealScaniX/GEfIS-Example-Game\">GitHub</link> of this game for those 
 					of you who want to check out and play around with the sources.\n"
-		append "\nPlease note that this is still in development. Here is a current estimation of the progress:\n
-					<htmlbar \"Engine\" 70/100>&nbsp;<htmlbar \"Game\" 30/100>&nbsp;<htmlbar \"Dox\" 5/100><br/>"
+		say "\n<div style=\"background:#B0B0D0;foreground:white;padding:8px;\">Please note that this is still in development. Here is a current estimation of the progress:<br/>
+					&nbsp;<br/>
+					<htmlbar \"Engine\" 75/100><br/>
+					<htmlbar \"Game\" 65/100><br/>
+					<htmlbar \"Dox\" 10/100><br/></div>"
+		story log on
+
+action help
+	do
+		story log off
+		say "To accomplish things in this game, you can use simple sentences like in the old adventure games.\nDon't try some complex stuff though or the game wouldn't understand you
+				and answer with something lame and dissappointing.\n"
+		say "\n<div style=\"background-color:rgba(120, 120, 120, 0.2);\">"
+		say "<b>\></b> <i>Grab that bloody door unlocking device from behind that fricking cell bars</i>\n"
+		say "Sorry, but I couldn't understand you.\n"
+		say "</div>"
+		say "\nBut if you keep the sentence short and precise, your actions will have a higher chance of success."
+		say "\n<div style=\"background-color:rgba(120, 120, 120, 0.2);\">"
+		say "<b>\></b> <i>take red key</i>\n"
+		say "You cannot get the stupid key, because the accursed cell bars are in the way!\n"
+		say "</div>"
+		say "\nYeah, well... I bet you get the point anyway."
+		say "\n"
+		wait
+		if user.canceled
+			return
+		say "<hr/>\n"
+		say "Here is a list of the most common actions that can be performed in the game:"
+		say "look at <i>something</i>,   "
+		say "unlock <i>something</i> with <i>some key</i>,   "
+		say "smell <i>something</i>,   "
+		say "taste <i>something</i>,   "
+		say "close <i>something</i>,   "
+		say "open <i>something</i>,   "
+		say "take <i>something</i>,   "
+		say "drop <i>something</i>,   "
+		say "put <i>something</i> into <i>somewhere</i>,   "
+		say "go <i>somewhere</i>,   "
+		say "wait\n"
+		say "\n"
+		wait
+		if user.canceled
+			return
+		say "<hr/>\n"
+		say "To save your progress before heading into danger, you can use a <link quicksave>quicksave</link> and then a <link quickload>quickload</link> after everything went 
+				wrong. Note that this save game is lost when you leave the game session.\n"
+		say "To have a longer lasting save, use the <link save game>save game</link> command. You can load the game again by using <link load game>load game</link>. Note that all 
+				those actions can be performed by clicking on the corresponding icon in the config popup on the upper left."
+		say "You can check out the [link \"/dox/?/Credits\"]credits[/link] to see the artists that (willingly or not) took part in the creation of this game."
+		say "\n"
+		wait
+		if user.canceled
+			return
+		say "<hr/>\n"
+		say "The prompt at the bottom is sometimes showing you additional information about what is expected of you in form of a placeholder text in the field and with the help of
+				following icons:"
+		say "[image \"/img/mode_action.png\"] - This is the normal mode. You should enter something to perform an action in the game."
+		say "[image \"/img/mode_anykey.png\"] - The game waits for you to press any key to go on. Take your time to read the text and than hit space or whatever key deserves a hit
+				(and no: This doesn't really include <b>ANY</b> key...). Sometimes you can press ESC to skip the scene like during the stops in this help text."
+		say "[image \"/img/mode_timedanykey.png\"] - The game will continue shortly, but you can press a key to continue <b>now</b> if you are an impatient fellow."
+		say "[image \"/img/mode_sleep.png\"] - You aren't supposed to do anything, just read the text or look at the picture and wait for more."
+		say "[image \"/img/mode_input.png\"] - The game has asked you something, please enter the answer."
+		say "[image \"/img/mode_number.png\"] - The game has given you numeric options. Just hit on a number to continue."
+		say "[image \"/img/mode_timeout.png\"] - You have limited time to answer this. So be quick about it. Who knows what will happen if you miss your chance?"
+		say "[image \"/img/mode_yesno.png\"] - It is a simple question: Yes or no? Just hit Y or N on the keyboard."
+		say "\n"
+		wait
+		story log on
 
 function introtalk
 	do

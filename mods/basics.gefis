@@ -206,7 +206,7 @@ action unlockwithkey
 			say "You cannot open anything using [a|an][+k.name]."
 			return
 		if not (player.inventory has k)
-			say "[one of]Wishful thinking will not let that key materialzie in your hand. Or will it?[or]Sticking your hand into your pocket you regretfully realize that you don't have this key.[at random]"
+			say "[one of]Wishful thinking will not let that key materialize in your hand. Or will it?[or]Sticking your hand into your pocket you regretfully realize that you don't have this key.[at random]"
 			return
 		if d is a doorPassage or d is a container
 			if not d.locked
@@ -253,46 +253,6 @@ action use
 			invoke function t.useProc on t
 		else
 			say "[one of]You don't know how to use this[or]This is totally useless[or]Maybe this is like art: Looking at it is all it is good for[at random]."
-
-action help
-	do
-		story log off
-		say "<h3>Help</h3>\n"
-		say "To accomplish things in this game, you can use simple sentences like in the old adventure games.\nDon't try some complex stuff though or the game wouldn't understand you
-				and answer with something lame and dissappointing.\n"
-		say "\n<div style=\"background-color:rgba(120, 120, 120, 0.2);\">"
-		say "<b>\></b> <i>Grab that bloody door unlocking device from behind that fricking cell bars</i>\n"
-		say "Sorry, but I couldn't understand you.\n"
-		say "</div>"
-		say "\nBut if you keep the sentence short and precise, your actions will have a higher chance of success."
-		say "\n<div style=\"background-color:rgba(120, 120, 120, 0.2);\">"
-		say "<b>\></b> <i>take red key</i>\n"
-		say "You cannot get the stupid key, because the accursed cell bars are in the way!\n"
-		say "</div>"
-		say "\nYeah, well... I bet you get the point anyway."
-		wait
-		say "\n<hr/>\n"
-		say "Here is a list of actions that can be performed in the game:"
-		say "look at <i>something</i>\n"
-		say "unlock <i>something</i> with <i>some key</i>\n"
-		say "smell <i>something</i>\n"
-		say "taste <i>something</i>\n"
-		say "close <i>something</i>\n"
-		say "open <i>something</i>\n"
-		say "take <i>something</i>\n"
-		say "drop <i>something</i>\n"
-		say "put <i>something</i> into <i>somewhere</i>\n"
-		say "go <i>somewhere</i>\n"
-		say "wait\n"
-		wait
-		say "\n<hr/>\n"
-		say "To save your progress before heading into danger, you can use a <link quicksave>quicksave</link> and then a <link quickload>quickload</link> after everything went 
-				wrong. Note that this save game is lost when you leave the game session.\n"
-		say "To have a longer lasting save, use the <link save game>save game</link> command. You can load the game again by using <link load game>load game</link>. Note that all 
-				those actions can be performed by clicking on the corresponding icon in the config popup on the upper left."
-		say "You can check out the [link \"/dox/?/Credits\"]credits[/link] to see the artists that (willingly or not) took part in the creation of this game."
-		wait
-		story log on
 
 understand
 	"look" as "look around"
