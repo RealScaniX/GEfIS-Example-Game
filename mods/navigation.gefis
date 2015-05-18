@@ -80,6 +80,8 @@ action unlock
 			say "You have these keys: "
 			now i is 0
 			for each invitm in invitems
+				if invitm is not a key
+					continue
 				say "[if i > 0], [end][actionLink invitm]"
 				i = i + 1
 			say "\n"

@@ -31,12 +31,13 @@ function introstatus
 action about
 	do
 		story log off
-		say "This game has started as a simple showcase of the features of GEfIS, but has since grown to a complete little game project in itself. I am working 
-					on this more now than on the engine which is complete enough to support this game.\n"
+		say "\"GEfIS One\" is a dark mystery adventure game."
+		say "This game has started as a simple showcase of the features of GEfIS, but has since grown into a complete little game project in itself. At the moment I am working 
+					on this more than on the engine which by now is complete enough to fully support this game.\n"
 		say "\nYou can view this page in [link \"/?dev=true&game=gefis+one&restart=true\"]developer mode[/link] and check out 
 					all the scripts and files that are the input for this game.\n"
-		say "There also is the [link \"/help\"]documentation[/link] that might help to clear things up. If you think you found a bug, 
-					you can use [link \"http://bugs.scanix.de\"]Mantis[/link], the bug tracking system.\n
+		say "There also is the [link \"/help\"]documentation[/link] that might help to clear things up a bit (at least in the future when it is more than just a list of empty pages).\n
+					If you think you found a bug, you can use [link \"http://bugs.scanix.de\"]Mantis[/link], the bug tracking system.\n
 					To talk about the game, you can visit the [link \"http://forum.scanix.de\"]forum[/link].\n"
 		say "And finally there is the <link \"https://github.com/RealScaniX/GEfIS-Example-Game\">GitHub</link> of this game for those 
 					of you who want to check out and play around with the sources.\n"
