@@ -2,6 +2,7 @@ This is gefis one basics by ScaniX
 
 There is a ValueSponge called Globals
 	its chapter is -1
+	its directions are {"north", "west", "east", "south", "northeast", "northwest", "southeast", "southwest", "up", "down"}
 
 There is a ValueSponge called temps
 	it is static
