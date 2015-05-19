@@ -215,7 +215,10 @@ action navigate
 				else if exit is a passage
 					followpassage exit
 				return
-		say "You don't know such a place nor a path leading to it."
+		if globals.directions has destination.name
+			say "You cannot go in that direction."
+		else
+			say "You don't know such a place nor a path leading to it."
 
 function followpassage
 	understand
