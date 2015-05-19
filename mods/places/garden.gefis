@@ -9,9 +9,9 @@ after function mainprompt
 	if player.location is a gardenTile
 		if globals.gardenMapping and [playerOwns garden map]
 			if temps.gardenMapShowing
-				say "You hold the [link lower garden map]garden map[/link] up to find your way."
+				say "You hold the [link look at $|lower $]garden map[/link] up to find your way."
 			else
-				say "You have the [link look at $]garden map[/link] ready to note your discoveries."
+				say "You have the [link look at $|raise $]garden map[/link] ready to note your discoveries."
 	else if temps.gardenMapShowing
 		temps.gardenMapShowing = false
 		hide overlay "ne"
@@ -30,6 +30,19 @@ action lowermap
 			say "You lower the map and concentrate on your surroundings."
 		else
 			say "You aren't holding that up at the moment."
+
+action raisemap
+	understand
+		raise garden map
+		raise map
+		hold garden map up
+		hold map up
+	do
+		if not temps.gardenMapShowing
+			say "You raise the map to find your path."
+			displayGardenMap
+		else
+			say "You are already the map up to your face."
 
 when play resumes
 	do "encounters off"
@@ -64,15 +77,13 @@ function gardenTileIntro
 		say this.description
 		gardenMapping
 		if temps.gardenMapShowing
-			gardenMapDesc
-		//temps.gardenMapShowing = false
-		//hide overlay "ne"
+			displayGardenMap
 
 function gardenMapping
 	do
 		now x is player.location.x
 		now y is player.location.y
-		if not globals.gardenMapping and chance of 20
+		if not globals.gardenMapping and chance of 66
 			if [playerOwns pen] and [playerOwns sketch pad]
 				say "Flipping over a page on the sketch pad, you start to draw a map of the garden on a sheet of paper."
 				globals.gardenMapping = true
@@ -103,6 +114,7 @@ function gardenMapping
 
 there is an item called garden map
 	its name is "map"
+	its actions are {"look at", "rise", "lower"}
 	its description is @[gardenMapDesc]
 
 there is an item called sketch pad
@@ -111,11 +123,21 @@ there is an item called pen
 
 function gardenMapDesc
 	do
+		append "You look at your map to check the progress.\n"
+		now mappedPortion is 0
+		for y from 0 to globals.gardenHeight-1
+			for x from 0 to globals.gardenWidth-1
+				tile = globals.gardenTiles.(y).(x)
+				if tile.mapped
+					mappedPortion = mappedPortion + 1
+		append "You guess that you have mapped about [+rounded value of (mappedPortion * 100.0 / (globals.gardenWidth*globals.gardenHeight) + (random number between 0 and 5))]% 
+				of the whole garden. Plus minus five percent."
+
+function displayGardenMap
+	do
 		now color is "#2010A0"
 		now bgcolor is "#FEFAEF"
 		now mapstr is ""
-		if user.action is "lookat"
-			append "Your raise your map to check the progress.\n"
 		mapstr = mapstr + "<div style=\"position:relative;display:inline-block;width:auto;background:[+bgcolor];color:[+color];border:1px solid rgba(100, 100, 100, 0.5);
 					margin:10px;padding:20px;
 					box-shadow: 0 3px 6px 0px rgba(0, 0, 0, 0.75);
@@ -124,14 +146,12 @@ function gardenMapDesc
 		mapstr = mapstr + "<div style=\"position:absolute;left:[+35 + player.location.x * 30]px;top:[+41 + player.location.y * 30]px;overflow:visible;\">
 						[image pen.png]
 				  </div>"
-		now mappedPortion is 0
 		for y from 0 to globals.gardenHeight-1
 			for x from 0 to globals.gardenWidth-1
 				tile = globals.gardenTiles.(y).(x)
 				style = ""
 				content = ""
 				if tile.mapped
-					mappedPortion = mappedPortion + 1
 					if x == 0
 						style = style + "border-left-color:[+color];"
 					if x == globals.gardenWidth-1
@@ -152,9 +172,6 @@ function gardenMapDesc
 		else
 			show mapstr in overlay "ne" with style "frameless"
 			temps.gardenMapShowing = true
-		if user.action is "lookat"
-			append "You guess that you have mapped about [+rounded value of (mappedPortion * 100.0 / (globals.gardenWidth*globals.gardenHeight) + (random number between 0 and 5))]% 
-					of the whole garden. Plus minus five percent."
 
 function gardenTileDesc
 	do
@@ -250,6 +267,16 @@ function gardenCreation
 						tile.exits.northeast = tile.exits.east.exits.north
 					if tile.exits.east.exits has "south"
 						tile.exits.southeast = tile.exits.east.exits.south
+				if tile.exits has "south" and tile.exits.south is a place // entrance
+					if tile.exits.south.exits has "west"
+						tile.exits.southwest = tile.exits.south.exits.west
+					if tile.exits.south.exits has "east"
+						tile.exits.southeast = tile.exits.south.exits.east
+				if tile.exits has "north"
+					if tile.exits.north.exits has "west"
+						tile.exits.northwest = tile.exits.north.exits.west
+					if tile.exits.north.exits has "east"
+						tile.exits.northeast = tile.exits.north.exits.east
 		globals.gardenTiles = tiles
 
 				
