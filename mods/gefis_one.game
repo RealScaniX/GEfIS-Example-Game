@@ -4,6 +4,23 @@ It starts with the introduction mode
 
 
 /****************************************************
+ *   Basics
+ */
+Uses gefis one basics by ScaniX
+uses debug by scanix
+Uses containers by ScaniX
+Uses navigation by ScaniX
+Uses Main Mode by ScaniX
+Uses Introduction Mode by ScaniX
+Uses Inventorying by ScaniX
+Uses Illumination by ScaniX
+Uses Carryables by ScaniX
+Uses Events by ScaniX
+Uses Encounter by ScaniX
+Uses Chapter Transitions by ScaniX
+
+
+/****************************************************
  *   Resources
  */
 add resource "/img/dir_down.png" as "down icon"
@@ -18,22 +35,6 @@ add resource "/img/dir_southwest.png" as "southwest icon"
 add resource "/img/dir_northwest.png" as "northwest icon"
 add resource "/img/dir_none.png" as "none icon"
 add resource "/img/dir_look.png" as "look icon"
-
-
-/****************************************************
- *   Basics
- */
-Uses gefis one basics by ScaniX
-Uses containers by ScaniX
-Uses navigation by ScaniX
-Uses Main Mode by ScaniX
-Uses Introduction Mode by ScaniX
-Uses Inventorying by ScaniX
-Uses Illumination by ScaniX
-Uses Carryables by ScaniX
-Uses Events by ScaniX
-Uses Encounter by ScaniX
-Uses Chapter Transitions by ScaniX
 
 
 /****************************************************

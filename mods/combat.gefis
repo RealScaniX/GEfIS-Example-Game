@@ -158,6 +158,8 @@ function startFight
 	understand
 		startFight [enmy]
 	do
+		rememberAmbiencePos
+		rememberMusicPos
 		if not (enmy is a combatant)
 			return
 		now currentFight.enemy is enmy

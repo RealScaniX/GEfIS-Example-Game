@@ -29,7 +29,10 @@ function mainprompt
 			say "\n"
 		// exits
 		if player.location.exits.# > 0
-			say "Those appear to be the exits: "
+			if player.location is a gardenTile
+				say "You can head into these directions: "
+			else
+				say "Those appear to be the exits: "
 			now i is 0
 			for each exit <= exname in player.location.exits
 				if i > 0

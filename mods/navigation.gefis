@@ -243,14 +243,16 @@ function goToPlace
 			return
 		now player.location is destination
 		if not player.location.known
-			now player.location.known is true
+			now player.location.known is true // do this before saying intro, because some intros reset this to false again
 			say player.location.intro
 		updateaudio
 
 function updateaudio
 	do
 		playambience player.location.ambience, player.location.ambienceVolume
+		restoreAmbiencePos
 		playmusic player.location.music, player.location.musicVolume
+		restoreMusicPos
 
 action lookaround
 	understand

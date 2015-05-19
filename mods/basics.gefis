@@ -257,6 +257,28 @@ action use
 understand
 	"look" as "look around"
 
+function rememberMusicPos
+	do
+		remember position of audio channel "music"
+		now globals.restoreMusicPos is true
+
+function restoreMusicPos
+	do
+		if globals.restoreMusicPos
+			restore position on audio channel "music"
+		now globals.restoreMusicPos is false
+
+function rememberAmbiencePos
+	do
+		remember position of audio channel "ambience"
+		now globals.restoreAmbiencePos is true
+
+function restoreAmbiencePos
+	do
+		if globals.restoreAmbiencePos
+			restore position on audio channel "ambience"
+		now globals.restoreAmbiencePos is false
+
 function playmusic
 	understand
 		playmusic [track], [vol]

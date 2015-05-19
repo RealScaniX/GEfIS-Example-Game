@@ -1,0 +1,12 @@
+this is debug by scanix
+
+action encounterswitch
+	understand
+		encounters [opt]
+	do
+		if opt is "on"
+			temps.encounterCooldown = 5
+			say "Encounters are turned on."
+		else
+			temps.encounterCooldown = 100000
+			say "Encounters are turned off."
