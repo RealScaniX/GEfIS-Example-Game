@@ -96,7 +96,7 @@ function gardenMapping
 				say "The garden is big enough to make you believe that you should probably draw a map to not get lost in it."
 			globals.gardenMapMentioned = true
 		if globals.gardenMapping
-			if [playerOwns garden map]
+			if [playerOwns garden map] and [playerOwns pen]
 				if not globals.gardenTiles.(y).(x).mapped
 					globals.gardenTiles.(y).(x).mapped = true
 					for h from -1 to 1
@@ -107,10 +107,13 @@ function gardenMapping
 								if not globals.gardenTiles.(y+v).(x+h).mapped and globals.gardenTiles.(y+v).(x+h).blocked is not null
 									globals.gardenTiles.(y+v).(x+h).mapped = true
 					say "You [one of]mark this place[or]check your surroundings and note them[at random] on your map."
-			else if not globals.missingMap
-				globals.missingMap = true
-				say "You want to mark this place on your map, but then you remember that you got rid of it."
-				say "It is probably a lot more adventurous without it."
+			else if not temps.missingMap
+				temps.missingMap = true
+				if not [playerOwns pen]
+					say "You want to write down this place on your map, but when you grab for your pen, you remember that you don't have it anymore."
+				else 
+					say "You want to mark this place on your map, but then you remember that you got rid of that piece of paper."
+					say "It is probably a lot more adventurous without it."
 
 there is an item called garden map
 	its name is "map"
@@ -120,6 +123,7 @@ there is an item called garden map
 there is an item called sketch pad
 
 there is an item called pen
+	its description is "It is a green ball pen. At least the plastic shell is green.\nTesting it on your palm, you see that the ink has the standard dark blue color."
 
 function gardenMapDesc
 	do

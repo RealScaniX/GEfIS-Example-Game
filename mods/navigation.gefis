@@ -253,7 +253,7 @@ function goToPlace
 function updateaudio
 	do
 		playambience player.location.ambience, player.location.ambienceVolume
-		restoreAmbiencePos
+		//restoreAmbiencePos
 		playmusic player.location.music, player.location.musicVolume
 		restoreMusicPos
 

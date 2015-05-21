@@ -14,6 +14,7 @@ Entity Combatant is a thing
 		number constitution									// either darkness or nothing (as the player health is processed differently)
 		number hp												// current health, is set to health at the beginning of the fight
 		number strength										// either light or darkness
+		weapon weapon											// the current weapon (only for player)
 		text attackProc										// called to attack, the return value is damage done
 		text woundProc											// called to receive damage, if this returns true the combatant is defeated and the fight is over
 																	//		the damage to process will be stored in the variable "dmg"
@@ -89,11 +90,13 @@ mode Fight
 		flee
 		inventorying
 	before action do
+		story log off
 		currentFight.playersTurn = true
 		currentFight.player.defends = false
 		currentFight.enemy.defends = false
    after action do
 		if currentFight.finished
+			story log on
 			end mode
 		else
 			if !currentFight.playersTurn
@@ -101,6 +104,7 @@ mode Fight
 			if !currentFight.finished
 				fightPrompt
 			else
+				story log on
 				end mode
 	on start do
 		globals.fightMusic = currentFight.enemy.fightMusic
@@ -124,6 +128,7 @@ mode Fight
 			if itm is a weapon and itm.equipped
 				wpn = itm
 				break
+		currentFight.player.weapon = wpn
 		currentFight.player.strength = currentFight.player.strength + wpn.strength
 		/************************************
 				enemy has the first attack?
@@ -134,6 +139,7 @@ mode Fight
 				invoke function currentFight.enemy.introProc on currentFight.enemy
 		else
 			say "A [+currentFight.enemy.name] is attacking you."
+		story log off
 		currentFight.enemy.encounterCounter = currentFight.enemy.encounterCounter + 1
 		now currentFight.playersTurn is !currentFight.enemyStarts
 		fightPrompt
@@ -147,7 +153,7 @@ function fightStatusInfo
 						<htmlbar \"Enemy\" [+currentFight.enemy.hp]/[+currentFight.enemy.constitution]><br/>
 						<htmlbar \"Fear\" [+player.fear]/100>
 					</div>Your opponent: [+currentFight.enemy.name]\n
-							Your strength: [+currentFight.player.strength]"
+							Your weapon: [+currentFight.player.weapon.name] ([+currentFight.player.strength])"
 
 function fightPrompt
 	do
@@ -158,7 +164,7 @@ function startFight
 	understand
 		startFight [enmy]
 	do
-		rememberAmbiencePos
+		//rememberAmbiencePos
 		rememberMusicPos
 		if not (enmy is a combatant)
 			return
