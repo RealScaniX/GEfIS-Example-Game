@@ -45,15 +45,15 @@ function poisonIvyWound
 		if !this.droppedItem and this.hp < 1
 			say "The density of particles of the dark spark seems to have decreased below a value that is necessary for the mass attraction that keeps it together. Soon more and 
 					more of the small antilights fly away from the cloud until they are all gone."
-			if this.encounterCounter > 4 && chance of 30
-				say "A purple key drops from within the darkness and falls to the floor."
+			if this.encounterCounter > 2 && chance of 70
+				say "A green key drops from within the darkness and falls to the floor."
 				play "clong.ogg" on audio channel "sound" with volume 100
-				add purple key to player.location.items
+				add green key to player.location.items
 				this.droppedItem = true
 			else if this.encounterCounter > 1
-				say "You try to grab the purple item or get a better look at it, but you cannot reach it."
+				say "You try to grab the green item or get a better look at it, but you cannot reach it."
 			else
-				say "Just as your opponent slips away, you manage to spot a purple something in the dark cloud."
+				say "Just as your opponent slips away, you manage to spot a metallic green something in the vines."
 		return this.hp < 1
 
 
