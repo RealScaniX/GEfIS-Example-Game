@@ -76,12 +76,15 @@ action unlock
 		//	say "The [+d.name] isn't even locked."
 		say "What will you use to unlock it with?"
 		now invitems is [inventoryList]
-		if invitems.# > 0
+		now keylist is a new list
+		for each invitm in invitems
+			if invitm is not a key
+				continue
+			add invitm to keylist
+		if keylist.# > 0
 			say "You have these keys: "
 			now i is 0
-			for each invitm in invitems
-				if invitm is not a key
-					continue
+			for each invitm in keylist
 				say "[if i > 0], [end][actionLink invitm]"
 				i = i + 1
 			say "\n"

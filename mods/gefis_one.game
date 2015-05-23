@@ -2,6 +2,8 @@ This is GEfIS One by ScaniX
 
 It starts with the introduction mode
 
+Uses stylesheet "gardenMap.css"
+
 
 /****************************************************
  *   Basics
@@ -18,6 +20,7 @@ Uses Carryables by ScaniX
 Uses Events by ScaniX
 Uses Encounter by ScaniX
 Uses Chapter Transitions by ScaniX
+Uses treasure chest by ScaniX
 
 
 /****************************************************
@@ -53,17 +56,20 @@ use bathroom by scanix
 use attic by scanix
 use garden by scanix
 use living room by scanix
+use guest room by scanix
 
 
 /****************************************************
- *   Combat and Combatants
+ *   Combat, Combatants and Weapons
  */
 Uses Combat by ScaniX
 Uses player combatant by ScaniX
 Uses dark spark by ScaniX
 Uses reflection by ScaniX
 Uses nightmare by ScaniX
+Uses poison ivy by ScaniX
 Uses unarmed weapon by ScaniX
 Uses dagger weapon by ScaniX
 Uses light sword weapon by ScaniX
+Uses hook weapon by ScaniX
 

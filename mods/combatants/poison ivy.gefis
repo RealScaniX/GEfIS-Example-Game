@@ -1,23 +1,24 @@
-This is Dark Spark by ScaniX
+This is poison ivy by ScaniX
 
-there is a Combatant called dark spark
-	its attackProc is "darkSparkAttack"
-	its woundProc is "darkSparkWound"
-	its introProc is "darkSparkIntro"
-	its strength is 5
-	its constitution is 20
-	its level is 1
+there is a Combatant called poison ivy
+	its attackProc is "poisonIvyAttack"
+	its woundProc is "poisonIvyWound"
+	its introProc is "poisonIvyIntro"
+	its strength is 30
+	its constitution is 120
+	its level is 5
+	its poisonous is true
 
-function darkSparkIntro
+function poisonIvyIntro
 	do
 		say "You suddenly notice a point in front of you that seems to be even darker than its surroundings.
 				When it starts to move, you brace yourself for an attack."
 
-function darkSparkAttack
+function poisonIvyAttack
 	do
 		if this.specialAttackPrepare > 0
 			this.specialAttackPrepare = 0
-			say "The dark spark's particles suddenly scatter, only to immediately gather around you again to enclose you in an "
+			say "The dark spark's particles scatter only to gather around you again and enclose you in an "
 			scare 0, "impenetrable darkness"
 			say " for a second.\n"
 			return (random number between 0.9 and 1.1) * this.strength * 2
@@ -31,7 +32,7 @@ function darkSparkAttack
 			say " to scare you."
 			return (random number between 0.9 and 1.1) * this.strength
 
-function darkSparkWound
+function poisonIvyWound
 	do
 		if dmg < 7
 			say "The [+this.name]'s darkness loses density."

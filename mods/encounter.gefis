@@ -13,12 +13,10 @@ A Place
 before function mainPrompt
 	if player.location is cellar
 		temps.encounterCooldown = 0
-	debugSay "Encounter check, cooldown is [+temps.encounterCooldown]"
 	if temps.encounterCooldown > 0
 		temps.encounterCooldown = temps.encounterCooldown - 1
 	else if user.action is "lookat" or user.action is "lookaround"
 		// no encounter when looking around
-		debugSay "ignoring during lookat..."
 	else if !player.location.pacified
 		now max is 0
 		now nix is 0
@@ -32,7 +30,7 @@ before function mainPrompt
 				if z < enc.probability
 					// start fight
 					temps.encounterCooldown = 10
-					startFight enc.enemy
+					startFight enc.enemy, true
 					return
 				z = z - enc.probability
 

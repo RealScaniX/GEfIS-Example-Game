@@ -1,7 +1,9 @@
 this is dagger weapon by scanix
 
 there is a weapon called dagger
-	it is static
-	its strength is 5
-	its attackProc is "daggerWeaponAttack"
+	its strength is 20
+	its description is "On the first glance this is just a normal little dagger, but when you look closer, you see that its edges are fractured and there are lots of small,
+			rusty metal splinters hanging onto it. You are pretty sure that this leaves a mark on whoever gets poked with this. Maybe even causing some sort of poisoning in any
+			wound caused by this."
+	its poisonous is true
 	its weaponName is @"[one of]tiny blade[or]knife[or]dagger[at random]"

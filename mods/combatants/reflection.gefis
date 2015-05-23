@@ -4,14 +4,14 @@ there is a Combatant called reflection
 	its attackProc is "reflectionAttack"
 	its woundProc is "reflectionWound"
 	its introProc is "reflectionIntro"
-	its strength is 20
-	its constitution is 40
-	its level is 3
+	its strength is 25
+	its constitution is 70
+	its level is 4
 
 function reflectionIntro
 	do
 		say "From the corner of your eye you see a movement and slowly turn towards it. At first you recognize yourself and relax, but then you remember that there is no 
-				mirror [if player.location.name is "bathroom"]on that side[else]here[end]. Slowly the movements of your reflection separate from your own as it changes into a threatening pose."
+				mirror [if player.location.name is \"bathroom\"]on that side[else]here[end]. Slowly the movements of your reflection separate from your own as it changes into a threatening pose."
 
 function reflectionAttack
 	do

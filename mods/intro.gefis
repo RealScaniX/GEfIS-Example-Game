@@ -108,6 +108,17 @@ action help
 		say "[image \"/img/mode_yesno.png\"] - It is a simple question: Yes or no? Just hit Y or N on the keyboard."
 		say "\n"
 		wait
+		if user.canceled
+			return
+		say "<hr/>\n"
+		say "Some tips for playing:"
+		say "On the top there are some buttons to navigate, in the center there is a \"look around\" action which you should use often. In general it is best to look at 
+				everything to notice the important details."
+		say "You can also use the numpad to navigate (when numlock is on)."
+		say "When you are asked something (e.g. \"What do you want to use with it?\") you can click on any link to respond with that text even if the link would normally do
+				something else."
+		say "\n"
+		wait
 		story log on
 
 function introtalk
@@ -154,7 +165,12 @@ action startgame
 		start game
 	do
 		globals.gameStarted = true
-      say "\nGood luck!\n"
-		flush
-		sleep 2
+		cls 
+		say "<h2>And so it begins...</h2>"
+		say "To get the best experience out of this you should play "
+		scare 0, "in the dark"
+		say " with headphones or at least with sound."
+		say "\nFor even more scary atmosphere place an animal or baby in your room that makes random, unexpected sounds."
+		say "\nAnd now... Good luck!"
+		wait for 30 seconds
 		chapterAdvance

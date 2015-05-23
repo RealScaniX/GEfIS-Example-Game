@@ -12,6 +12,7 @@ There is a place called entry hall
 	its regions are {"anywhere", "house", "first floor"}
 
 there is a doorPassage called locked door
+	its name is "door"
 	its locked is true
 
 function entryhalldesc

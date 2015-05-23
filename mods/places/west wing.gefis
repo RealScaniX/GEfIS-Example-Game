@@ -48,7 +48,8 @@ function hatchDesc
 
 function hatchPreProc
 	do
-		say "You cannot reach it. Judging from the height, you don't think that a chair or something similar to step on would be sufficient."
+		if not this.open
+			say "You cannot reach the hatch. Judging from the height, you don't think that a chair or something similar to step on would be sufficient."
 
 before function setDoor
 	if d is attic hatch
@@ -59,3 +60,6 @@ before function setDoor
 		else
 			say "There is no need to close that again."
 		return
+
+understand
+	"open hatch with hook" as "use hook with hatch"

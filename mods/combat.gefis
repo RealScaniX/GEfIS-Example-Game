@@ -7,7 +7,9 @@ Entity Combat is an Entity
 		bool enemyStarts is false
 		bool playersTurn is false		// true as long the player did not invoke a fight action (block, attack, use item)
 		bool finished is true			// if we are not fighting, it is finished
+		bool won is false					// true if the player has won
 		list events
+		bool eventTriggered				// true if this has been triggered in an event which has to be handled slightly differently because of the display of the prompt afterwards
 
 Entity Combatant is a thing
 	attributes
@@ -28,6 +30,8 @@ Entity Combatant is a thing
 		number specialAttackCooldown is 0				// cooldown for special attack, automatically managed in combat, 
 																	//		enemy only has to check if > 0 to not allow special attack
 		text fightMusic is "Exciting Trailer.mp3"		// track to play during fight
+		number poisonDOT										// the damage per round that is caused by poison
+		bool poisonous											// if true a fraction of the damage is added as poison dmg
 
 entity Weapon is a Equippable
 	its useProc is "equipItem"
@@ -37,6 +41,7 @@ entity Weapon is a Equippable
 		text hitProc is "defaultWeaponHit"
 		number critChance is 5
 		text weaponName is @this.name
+		bool poisonous											// if true a fraction of the damage is added as poison dmg
 
 function defaultWeaponAttack
 	do
@@ -91,34 +96,47 @@ mode Fight
 		inventorying
 	before action do
 		story log off
-		currentFight.playersTurn = true
 		currentFight.player.defends = false
 		currentFight.enemy.defends = false
+		if !currentFight.playersTurn
+			invoke function "doEnemyTurn" on currentFight.enemy
    after action do
 		if currentFight.finished
-			story log on
-			end mode
+			endFight
 		else
 			if !currentFight.playersTurn
 				invoke function "doEnemyTurn" on currentFight.enemy
 			if !currentFight.finished
+				currentFight.playersTurn = true
+				// poison
+				if currentFight.player.poisonDOT > 0
+					dmg = currentFight.player.poisonDOT
+					say "The attack of the [+currentFight.enemy.name] has "
+					scare 0, "[one of]made you sick[or]caused an illness[at random]"
+					say " and [one of]gradually reduces your constitution[or]you feel more and more queasy[at random]."
+					now poisonAttack is true
+					if [woundPlayer]
+						endFight
+						return
 				fightPrompt
 			else
-				story log on
-				end mode
+				endFight
 	on start do
 		globals.fightMusic = currentFight.enemy.fightMusic
 		playMusic globals.fightMusic, 80
 		playAmbience null, 100
 		currentFight.finished = false
+		currentFight.won = false
 		/************************************
 				fill in enemy values
 		*************************************/
 		now currentFight.enemy.hp is currentFight.enemy.constitution
 		now currentFight.enemy.specialAttackPrepare is 0
+		now currentFight.enemy.poisonDOT is 0
 		/************************************
 				fill in player values
 		*************************************/
+		now currentFight.player.poisonDOT is 0
 		// player health is taken from fear, no need to set a hp here
 		currentFight.player.strength = integer value of (player.glow / 2 + player.illumination / 15)
 		// add weapon strength
@@ -142,28 +160,42 @@ mode Fight
 		story log off
 		currentFight.enemy.encounterCounter = currentFight.enemy.encounterCounter + 1
 		now currentFight.playersTurn is !currentFight.enemyStarts
-		fightPrompt
+		say "\n"
+		if currentFight.eventTriggered
+			fightPrompt
 	on end do
 		updateaudio
-		mainPrompt
+		if currentFight.eventTriggered
+			mainPrompt
+		currentFight.eventTriggered = false
 
 function fightStatusInfo
 	do
 		return "<div style=\"float:right;\">
-						<htmlbar \"Enemy\" [+currentFight.enemy.hp]/[+currentFight.enemy.constitution]><br/>
-						<htmlbar \"Fear\" [+player.fear]/100>
+						<htmlbar \"Enemy\" [+int value of currentFight.enemy.hp]/[+int value of currentFight.enemy.constitution]><br/>
+						<htmlbar \"Fear\" [+int value of player.fear]/100>
 					</div>Your opponent: [+currentFight.enemy.name]\n
 							Your weapon: [+currentFight.player.weapon.name] ([+currentFight.player.strength])"
 
 function fightPrompt
 	do
 		eventProcessing
-		say "\nWhat are you going to do? [link attack]attack[/link] [link defend]defend[/link] [link use item]use item[/link] [link flee]flee[/link]"
+		if currentFight.playersTurn
+			say "What are you going to do? [link attack]attack[/link] [link defend]defend[/link] [link use item]use item[/link] [link flee]flee[/link]"
+
+function endFight
+	do
+		currentFight.finished = true
+		if currentFight.player.poisonDOT > 0
+			say "The illness has left your body at the same time your opponent has gone from your sight."
+		story log on
+		end mode		
 
 function startFight
 	understand
-		startFight [enmy]
+		startFight [enmy], [byevent]
 	do
+		currentFight.eventTriggered = byevent
 		//rememberAmbiencePos
 		rememberMusicPos
 		if not (enmy is a combatant)
@@ -174,6 +206,12 @@ function startFight
 
 function doEnemyTurn
 	do
+		// check for poison dmg
+		if currentFight.enemy.poisonDOT > 0
+			dmg = currentFight.enemy.poisonDOT
+			say "[one of]Your attack has caused a poisoning which takes its toll now[or]You feel the pain of your opponent as the poison is spreading[at random]."
+			if [woundEnemy]
+				return
 		// attack player
 		if currentFight.enemy.attackProc is not null
 			if currentFight.enemy.specialAttackPrepare > 0
@@ -182,12 +220,26 @@ function doEnemyTurn
 				currentFight.enemy.specialAttackCooldown = currentFight.enemy.specialAttackCooldown - 1
 			now dmg is [invoke function currentFight.enemy.attackProc on currentFight.enemy]
 			if dmg > 0
-				now enemyName is currentFight.enemy.name
-				now enemyLevel is currentFight.enemy.level
-				if [invoke function currentFight.player.woundProc on currentFight.player]
-					// the player already ran home because of his fear
-					currentFight.finished = true
+				now poisonAttack is false
+				if not [woundPlayer]
+					if currentFight.enemy.poisonous
+						say "You feel a sickness inside of you rising."
+						currentFight.player.poisonDOT = currentFight.player.poisonDOT + (dmg / 8)
+						if currentFight.player.poisonDOT > 20
+							currentFight.player.poisonDOT = 20
+						//debugSay "PoisonDOT: " + currentFight.player.poisonDOT
+			say "\n"
+			wait for 5 seconds
 
+function woundPlayer
+	do
+		now enemyName is currentFight.enemy.name
+		now enemyLevel is currentFight.enemy.level
+		if [invoke function currentFight.player.woundProc on currentFight.player]
+			// the player already ran home because of his fear
+			currentFight.won = false
+			currentFight.finished = true
+		return currentFight.finished
 	
 /************************************************************************************************
  *		Altering functions during combat
@@ -234,21 +286,25 @@ action flee
 		now currentFight.playersTurn is false
 		now enemyName is currentFight.enemy.name
 		now enemyLevel is currentFight.enemy.level
-		if player.location.navigatable and (chance of 80 - enemyLevel * 10)
+		if player.location.navigatable and (chance of 100 - enemyLevel * 5)
 			say "You manage to slip away and your opponent seems not interested enough to follow you."
 			player.location = alternative entry hall
 			currentFight.finished = true
 		else
-			say "you don't get away fast enough."
+			say "[one of]You don't get away fast enough[or]You try to slip away, but your opponent suddenly stands in your way[at random]."
+		wait for 5 seconds
 
 action defend
 	modes
 		fight
 	do
+		say "Sensing an incoming threat you decide to raise your hands and prepare for it."
 		now currentFight.playersTurn is false
 		now enemyName is currentFight.enemy.name
 		now enemyLevel is currentFight.enemy.level
 		currentFight.player.defends = true
+		say "\n"
+		wait for 5 seconds
 
 action attack
 	modes
@@ -259,17 +315,29 @@ action attack
 		now enemyLevel is currentFight.enemy.level
 		now dmg is [invoke function currentFight.player.attackProc on currentFight.player]
 		if dmg > 0
-			debugsay "Player attack DMG: [+dmg]"
-			if [invoke function currentFight.enemy.woundProc on currentFight.enemy]
-				// the player killed it
-				// there already has been enough text in the enemy woundproc
-				//say "The [+enemyName] dissolves to rejoin the shadows."
-				// drop something
-				// add experience points (glow)
-				if player.glow < enemyLevel * 10
-					player.glow = player.glow + (enemyLevel * 10 - player.glow) / 2
-					say "As your foe disappears in front of you, you cannot help but feel more confident in yourself having subdued that creature."
-				currentFight.finished = true
+			//debugSay "Player attack DMG: [+dmg]"
+			if not [woundEnemy] and currentFight.player.weapon.poisonous
+				say "Your weapon leaves something that will fight the enemy from the inside."
+				currentFight.enemy.poisonDOT = currentFight.enemy.poisonDOT + (dmg / 8)
+				//debugSay "Enemy poisonDOT: " + currentFight.enemy.poisonDOT
+		say "\n"
+		wait for 5 seconds
+
+function woundEnemy
+	do
+		if [invoke function currentFight.enemy.woundProc on currentFight.enemy]
+			// the player killed it
+			currentFight.won = true
+			// there already has been enough text in the enemy woundproc
+			//say "The [+enemyName] dissolves to rejoin the shadows."
+			// drop something
+			// add experience points (glow)
+			if player.glow < enemyLevel * 10
+				player.glow = player.glow + (enemyLevel * 15 - player.glow) / 2
+				say "As your foe disappears in front of you, you cannot help but feel more confident in yourself having subdued that creature."
+			currentFight.finished = true
+			return true
+		return false
 
 action use item
 	modes
@@ -296,6 +364,7 @@ action use item
 action unequip
 	understand
 		unequip [itm]
+		take off [itm]
 	do
 		if itm is an equippable
 			if itm.equipped
@@ -310,9 +379,9 @@ function equipItem
 	do
 		if this.equipped
 			if this is a weapon
-				say "You already wield the [+this.name]."
+				say "You already wield the [+this.name]. Do you want to <link unequip [+this.name]>unequip it</link>?"
 			else
-				say "You already wear the [+this.name]."
+				say "You already wear the [+this.name]. Do you want to <link take off [+this.name]>take it off</link>?"
 			return
 		now ilist is [inventoryList]
 		for each itm in ilist
@@ -325,7 +394,3 @@ function equipItem
 				// unequip colliding parts
 		say "You equip the [+this.name]."
 		this.equipped = true
-		
-action fight
-	do
-		startFight dark spark

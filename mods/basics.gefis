@@ -22,9 +22,9 @@ Entity Thing is an Entity
 		text smell is "This smells like nothing really."
 		text taste is "You'd rather not taste that. For now."
 		text sound is null // if something is not a sound but still has a sound to it
-		list actions are {"look at", "listen to", "smell", "taste"}
+		list actions are {"look at", "use", "listen to", "smell", "taste"}
 		text useProc
-		text useWithProc
+		text useWithProc			// [t] the item itself, [itm] the target
 
 entity Item is a Thing
 	its actions are {"look at", "use", "take", "smell", "taste"}
@@ -204,7 +204,12 @@ action unlockwithkey
 			say "You don't see that key here."
 			return
 		if not (k is a key)
-			say "You cannot open anything using [a|an][+k.name]."
+			if k.useWithProc is not null
+				now t is k
+				now itm is d
+				invoke function k.useWithProc
+			else
+				say "You cannot open anything using [a|an][+k.name]."
 			return
 		if not (player.inventory has k)
 			say "[one of]Wishful thinking will not let that key materialize in your hand. Or will it?[or]Sticking your hand into your pocket you regretfully realize that you don't have this key.[at random]"
@@ -225,9 +230,13 @@ action usewith
 		use [t] with [itm]
 		use [t] on [itm]
 	do
-		if t is an item and ![playerOwns t]
+		now t is [resolveitem t]
+		now itm is [resolveitem itm]
+		if t is null or itm is null
+			say "You don't see that here."
+		else if t is an item and ![playerOwns t]
 			say "You should probably take the [+t.name] first."
-		if t is an item and t.useWithProc is not null
+		else if t is an item and t.useWithProc is not null
 			invoke function t.useWithProc on t
 		else if t is an item and t.useWithProc is not null
 			t2 = itm

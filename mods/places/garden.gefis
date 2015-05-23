@@ -1,5 +1,17 @@
 this is garden by scanix
 
+entity gardenTile is a place
+	its illumination is 15
+	its description is @[gardenTileDesc]
+	its intro is @[gardenTileIntro]
+	its regions are {"anywhere", "outside", "garden"}
+	its music is "Anguish.mp3"
+	attributes
+		text blocked		// tall tree or something that blocks you from going there
+		bool mapped			// true if it should appear on the map
+		number x
+		number y
+
 there is a gardenTile called garden
 	its intro is @[gardenIntro]
 	its exits are {"south": garden door}
@@ -44,27 +56,13 @@ action raisemap
 		else
 			say "You are already the map up to your face."
 
-when play resumes
-	do "encounters off"
-
-entity gardenTile is a place
-	its illumination is 15
-	its description is @[gardenTileDesc]
-	its intro is @[gardenTileIntro]
-	its regions are {"anywhere", "outside", "garden"}
-	its music is "Anamalie.mp3"
-	attributes
-		text blocked		// tall tree or something that blocks you from going there
-		bool mapped			// true if it should appear on the map
-		number x
-		number y
-
 function gardenIntro
 	do
-		addOneTimeEvent "gardenCreation"
-		gardenMapping
-		garden.intro = @[gardenTileIntro]
-		garden.known = false
+		if globals.gardenTiles is null
+			addOneTimeEvent "gardenCreation"
+			garden.known = false
+		else
+			gardenTileIntro
 
 function gardenTileIntro
 	do
@@ -97,15 +95,20 @@ function gardenMapping
 			globals.gardenMapMentioned = true
 		if globals.gardenMapping
 			if [playerOwns garden map] and [playerOwns pen]
+				now somethingMapped is false
 				if not globals.gardenTiles.(y).(x).mapped
 					globals.gardenTiles.(y).(x).mapped = true
-					for h from -1 to 1
-						for v from -1 to 1
-							if |h| == |v|
-								continue
-							if x+h >= 0 and x+h < globals.gardenWidth and y+v >= 0 and y+v < globals.gardenHeight
-								if not globals.gardenTiles.(y+v).(x+h).mapped and globals.gardenTiles.(y+v).(x+h).blocked is not null
-									globals.gardenTiles.(y+v).(x+h).mapped = true
+					somethingMapped = true
+				for h from -1 to 1
+					for v from -1 to 1
+						if |h| == |v|
+							continue
+						if x+h >= 0 and x+h < globals.gardenWidth and y+v >= 0 and y+v < globals.gardenHeight
+							if not globals.gardenTiles.(y+v).(x+h).mapped and globals.gardenTiles.(y+v).(x+h).blocked is not null
+								globals.gardenTiles.(y+v).(x+h).mapped = true
+								somethingMapped = true
+				if somethingMapped
+					temps.gardenMapString = null // redraw map
 					say "You [one of]mark this place[or]check your surroundings and note them[at random] on your map."
 			else if not temps.missingMap
 				temps.missingMap = true
@@ -125,6 +128,97 @@ there is an item called sketch pad
 there is an item called pen
 	its description is "It is a green ball pen. At least the plastic shell is green.\nTesting it on your palm, you see that the ink has the standard dark blue color."
 
+there is a thing called stick
+	its actions are {"look at", "use", "smell", "taste", "listen to"}
+	its description is @[stickDesc]
+	its taste is @[stickTaste]
+	its useProc is "useStick"
+
+understand
+	"throw stick" as "use stick"
+
+function stickTaste
+	do
+		if globals.stickProgress is 0
+			say "Licking across the stick, you come to the conclusion that it tastes of wood. Ith altho hath a liddle shplinder in thongue flavour tho ith..."
+		else
+			say "No, thanks. You already got enough of your own drool in your mouth."
+
+when play begins
+	globals.stickProgress = 0
+
+function stickDesc
+	do
+		addOneTimeEvent "stickDescEvent"
+
+function stickDescEvent
+	do
+		globals.stickProgress = globals.stickProgress + 1
+		if 1 is globals.stickProgress
+			say "The stick is a part of some branch that must have fallen off some tree here. The bark is still mostly intact. You bend down to pick it up."
+			wait
+			say "It is the kind of stick your...\n"
+			wait for 2 seconds
+			say "Suddenly your eyes become watery and you throw the stick away to get rid of the memory. That, of course, makes things even worse as you are now standing there
+					looking ahead and half expecting the stick to come back to you."
+			throwStick
+			wait
+		else if 2 is globals.stickProgress
+			say "You have to look at it twice to realize that this is really the same stick that you threw away. You pick it up and turn it around."
+			wait for 6 seconds
+			say "There is some glistening stuff in the middle. Touching it with your finger, you get the impression that the stick is a little warmer at that place."
+			say "Rubbing your index finger against your thumb, you notice that the fluid has a consistency that is very well known to you. It is drool."
+			wait
+			say "Out of curiosity you throw the stick again, just to see what will happen."
+			throwStick
+			wait
+		else
+			say "There is is again. The magically reappearing stick."
+
+function useStick
+	do
+		if globals.stickProgress < 2
+			stickDesc
+		else
+			throwStick
+
+function throwStick
+	do
+		if globals.stickProgress > 2
+			say "Still wondering who is playing with you, you pick the stick up again and throw it away."
+		remove stick from player.location.items
+		redrawGardenMap
+		add stickReturn to player.events
+
+there is an event called stickReturn
+	its probability is 30
+	its repeat is false
+	its always is false
+	its delay is 5
+	its eventProc is "stickReturn"
+
+function stickReturn
+	do
+		this.delay = 3
+		if player.location is a gardenTile
+			this.repeat = false
+			add stick to player.location.items
+			play "118441__localtalkradio__rustling.ogg" on audio channel "sound" with volume 100
+			flush
+			if 1 is globals.stickProgress
+				say "You hear some rustling behind you and turn around, but you see nothing. Maybe it was just a squirrel. Are they active during the night?"
+			else if 2 is globals.stickProgress
+				say "The rustling appears again and you try to be quicker this time, even following the sound as long as you could hear it."
+				wait for 5 seconds
+				say "But whatever it was, it vanished into some dark corner without a trace. So you return to where you've been before and look down at the stick 
+						with a sigh of resignation."
+			else
+				say "A rustling sound announces the return of the stick. Turning around you see it already lying there, waiting to be thrown again."
+			wait
+			redrawGardenMap
+		else
+			this.repeat = true
+
 function gardenMapDesc
 	do
 		append "You look at your map to check the progress.\n"
@@ -141,41 +235,74 @@ function displayGardenMap
 	do
 		now color is "#2010A0"
 		now bgcolor is "#FEFAEF"
-		now mapstr is ""
-		mapstr = mapstr + "<div style=\"position:relative;display:inline-block;width:auto;background:[+bgcolor];color:[+color];border:1px solid rgba(100, 100, 100, 0.5);
+		if temps.gardenMapString is null
+			now mapstr is ""
+			for y from 0 to globals.gardenHeight-1
+				for x from 0 to globals.gardenWidth-1
+					tile = globals.gardenTiles.(y).(x)
+					style = ""
+					imageclass = ""
+					content = ""
+					if tile.mapped
+						if x == 0
+							style = style + "border-left-color:[+color];"
+						if x == globals.gardenWidth-1
+							style = style + "border-right-color:[+color];"
+						if y == 0
+							style = style + "border-top-color:[+color];"
+						if y == globals.gardenHeight-1
+							style = style + "border-bottom-color:[+color];"
+						if tile.blocked is "bush"
+							imageclass = " tileBush"
+						else if tile.blocked is "tree"
+							imageclass = " tileTree"
+						else if tile.items has "chest"
+							imageclass = " tileChest"
+						else if tile.items has "tool shed"
+							imageclass = " tileShed"
+						else if tile.items has "grave"
+							imageclass = " tileGrave"
+						else if tile.blocked is null
+							imageclass = " tileDot"
+						if tile.items has "stick"
+							content = content + "<div class=\"gardenTile tileStick\"></div>"
+					if x == 0
+						style = style + "clear:both;"
+					mapstr = mapstr + "<div class=\"gardenTile" + imageclass + "\" style=\"" + style + "\">" + content + "</div>"
+			temps.gardenMapString = mapstr
+		overlaystr = "<div class=\"gardenMap\" style=\"
 					margin:10px;padding:20px;
 					box-shadow: 0 3px 6px 0px rgba(0, 0, 0, 0.75);
 					-webkit-box-shadow: 0 3px 6px 0px rgba(0, 0, 0, 0.75);
 					-moz-box-shadow: 0 3px 6px 0px rgba(0, 0, 0, 0.75);\">"
-		mapstr = mapstr + "<div style=\"position:absolute;left:[+35 + player.location.x * 30]px;top:[+41 + player.location.y * 30]px;overflow:visible;\">
+		overlaystr = overlaystr + "<div style=\"position:absolute;z-index:40;left:[+35 + player.location.x * 30]px;top:[+41 + player.location.y * 30]px;overflow:visible;\">
 						[image pen.png]
 				  </div>"
-		for y from 0 to globals.gardenHeight-1
-			for x from 0 to globals.gardenWidth-1
-				tile = globals.gardenTiles.(y).(x)
-				style = ""
-				content = ""
-				if tile.mapped
-					if x == 0
-						style = style + "border-left-color:[+color];"
-					if x == globals.gardenWidth-1
-						style = style + "border-right-color:[+color];"
-					if y == 0
-						style = style + "border-top-color:[+color];"
-					if y == globals.gardenHeight-1
-						style = style + "border-bottom-color:[+color];"
-					if tile.blocked is not null
-						content = "X"
-					else
-						content = "."
-				mapstr = mapstr + "<div style=\"[if x == 0]clear:both;[end]width:26px;height:26px;text-align:center;float:left;border:2px solid [+bgcolor];[+style]\">[+content]</div>"
-		mapstr = mapstr + "<br style=\"clear:both;\"/>"
-		mapstr = mapstr + "</div>"
+		overlaystr = overlaystr + temps.gardenMapString + "<br style=\"clear:both;\"/></div>"
 		if temps.gardenMapShowing
-			set mapstr in overlay "ne" with style "frameless"
+			set overlaystr in overlay "ne" with style "frameless"
 		else
-			show mapstr in overlay "ne" with style "frameless"
+			show overlaystr in overlay "ne" with style "frameless"
 			temps.gardenMapShowing = true
+		
+function redrawGardenMap
+	do
+		temps.gardenMapString = null // redraw map
+		if temps.gardenMapShowing // need to do that as the map drawing already happened in this turn
+			displayGardenMap
+
+there is a thing called grave
+
+there is a container called garden tool shed
+	its name is "tool shed"
+	its description is @"This is a small garden tool shed made of corrugated metal. It is barely big enough to enter, but big enough to hold quite some tools. 
+			[if this.open]You can see some scissors, bottles with insecticides, a lawn mover, a rake and other stuff that looks too much like work for your taste.
+			[else]The door is closed, but there is no lock.[end]"
+	its items are {shovel, hook}
+
+there is a thing called shovel
+	its description is "It is a shovel. What else is there to say about it? There is no blood on it, but if you want, you could imagine that the rusty pattern in the lower end
+			is dried blood, if you want."
 
 function gardenTileDesc
 	do
@@ -188,6 +315,8 @@ function gardenTileDesc
 			say "You're standing in the northeast corner of the garden."
 		else if x == 0
 			say "You've reached the western border of the garden."
+		else if x == globals.gardenWidth-1
+			say "You've reached the eastern end of the garden."
 		else if y == 0
 			say "You've reached the north end of the garden."
 		else if y == globals.gardenHeight-1
@@ -204,6 +333,11 @@ function gardenCreation
 			showTexts = true
 			say "You step out into the cool night and take a look around."
 			flush
+		else
+			if not [playerOwns pen]
+				addToInv pen
+			if not [playerOwns sketch pad]
+				addToInv sketch pad
 		// generate garden tiles
 		width = 7
 		height = 8
@@ -211,8 +345,8 @@ function gardenCreation
 		globals.gardenHeight = height
 		entranceX = integer value of (random number between (width / 2) and (width * 2 / 3))
 		// create tiles
+		now zz is random number between 1 and 3
 		now tiles is a new map
-		//now gardenMap is ""
 		for v from 0 to height-1
 			now row is a new map
 			if showTexts
@@ -234,17 +368,38 @@ function gardenCreation
 					now tile is a new gardenTile called "[one of]somewhere green[or]a grassy area[or]in the garden[at random]"
 					tile.encounters = garden.encounters
 					// blocked
-					if ((h*v+h-v) % 3 == 0) && chance of 66
-						tile.blocked = "[one of]dense bush[or]big tree[at random]"
+					if ((h+(v%3)*2+zz) % 4 == 0) && chance of 72
+						tile.blocked = "[one of]bush[or]tree[at random]"
 				tile.x = h
 				tile.y = v
 				row.(h) = tile
-				//gardenMap = gardenMap + "[if tile.blocked is null]O[else]X[end] "
 			tiles.(v) = row
-			//gardenMap = gardenMap + "\n"
-		//tiles.(height-1).(entranceX) = garden
-		//say "Garden is at [+height-1], [+entranceX]."
-		//say gardenMap
+		// scatter some stuff in the garden
+		now things is a new list
+		//-chest 1: a music tape, guarded by a dark spark
+		now chest1 is a new treasure chest called "chest"
+		chest1.guardian = dark spark
+		chest1.items = {music tape}
+		add chest1 to things
+		//-chest 2: a dagger, guarded by a reflection
+		now chest2 is a new treasure chest called "chest"
+		chest2.guardian = reflection
+		chest2.items = {dagger}
+		add chest2 to things
+		//-throwing stick
+		add stick to things
+		//-grave
+		add grave to things
+		//-garden tool shed
+		add garden tool shed to things
+		while things.# > 0
+			now c is things.0
+			cx = random number between 1 and (width - 2)
+			cy = random number between 1 and (int value of (height * 2 / 3 - 2))
+			tile = tiles.(cy).(cx)
+			if tile.blocked is null and tile.items.# is 0
+				add c to tile.items
+				remove 0 from things
 		// Set exits
 		for v from 0 to height-1
 			for h from 0 to width-1
@@ -282,8 +437,6 @@ function gardenCreation
 					if tile.exits.north.exits has "east"
 						tile.exits.northeast = tile.exits.north.exits.east
 		globals.gardenTiles = tiles
-
-				
-		
-				
-
+		player.location = garden
+		//if globals.chapter >= 2
+		//	dumpMap

@@ -22,7 +22,7 @@ there is a doorPassage called eastwingSouthDoor
 	it is private
 	its origin is east wing
 	its locked is true
-	its destination is second floor bathroom
+	its destination is guest room
 	
 there is a doorPassage called eastwingNorthDoor
 	its name is "north door"

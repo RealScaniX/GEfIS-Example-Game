@@ -2,6 +2,10 @@ this is bathroom by scanix
 
 a bathroom is a place
 	its description is @[bathroomDesc]
+	its ambience is @[bathroomAmbience]
+	its ambienceVolume is 70
+	attributes
+		bool runningWater
 	
 there is a bathroom called lowerBathroom
 	its name is "bathroom"
@@ -17,6 +21,13 @@ there is a bathroom called upperBathroom
 	its exits are {"north": westwingSouthDoor}
 	its intro is @[upperBathroomIntro]
 	its regions are {"anywhere", "house", "second floor"}
+
+function bathroomAmbience
+	do
+		if this.runningWater
+			return "runningWater.ogg"
+		else
+			return null
 
 function lowerBathroomIntro
 	do
@@ -35,6 +46,58 @@ there is a thing called mirror
 there is a thing called bath tub
 
 there is a thing called sink
+	its useProc is "useSink"
+	its sound is @[sinkSound]
+	its taste is @[sinkTaste]
+
+understand
+	"use faucet" as "use sink"
+
+action open faucet
+	do
+		if player.location.runningWater
+			say "The water is already running."
+		else
+			do "use sink"
+
+action close faucet
+	do
+		if !player.location.runningWater
+			say "The faucet is already closed."
+		else
+			do "use sink"
+
+function sinkSound
+	do
+		if player.location.runningWater
+			return "The running water in the sink has a very specific effect on you. Good thing, that you are already in the bathroom..."
+		else
+			return "Straining your ears - if that is even possible - you finally end up with the astounding knowledge, that a closed faucet makes pretty much the same sound
+					as a turned off radio. Who would have thought?"
+
+function sinkTaste
+	do
+		if player.location.runningWater
+			return "You drink a little of the water. It tastes pretty good... for tasteless water."
+		else
+			return "Tasting the closed faucet wouldn't quench your thirst. You briefly think about what fun it would be to lick across the sink and feel all that dust on
+					your tongue... but decide against it."
+
+function useSink
+	do
+		if player.location.runningWater
+			say "You turn off the water again. Whoever has to pay for this will surely be thankful."
+		else
+			if !globals.sinkUsed
+				globals.sinkUsed = true
+				say "You are wondering whether the water still works in this abandoned house.\nIt obviously does."
+			else
+				say "You turn on the water."
+		player.location.runningWater = !player.location.runningWater
+		if player.location.runningWater
+			loop "runningWater.ogg" on audio channel "ambience" with volume 70
+		else
+			stop audio channel "ambience"
 
 there is a thing called shower
 

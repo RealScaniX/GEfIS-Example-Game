@@ -1,0 +1,40 @@
+this is hook weapon by scanix
+
+there is a weapon called hook
+	its description is "It is a very long stick with three claw like hooks at one end.\nYou are unsure about what this is used for, but maybe you can pull down branches of 
+			trees with this to reach the high hanging fruits?"
+	its strength is 15
+	its weaponName is @"[one of]hook on a stick[or]metal claws[or]reaper of fruits[at random]"
+	its useWithProc is "useHookWith"
+
+function useHookWith
+	do
+		if itm is attic hatch
+			if itm.locked
+				addOneTimeEvent "hatchOpening"
+			else
+				say "The hatch has already felt the wrath of the hook."
+		else
+			say "Item: "
+			dump itm
+			say "That is neither in need to get reaped, nor do you want to pull it closer."
+			
+function hatchOpening
+	do
+		attic hatch.locked = false
+		attic hatch.open = true
+		say "On your first attempt you push the staff upwards with too much momentum and just bump into the hatch with a loud *thump*."
+		wait for 2 seconds
+		play "thump.ogg" on audio channel "sound"
+		wait for 6 seconds
+		say "Then you slowly turn it until you are able to grasp the protruding edge of the hatch with the tips of the metal hooks."
+		wait for 6 seconds
+		say "Slowly you pull on it until the hatch starts moving downwards on its own."
+		play "atticHatch.ogg" on audio channel "sound"
+		wait for 3 seconds
+		say "Suddenly the ladder comes rushing down and you barely manage to evade being knocked down by it."
+		play "ladderFall.ogg" on audio channel "sound"
+		wait for 5 seconds
+		say "Looking up into the black square that is the entrance to the attic, you start to think that this would be another great place to hide a ball
+					from someone with a fear of the dark."
+		wait

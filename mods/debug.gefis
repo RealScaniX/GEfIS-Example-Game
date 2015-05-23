@@ -10,3 +10,29 @@ action encounterswitch
 		else
 			temps.encounterCooldown = 100000
 			say "Encounters are turned off."
+
+function dumpMap
+	do
+		now gardenMap is ""
+		for v from 0 to globals.gardenHeight-1
+			for h from 0 to globals.gardenWidth-1
+				tile = globals.gardenTiles.(v).(h)
+				gardenMap = gardenMap + "[if tile.blocked is \"bush\"]B[else if tile.blocked is \"tree\"]T[else if tile.items has \"chest\"]C[else if tile.items has \"tool shed\"]H[else if tile.items has \"grave\"]G[else if tile.items has \"stick\"]S[else]O[end] "
+			gardenMap = gardenMap + "\n"
+		say gardenMap
+
+function maptest
+	do
+		for zz from 1 to 3
+			say "Map with zz = [+zz]:\n"
+			for v from 0 to globals.gardenHeight-1
+				for h from 0 to globals.gardenWidth-1
+					say "[if (h+(v%3)*2+zz) % 4 == 0]X[else]O[end]"
+				say "\n"
+
+when play resumes
+	do "encounters off"
+		
+action fight
+	do
+		startFight dark spark, false

@@ -76,7 +76,6 @@ function afterProcKitchen
 	do
 		if !globals.kitchenTape.discovered and ([playerOwns apple] or [playerOwns wax apple])
 			addToContainer kitchen, globals.kitchenTape
-			//add globals.kitchenTape to kitchen.items
 			globals.kitchenTape.discovered = true
 			say "Oh! There was a music tape beneath it."
 		// tick volume change

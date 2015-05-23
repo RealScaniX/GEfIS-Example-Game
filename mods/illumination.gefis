@@ -89,6 +89,10 @@ before function goToPlace
 	now illu is destination.illumination
 	if player.light is not null and player.light.lit
 		illu = illu + player.light.illumination
+	now ilist is [inventoryList]
+	for each itm in ilist
+		if itm is a equippable and itm.equipped
+			illu = illu + itm.illumination
 	if illu < 10
 		say "Staring into the [one of]darkness[or]pitch black hole[at random] in front of you, you decide that you'd rather not go there without any light."
 		return

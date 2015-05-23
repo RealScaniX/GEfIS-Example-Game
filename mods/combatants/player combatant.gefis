@@ -40,30 +40,31 @@ function playerAttack
 function playerWound
 	do
 		now fearGain is dmg
-		debugsay "Player wound DMG: [+fearGain]"
+		//debugSay "Player wound DMG: [+fearGain]"
 		// dodge
-		if chance of player.glow in 100 + enemyLevel * 10
+		if !poisonAttack and chance of player.glow in 100 + enemyLevel * 10
 			say "[one of]Using your catlike reflexes, you dodge the attack and purr as you stay completely unharmed.[at random]"
 			return false
 		// reduce by glow
 		fearGain = fearGain * (1.0 - player.glow / 120.0)
-		debugsay " glow reduction --> [+fearGain]"
+		//debugSay " glow reduction --> [+fearGain]"
 		if fearGain <= 0
 			say "The attack of the [+enemyName] is too weak to be able to scare you any longer."
 			return false
 		// reduce by block
-		if this.defends
+		if !poisonAttack and this.defends
 			fearGain = fearGain / 2
 			say "Your defense [one of]is weakening[or]reduces the effect of[at random] the attack. "
-		debugsay " defense reduction --> [+fearGain]"
-		if fearGain >= 40
-			say "You are absolutely terrified by your opponent."
-		else if fearGain >= 20
-			say "The [+enemyName] scares you a lot."
-		else if fearGain >= 7
-			say "The [+enemyName] frightenes you."
-		else 
-			say "Your fear increases a little."
+		//debugSay " defense reduction --> [+fearGain]"
+		if !poisonAttack
+			if fearGain >= 40
+				say "You are absolutely terrified by your opponent."
+			else if fearGain >= 20
+				say "The [+enemyName] scares you a lot."
+			else if fearGain >= 7
+				say "The [+enemyName] frightenes you."
+			else 
+				say "Your fear increases a little."
 		if [scare fearGain]
 			say "[one of]Your bravery is dwindling while the fear overcomes you.
 					[or]The [+enemyName] is too strong for you, forcing you to surrender.
