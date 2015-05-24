@@ -49,6 +49,15 @@ there is a thing called sink
 	its useProc is "useSink"
 	its sound is @[sinkSound]
 	its taste is @[sinkTaste]
+	its description is @[sinkDesc]
+
+function sinkDesc
+	do
+		append "Now covered in multiple layers of dust and grime, you guess that this has once been a nice old fashioned bathroom sink."
+		if !globals.antidoteNoticed
+			say "A small green flask is standing there. Seemingly less dusty than the rest."
+			globals.antidoteNoticed = true
+			add antidote to player.location.items
 
 understand
 	"use faucet" as "use sink"
