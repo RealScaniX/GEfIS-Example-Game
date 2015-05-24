@@ -122,7 +122,7 @@ function visibleItemList
 				if ext
 					now inf is a new list
 					add itm to inf
-					add player.location.itemCount.(itm.name) to inf
+					add player.location.itemCount.(itm.id) to inf
 					add player.location to inf
 					add inf to itemlist
 				else
