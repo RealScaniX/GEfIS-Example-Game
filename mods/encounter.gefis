@@ -13,10 +13,10 @@ A Place
 before function mainPrompt
 	if player.location is cellar
 		temps.encounterCooldown = 0
-	if temps.encounterCooldown > 0
-		temps.encounterCooldown = temps.encounterCooldown - 1
-	else if user.action is "lookat" or user.action is "lookaround"
+	if user.action is "lookat" or user.action is "lookaround"
 		// no encounter when looking around
+	else if temps.encounterCooldown > 0
+		temps.encounterCooldown = temps.encounterCooldown - 1
 	else if !player.location.pacified
 		now max is 0
 		now nix is 0
