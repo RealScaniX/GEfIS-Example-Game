@@ -1,0 +1,58 @@
+This is reflection by ScaniX
+
+there is a Combatant called reflection
+	its attackProc is "reflectionAttack"
+	its woundProc is "reflectionWound"
+	its introProc is "reflectionIntro"
+	its strength is 45
+	its constitution is 160
+	its level is 8
+	its lootTable is {"music tape": 30}
+
+function reflectionIntro
+	do
+		say "From the corner of your eye you see a movement and slowly turn towards it. At first you recognize yourself and relax, but then you remember that there is no 
+				mirror [if player.location.name is \"bathroom\"]on that side[else]here[end]. Slowly the movements of your reflection separate from your own as it changes into a threatening pose."
+
+function reflectionAttack
+	do
+		if this.specialAttackPrepare > 0
+			this.specialAttackPrepare = 0
+			say "The living mirror in front of you suddenly smashes into dozens of pieces and when they all rotate to face you, you can see that each of them show a pair of eyes."
+			say "You feel "
+			scare 0, "pierced by countless eyes"
+			say ".\n"
+			return (random number between 0.9 and 1.1) * this.strength * 2.5
+		else if this.specialAttackCooldown == 0 && chance of 30
+			this.specialAttackPrepare = 1
+			say "As you get ready for an incoming blow, you see that the reflection does something else instead."
+			return 0
+		else
+			say this.name + " is using "
+			scare 0, "guilty look"
+			say " to scare you."
+			return (random number between 0.9 and 1.1) * this.strength
+
+function reflectionWound
+	do
+		if dmg < 15
+			say "The surface of the [+this.name] is becoming tarnished where it was hit."
+		else
+			say "A cracking sound indicates that your attack didn't go unnoticed."
+		this.hp = this.hp - dmg
+		if this.hp < 7
+			say "Cracks are spreading all over the reflection."
+		// drop green key
+		if this.hp < 1 and !this.droppedItem
+			if this.encounterCounter > 2 && chance of 70
+				say "Some of the shards rejoin for a second to show the reflection of a blue key. Then it suddenly is like a projection into your side of the mirror and materializes
+						completely, before hitting the floor."
+				play "clong.ogg" on audio channel "sound" with volume 100
+				add blue key to player.location.items
+				this.droppedItem = true
+			else if this.encounterCounter > 1
+				say "You try to get a better view of the item, but all you get are a few glimpses of something that looks like a blue key."
+			else
+				say "As the attacker smashes into thousand shards you see the reflection of something blue in some of them."
+		return this.hp < 1
+
