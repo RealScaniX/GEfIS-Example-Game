@@ -1,8 +1,8 @@
 this is nightmare by scanix
 
 there is a combatant called nightmare
-	its constitution is 200
-	its strength is 40
+	its constitution is 300
+	its strength is 50
 	its fightMusic is null		// start music manually later on
 	its attackProc is "nightmareAttack"
 	its woundProc is "nightmareWound"
@@ -21,6 +21,8 @@ function nightmareWound
 			this.strength = 10
 		else if this.hp < this.constitution / 2
 			this.strength = 25
+		if hp < 1
+			say "You won!"
 		return this.hp < 1
 
 function nightmareIntro

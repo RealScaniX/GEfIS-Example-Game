@@ -1,5 +1,10 @@
 This is Combat by ScaniX
 
+there is a valuesponge called globals
+	its fightMusic is null
+	its wonCount is 0
+	its lostCount is 0
+
 Entity Combat is an Entity
 	attributes
 		combatant player
@@ -21,7 +26,7 @@ Entity Combatant is a thing
 		text woundProc											// called to receive damage, if this returns true the combatant is defeated and the fight is over
 																	//		the damage to process will be stored in the variable "dmg"
 		text introProc											// called when the fight starts
-		list dropTable											// list of items that the enemy will drop after being defeated in the form {Entity item, number probability}
+		list lootTable											// list of items that the enemy will drop after being defeated in the form {Entity item, number probability}
 		bool defends											// if true, the combatant tries to block an attack, reducing the damage
 		number level											// the level of the enemy (1-10), for a player the glow is used
 		number encounterCounter								// the number of encounters we had with this
@@ -29,7 +34,7 @@ Entity Combatant is a thing
 		number specialAttackPrepare is 0					// preparing a special attack
 		number specialAttackCooldown is 0				// cooldown for special attack, automatically managed in combat, 
 																	//		enemy only has to check if > 0 to not allow special attack
-		text fightMusic is "Exciting Trailer.mp3"		// track to play during fight
+		text fightMusic is "Urban Gauntlet.mp3"		// track to play during fight
 		number poisonDOT										// the damage per round that is caused by poison
 		bool poisonous											// if true a fraction of the damage is added as poison dmg
 
@@ -107,9 +112,8 @@ mode Fight
 			if !currentFight.playersTurn
 				invoke function "doEnemyTurn" on currentFight.enemy
 			if !currentFight.finished
-				currentFight.playersTurn = true
 				// poison
-				if currentFight.player.poisonDOT > 0
+				if !currentFight.playersTurn and currentFight.player.poisonDOT > 0
 					dmg = currentFight.player.poisonDOT
 					say "The attack of the [+currentFight.enemy.name] has "
 					scare 0, "[one of]made you sick[or]caused an illness[at random]"
@@ -118,6 +122,7 @@ mode Fight
 					if [woundPlayer]
 						endFight
 						return
+				currentFight.playersTurn = true
 				fightPrompt
 			else
 				endFight
@@ -189,6 +194,10 @@ function endFight
 		if currentFight.player.poisonDOT > 0
 			say "The illness has left your body at the same time your opponent has gone from your sight."
 		story log on
+		if currentFight.won
+			globals.wonCount = globals.wonCount + 1
+		else
+			globals.lostCount = globals.lostCount + 1
 		end mode		
 
 function startFight
@@ -271,6 +280,10 @@ before action use
 			say "You cannot use that now."
 			return
 
+after action use
+	if !currentFight.finished
+		say "\n"
+		wait
 		
 /************************************************************************************************
  *		Player actions
@@ -331,6 +344,7 @@ function woundEnemy
 			// there already has been enough text in the enemy woundproc
 			//say "The [+enemyName] dissolves to rejoin the shadows."
 			// drop something
+			dropEnemyLoot
 			// add experience points (glow)
 			if player.glow < enemyLevel * 10
 				player.glow = player.glow + (enemyLevel * 15 - player.glow) / 2
@@ -338,6 +352,15 @@ function woundEnemy
 			currentFight.finished = true
 			return true
 		return false
+
+function dropEnemyLoot
+	do
+		for each ch <= itmname in currentFight.enemy.lootTable
+			if chance of ch
+				now itm is item.(itmname)
+				say "[one of]The [+enemyName] drops [a|an] [+itm.name][or][A|an] [+itm.name] appears out of nowhere and drops to the floor[at random]."
+				addToContainer player.location, itm
+				break
 
 action use item
 	modes
@@ -360,6 +383,7 @@ action use item
 				say "[if i > 0], [end]<link use [+itm.name]>[+itm.name]</link>"
 				i = i + 1
 			say "\n"
+		say "\n"
 
 action unequip
 	understand

@@ -7,6 +7,7 @@ there is a Combatant called dark spark
 	its strength is 5
 	its constitution is 20
 	its level is 1
+	its lootTable is {"antidote": 10, "music tape": 10}
 
 function darkSparkIntro
 	do
@@ -41,7 +42,7 @@ function darkSparkWound
 		if this.hp < 7
 			say "The dark spark flickers. Other than normal lights, this one becomes brighter when flickering."
 		// drop green key
-		if !this.droppedItem and this.hp < 1
+		if this.hp < 1 and !this.droppedItem
 			say "The density of particles of the dark spark seems to have decreased below a value that is necessary for the mass attraction that keeps it together. Soon more and 
 					more of the small antilights fly away from the cloud until they are all gone."
 			if this.encounterCounter > 2 && chance of 70

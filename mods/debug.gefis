@@ -31,8 +31,8 @@ function maptest
 				say "\n"
 
 when play resumes
-	do "encounters off"
-		
-action fight
+	//do "encounters off"
+
+action ff
 	do
 		startFight dark spark, false

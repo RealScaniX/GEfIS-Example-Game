@@ -42,7 +42,7 @@ function reflectionWound
 		if this.hp < 7
 			say "Cracks are spreading all over the reflection."
 		// drop green key
-		if !this.droppedItem && this.hp < 1
+		if this.hp < 1 and !this.droppedItem && 
 			if this.encounterCounter > 2 && chance of 70
 				say "Some of the shards rejoin for a second to show the reflection of a blue key. Then it suddenly is like a projection into your side of the mirror and materializes
 						completely, before hitting the floor."
@@ -50,7 +50,7 @@ function reflectionWound
 				add blue key to player.location.items
 				this.droppedItem = true
 			else if this.encounterCounter > 1
-				say "You try to get a better view of the item, but alle you get are a few glimpses of something that looks like a blue key."
+				say "You try to get a better view of the item, but all you get are a few glimpses of something that looks like a blue key."
 			else
 				say "As the attacker smashes into thousand shards you see the reflection of something blue in some of them."
 		return this.hp < 1
