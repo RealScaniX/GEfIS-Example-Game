@@ -60,7 +60,7 @@ function addContainerItems
 					if ext
 						now inf is a new list
 						add containeritem to inf
-						add cnt.itemCount.(containeritem.name) to inf
+						add cnt.itemCount.(containeritem.id) to inf
 						add cnt to inf
 						add inf to itemlist
 					else
@@ -170,8 +170,8 @@ function removeFromContainer
 		removeFromContainer [cnt], [itm]
 	do
 		if cnt is a container or cnt is a place
-			cnt.itemCount.(itm.name) = cnt.itemCount.(itm.name) - 1
-			if cnt.itemCount.(itm.name) <= 0
+			cnt.itemCount.(itm.id) = cnt.itemCount.(itm.id) - 1
+			if cnt.itemCount.(itm.id) <= 0
 				remove itm from cnt.items
 			if [playerOwns cnt]
 				changeCarried itm, -1
@@ -185,9 +185,9 @@ function addToContainer
 		if cnt is a container or cnt is a place
 			if not (cnt.items has itm)
 				add itm to cnt.items
-				cnt.itemCount.(itm.name) = 1
+				cnt.itemCount.(itm.id) = 1
 			else
-				cnt.itemCount.(itm.name) = cnt.itemCount.(itm.name) + 1
+				cnt.itemCount.(itm.id) = cnt.itemCount.(itm.id) + 1
 			if [playerOwns cnt]
 				changeCarried itm, 1
 		else
