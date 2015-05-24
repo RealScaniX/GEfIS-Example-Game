@@ -2,3 +2,12 @@ this is music room by scanix
 
 there is a place called music room
 	its exits are {"west": east door}
+	its intro is @[addOneTimeEvent musicRoomIntro]
+
+function musicRoomIntro
+	do
+		say "You slowly step into the large room."
+		wait for 2 seconds
+		say "The most dominating feature by far is the piano the back."
+
+

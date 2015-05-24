@@ -45,8 +45,67 @@ there is a circle key called key of light
 			in the reality."
 
 /*
-The match. Not much light and is used up quite fast.
-*/
+ * The flashlight
+ */
+there is a lightsource called flashlight
+	its illumination is 20
+	its steps is 100
+	its usedSteps is 50
+	its useProc is "useflashlight"
+	its description is "It is a bit old, but it still appears to be in working condition. Being too stupid to have brought your own flashlight, you are happy to have found this."
+	its lit is true
+
+there is an item called battery
+	its useProc is "usebattery"
+	its useWithProc is "usebatterywith"
+	its description is "A lot of scientists have worked hard for years for you to be able to hold this wondrous source of power in your small hands."
+
+there is an item called magic battery
+	its useProc is "usebattery"
+	its useWithProc is "usebatterywith"
+
+function useflashlight
+	do
+		if player.light is lightsource.flashlight
+			setlightsource null
+			say "You turn off the flashlight to conserve the battery power."
+		else
+			setlightsource lightsource.flashlight
+			if player.light is flashlight // could have been blocked
+				say "You turn on the flashlight and immediately feel better to have something in your hand that pushes back the darkness."
+				if lightsource.flashlight.usedSteps > lightsource.flashlight.steps / 2
+					say "Unfortunately you get the feeling that the battery in this thing is getting empty."
+
+function usebattery
+	do
+		if [playerOwns flashlight]
+			if flashlight.steps > 1000
+				say "You see no reason to remove the super battery from the flashlight ever again."
+				return
+			else if flashlight.usedSteps < flashlight.steps
+				say "You should wait until the current battery is really empty."
+				return
+			else if this is magic battery
+				say "You put the extraordinary battery into the flashlight. You are pretty sure that this is the last time you will need a new battery."
+				flashlight.steps = 500000
+				flashlight.illumination = 30
+			else
+				say "You exchange the battery of the flashlight with a new one."
+			flashlight.usedSteps = 0
+			removeFromInv battery
+		else
+			say "You don't know what to do with the battery."
+
+function usebatterywith
+	do
+		if itm is flashlight
+			invoke function "usebattery"
+		else
+			say "That does not need a battery."
+
+/*
+ * The match. Not much light and is used up quite fast.
+ */
 there is an item called box of matches
 	its description is @"These are your lucky matches. \"Lucky\", because you consider yourself lucky that your mother hasn't noticed you carrying those around in your 
 						pocket... yet.\nShaking it and listening closely to the rattling sound of the matches inside, you [one of]guess[or]estimate[or]calculate[at random] there are
