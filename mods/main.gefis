@@ -37,7 +37,7 @@ function mainprompt
 			for each exit <= exname in player.location.exits
 				if i > 0
 					say ", "
-				say "[link go $][append exname][/link]"
+				say "<link go [+exname]>[append exname]</link>"
 				now i is i + 1
 			say "\n"
 
