@@ -27,10 +27,12 @@ there is a doorPassage called northeast door
 there is a doorPassage called east door
 	its locked is true
 	its origin is alternative entry hall
+	its destination is music room
 
 there is a doorPassage called northwest door
 	its locked is true
 	its origin is alternative entry hall
+	its destination is library
 
 there is a doorPassage called lowerBathroomDoor
 	its origin is alternative entry hall

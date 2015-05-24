@@ -28,7 +28,7 @@ there is a doorPassage called eastwingNorthDoor
 	its name is "north door"
 	it is private
 	its origin is east wing
-	its destination is bedroom
+	its destination is sewing room
 
 there is a container called storage compartment
 	its discovered is false
