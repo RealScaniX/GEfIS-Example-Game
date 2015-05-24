@@ -8,8 +8,19 @@ there is an item called walkman
 								There is a whole box of screwed up tapes to prove that your repairing skill needs some leveling."
 	its useProc is "useTheWalkman"
 
-entity music tape is an item
+there is a soothingTape called music tape
+
+entity soothingTape is an item
 	its description is "This is a music tape. If you wanted to know what's on it, you could probably play it on your walkman. Once."
+	its combatUse is true
+	its useProc is "useMusicTape"
+
+function useMusicTape
+	do
+		if not [playerOwns walkman]
+			say "You have nothing to play it with."
+		else
+			do "use walkman"
 
 function stopTheWalkman
 	do
@@ -43,7 +54,10 @@ function useTheWalkman
 						tape[at random][else]your only tape and press play. "
 				wait for 1 second
 				st = "[one of]The music scares away a part of your fear[or]Your mind starts to follow the melody, calming itself in the progress.[at random]"
-				soothe player.fear / 3, st // until parameter splitting works as expected
+				so = player.fear / 3
+				if so < 40
+					so = 40
+				soothe so, st
 				say ".\n"
 			globals.walkmanUse = globals.walkmanUse + 1
 			removeFromInv "music tape"
