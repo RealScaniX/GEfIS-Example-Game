@@ -69,7 +69,7 @@ when play starts
 	now fussel.description is "Beware! It's the fussel!!!"
 	now fussel.discovered is false
 	add fussel to kitchen cupboard.items
-	now globals.kitchenTape is a new music tape called "music tape"
+	now globals.kitchenTape is a new soothingTape called "music tape"
 	globals.kitchenTape.discovered = false
 
 function afterProcKitchen
