@@ -8,6 +8,32 @@ there is a Combatant called poison ivy
 	its constitution is 120
 	its level is 5
 	its poisonous is true
+	its lootTable is {"antidote": 30}
+
+there is an item called antidote
+	its description is "It's a little flask with some greenish, thick fluid inside. On the outside there is a sticker with a single word: Antidote\n"
+	its smell is "You take off the lid for a moment and take a whiff of it. You are totally sure that this is a prime example of a green smell. It strongly smells of all that
+			nature stuff: Vegetables, herbs and other plants, mixed together with a breeze of fresh air."
+	its taste is "This is some sort of medicine. You are not willingly tasting this until you are really sick."
+	its sound is "If you squeeze it, the small plastic bottle does a little *click* sound."
+	its combatUse is true
+	its useProc is "useAntidote"
+
+function useAntidote
+	do
+		if !currentFight.finished and (currentFight.player.poisonDOT > 0 or player.fear > 15)
+			say "With a sigh you open the antidote and pour the fluid into your mouth. You take big gulps to avoid tasting it too much."
+			wait for 5 seconds
+			say "You feel the sickness shy away from the power of natural life force. Just one or two seconds later the "
+			soothe 15, "pleasant tingle"
+			say " has spread out through your whole body and the bad feeling is gone."
+			wait for 5 seconds
+			say "When you want to throw away the empty bottle, you notice that there isn't anything in your hand anymore."
+		else
+			say this.taste
+
+understand 
+	"drink antidote" as "use antidote"
 
 function poisonIvyIntro
 	do
@@ -42,7 +68,7 @@ function poisonIvyWound
 		if this.hp < 7
 			say "The dark spark flickers. Other than normal lights, this one becomes brighter when flickering."
 		// drop green key
-		if !this.droppedItem and this.hp < 1
+		if this.hp < 1 and !this.droppedItem
 			say "The density of particles of the dark spark seems to have decreased below a value that is necessary for the mass attraction that keeps it together. Soon more and 
 					more of the small antilights fly away from the cloud until they are all gone."
 			if this.encounterCounter > 2 && chance of 70
