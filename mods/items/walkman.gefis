@@ -2,7 +2,6 @@ This is walkman by ScaniX
 
 there is an item called walkman
 	its combatUse is true
-	its actions are {"look at", "use"}
 	its description is "This is your infamous tape eating walkman. There is something wrong with the mechanics. While it still plays cassettes,
 								it will kill them at the same time.\nFrom time to time you take a screwdriver and try to fix it. 
 								There is a whole box of screwed up tapes to prove that your repairing skill needs some leveling."
