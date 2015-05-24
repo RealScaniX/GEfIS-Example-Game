@@ -44,6 +44,8 @@ function lightsource_update
 		for each itm in ilist
 			if itm is a equippable and itm.equipped
 				player.illumination = player.illumination + itm.illumination
+			else if itm is not a lightsource // non equippables always shine
+				player.illumination = player.illumination + itm.illumination
 
 function setlight
 	understand
@@ -92,6 +94,8 @@ before function goToPlace
 	now ilist is [inventoryList]
 	for each itm in ilist
 		if itm is a equippable and itm.equipped
+			illu = illu + itm.illumination
+		else if itm is not a lightsource // non equippables always shine
 			illu = illu + itm.illumination
 	if illu < 10
 		say "Staring into the [one of]darkness[or]pitch black hole[at random] in front of you, you decide that you'd rather not go there without any light."
