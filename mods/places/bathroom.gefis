@@ -55,7 +55,7 @@ function sinkDesc
 	do
 		append "Now covered in multiple layers of dust and grime, you guess that this has once been a nice old fashioned bathroom sink."
 		if !globals.antidoteNoticed
-			say "A small green flask is standing there. Seemingly less dusty than the rest."
+			append "A small green flask is standing there. Seemingly less dusty than the rest."
 			globals.antidoteNoticed = true
 			add antidote to player.location.items
 
@@ -145,4 +145,4 @@ function bathroomMirrorSmash
 		say "The sudden sound would have startled you. "
 		flush
 		sleep 2
-		say "If it hadn't been your fist that has smashed the mirror."
+		say "If it wasn't your own fist that has smashed the mirror."
