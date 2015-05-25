@@ -8,7 +8,7 @@ There is a place called alternative entry hall
 	its events are {alternativeentryhallsoothe}
 	its items are {ticking sound, entrance, cellar door, stairway}
 	its pacified is true
-	its exits are {"up": stairway, "down": cellar door, "south": entrance, "northwest": kitchen door, "northeast": northeast door, "northwest": northwest door, "west": lowerBathroomDoor, "east": east door}
+	its exits are {"up": stairway, "down": cellar door, "south": entrance, "north": kitchen door, "northeast": northeast door, "northwest": northwest door, "west": lowerBathroomDoor, "east": east door}
 	its regions are {"anywhere", "house", "first floor"}
 	its ambience is "27077__daveincamas__clockticks_noecho.ogg"
 	its ambienceVolume is 40
