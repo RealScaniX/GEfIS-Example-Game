@@ -1,58 +1,85 @@
 This is death by ScaniX
 
-there is a Combatant called dead cat
+there is a Combatant called death
+	its name is "dead cat"
 	its attackProc is "deathAttack"
 	its woundProc is "deathWound"
 	its introProc is "deathIntro"
+	its appearProc is "deathAppear"
 	its strength is 45
 	its constitution is 160
 	its level is 8
-	its lootTable is {"music tape": 20}
+	its lootTable is {"antidote": 20, "music tape": 40, "battery": 10, "magic battery": -2}
 
 function deathIntro
 	do
-		say "From the corner of your eye you see a movement and slowly turn towards it. At first you recognize yourself and relax, but then you remember that there is no 
-				mirror [if player.location.name is \"bathroom\"]on that side[else]here[end]. Slowly the movements of your death separate from your own as it changes into a threatening pose."
+		say "A clapping sound slowly comes closer. It sounds like wood hits wood, but also a little different than that."
+		wait for 6 seconds
+		say "Every time you turn towards the sound to check it out, it stops. Just to reappear in a different direction, only louder and closer."
+		wait for 7 seconds
+		play "dead cat.ogg" on audio channel "sound"
+		say "The "
+		now scareAmount is 10
+		if player.fear > 85
+			scareAmount = 0
+		scare scareAmount, "horrible meow"
+		say " lets you spin around and jump back in a single motion."
+		say "You immediately know that the thing in front of you is the skeleton from the grave that you opened."
+		wait for 8 seconds
+		say "It is the most unnatural thing you have seen, even with everything that happened today. The skeleton moves almost as smoothly as a normal cat, but the bones
+			just stick to each other by magic and sometimes they move out of place and hit another bone with that clapping sound that you've heard before."
+		wait for 12 seconds
+		say "You only wonder for a second if that kitty is friendly and just wants to play. Then you see it extend its claws and prepare to jump at you."
+		wait for 10 seconds
+
+function deathAppear
+	do
+		play "dead cat.ogg" on audio channel "sound"
+		say "The dead cat suddenly appears, accompanied by its distorted meow."
 
 function deathAttack
 	do
 		if this.specialAttackPrepare > 0
 			this.specialAttackPrepare = 0
-			say "The living mirror in front of you suddenly smashes into dozens of pieces and when they all rotate to face you, you can see that each of them show a pair of eyes."
-			say "You feel "
-			scare 0, "pierced by countless eyes"
+			say "A second ago the cat was just sitting there and now it is suddenly right in your face with its claws."
+			play "dead cat.ogg" on audio channel "sound"
+			say "The meow is ringing in your ears and you feel the claws "
+			scare 0, "scratching you everywhere"
 			say ".\n"
+			say "It takes you all your strength to throw off the cat."
 			return (random number between 0.9 and 1.1) * this.strength * 2.5
 		else if this.specialAttackCooldown == 0 && chance of 30
 			this.specialAttackPrepare = 1
-			say "As you get ready for an incoming blow, you see that the death does something else instead."
+			say "The cat lowers itself until the belly fur scraps touch the ground and then wiggles its bony behind."
 			return 0
 		else
-			say this.name + " is using "
-			scare 0, "guilty look"
-			say " to scare you."
+			say this.name + " "
+			scare 0, "[one of]bites your leg[or]scratches your arm[at random]"
+			say ", leaving its marks on your body."
 			return (random number between 0.9 and 1.1) * this.strength
 
 function deathWound
 	do
-		if dmg < 15
-			say "The surface of the [+this.name] is becoming tarnished where it was hit."
-		else
-			say "A cracking sound indicates that your attack didn't go unnoticed."
 		this.hp = this.hp - dmg
-		if this.hp < 7
-			say "Cracks are spreading all over the death."
-		// drop green key
-		if this.hp < 1 and !this.droppedItem
-			if this.encounterCounter > 2 && chance of 70
-				say "Some of the shards rejoin for a second to show the death of a blue key. Then it suddenly is like a projection into your side of the mirror and materializes
-						completely, before hitting the floor."
-				play "clong.ogg" on audio channel "sound" with volume 100
-				add blue key to player.location.items
-				this.droppedItem = true
-			else if this.encounterCounter > 1
-				say "You try to get a better view of the item, but all you get are a few glimpses of something that looks like a blue key."
+		if this.hp < 1 
+			if !this.droppedItem
+				if this.defeatedCount > 2 && chance of 70
+					say "You see the red key drop to the floor and are happy to finally be able to grab it, but then the cat takes it in its mouth and runs away with it."
+					this.droppedItem = true
+					this.killed = true
+					removeEncounter death
+				else if this.defeatedCount > 0
+					say "You try to get a better view of the item, but all you get are a few glimpses of something that looks like a red key."
+				else
+					say "As the pussy runs away you notice something red hanging around its neck."
+		else if !poisonAttack
+			if dmg < 25
+				say "The attack roughed up the surface of some bones, but the enemy still looks pretty unharmed. At least as unharmed as a dead cat can look."
+			else if dmg < 45
+				say "A crack appears on the bone that you hit."
 			else
-				say "As the attacker smashes into thousand shards you see the death of something blue in some of them."
+				say "With a loud cracking sound the bone is smashed. Although the skeleton is held together by some magic, you think that it just lost quite a bit of stability."
+			if this.hp < 30
+				say "The cat looks very bruised and some bones have fallen off and are lying on the ground. This kitty will not purr again so soon."
 		return this.hp < 1
 

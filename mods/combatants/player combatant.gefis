@@ -18,7 +18,7 @@ function playerAttack
 		// say attack text
 		invoke function wpn.attackProc
 		// roll for hit
-		if chance of 50 in (100 - player.glow + enemyLevel * 10)
+		if chance of 85 in (100 - player.glow + enemyLevel * 10)
 			// crit?
 			if chance of wpn.critChance
 				say "Seeing an opening you take your chance and manage to hit the [+enemyName] at a vulnerable point."
@@ -31,7 +31,7 @@ function playerAttack
 				return dmg
 		else
 			say "[one of]
-				Miscalculating the movements of your opponent, you miss it by a few centimeters.[or]
+				Miscalculating the movement of your opponent, you miss it by a few centimeters.[or]
 				You underestimated the speed of the [+enemyName] and could not hit it.[or]
 				The [+enemyName] deflected the blow.
 				[at random]\n"
@@ -42,8 +42,9 @@ function playerWound
 		now fearGain is dmg
 		//debugSay "Player wound DMG: [+fearGain]"
 		// dodge
-		if !poisonAttack and chance of player.glow in 100 + enemyLevel * 10
-			say "[one of]Using your catlike reflexes, you dodge the attack and purr as you stay completely unharmed.[at random]"
+		if !specialAttack && !poisonAttack and chance of player.glow in 100 + enemyLevel * 10
+			say "[one of]Using your catlike reflexes, you dodge the attack and purr as you stay completely unharmed.
+					[or]Noticing a pattern in the attack, you are able to avoid getting hit.[at random]\n"
 			return false
 		// reduce by glow
 		fearGain = fearGain * (1.0 - player.glow / 120.0)

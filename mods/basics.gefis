@@ -27,7 +27,7 @@ Entity Thing is an Entity
 		text useWithProc			// [t] the item itself, [itm] the target
 
 entity Item is a Thing
-	its actions are {"look at", "use", "take", "smell", "taste"}
+	its actions are {"look at", "use", "take", "listen to", "smell", "taste"}
    attributes
 		bool carryable is true
       number weight
@@ -329,3 +329,16 @@ action smellaround
 		smt = player.location
 		invoke action "smell"
 
+function usethiswithsomething
+	do
+		now t is this
+		invoke function "usewithsomething"
+
+function usewithsomething
+	do
+		say "What do you want to use the [+t.name] with?"
+		ask "Use with what?"
+		if user.canceled or user.input is empty
+			return
+		now itm is [resolveitem user.input]
+		invoke action "usewith"

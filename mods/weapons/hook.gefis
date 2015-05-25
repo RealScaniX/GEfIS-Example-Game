@@ -5,6 +5,7 @@ there is a weapon called hook
 			trees with this to reach the high hanging fruits?"
 	its strength is 15
 	its weaponName is @"[one of]hook on a stick[or]metal claws[or]reaper of fruits[at random]"
+	its useProc is "usethiswithsomething"
 	its useWithProc is "useHookWith"
 
 function useHookWith

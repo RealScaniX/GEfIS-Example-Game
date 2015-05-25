@@ -44,7 +44,37 @@ there is a circle key called key of light
 	its description is "This key seems to be made of pure light, which wouldn't make sense as you can clearly touch it. Still you keep thinking that this thing does not belong
 			in the reality."
 
-/*
+
+/************************************************************
+ * antidote
+ */
+there is an item called antidote
+	its description is "It's a little flask with some greenish, thick fluid inside. On the outside there is a sticker with a single word: Antidote\n"
+	its smell is "You take off the lid for a moment and take a whiff of it. You are totally sure that this is a prime example of a green smell. It strongly smells of all that
+			nature stuff: Vegetables, herbs and other plants, mixed together with a breeze of fresh air."
+	its taste is "This is some sort of medicine. You are not willingly tasting this until you are really sick."
+	its sound is "If you squeeze it, the small plastic bottle does a little *click* sound."
+	its combatUse is true
+	its useProc is "useAntidote"
+
+function useAntidote
+	do
+		if !currentFight.finished and (currentFight.player.poisonDOT > 0 or player.fear > 15)
+			say "With a sigh you open the antidote and pour the fluid into your mouth. You take big gulps to avoid tasting it too much."
+			wait for 5 seconds
+			say "You feel the sickness shy away from the power of natural life force. Just one or two seconds later the "
+			soothe 15, "pleasant tingle"
+			say " has spread out through your whole body and the bad feeling is gone."
+			wait for 5 seconds
+			say "When you want to throw away the empty bottle, you notice that there isn't anything in your hand anymore."
+		else
+			say this.taste
+
+understand 
+	"drink antidote" as "use antidote"
+
+
+/************************************************************
  * The flashlight
  */
 there is a lightsource called flashlight
@@ -63,6 +93,8 @@ there is an item called battery
 there is an item called magic battery
 	its useProc is "usebattery"
 	its useWithProc is "usebatterywith"
+	its sound is "There is a little humming sound to it."
+	its description is "It looks similar to a normal battery, but you can hear a little humming soundA lot of scientists have worked hard for years for you to be able to hold this wondrous source of power in your small hands."
 
 function useflashlight
 	do
@@ -103,7 +135,8 @@ function usebatterywith
 		else
 			say "That does not need a battery."
 
-/*
+
+/************************************************************
  * The match. Not much light and is used up quite fast.
  */
 there is an item called box of matches

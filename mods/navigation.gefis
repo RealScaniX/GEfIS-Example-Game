@@ -244,7 +244,7 @@ function goToPlace
 	understand
 		goToPlace [destination]
 	do
-		if not destination is a place
+		if destination is not a place
 			say "The destination is no place! :(\n"
 			return
 		now player.location is destination

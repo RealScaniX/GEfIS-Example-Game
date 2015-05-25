@@ -3,6 +3,14 @@ this is music room by scanix
 there is a place called music room
 	its exits are {"west": east door}
 	its intro is @[addOneTimeEvent musicRoomIntro]
+	its items are {musicRoomChest}
+	its description is @[musicRoomDesc]
+
+there is a treasure chest called musicRoomChest
+	its name is "chest"
+	its discovered is false
+	its guardian is forgotten echo
+	its items are {light sword}
 
 function musicRoomIntro
 	do
@@ -10,4 +18,7 @@ function musicRoomIntro
 		wait for 2 seconds
 		say "The most dominating feature by far is the piano the back."
 
-
+function musicRoomDesc
+	do
+		discoverContainer music room
+		say "A music room. (description missing)"

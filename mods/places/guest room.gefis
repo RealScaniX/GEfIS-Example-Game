@@ -3,5 +3,9 @@ this is guest room by scanix
 there is a place called guest room
 	its regions are {"anywhere", "house", "second floor"}
 	its exits are {"north": eastwingSouthDoor}
+	its intro is @[guestRoomIntro]
 
-
+function guestRoomIntro
+	do
+		eastwingSouthDoor.name = "guest room door"
+		say "You are now standing in the guest room."

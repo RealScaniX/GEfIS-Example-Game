@@ -38,19 +38,46 @@ function addEncounter
 	understand
 		addEncounter [reg], [enmy], [prob]
 	do
-		if enmy is not a combatant
+		if devmode and enmy is not a combatant
 			say "Error: The [+enmy.name] is not a combatant."
 			return
 		if enmy is not nightmare
-			say "You cannot shake off the feeling that your presence has has just awakened something."
+			say "You cannot shake off the feeling that your [one of]presence has[or]actions have[at random] just awakened something."
 		now enc is a new encounter called (enmy.name + " encounter")
 		enc.probability = prob
 		enc.enemy = enmy
-		for each p in place.*
+		now placelist is place.*
+		// add garden
+		if globals.gardenTiles is not null
+			for each row in globals.gardenTiles
+				for each t in row
+					if t is not garden // already in list
+						add t to placelist
+		for each p in placelist
 			if reg is null or p.regions has reg
 				add enc to p.encounters
 		if temps.encounterCooldown < 5
 			temps.encounterCooldown = 5
+
+function removeEncounter
+	understand
+		removeEncounter [enmy]
+	do
+		if devmode and enmy is not a combatant
+			say "Error: The [+enmy.name] is not a combatant."
+			return
+		if enmy is not nightmare and enmy is not death
+			say "Something is different this time as you raise your fist in victory. You somehow sense that this creature has gone back to sleep for good now."
+		now placelist is place.*
+		// add garden
+		if globals.gardenTiles is not null
+			for each row in globals.gardenTiles
+				for each t in row
+					if t is not garden // already in list
+						add t to placelist
+		now encname is enmy.name + " encounter"
+		for each p in placelist
+			remove encname from p.encounters
 
 when play starts or resumes
 	temps.encounterCooldown = 3

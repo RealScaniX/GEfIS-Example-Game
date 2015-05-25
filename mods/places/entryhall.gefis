@@ -1,7 +1,7 @@
 This is Entry hall by ScaniX
 
 There is a place called entry hall
-   its exits are {"north": kitchen door, "down": cellar door, "west": locked door, "northwest": locked door, "east": locked door, "northeast": locked door}
+   its exits are {"northwest": kitchen door, "down": cellar door, "west": locked door, "northwest": locked door, "east": locked door, "northeast": locked door}
 	its items are {cellar door, ticking sound}
 	its intro is ""
 	its description is @[entryhalldesc]

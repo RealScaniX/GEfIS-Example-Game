@@ -25,11 +25,13 @@ Entity Combatant is a thing
 		text attackProc										// called to attack, the return value is damage done
 		text woundProc											// called to receive damage, if this returns true the combatant is defeated and the fight is over
 																	//		the damage to process will be stored in the variable "dmg"
-		text introProc											// called when the fight starts
+		text introProc											// called when the enemy appears for the very first time
+		text appearProc										// called when the fight starts
 		list lootTable											// list of items that the enemy will drop after being defeated in the form {Entity item, number probability}
 		bool defends											// if true, the combatant tries to block an attack, reducing the damage
 		number level											// the level of the enemy (1-10), for a player the glow is used
 		number encounterCounter								// the number of encounters we had with this
+		number defeatedCount									// the number of kills of this enemy
 		bool droppedItem										// if true, this enemy already dropped the loot
 		number specialAttackPrepare is 0					// preparing a special attack
 		number specialAttackCooldown is 0				// cooldown for special attack, automatically managed in combat, 
@@ -37,6 +39,7 @@ Entity Combatant is a thing
 		text fightMusic is "Urban Gauntlet.mp3"		// track to play during fight
 		number poisonDOT										// the damage per round that is caused by poison
 		bool poisonous											// if true a fraction of the damage is added as poison dmg
+		bool killed												// true if this enemy is no longer attacking the player (defeated more than 10 times)
 
 entity Weapon is a Equippable
 	its useProc is "equipItem"
@@ -157,9 +160,10 @@ mode Fight
 				enemy has the first attack?
 		*************************************/
 		say "\n"
-		if currentFight.enemy.encounterCounter is 0
-			if currentFight.enemy.introProc is not null
-				invoke function currentFight.enemy.introProc on currentFight.enemy
+		if currentFight.enemy.encounterCounter is 0 and currentFight.enemy.introProc is not null
+			invoke function currentFight.enemy.introProc on currentFight.enemy
+		else if currentFight.enemy.appearProc is not null
+			invoke function currentFight.enemy.appearProc on currentFight.enemy
 		else
 			say "A [+currentFight.enemy.name] is attacking you."
 		story log off
@@ -186,7 +190,7 @@ function fightPrompt
 	do
 		eventProcessing
 		if currentFight.playersTurn
-			say "What are you going to do? [link attack]attack[/link] [link defend]defend[/link] [link use item]use item[/link] [link flee]flee[/link]"
+			say "What are you going to do? [link attack]attack[/link] [link defend]defend[/link] [link use item]use item[/link] [link flee]flee[/link]\n"
 
 function endFight
 	do
@@ -195,7 +199,12 @@ function endFight
 			say "The illness has left your body at the same time your opponent has gone from your sight."
 		story log on
 		if currentFight.won
+			currentFight.enemy.defeatedCount = currentFight.enemy.defeatedCount + 1
 			globals.wonCount = globals.wonCount + 1
+			// remove this encounter if the player killed it 10 times
+			if currentFight.enemy.droppedItem and currentFight.enemy.defeatedCount >= 10
+				currentFight.killed = true
+				removeEncounter currentFight.enemy
 		else
 			globals.lostCount = globals.lostCount + 1
 		end mode		
@@ -219,12 +228,16 @@ function doEnemyTurn
 		if currentFight.enemy.poisonDOT > 0
 			dmg = currentFight.enemy.poisonDOT
 			say "[one of]Your attack has caused a poisoning which takes its toll now[or]You feel the pain of your opponent as the poison is spreading[at random]."
+			now poisonAttack is true
 			if [woundEnemy]
 				return
 		// attack player
+		now poisonAttack is false
+		now specialAttack is false
 		if currentFight.enemy.attackProc is not null
 			if currentFight.enemy.specialAttackPrepare > 0
 				currentFight.enemy.specialAttackCooldown = 5
+				now specialAttack is true
 			else if currentFight.enemy.specialAttackCooldown > 0
 				currentFight.enemy.specialAttackCooldown = currentFight.enemy.specialAttackCooldown - 1
 			now dmg is [invoke function currentFight.enemy.attackProc on currentFight.enemy]
@@ -356,10 +369,16 @@ function woundEnemy
 function dropEnemyLoot
 	do
 		for each ch <= itmname in currentFight.enemy.lootTable
+			now oneTimeDrop is false
+			if ch < 0
+				ch = |ch|
+				oneTimeDrop = true
 			if chance of ch
 				now itm is item.(itmname)
 				say "[one of]The [+enemyName] drops [a|an] [+itm.name][or][A|an] [+itm.name] appears out of nowhere and drops to the floor[at random]."
 				addToContainer player.location, itm
+				if oneTimeDrop
+					remove itmname from currentFight.enemy.lootTable
 				break
 
 action use item

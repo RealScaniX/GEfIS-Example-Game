@@ -31,8 +31,16 @@ function maptest
 				say "\n"
 
 when play resumes
-	//do "encounters off"
+	if devmode
+		say "Development mode, changes apply."
+		do "encounters off"
+		// garden map
+		if not [playerOwns pen]
+			addToInv pen
+		if not [playerOwns sketch pad]
+			addToInv sketch pad
 
 action ff
 	do
-		startFight dark spark, false
+		if devmode
+			startFight dark spark, false

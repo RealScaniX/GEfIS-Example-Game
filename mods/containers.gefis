@@ -39,13 +39,13 @@ function setContainer
 			now smt is d
 			invoke action "lookat"
 
-function discovercontainer
+function discoverContainer
 	understand
-		discovercontainer [d]
+		discoverContainer [d]
 	do
-		if not (d is a container)
+		if not (d is a container or d is a place)
 			return
-		if d.open
+		if d.open or d is a place
 			now d.known is true
 			for each itm in d.items
 				now itm.discovered is true

@@ -129,7 +129,7 @@ function happyends
 				say "Because you've thrown the stick. [+globals.stickProgress] times."
 			flush
 			wait for 6 seconds
-			say "And so the stray dog starts to wag its tail.
+			say "And so the stray dog starts to wag its tail."
 			say "Its sensitive nose picks up the trail of a happy future and the legs start to move faster and faster to not lose it again."
 			wait for 13 seconds
 			play "thump.ogg" on audio channel "sound"

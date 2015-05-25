@@ -26,7 +26,7 @@ action takeitem
 			say "You don't see that."
 			return
 		// Item?
-		if not itm is a item
+		if itm is not a item
 			say "That cannot be taken."
 			return
 		// Carryable?

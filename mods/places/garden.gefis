@@ -139,7 +139,7 @@ understand
 
 function stickTaste
 	do
-		if globals.stickProgress is 0
+		if globals.stickProgress is null or globals.stickProgress is 0
 			say "Licking across the stick, you come to the conclusion that it tastes of wood. Ith altho hath a liddle shplinder in thongue flavour tho ith..."
 		else
 			say "No, thanks. You already got enough of your own drool in your mouth."
@@ -250,7 +250,7 @@ function displayGardenMap
 							style = style + "border-right-color:[+color];"
 						if y == 0
 							style = style + "border-top-color:[+color];"
-						if y == globals.gardenHeight-1
+						if y == globals.gardenHeight-1 and tile is not garden
 							style = style + "border-bottom-color:[+color];"
 						if tile.blocked is "bush"
 							imageclass = " tileBush"
@@ -292,6 +292,79 @@ function redrawGardenMap
 			displayGardenMap
 
 there is a thing called grave
+	its useProc is "useGrave"
+	its description is @[addOneTimeEvent "graveDesc"]
+	its sound is "Afraid to hear a call from the grave, you kneel down and listen. But at least this grave is not calling for you."
+	its taste is "Using your life long experience, you can say that this would taste like dirt. There is no need to prove it."
+	its smell is "This doesn't smell any different than the soil in your garden at home."
+
+function graveDesc
+	do
+		if !globals.graveOpened
+			say "You shiver as you examine the small pile of dirt with a cross sticking in it."
+			wait for 4 seconds
+			say "There is no mistake that this is a grave, a rather small one. It might contain an animal or a child."
+		else if death.encounterCounter > 0
+			if death.killed
+				if !globals.deathKeyDiscovered
+					globals.deathKeyDiscovered = true
+					say "You are surprised to see that the skeleton has returned to its grave."
+					say "You are even more surprised to find the red key lying there besides the bones."
+					addToContainer player.location, red key
+				else
+					say "The dead cat rests calmly in its grave, hopefully forever."
+			else
+				say "That is the grave that you've opened. And like you have already feared: It is empty now."
+		else
+			say "It is a freshly dug up grave. Who would do something like that?"
+			wait for 4 seconds
+			say "You can see a pile of bones in it. Judging from the skull and tail, you would say that this resembles no child, at least no human child. The remaining pieces of 
+					fur sticking to some of the bones strengthen your conclusion."
+			wait for 9 seconds
+			say "Your best guess would be that it is a cat. Or better yet: It has been a cat, once."
+			
+function useGrave
+	do
+		say "It is not your time, yet."
+
+there is an item called shovel
+	its description is "It is a shovel. What else is there to say about it? There is no blood on it as far as you can see, but you could imagine that the rusty pattern on 
+			the lower end is dried blood, if you wanted to."
+	its useProc is "usethiswithsomething"
+	its useWithProc is "useShovelWith"
+
+function useShovelWith
+	do
+		if itm is grave
+			if !globals.graveOpened
+				globals.graveOpened = true
+				say "Standing there in the moonlight at around midnight with a shovel in your hand and just about to dig up a grave, you come to think that this is 
+						kind of classic.\n"
+				wait for 8 seconds
+				say "With a sigh, you go to work."
+				loop "grabschaufeln2.ogg" on audio channel "sound"
+				wait for 7 seconds
+				say "The soil is pretty loose, so you make progress fast."
+				wait for 7 seconds
+				resume audio channel "sound" with volume 50
+				say "Finally the shovel meets something hard and you start to carefully remove the remaining layer of dirt."
+				wait for 10 seconds
+				stop audio channel "sound"
+				say "You are finished. Looking down you realize, that this is your first grave robbery ever. Another thing you can tick off on the
+						list of things you wanted to do in your life."
+				wait for 9 seconds
+				say "Of course, it would help if it has been on the list at all."
+				addEncounter "anywhere", death, 30
+				wait for 9 seconds
+			else
+				say "It has been hard work to open the grave. You are not willing to repeat the whole ordeal backwards."
+		else
+			say "That doesn't need to be dug up."
+
+understand
+	"dig up grave" as "use shovel with grave"
+	"dig grave" as "use shovel with grave"
+	"open grave" as "use shovel with grave"
 
 there is a container called garden tool shed
 	its name is "tool shed"
@@ -299,10 +372,6 @@ there is a container called garden tool shed
 			[if this.open]You can see some scissors, bottles with insecticides, a lawn mover, a rake and other stuff that looks too much like work for your taste.
 			[else]The door is closed, but there is no lock.[end]"
 	its items are {shovel, hook}
-
-there is a thing called shovel
-	its description is "It is a shovel. What else is there to say about it? There is no blood on it, but if you want, you could imagine that the rusty pattern in the lower end
-			is dried blood, if you want."
 
 function gardenTileDesc
 	do
@@ -333,14 +402,9 @@ function gardenCreation
 			showTexts = true
 			say "You step out into the cool night and take a look around."
 			flush
-		else
-			if not [playerOwns pen]
-				addToInv pen
-			if not [playerOwns sketch pad]
-				addToInv sketch pad
 		// generate garden tiles
-		width = 7
-		height = 8
+		width = 10
+		height = 9
 		globals.gardenWidth = width
 		globals.gardenHeight = height
 		entranceX = integer value of (random number between (width / 2) and (width * 2 / 3))
@@ -438,5 +502,7 @@ function gardenCreation
 						tile.exits.northeast = tile.exits.north.exits.east
 		globals.gardenTiles = tiles
 		player.location = garden
-		//if globals.chapter >= 2
-		//	dumpMap
+		if devmode
+			dumpMap
+		wait for 2 seconds
+		addEncounter "garden", poison ivy, 70

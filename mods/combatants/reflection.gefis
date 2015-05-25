@@ -7,11 +7,15 @@ there is a Combatant called reflection
 	its strength is 25
 	its constitution is 70
 	its level is 4
+	its lootTable is {"antidote": 30, "battery": 3, "magic battery": -2}
 
 function reflectionIntro
 	do
-		say "From the corner of your eye you see a movement and slowly turn towards it. At first you recognize yourself and relax, but then you remember that there is no 
-				mirror [if player.location.name is \"bathroom\"]on that side[else]here[end]. Slowly the movements of your reflection separate from your own as it changes into a threatening pose."
+		say "From the corner of your eye you see a movement and slowly turn towards it.\nAt first you recognize yourself and relax. "
+		wait for 5 seconds
+		say "[backspace][backspace], but then you remember that there is no mirror [if player.location.name is \"bathroom\"]on that side[else]here[end]."
+		wait for 3 seconds
+		say "Slowly the movements of your reflection separate from your own as it changes into a threatening pose."
 
 function reflectionAttack
 	do
@@ -34,24 +38,26 @@ function reflectionAttack
 
 function reflectionWound
 	do
-		if dmg < 15
-			say "The surface of the [+this.name] is becoming tarnished where it was hit."
-		else
-			say "A cracking sound indicates that your attack didn't go unnoticed."
 		this.hp = this.hp - dmg
-		if this.hp < 7
-			say "Cracks are spreading all over the reflection."
 		// drop green key
-		if this.hp < 1 and !this.droppedItem && 
-			if this.encounterCounter > 2 && chance of 70
-				say "Some of the shards rejoin for a second to show the reflection of a blue key. Then it suddenly is like a projection into your side of the mirror and materializes
-						completely, before hitting the floor."
-				play "clong.ogg" on audio channel "sound" with volume 100
-				add blue key to player.location.items
-				this.droppedItem = true
-			else if this.encounterCounter > 1
-				say "You try to get a better view of the item, but all you get are a few glimpses of something that looks like a blue key."
+		if this.hp < 1 
+			if !this.droppedItem && 
+				if this.defeatedCount > 2 && chance of 70
+					say "Some of the shards rejoin for a second to show the reflection of a blue key. Then it suddenly is like a projection into your side of the mirror and materializes
+							completely, before hitting the floor."
+					play "clong.ogg" on audio channel "sound" with volume 100
+					add blue key to player.location.items
+					this.droppedItem = true
+				else if this.defeatedCount > 0
+					say "You try to get a better view of the item, but all you get are a few glimpses of something that looks like a blue key."
+				else
+					say "As the attacker is smashed into thousand shards you see the reflection of something blue in some of them."
+		else if !poisonAttack
+			if dmg < 20
+				say "The surface of the [+this.name] is becoming tarnished where it was hit."
 			else
-				say "As the attacker smashes into thousand shards you see the reflection of something blue in some of them."
+				say "A cracking sound indicates that your attack didn't go unnoticed."
+			if this.hp < 20
+				say "Cracks are spreading all over the reflection."
 		return this.hp < 1
 
