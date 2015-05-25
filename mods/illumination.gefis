@@ -53,7 +53,7 @@ function setlight
 	do
 		if light is not null
 			if light.usedSteps >= light.steps
-				say "There is no more light in the [+light.name]."
+				say "There is no more light in the [+light.name].[if light is flashlight] Unfortunately this does not make it a flash.[end]"
 				return
 		player.light = light
 
