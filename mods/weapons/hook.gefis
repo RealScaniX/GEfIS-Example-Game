@@ -5,8 +5,16 @@ there is a weapon called hook
 			trees with this to reach the high hanging fruits?"
 	its strength is 15
 	its weaponName is @"[one of]hook on a stick[or]metal claws[or]reaper of fruits[at random]"
-	its useProc is "usethiswithsomething"
+	its useProc is "useHook"
 	its useWithProc is "useHookWith"
+
+function useHook
+	do
+		ask whether "Do you want to equip the hook as weapon?"
+		if user.consented
+			do "equip hook"
+		else
+			invoke function "usethiswithsomething"
 
 function useHookWith
 	do
@@ -16,8 +24,6 @@ function useHookWith
 			else
 				say "The hatch has already felt the wrath of the hook."
 		else
-			say "Item: "
-			dump itm
 			say "That is neither in need to get reaped, nor do you want to pull it closer."
 			
 function hatchOpening
