@@ -71,8 +71,6 @@ function defaultWeaponHit
 
 entity Armor is a Equippable
 	its useProc is "equipItem"
-	attributes
-		list bodyparts		// "head", "top", "legs", "hands", "waist": you cannot wear two armors at the same time that cover the same region
 
 Entity Item
 	attributes
@@ -169,7 +167,6 @@ mode Fight
 		story log off
 		currentFight.enemy.encounterCounter = currentFight.enemy.encounterCounter + 1
 		now currentFight.playersTurn is !currentFight.enemyStarts
-		say "\n"
 		if currentFight.eventTriggered
 			fightPrompt
 	on end do
@@ -190,7 +187,7 @@ function fightPrompt
 	do
 		eventProcessing
 		if currentFight.playersTurn
-			say "What are you going to do? [link attack]attack[/link] [link defend]defend[/link] [link use item]use item[/link] [link flee]flee[/link]\n"
+			say "\nWhat are you going to do? [link attack]attack[/link] [link defend]defend[/link] [link use item]use item[/link] [link flee]flee[/link]\n"
 
 function endFight
 	do
@@ -295,7 +292,7 @@ before action use
 
 after action use
 	if !currentFight.finished
-		say "\n"
+		now currentFight.playersTurn is false
 		wait
 		
 /************************************************************************************************
@@ -402,14 +399,17 @@ action use item
 				say "[if i > 0], [end]<link use [+itm.name]>[+itm.name]</link>"
 				i = i + 1
 			say "\n"
-		say "\n"
 
 action unequip
 	understand
 		unequip [itm]
-		take off [itm]
+		stash [itm]
+		put away [itm]
 	do
-		if itm is an equippable
+		itm = [resolveItem itm]
+		if itm is null
+			say "You cannot see that here."
+		else if itm is an equippable
 			if itm.equipped
 				itm.equipped = false
 				say "You unequip the [+itm.name]."
@@ -417,6 +417,19 @@ action unequip
 				say "You already have."
 		else
 			say "You cannot even equip that in the first place."
+
+action equip
+	understand
+		equip [itm]
+		wield [itm]
+	do
+		itm = [resolveItem itm]
+		if itm is null
+			say "You cannot see that here."
+		else if itm is an equippable
+			invoke function "equipItem" on itm
+		else
+			say "You cannot equip that."
 
 function equipItem
 	do
