@@ -62,12 +62,6 @@ there is a doorPassage called kitchen door
 	its destination is entry hall
 	its open is false
 
-when play starts
-	now fussel is a new item called "fussel"
-	now fussel.description is "Beware! It's the fussel!!!"
-	now fussel.discovered is false
-	add fussel to kitchen cupboard.items
-
 function afterProcKitchen
 	do
 		if !globals.kitchenTapeDiscovered and ([playerOwns apple] or [playerOwns wax apple])
