@@ -76,16 +76,43 @@ function mainStatusInfo
 				str = str + "<br style=\"clear:both;\"/>"
 		// count items
 		now invitems is [inventoryList]
+		now itemlink is "("
 		for each itm in invitems
+			itemlink = itemlink + "([+itm.name][if itm is a equippable and itm.equipped]*[end]:|"
+			itemlink = itemlink + "L:look at " + itm.name + "|"
+			itemlink = itemlink + "U:use " + itm.name + "|"
+			itemlink = itemlink + "S:smell " + itm.name + "|"
+			itemlink = itemlink + "T:taste " + itm.name + "|"
+			itemlink = itemlink + "LT:listen to " + itm.name + ")"
 			now itmcount is itmcount + itm.carried
+		itemlink = itemlink + ")"
+/*		
+		now itemlink is "("
+		for each itm in invitems
+			itemlink = itemlink + "([+itm.name]:|"
+			itemlink = itemlink + "look:look at " + itm.name + "|"
+			if itm is an equippable
+				if itm.equipped
+					itemlink = itemlink + "unequip:unequip "
+				else
+					itemlink = itemlink + "equip:equip "
+			else
+				itemlink = itemlink + "use:use "
+			itemlink = itemlink + itm.name + "|"
+			itemlink = itemlink + "smell:smell " + itm.name + "|"
+			itemlink = itemlink + "taste:taste " + itm.name + "|"
+			itemlink = itemlink + "listen to:listen to " + itm.name + ")"
+			now itmcount is itmcount + itm.carried
+		itemlink = itemlink + ")"  
+*/
 		return "<div style=\"float:right;line-height:0px;\">
 						<htmlbar \"Fear\" [+player.fear]/100><br/>
 						<htmlbar \"Light\" [+player.illumination]/100><br/>
 						<htmlbar \"Glow\" [+player.glow]/100>
 					</div><div style=\"float:right;margin:0px 18px 0px 0px;line-height:normal;\">[+str]</div>
 					<div style=\"display:inline-block;\">
-					You are here: [link look around][append player.location][/link]\n
-					You performed " + user.actions + " actions and own [if itmcount > 0]<link inventory>[+itmcount] thing[if itmcount > 1]s[end]</link>.[else]nothing.[end]\n
+					After [+user.actions] actions, you ended up here: [link look around][append player.location][/link]\n
+					You own [if itmcount > 0]<link inv>[+itmcount] thing[if itmcount > 1]s[end]</link> <link [+itemlink]>\\\\//</link>.[else]nothing.[end]\n
 					[if player.light is not null]You are carrying this light: [+player.light.name] ([+player.light.illumination])\n[end]
 					</div>
 					<div style=\"clear:both;\"></div>"
