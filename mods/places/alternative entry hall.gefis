@@ -85,10 +85,15 @@ function entranceDesc
 		say "The blue light seems to fill up the large hall completely and is moving somehow, like sunbeams below the rippled surface of the ocean. It kinda has the same effect on 
 				you as well. You feel like nothing can hurt you here."
 		
+before action open
+	now xxx is [resolveitem d]
+	if d is entrance
+		say "You doubt that this can be opened in the classic way."
+		return
 
 function entrancetrip
 	do
-		say "Nope!"
+		say "You cannot go through that entrance in the same way as you entered this house."
 		return false
 
 function alternativeentryhalldesc
