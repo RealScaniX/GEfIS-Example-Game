@@ -7,12 +7,19 @@ there is a Combatant called dark spark
 	its strength is 5
 	its constitution is 20
 	its level is 1
-	its lootTable is {"antidote": 10, "music tape": 10, "battery": 3, "magic battery": -2}
+	its lootTable is {"magic battery": -200, "antidote": 10, "music tape": 10, "battery": 3, "magic battery": -2}
 
 function darkSparkIntro
 	do
-		say "You suddenly notice a point in front of you that seems to be even darker than its surroundings.
-				When it starts to move, you brace yourself for an attack."
+		say "You suddenly notice a point in front of you that seems to be darker than necessary."
+		wait for 4 seconds
+		say "You look around for something that might cast a shadow there, but cannot find anything. When it starts to move, you instinctively back off 
+				and stare at the blackness."
+		wait for 8 seconds
+		say "As it detaches itself from the shadows, you can see that it looks like a big dark point with a cloud of smaller flecks around it. Each of them could be described
+				as some sort of dark spark. Instead of producing light, these ones seems to suck it in."
+		wait for 12 seconds
+		say "It obviously seems to be closing in on you, so you prepare to defend yourself."
 
 function darkSparkAttack
 	do

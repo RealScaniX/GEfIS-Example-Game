@@ -7,7 +7,7 @@ there is a Combatant called reflection
 	its strength is 25
 	its constitution is 70
 	its level is 4
-	its lootTable is {"antidote": 30, "battery": 3, "magic battery": -2}
+	its lootTable is {"antidote": 10, "battery": 10, "magic battery": -2, "mirror shard": -2}
 
 function reflectionIntro
 	do

@@ -9,7 +9,7 @@ there is a Combatant called poison ivy
 	its constitution is 120
 	its level is 5
 	its poisonous is true
-	its lootTable is {"antidote": 30, "battery": 3, "magic battery": -2}
+	its lootTable is {"antidote": 40, "battery": 10, "magic battery": -2}
 
 function poisonIvyIntro
 	do
