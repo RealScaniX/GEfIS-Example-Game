@@ -47,8 +47,10 @@ function chapterAdvance
 			cellar door.key = null
 			cellar door.destination = alternative entry hall
 			cellar.music = "Quinns Song-A New Man.mp3"
-			cellar.events = {}
-			addEncounter "cellar", nightmare, 100
+			//cellar.events = {} // already done by setting the repeat to false
+			//addEncounter "cellar", nightmare, 100
+			player.location = alternative entry hall // to not directly trigger finalfight (in fact this does not happen anyway)
+			add finalFightEvent to cellar.events
 			kitchen door.destination = alternative entry hall
 			kitchen.ambience = "27077__daveincamas__clockticks_noecho.ogg"
 			ticking sound.soundDesc = "The loud ticking of the grandfather clock tells you that you are still in the entry hall. Well, ... at least <b>an</b> entry hall."
