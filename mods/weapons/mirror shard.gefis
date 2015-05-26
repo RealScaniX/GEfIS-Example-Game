@@ -1,0 +1,17 @@
+this is mirror shard weapon by scanix
+
+there is a weapon called mirror shard
+	its description is "It is a sharp looking, reflecting shard. Surprisingly, the edges of the thicker end are somehow rounded enough to not cut yourself when holding it. 
+			The sharp edges of the pointy end though look like they would be fine for cutting through lots of stuff."
+	its strength is 20 // will be change on defense
+	its weaponName is @"[one of]glass shard[or]cutting edge[or]mirror piece[at random]"
+
+before function playerWound
+	do
+		if currentFight.player.weapon is mirror shard and !poisonAttack and currentFight.player.defends
+			say "When you were holding up your mirror shard in defense, you noticed that most of the attack has been somehow sucked into it."
+			say "When you look at it now, you think that the mirror has changed accordingly to reflect the strength of the attack."
+			mirror shard.strength = int value of (dmg * 2 / 3)
+			currentFight.player.defends = false
+			updatePlayerWeapon
+			dmg = dmg / 3
