@@ -33,7 +33,7 @@ function maptest
 when play resumes
 	if devmode
 		say "Development mode, changes apply."
-		do "encounters off"
+		//do "encounters off"
 		// garden map
 		if not [playerOwns pen]
 			addToInv pen
