@@ -3,43 +3,47 @@ This is Main Mode by ScaniX
 mode Main
    its prompt is @"[one of]What's next?[or]You decided to...[or]What are you going to do?[at random]"
    its status info is @[mainStatusInfo]
+	before action do
+		temps.prompted = false
    after action do
       mainprompt
 
 function mainprompt
 	do
-		say "\nYou are here: [link look around][append player.location][/link]\n"
-		// items
-		now visitems is [visibleitemlist true]
-		if visitems.# > 0
-			say "You notice these things: "
-			now i is 0
-			for each inf in visitems
-				itm = inf.0
-				amount = inf.1
-				cnt = inf.2
-				if cnt is not null and not (cnt is a place) and player.illumination < 10
-					continue
-				say "[if i > 0], [end][actionLink itm]"
-				if amount > 1
-					say " x [+amount]"
-				if cnt is not null and not (cnt is a place)
-					say " (in [+cnt.name])"
-				now i is i + 1
-			say "\n"
-		// exits
-		if player.location.exits.# > 0
-			if player.location is a gardenTile
-				say "You can head into these directions: "
-			else
-				say "Those appear to be the exits: "
-			now i is 0
-			for each exit <= exname in player.location.exits
-				if i > 0
-					say ", "
-				say "<link go [+exname]>[append exname]</link>"
-				now i is i + 1
-			say "\n"
+		if !temps.prompted
+			temps.prompted = true
+			say "\nYou are here: [link look around][append player.location][/link]\n"
+			// items
+			now visitems is [visibleitemlist true]
+			if visitems.# > 0
+				say "You notice these things: "
+				now i is 0
+				for each inf in visitems
+					itm = inf.0
+					amount = inf.1
+					cnt = inf.2
+					if cnt is not null and not (cnt is a place) and player.illumination < 10
+						continue
+					say "[if i > 0], [end][actionLink itm]"
+					if amount > 1
+						say " x [+amount]"
+					if cnt is not null and not (cnt is a place)
+						say " (in [+cnt.name])"
+					now i is i + 1
+				say "\n"
+			// exits
+			if player.location.exits.# > 0
+				if player.location is a gardenTile
+					say "You can head into these directions: "
+				else
+					say "Those appear to be the exits: "
+				now i is 0
+				for each exit <= exname in player.location.exits
+					if i > 0
+						say ", "
+					say "<link go [+exname]>[append exname]</link>"
+					now i is i + 1
+				say "\n"
 
 function actionLink
 	understand
@@ -86,25 +90,6 @@ function mainStatusInfo
 			itemlink = itemlink + "LT:listen to " + itm.name + ")"
 			now itmcount is itmcount + itm.carried
 		itemlink = itemlink + ")"
-/*		
-		now itemlink is "("
-		for each itm in invitems
-			itemlink = itemlink + "([+itm.name]:|"
-			itemlink = itemlink + "look:look at " + itm.name + "|"
-			if itm is an equippable
-				if itm.equipped
-					itemlink = itemlink + "unequip:unequip "
-				else
-					itemlink = itemlink + "equip:equip "
-			else
-				itemlink = itemlink + "use:use "
-			itemlink = itemlink + itm.name + "|"
-			itemlink = itemlink + "smell:smell " + itm.name + "|"
-			itemlink = itemlink + "taste:taste " + itm.name + "|"
-			itemlink = itemlink + "listen to:listen to " + itm.name + ")"
-			now itmcount is itmcount + itm.carried
-		itemlink = itemlink + ")"  
-*/
 		return "<div style=\"float:right;line-height:0px;\">
 						<htmlbar \"Fear\" [+player.fear]/100><br/>
 						<htmlbar \"Light\" [+player.illumination]/100><br/>
@@ -112,7 +97,7 @@ function mainStatusInfo
 					</div><div style=\"float:right;margin:0px 18px 0px 0px;line-height:normal;\">[+str]</div>
 					<div style=\"display:inline-block;\">
 					After [+user.actions] actions, you ended up here: [link look around][append player.location][/link]\n
-					You own [if itmcount > 0]<link inv>[+itmcount] thing[if itmcount > 1]s[end]</link> <link [+itemlink]>\\\\//</link>.[else]nothing.[end]\n
+					You own [if itmcount > 0]<link inv>[+itmcount] thing[if itmcount > 1]s[end]</link> <link [+itemlink]>[image drop down.png]</link>.[else]nothing.[end]\n
 					[if player.light is not null]You are carrying this light: [+player.light.name] ([+player.light.illumination])\n[end]
 					</div>
 					<div style=\"clear:both;\"></div>"
