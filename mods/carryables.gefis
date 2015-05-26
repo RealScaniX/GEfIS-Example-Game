@@ -46,6 +46,98 @@ there is a circle key called key of light
 
 
 /************************************************************
+ * pen and paper, garden map
+ */
+there is an item called garden map
+	its name is "map"
+	its actions are {"look at", "rise", "lower"}
+	its description is @[gardenMapDesc]
+
+function gardenMapDesc
+	do
+		append "You look at your professionally drawn map of the garden to check your progress.\n"
+		now mappedPortion is 0
+		for y from 0 to globals.gardenHeight-1
+			for x from 0 to globals.gardenWidth-1
+				tile = globals.gardenTiles.(y).(x)
+				if tile.mapped
+					mappedPortion = mappedPortion + 1
+		append "You guess that you have mapped about [+rounded value of (mappedPortion * 100.0 / (globals.gardenWidth*globals.gardenHeight) + (random number between 0 and 5))]% 
+				of the whole garden. Plus minus five percent."
+
+understand
+	"look at map" as "look at garden map"
+
+there is an item called sketch pad
+	its description is "It is a small sketch pad with plain white pages. It is empty except for the top sheet which contains these words: \"Sometimes there isn't 
+			anything left to do, but hug your memory one last time and let it go.\"\nThe word \"memory\" is a bit smudgy as if the ink has come in contact with a drop of water."
+	its useProc is "penAndPaperUse"
+	its useWithProc is "penAndPaperUse"
+
+there is an item called pen
+	its description is "It is a green ball pen. At least the plastic shell is green.\nTesting it on your palm, you see that the ink has the standard dark blue color."
+	its useProc is "penAndPaperUse"
+	its useWithProc is "penAndPaperUse"
+
+function penAndPaperUse
+	do
+		if [playerOwns pen] and [playerOwns sketch pad]
+			if player.location is a gardenTile
+				if not globals.gardenMapping
+					say "Flipping over a page on the sketch pad, you start to draw a map of the garden on a sheet of paper."
+					globals.gardenMapping = true
+					addToInv garden map
+					gardenMapping
+				else
+					say "You are already drawing a map of the garden."
+			else
+				say "You cannot think of anything to draw at the moment."
+		else if [playerOwns pen]
+			if player.location is a gardenTile
+				say "Armed with your pen, you look around for a fitting victim. But then you feel powerless as you look at the large garden around you and suddenly know that
+					no one would ever find your writings in this terrain."
+			else
+				say "Thinking about drawing some cool things on the walls, you come to the conclusion that it would be in vain as the word <i>abandoned</i> in abandoned house 
+					isn't really promising a large number of people who would see it."
+		else if [playerOwns sketch pad]
+			say "The sketch pad is a good start, but you would need something to produce lines when dragged across the paper.\nYou think about biting your finger for a moment,
+					but then you decide that you are not that desperate. Yet."
+
+action lowermap
+	understand
+		lower garden map
+		lower map
+	do
+		if ![playerOwns garden map]
+			say "Lower what?"
+			return
+		if temps.gardenMapShowing
+			temps.gardenMapShowing = false
+			hide overlay "ne"
+			say "You lower the map and concentrate on your surroundings."
+		else
+			say "You aren't holding that up at the moment."
+
+action raisemap
+	understand
+		raise garden map
+		raise map
+		hold garden map up
+		hold map up
+	do
+		if ![playerOwns garden map]
+			say "Raise what?"
+			return
+		if player.location is not a gardenTile
+			say "You have no map of this place."
+			return
+		if not temps.gardenMapShowing
+			say "You raise the map to find your path."
+			displayGardenMap
+		else
+			say "You are already the map up to your face."
+
+/************************************************************
  * antidote
  */
 there is an item called antidote
@@ -88,13 +180,41 @@ there is a lightsource called flashlight
 there is an item called battery
 	its useProc is "usebattery"
 	its useWithProc is "usebatterywith"
+	its sound is "This dosn't make a sound."
+	its taste is @[addOneTimeEvent "tasteBattery"]
 	its description is "A lot of scientists have worked hard for years for you to be able to hold this wondrous source of power in your small hands."
 
 there is an item called magic battery
 	its useProc is "usebattery"
 	its useWithProc is "usebatterywith"
 	its sound is "There is a little humming sound to it."
-	its description is "It looks similar to a normal battery, but you can hear a little humming soundA lot of scientists have worked hard for years for you to be able to hold this wondrous source of power in your small hands."
+	its smell is "As you try to examine the smell of it, a small electric jolt tickles your nose. You decide to be careful with this."
+	its taste is @[addOneTimeEvent "tasteBattery"]
+	its description is "It looks similar to a normal battery, but it has an infinity symbol on it. Or maybe it is just an 8 that is tired."
+
+function tasteBattery
+	do
+		if !globals.batteryTasted
+			globals.batteryTasted = true
+			say "Come to think of it: You never actually tasted a battery."
+			wait for 4 seconds
+			say "Kneeling down, you smash the battery on the floor until there is a rip on the side."
+			wait for 6 seconds
+			say "You turn the battery, so the opening is on the bottom and watch as some blubbering fluid is dripping out of it."
+			wait for 7 seconds
+			say "You open your mouth and stick out your tongue. Then you hold the battery above it, so it would leak directly onto your taste organ."
+			wait for 8 seconds
+			say "For a second, you can taste it. The taste of a battery is: burning."
+			say "Suddenly you feel the acid eating away at your tongue, making this the last thing you will ever taste."
+			wait for 12 seconds
+			say "Although it were only a few drops, the acid spreads in your mouth and runs down your throat. The pain you have to endure is indescribable while your 
+				inner organs are slowly dissolving."
+			wait for 12 seconds
+			say "After everything is over, all that is left of you is a pile of bones."
+			wait 
+			say "\"Cool!\", you think to yourself, returning  from your fantasy. You keep that option in mind, in case you have to seriously gross out some girls."
+		else
+			say "Not doing this once is enough for the moment."
 
 function useflashlight
 	do
@@ -121,10 +241,11 @@ function usebattery
 				say "You put the extraordinary battery into the flashlight. You are pretty sure that this is the last time you will need a new battery."
 				flashlight.steps = 500000
 				flashlight.illumination = 30
+				removeFromInv magic battery
 			else
 				say "You exchange the battery of the flashlight with a new one."
+				removeFromInv battery
 			flashlight.usedSteps = 0
-			removeFromInv battery
 		else
 			say "You don't know what to do with the battery."
 
