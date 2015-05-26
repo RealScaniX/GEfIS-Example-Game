@@ -28,34 +28,6 @@ after function mainprompt
 		temps.gardenMapShowing = false
 		hide overlay "ne"
 
-understand
-	"look at map" as "look at garden map"
-
-action lowermap
-	understand
-		lower garden map
-		lower map
-	do
-		if temps.gardenMapShowing
-			temps.gardenMapShowing = false
-			hide overlay "ne"
-			say "You lower the map and concentrate on your surroundings."
-		else
-			say "You aren't holding that up at the moment."
-
-action raisemap
-	understand
-		raise garden map
-		raise map
-		hold garden map up
-		hold map up
-	do
-		if not temps.gardenMapShowing
-			say "You raise the map to find your path."
-			displayGardenMap
-		else
-			say "You are already the map up to your face."
-
 function gardenIntro
 	do
 		if globals.gardenTiles is null
@@ -76,6 +48,46 @@ function gardenTileIntro
 		gardenMapping
 		if temps.gardenMapShowing
 			displayGardenMap
+
+function gardenTileDesc
+	do
+		debugSay "Position [+this.x], [+this.y]"
+		now x is player.location.x
+		now y is player.location.y
+		if x == 0 && y == 0
+			say "You're standing in the northwest corner of the garden."
+		else if x == globals.gardenWidth-1 && y == 0
+			say "You're standing in the northeast corner of the garden."
+		else if x == globals.gardenWidth-1 && y == globals.gardenHeight-1
+			say "You're standing in the southeast corner of the garden."
+		else if x == 0 && y == globals.gardenHeight-1
+			say "You're standing in the southwest corner of the garden."
+		else if x == 0
+			say "You've reached the western border of the garden."
+		else if x == globals.gardenWidth-1
+			say "You've reached the eastern end of the garden."
+		else if y == 0
+			say "You've reached the north end of the garden."
+		else if y == globals.gardenHeight-1
+			if player.location is garden
+				say "You're standing at the entrance to the garden. Or from your point of view: The entrance to the house."
+			else
+				say "You are standing next to the wall of the house."
+		else if y < globals.gardenHeight / 2
+			say "You are somewhere in the northern half of the garden."
+		else
+			say "You are somewhere in the southern half of the garden."
+		now blockstr is ""
+		if x > 0 and globals.gardenTiles.(y).(x-1).blocked is not null
+			blockstr = blockstr + "The path to the west is blocked by [a|an] [one of]large[or]big[or]tall[at random] [+globals.gardenTiles.(y).(x-1).blocked]. "
+		if x < globals.gardenWidth-1 and globals.gardenTiles.(y).(x+1).blocked is not null
+			blockstr = blockstr + "[A|an] [one of]large[or]big[or]tall[at random] [+globals.gardenTiles.(y).(x+1).blocked] won't let you head eastwards. "
+		if y < globals.gardenHeight-1 and globals.gardenTiles.(y+1).(x).blocked is not null
+			blockstr = blockstr + "To the south [a|an] [one of]large[or]big[or]tall[at random] [+globals.gardenTiles.(y+1).(x).blocked] is standing in your way. "
+		if y > 0 and globals.gardenTiles.(y-1).(x).blocked is not null
+			blockstr = blockstr + "Right in front of you in the north, there is [a|an] [one of]large[or]big[or]tall[at random] [+globals.gardenTiles.(y-1).(x).blocked] trying to stop your progress. "
+		if blockstr is not ""
+			say blockstr + "\n"
 
 function gardenMapping
 	do
@@ -117,16 +129,6 @@ function gardenMapping
 				else 
 					say "You want to mark this place on your map, but then you remember that you got rid of that piece of paper."
 					say "It is probably a lot more adventurous without it."
-
-there is an item called garden map
-	its name is "map"
-	its actions are {"look at", "rise", "lower"}
-	its description is @[gardenMapDesc]
-
-there is an item called sketch pad
-
-there is an item called pen
-	its description is "It is a green ball pen. At least the plastic shell is green.\nTesting it on your palm, you see that the ink has the standard dark blue color."
 
 there is a thing called stick
 	its actions are {"look at", "use", "smell", "taste", "listen to"}
@@ -218,18 +220,6 @@ function stickReturn
 			redrawGardenMap
 		else
 			this.repeat = true
-
-function gardenMapDesc
-	do
-		append "You look at your map to check the progress.\n"
-		now mappedPortion is 0
-		for y from 0 to globals.gardenHeight-1
-			for x from 0 to globals.gardenWidth-1
-				tile = globals.gardenTiles.(y).(x)
-				if tile.mapped
-					mappedPortion = mappedPortion + 1
-		append "You guess that you have mapped about [+rounded value of (mappedPortion * 100.0 / (globals.gardenWidth*globals.gardenHeight) + (random number between 0 and 5))]% 
-				of the whole garden. Plus minus five percent."
 
 function displayGardenMap
 	do
@@ -359,7 +349,7 @@ function useShovelWith
 			else
 				say "It has been hard work to open the grave. You are not willing to repeat the whole ordeal backwards."
 		else
-			say "That doesn't need to be dug up."
+			say "That doesn't need to be [one of]dug up[or]buried, yet[at random]."
 
 understand
 	"dig up grave" as "use shovel with grave"
@@ -372,27 +362,6 @@ there is a container called garden tool shed
 			[if this.open]You can see some scissors, bottles with insecticides, a lawn mover, a rake and other stuff that looks too much like work for your taste.
 			[else]The door is closed, but there is no lock.[end]"
 	its items are {shovel, hook}
-
-function gardenTileDesc
-	do
-		debugSay "Position [+this.x], [+this.y]"
-		now x is player.location.x
-		now y is player.location.y
-		if x == 0 && y == 0
-			say "You're standing in the northwest corner of the garden."
-		else if x == globals.gardenWidth-1 && y == 0
-			say "You're standing in the northeast corner of the garden."
-		else if x == 0
-			say "You've reached the western border of the garden."
-		else if x == globals.gardenWidth-1
-			say "You've reached the eastern end of the garden."
-		else if y == 0
-			say "You've reached the north end of the garden."
-		else if y == globals.gardenHeight-1
-			if player.location is garden
-				say "You're standing at the entrance to the garden. Or from your point of view: The entrance to the house."
-			else
-				say "You are standing next to the wall of the house."
 
 function gardenCreation
 	do
@@ -422,9 +391,6 @@ function gardenCreation
 					wait for 2 seconds
 					say "The grass could use a shaving, that's for sure."
 					flush
-				else if v is height-1
-					wait for 1 seconds
-					say "If you lean a bit to the left, you can catch a glimpse of some wooden structure in the back."
 			for h from 0 to width-1
 				if (h == entranceX) && (v == height-1)
 					now tile is garden
@@ -456,6 +422,7 @@ function gardenCreation
 		add grave to things
 		//-garden tool shed
 		add garden tool shed to things
+		now shedX is 0
 		while things.# > 0
 			now c is things.0
 			cx = random number between 1 and (width - 2)
@@ -463,7 +430,12 @@ function gardenCreation
 			tile = tiles.(cy).(cx)
 			if tile.blocked is null and tile.items.# is 0
 				add c to tile.items
+				if c is garden tool shed
+					shedX = cx
 				remove 0 from things
+		if showTexts
+			wait for 1 seconds
+			say "If you lean a bit to the [if shedX < (width/2)]left[else]right[end], you can catch a glimpse of some metal structure in the back."
 		// Set exits
 		for v from 0 to height-1
 			for h from 0 to width-1
@@ -502,7 +474,5 @@ function gardenCreation
 						tile.exits.northeast = tile.exits.north.exits.east
 		globals.gardenTiles = tiles
 		player.location = garden
-		if devmode
-			dumpMap
 		wait for 2 seconds
 		addEncounter "garden", poison ivy, 70
