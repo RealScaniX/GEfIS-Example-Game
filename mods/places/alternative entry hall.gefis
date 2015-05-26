@@ -35,6 +35,7 @@ there is a doorPassage called northwest door
 	its destination is library
 
 there is a doorPassage called lowerBathroomDoor
+	its name is "west door"
 	its origin is alternative entry hall
 	its destination is lowerBathroom
 
@@ -125,6 +126,7 @@ before action unlockwithkey
 function entranceUnlocking
 	do
 		now k is globals.circleKey
+		removeFromInv k
 		say "You stick the [+k.name] into the [+k.color] keyhole and turn it counterclockwise until you hear a clicking sound and cannot move the key anymore."
 		flush
 		sleep 3
@@ -144,7 +146,7 @@ function entranceUnlocking
 			say "You hear a distant unlocking sound to the northeast."
 			garden door.locked = false
 		else if k is purple key
-			say "You hear something unlocking on the west side of this hall."
+			say "You hear something unlocking in the north west corner of this hall."
 			northwest door.locked = false
 		globals.("entranceLock_[+k.color]") = true
 		globals.entranceLocksOpened = globals.entranceLocksOpened + 1

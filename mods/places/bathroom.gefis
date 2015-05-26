@@ -9,9 +9,10 @@ a bathroom is a place
 	
 there is a bathroom called lowerBathroom
 	its name is "bathroom"
-	its items are {mirror, sink}
+	its items are {mirror, sink, lowerBathroomDoor}
 	its exits are {"east": lowerBathroomDoor}
 	its intro is @[lowerBathroomIntro]
+	its afterProc is "lowerBathroomAfterProc"
 	its illumination is 10
 	its regions are {"anywhere", "house", "first floor"}
 
@@ -51,11 +52,19 @@ there is a thing called sink
 	its taste is @[sinkTaste]
 	its description is @[sinkDesc]
 
+function lowerBathroomAfterProc
+	do
+		if lowerBathroomDoor.open
+			lowerBathroom.illumination = 10
+		else
+			lowerBathroom.illumination = 0
+		lightsource_update
+
 function sinkDesc
 	do
 		append "Now covered in multiple layers of dust and grime, you guess that this has once been a nice old fashioned bathroom sink."
 		if !globals.antidoteNoticed
-			append "A small green flask is standing there. Seemingly less dusty than the rest."
+			append " A small green flask is standing there. Seemingly less dusty than the rest."
 			globals.antidoteNoticed = true
 			add antidote to player.location.items
 
@@ -112,16 +121,19 @@ there is a thing called shower
 
 function bathroomDesc
 	do
-		say "It is a normal bathroom. There is a toilet, a sink and a mirror cabinet above it. "
+		append "It is a normal bathroom. There is a toilet, a sink and a mirror cabinet above it. "
 		if this is upperBathroom
-			say "This is quite a bit larger than your bathroom at home. It contains a shower <b>and</b> a bath tub."
+			append "This is quite a bit larger than your bathroom at home. It contains a shower <b>and</b> a bath tub."
 		else
-			say "This one is a bit smaller than the one at home, but you guess that it's because this one is only for guests."
+			append "[if lowerBathroomDoor.open]The blue light from the entry hall shines through the doorway into the small room and illuminates it. [end]This one is a bit smaller than the one at home, but you guess that it's because this one is only for guests."
 
 function bathroomMirrorDesc
 	do
 		if globals.mirrorSmash is player.location.id
-			say "You wonder if all the little yous in the mirror shards belong to the same person or if one of them is a better friend."
+			if player.glow < 80
+				say "You wonder if all the little yous in the mirror shards belong to the same person or if one of them is a better friend."
+			else
+				say "You wonder if all the little yous in the mirror shards are feeling better now like you do."
 		else 
 			say "The mirror is a bit dusty and covered in some grime, but you can still see 
 					[if player.glow < 25]the face of a sad boy staring back at you[else if player.glow < 50]the face of a boy looking expectantly back at you[else if player.glow < 75]a
@@ -129,9 +141,9 @@ function bathroomMirrorDesc
 			if !globals.reflectionEncounterAdded
 				globals.reflectionEncounterAdded = true
 				addEncounter "house", reflection, 30
-			else if player.glow < 25 and globals.mirrorSmash is null && chance of 70
+			else if player.glow < 35 and globals.mirrorSmash is null && chance of 70
 				addOneTimeEvent "bathroomMirrorSmash"
-			else if player.glow < 50 and chance of 30
+			else if player.glow < 60 and chance of 30
 				say "For a moment you think that the movements of the guy in the mirror do not match your own."
 
 function bathroomMirrorSmash
@@ -145,4 +157,4 @@ function bathroomMirrorSmash
 		say "The sudden sound would have startled you. "
 		flush
 		sleep 2
-		say "If it wasn't your own fist that has smashed the mirror."
+		say "If it hasn't been your own fist that has smashed the mirror."
