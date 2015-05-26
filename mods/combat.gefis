@@ -14,7 +14,7 @@ Entity Combat is an Entity
 		bool finished is true			// if we are not fighting, it is finished
 		bool won is false					// true if the player has won
 		list events
-		bool eventTriggered				// true if this has been triggered in an event which has to be handled slightly differently because of the display of the prompt afterwards
+		bool printExtraPrompt				// true if this has been triggered in an event which has to be handled slightly differently because of the display of the prompt afterwards
 
 Entity Combatant is a thing
 	attributes
@@ -89,6 +89,7 @@ mode Fight
    its status info is @[fightStatusInfo]
 	allowed actions
 		attack
+		equip
 		unequip
 		defend
 		use item
@@ -101,12 +102,15 @@ mode Fight
 		flee
 		inventorying
 	before action do
+		temps.prompted = false
 		story log off
+		currentFight.printExtraPrompt = true
 		currentFight.player.defends = false
 		currentFight.enemy.defends = false
 		if !currentFight.playersTurn
 			invoke function "doEnemyTurn" on currentFight.enemy
    after action do
+		currentFight.printExtraPrompt = false
 		if currentFight.finished
 			endFight
 		else
@@ -144,16 +148,7 @@ mode Fight
 		*************************************/
 		now currentFight.player.poisonDOT is 0
 		// player health is taken from fear, no need to set a hp here
-		currentFight.player.strength = integer value of (player.glow / 2 + player.illumination / 15)
-		// add weapon strength
-		now wpn is unarmed
-		now ilist is [inventoryList]
-		for each itm in ilist
-			if itm is a weapon and itm.equipped
-				wpn = itm
-				break
-		currentFight.player.weapon = wpn
-		currentFight.player.strength = currentFight.player.strength + wpn.strength
+		updatePlayerWeapon
 		/************************************
 				enemy has the first attack?
 		*************************************/
@@ -167,13 +162,26 @@ mode Fight
 		story log off
 		currentFight.enemy.encounterCounter = currentFight.enemy.encounterCounter + 1
 		now currentFight.playersTurn is !currentFight.enemyStarts
-		if currentFight.eventTriggered
-			fightPrompt
+		//if currentFight.printExtraPrompt
+		fightPrompt
 	on end do
 		updateaudio
-		if currentFight.eventTriggered
-			mainPrompt
-		currentFight.eventTriggered = false
+		//if currentFight.printExtraPrompt
+		mainPrompt
+		currentFight.printExtraPrompt = false
+
+function updatePlayerWeapon
+	do
+		currentFight.player.strength = integer value of (player.glow / 2 + player.illumination / 15)
+		now wpn is unarmed
+		now ilist is [inventoryList]
+		for each itm in ilist
+			if itm is a weapon and itm.equipped
+				wpn = itm
+				break
+		currentFight.player.weapon = wpn
+		// add weapon strength
+		currentFight.player.strength = currentFight.player.strength + currentFight.player.weapon.strength
 
 function fightStatusInfo
 	do
@@ -186,8 +194,10 @@ function fightStatusInfo
 function fightPrompt
 	do
 		eventProcessing
-		if currentFight.playersTurn
-			say "\nWhat are you going to do? [link attack]attack[/link] [link defend]defend[/link] [link use item]use item[/link] [link flee]flee[/link]\n"
+		if !temps.prompted
+			temps.prompted = true
+			if currentFight.playersTurn
+				say "\nWhat are you going to do? [link attack]attack[/link] [link defend]defend[/link] [link use item]use item[/link] [link flee]flee[/link]\n"
 
 function endFight
 	do
@@ -210,7 +220,7 @@ function startFight
 	understand
 		startFight [enmy], [byevent]
 	do
-		currentFight.eventTriggered = byevent
+		currentFight.printExtraPrompt = byevent
 		//rememberAmbiencePos
 		rememberMusicPos
 		if not (enmy is a combatant)
@@ -221,6 +231,7 @@ function startFight
 
 function doEnemyTurn
 	do
+		say "\n" // spacing before enemy attack block
 		// check for poison dmg
 		if currentFight.enemy.poisonDOT > 0
 			dmg = currentFight.enemy.poisonDOT
@@ -247,7 +258,6 @@ function doEnemyTurn
 						if currentFight.player.poisonDOT > 20
 							currentFight.player.poisonDOT = 20
 						//debugSay "PoisonDOT: " + currentFight.player.poisonDOT
-			say "\n"
 			wait for 5 seconds
 
 function woundPlayer
@@ -292,6 +302,18 @@ before action use
 
 after action use
 	if !currentFight.finished
+		now currentFight.playersTurn is false
+		wait
+
+after action equip
+	if !currentFight.finished
+		updatePlayerWeapon
+		now currentFight.playersTurn is false
+		wait
+	
+after action unequip
+	if !currentFight.finished
+		updatePlayerWeapon
 		now currentFight.playersTurn is false
 		wait
 		
@@ -343,7 +365,6 @@ action attack
 				say "Your weapon leaves something that will fight the enemy from the inside."
 				currentFight.enemy.poisonDOT = currentFight.enemy.poisonDOT + (dmg / 8)
 				//debugSay "Enemy poisonDOT: " + currentFight.enemy.poisonDOT
-		say "\n"
 		wait for 5 seconds
 
 function woundEnemy
@@ -356,7 +377,7 @@ function woundEnemy
 			// drop something
 			dropEnemyLoot
 			// add experience points (glow)
-			if player.glow < enemyLevel * 10
+			if player.glow < enemyLevel * 15
 				player.glow = player.glow + (enemyLevel * 15 - player.glow) / 2
 				say "As your foe disappears in front of you, you cannot help but feel more confident in yourself having subdued that creature."
 			currentFight.finished = true
@@ -375,7 +396,10 @@ function dropEnemyLoot
 				say "[one of]The [+enemyName] drops [a|an] [+itm.name][or][A|an] [+itm.name] appears out of nowhere and drops to the floor[at random]."
 				addToContainer player.location, itm
 				if oneTimeDrop
-					remove itmname from currentFight.enemy.lootTable
+					// remove from ALL enemies
+					//remove itmname from currentFight.enemy.lootTable
+					for each cmb in combatant.*
+						remove itmname from cmb.lootTable
 				break
 
 action use item
