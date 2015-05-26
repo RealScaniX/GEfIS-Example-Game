@@ -41,11 +41,13 @@ action about
 					To talk about the game, you can visit the [link \"http://forum.scanix.de\"]forum[/link].\n"
 		say "And finally there is the <link \"https://github.com/RealScaniX/GEfIS-Example-Game\">GitHub</link> of this game for those 
 					of you who want to check out and play around with the sources.\n"
+		/*
 		say "\n<div style=\"background:#B0B0D0;foreground:white;padding:8px;\">Please note that this is still in development. Here is a current estimation of the progress:<br/>
 					&nbsp;<br/>
 					<htmlbar \"Engine\" 75/100><br/>
 					<htmlbar \"Game\" 65/100><br/>
 					<htmlbar \"Dox\" 10/100><br/></div>"
+		*/
 		story log on
 
 action help
