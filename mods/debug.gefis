@@ -43,4 +43,4 @@ when play resumes
 action ff
 	do
 		if devmode
-			startFight dark spark, false
+			startFight dark spark

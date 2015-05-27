@@ -201,4 +201,4 @@ function finalFightEventProc
 			say ".\n"
 			wait for 20 seconds
 		if !nightmare.killed
-			startFight nightmare, true
+			startFight nightmare
