@@ -10,6 +10,40 @@ there is a Combatant called death
 	its constitution is 160
 	its level is 8
 	its lootTable is {"antidote": 20, "music tape": 40, "battery": 10, "magic battery": -2}
+	its hugProc is "hugDeath"
+	its wantsFight is @[not (player.location.items has grave)]
+
+function hugDeath
+	do
+		if not globals.huggedDeath
+			globals.huggedDeath = true
+			this.specialAttackPrepare = -1
+			say "Irritated by your sudden friendly approach, the cat doesn't even move. As you touch the cold bones and stroke the former feline pet, you are
+				probably as much afraid as the cat. But weirdly enough both of you relax after a moment and forget the fight."
+			wait for 12 seconds
+			if chance of 40 + player.glow
+				say "After your hand has traveled across the small back of the animal for a few times, you can even feel a warmth spreading."
+				wait for 8 seconds
+				say "Suddenly the little monster starts to purr. The "
+				scare 0, "weird sound"
+				say " lets a shiver run down your spine, but shortly afterwards you are "
+				soothe 0, "relaxing"
+				say " again as you realize what this sound is and what it means."
+				wait for 12 seconds
+				say "As you finally pull back your hand, the cat glances at you one last time and then scurries off
+					[if player.location is a gardenTile]into the direction of its grave[end]."
+				currentFight.won = true
+				currentFight.finished = true
+				currentFight.enemy.killed = true
+				wait for 7 seconds
+				glow 35
+				say "As you stand up again, you feel better on the inside."
+			else
+				say "A sudden sound in the bushes startles the cat and it goes instinctively back into fighting mode."
+				wait for 7 seconds
+		else
+			say "As you try to touch the thing again, it backs off out of your reach. You know that if there were still eyes in the sockets, they would show
+				its inner conflict between wanting to be caressed by you and being an evil little monster. Unfortunately, the urge to be a monster is stronger."
 
 function deathIntro
 	do
@@ -26,7 +60,7 @@ function deathIntro
 		say " lets you spin around and jump back in a single motion."
 		say "You immediately know that the thing in front of you is the skeleton from the grave that you opened."
 		wait for 8 seconds
-		say "It is the most unnatural thing you have seen, even with everything that happened today. The skeleton moves almost as smoothly as a normal cat, but the bones
+		say "It is the most unnatural thing, that you have seen, including the things that occurred today. The skeleton moves almost as smoothly as a normal cat, but the bones
 			just stick to each other by magic and sometimes they move out of place and hit another bone with that clapping sound that you've heard before."
 		wait for 12 seconds
 		say "You only wonder for a second if that kitty is friendly and just wants to play. Then you see it extend its claws and prepare to jump at you."
@@ -48,12 +82,15 @@ function deathAttack
 			say ".\n"
 			say "It takes you all your strength to throw off the cat."
 			return (random number between 0.9 and 1.1) * this.strength * 2.5
+		else if this.specialAttackPrepare < 0
+			this.specialAttackPrepare = 0
+			return 0
 		else if this.specialAttackCooldown == 0 && chance of 30
 			this.specialAttackPrepare = 1
-			say "The cat lowers itself until the belly fur scraps touch the ground and then wiggles its bony behind."
+			say "The cat lowers itself until the scraps of belly fur touch the ground and then wiggles its bony behind."
 			return 0
 		else
-			say this.name + " "
+			say "The [one of]dead cat[or]feline undead[or]skeleton[at random] "
 			scare 0, "[one of]bites your leg[or]scratches your arm[at random]"
 			say ", leaving its marks on your body."
 			return (random number between 0.9 and 1.1) * this.strength

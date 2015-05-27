@@ -61,7 +61,7 @@ function useTheWalkman
 			globals.walkmanUse = globals.walkmanUse + 1
 			removeFromInv "music tape"
 			// play music
-			playMusic "I Feel You.mp3", 100
+			playMusic "[one of]I Feel You[or]Universal[at random].mp3", 100
 			// add event to return to normal music after a few steps
 			now tapeBroken is a new event called "tapeBreaking"
 			tapeBroken.delay = 3

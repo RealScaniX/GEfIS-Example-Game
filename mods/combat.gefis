@@ -40,6 +40,8 @@ Entity Combatant is a thing
 		number poisonDOT										// the damage per round that is caused by poison
 		bool poisonous											// if true a fraction of the damage is added as poison dmg
 		bool killed												// true if this enemy is no longer attacking the player (defeated more than 10 times)
+		text hugProc											// reaction to hugging
+		bool wantsFight is true
 
 entity Weapon is a Equippable
 	its useProc is "equipItem"
@@ -101,6 +103,7 @@ mode Fight
 		listen
 		flee
 		inventorying
+		huggies
 	before action do
 		temps.prompted = false
 		story log off
@@ -197,7 +200,11 @@ function fightPrompt
 		if !temps.prompted
 			temps.prompted = true
 			if currentFight.playersTurn
-				say "\nWhat are you going to do? [link attack]attack[/link] [link defend]defend[/link] [link use item]use item[/link] [link flee]flee[/link]\n"
+				say "\nWhat are you going to do?\n
+						<link attack>[image combat_attack.png]attack</link>,
+						<link defend>[image combat_defend.png]defend</link>,
+						<link use item>[image combat_item.png]use an item</link>,
+						<link flee>[image combat_flee.png]flee</link> or...\n"
 
 function endFight
 	do
@@ -216,11 +223,22 @@ function endFight
 			globals.lostCount = globals.lostCount + 1
 		end mode		
 
+function resolveEnemy
+	understand
+		resolveEnemy [enmy]
+	do
+		if enmy is a combatant
+			return enmy
+		if enmy is a phrase
+			for each cmb in combatant.*
+				if cmb.name == enmy.name
+					return cmb
+		return null
+
 function startFight
 	understand
-		startFight [enmy], [byevent]
+		startFight [enmy]
 	do
-		currentFight.printExtraPrompt = byevent
 		//rememberAmbiencePos
 		rememberMusicPos
 		if not (enmy is a combatant)
@@ -231,7 +249,9 @@ function startFight
 
 function doEnemyTurn
 	do
-		say "\n" // spacing before enemy attack block
+		now enemyIsPassing is currentFight.enemy.specialAttackPrepare < 0
+		if !enemyIsPassing
+			say "\n" // spacing before enemy attack block
 		// check for poison dmg
 		if currentFight.enemy.poisonDOT > 0
 			dmg = currentFight.enemy.poisonDOT
@@ -258,7 +278,8 @@ function doEnemyTurn
 						if currentFight.player.poisonDOT > 20
 							currentFight.player.poisonDOT = 20
 						//debugSay "PoisonDOT: " + currentFight.player.poisonDOT
-			wait for 5 seconds
+			if !enemyIsPassing
+				wait for 5 seconds
 
 function woundPlayer
 	do
@@ -378,7 +399,7 @@ function woundEnemy
 			dropEnemyLoot
 			// add experience points (glow)
 			if player.glow < enemyLevel * 15
-				player.glow = player.glow + (enemyLevel * 15 - player.glow) / 2
+				glow (enemyLevel * 15 - player.glow) / 2
 				say "As your foe disappears in front of you, you cannot help but feel more confident in yourself having subdued that creature."
 			currentFight.finished = true
 			return true
@@ -418,6 +439,7 @@ action use item
 		if clist.# is 0
 			say "You don't seem to have anything on you that could be used in combat."
 		else
+			say "Thinking about the stuff in your pockets, these things might be useful in this situation:\n"
 			i = 0
 			for each itm in clist
 				say "[if i > 0], [end]<link use [+itm.name]>[+itm.name]</link>"
@@ -474,3 +496,46 @@ function equipItem
 				// unequip colliding parts
 		say "You equip the [+this.name]."
 		this.equipped = true
+
+/*
+action hug enemy
+	understand
+		hug enemy
+		hug opponent
+	modes
+		combat
+	do
+		now enm is currentFight.enemy
+		invoke action "huggies"
+*/
+
+action huggies
+	understand
+		hug [enm]
+		embrace [enm]
+		pet [enm]
+		cuddle [enm]
+		cuddle with [enm]
+		caress [enm]
+		stroke [enm]
+	do
+		if currentFight.finished
+			now itm is [resolveItem enm]
+			if itm is null
+				say "You don't see that here. If it wants to cuddle, it will sooner or later come to you."
+			else
+				say "That doesn't [one of]need[or]want[or]care for[at random] a hug."
+		else
+			now currentFight.playersTurn is false
+			if enm is a phrase and (enm.name is "enemy" or enm.name is "opponent" or enm.name is "monster")
+				enm = currentFight.enemy
+			else
+				enm = [resolveEnemy enm]
+			if enm is currentFight.enemy
+				if currentFight.enemy.hugProc is not null
+					invoke function currentFight.enemy.hugProc on currentFight.enemy
+				else
+					say "As you approach the enemy to show some affection, you finally realize that this was a bad idea as the [+currentFight.enemy.name] \
+							is not interested in becoming your friend or pet and is just using the opening to attack."
+			else
+				say "You will have to wait until you fight that one again, currently you could only hug the [+currentFight.enemy.name]."

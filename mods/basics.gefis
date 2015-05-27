@@ -26,7 +26,7 @@ Entity Thing is an Entity
 		text useProc
 		text useWithProc			// [t] the item itself, [itm] the target
 
-entity Item is a Thing
+entity Item is a Thing	// a thing that usually can be added to inventory
 	its actions are {"look at", "use", "take", "listen to", "smell", "taste"}
    attributes
 		bool carryable is true

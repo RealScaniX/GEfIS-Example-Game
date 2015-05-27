@@ -1,0 +1,78 @@
+This is Ending Mode by ScaniX
+
+mode Ending
+   its prompt is ""
+   its status info is @[extroStatusInfo]
+	allowed actions
+		help
+		about
+   on start do
+		extroduction
+
+function extroStatusInfo
+	do
+		return null
+
+function happyends
+	do
+		say "<center><h2> </h2></center>"
+		now happy is {"H", "a", "p", "p", "y", " ", "E", "n", "d", "!"}
+		for each c in happy
+			wait for 0.2 second
+			say "[backspace][+c]_"
+		wait for 2 seconds
+		if globals.stickProgress < 2
+			say "[backspace] "
+		else
+			for n from 1 to happy.#
+				say "[backspace][backspace]_"
+				wait for 0.1 second
+			say "[backspace]"
+			wait for 2 seconds
+			say "As you walk home, you fail to notice that something has been watching you. "
+			wait for 7 seconds
+			say "There in the shadows it has been waiting for the others to go away."
+			wait for 7 seconds
+			say "It has decided to not let you go like this. There are [+globals.stickProgress] good reasons."
+			wait for 7 seconds
+			say "Slowly stepping out of the shadow behind the bush, it starts following you. "
+			say "It has been mistreated in the past. It became shy and very cautious over time."
+			wait for 13 seconds
+			say "But it just knows that you will be different. "
+			wait for 4 seconds
+			if globals.stickProgress > 5
+				say "Because no one has ever thrown the stick [+globals.stickProgress] times for him."
+			else
+				say "Because you've thrown the stick. [+globals.stickProgress] times."
+			flush
+			wait for 6 seconds
+			say "And so the stray dog starts to wag its tail."
+			say "Its sensitive nose picks up the trail of a happy future and the legs start to move faster and faster to not lose it again."
+			wait for 13 seconds
+			play "thump.ogg" on audio channel "sound"
+			flush
+			say "\nSuddenly you hear a sound behind you and spin around. There, right in front of you is a pretty large dog. You can't really tell the breed, but it is 
+					probably some mix."
+			say "The dog is panting and wagging its tail, obviously happy to see you."
+			wait for 12 seconds
+			say "You smile as you look down and recognize the stick that you've been throwing all over the garden."
+			wait for 8 seconds
+			say "You bend down and pick up the stick as you notice that the dog has no collar."
+			say "You think for a moment and then decide, that it is the right thing to do. You are also pretty sure that your mom will be fine with this."
+			wait for 12 seconds
+			say "\n\"Come on, buddy.\", you say to your new friend, \"Let's go home!\""
+			say "\n"
+			wait for 5 seconds
+			say "<center><h2> </h2></center>"
+			now happier is {"E", "v", "e", "n", " ", "H", "a", "p", "p", "i", "e", "r", " ", "E", "n", "d", "!"}
+			for each c in happier
+				wait for 0.2 second
+				say "[backspace][+c][if c != \"!\"]_[else] [end]"
+
+function extroduction
+	do
+		say ""
+		happyends
+		end game
+
+		

@@ -67,7 +67,7 @@ there is a thing called kidsRoomDesk
 	its name is "desk"
 
 there is a doorPassage called kidsroomdoor
-	it is private
+	it is hidden
 	its name is "door"
 	its origin is second floor
 	its destination is kid's room

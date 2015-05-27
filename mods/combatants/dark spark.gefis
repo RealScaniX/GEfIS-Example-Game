@@ -17,7 +17,7 @@ function darkSparkIntro
 				and stare at the blackness."
 		wait for 8 seconds
 		say "As it detaches itself from the shadows, you can see that it looks like a big dark point with a cloud of smaller flecks around it. Each of them could be described
-				as some sort of dark spark. Instead of producing light, these ones seems to suck it in."
+				as some sort of dark spark. Instead of emitting light, they seem to suck it in."
 		wait for 12 seconds
 		say "It obviously seems to be closing in on you, so you prepare to defend yourself."
 
@@ -27,7 +27,7 @@ function darkSparkAttack
 			this.specialAttackPrepare = 0
 			say "The dark spark's particles suddenly scatter, only to immediately gather around you again to enclose you in an "
 			scare 0, "impenetrable darkness"
-			say " for a second.\n"
+			say " for a few seconds.\n"
 			return (random number between 0.9 and 1.1) * this.strength * 2
 		else if this.specialAttackCooldown == 0 && chance of 40
 			this.specialAttackPrepare = 1

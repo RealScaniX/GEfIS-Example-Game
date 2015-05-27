@@ -19,14 +19,14 @@ function eastWingDesc
 
 there is a doorPassage called eastwingSouthDoor
 	its name is "south door"
-	it is private
+	it is hidden
 	its origin is east wing
 	its locked is true
 	its destination is guest room
 	
 there is a doorPassage called eastwingNorthDoor
 	its name is "north door"
-	it is private
+	it is hidden
 	its origin is east wing
 	its destination is sewing room
 

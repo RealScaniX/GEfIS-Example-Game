@@ -8,6 +8,7 @@ there is a combatant called nightmare
 	its woundProc is "nightmareWound"
 	its introProc is null
 	its appearProc is "nightmareAppear"
+	its hugProc is "hugNightmare"
 
 function nightmareAppear
 	do
@@ -17,15 +18,53 @@ function nightmareAttack
 	do
 		return 40
 
+function nightmareState
+	do
+		if nightmare.hp < 2
+			return 4
+		else if nightmare.hp < this.constitution / 6
+			return 3
+		else if nightmare.hp < this.constitution / 4
+			return 2
+		else if nightmare.hp < this.constitution / 2
+			return 1
+		else
+			return 0
+
 function nightmareWound
 	do
+		now stateBefore is [nightmareState]
 		this.hp = this.hp - dmg
-		if this.hp < this.constitution / 8
-			this.strength = 5
-		else if this.hp < this.constitution / 4
-			this.strength = 10
-		else if this.hp < this.constitution / 2
-			this.strength = 25
+		if this.hp < 1
+			this.hp = 1
+		now state is [nightmareState]
+		if stateBefore is not state
+			if state is 4
+				say "Final"
+			else if state is 3
+				say "Almost"
+			else state is 2
+				say "Half"
+				this.strength = 10
+			else state is 1
+				say "Beginning"
+		this.strength = 50 - state * 15
+		if this.strength < 1
+			this.strength = 1
 		if hp < 1
 			say "You won!"
 		return this.hp < 1
+
+function hugNightmare
+	do
+		now state is [nightmareState]
+		if state is 4
+			say "Seeing your old friend in front of you, you fall to your knees."
+		else if state is 3
+			say ""
+		else if state is 2
+			say ""
+		else if state is 1
+			say ""
+		else 
+			say ""

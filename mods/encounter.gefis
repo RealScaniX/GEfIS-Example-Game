@@ -27,10 +27,10 @@ before function mainPrompt
 		if z >= nix
 			z = z - nix
 			for each enc in player.location.encounters
-				if z < enc.probability
+				if z < enc.probability and enc.enemy.wantsFight
 					// start fight
 					temps.encounterCooldown = 10
-					startFight enc.enemy, false
+					startFight enc.enemy
 					return
 				z = z - enc.probability
 

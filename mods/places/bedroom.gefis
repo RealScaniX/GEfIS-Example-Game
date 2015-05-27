@@ -18,7 +18,7 @@ there is a container called right nightstand
 	its items are {vibrator}
 
 there is a thing called vibrator
-	it is private  // oh, yes
+	it is hidden  // oh, yes
 	its name is "rubber stick"
 	its description is @[rubberStickDesc]
 	its smell is "Smells like rubber."

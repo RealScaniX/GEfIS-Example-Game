@@ -14,7 +14,20 @@ there is a place called kitchen
 
 there is a Item called apple
 	its discovered is false
-	its description is @[appledesc]
+	its description is @[appleDesc]
+	its useProc is "useApple"
+
+function appleDesc
+	do
+		if this.name is "wax apple"
+			return "The red, shiny apple looks as if you've stolen it right out of a painting."
+		else
+			now this.name is "wax apple"
+			return "This apple must be made of wax. Otherwise it wouldn't look so edible anymore."
+
+function useApple
+	do
+		say "It is still not a real apple. But if you get real hungry, you might take a bite anyway..."
 
 there is a container called kitchen cupboard
 	its description is @[cupboarddesc]
@@ -48,14 +61,6 @@ function kitchendesc
 		else
 			say "This version of the kitchen differs not a lot from your first visit. There is just a bit less dust and grime everywhere."
 			say "Still the shadows seem to be... darker than before."
-
-function appledesc
-	do
-		if this.name is "wax apple"
-			return "It is still not a real apple. But if you get real hungry, you might take a bite anyway..."
-		else
-			now this.name is "wax apple"
-			return "This apple must be made of wax. Otherwise it wouldn't look so edible anymore."
 
 there is a doorPassage called kitchen door
 	its origin is kitchen

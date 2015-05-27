@@ -13,19 +13,19 @@ there is a place called west wing
 	its regions are {"anywhere", "house", "second floor"}
 
 there is a doorPassage called westwingSouthDoor
-	it is private
+	it is hidden
 	its name is "south door"
 	its origin is west wing
 	its destination is upperBathroom
 	
 there is a doorPassage called westwingNorthDoor
-	it is private
+	it is hidden
 	its name is "north door"
 	its origin is west wing
 	its destination is bedroom
 
 there is a doorPassage called attic hatch
-	it is private
+	it is hidden
 	its name is "hatch"
 	its locked is true
 	its origin is west wing

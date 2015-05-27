@@ -23,4 +23,4 @@ after function setContainer
 		d.open = false
 		say "As you open the treasure chest, you suddenly see some movement on the inside and jump back."
 		say "After the thing left the container, the lid closes again, leaving you with the feeling that this is not the treasure you were looking for...\n"
-		startFight d.guardian, false
+		startFight d.guardian

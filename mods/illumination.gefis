@@ -57,6 +57,16 @@ function setlight
 				return
 		player.light = light
 
+function glow
+	understand
+		glow [amount]
+	do
+		player.glow = player.glow + amount
+		if player.glow > 100
+			player.glow = 100
+		else if player.glow < 0
+			player.glow = 0
+
 function scare
 	understand
 		scare [amount], [msg]
@@ -97,6 +107,6 @@ before function goToPlace
 			illu = illu + itm.illumination
 		else if itm is not a lightsource // non equippables always shine
 			illu = illu + itm.illumination
-	if illu < 10
+	if illu < 10 and player.glow < 100
 		say "Staring into the [one of]darkness[or]pitch black hole[at random] in front of you, you decide that you'd rather not go there without any light."
 		return
