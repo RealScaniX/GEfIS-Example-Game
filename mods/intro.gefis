@@ -128,32 +128,22 @@ function introtalk
 		flush
 		if user.canceled
 			return
-		show "<i>\"You think he will make it?\"</i>" in overlay "ne"
-		wait for 3 seconds
+		showBubble 1, "You think he will make it?"
 		if user.canceled
 			return
-		show "<i>\"He should, if he wants to get in.\"</i>" in overlay "nw"
-		wait for 3 seconds
+		showBubble 2, "He should, if he wants to get in."
 		if user.canceled
 			return
-		hide overlay "ne"
-		show "<i>\"Yeah, he better got the balls to bring that ball to us.\"</i>" in overlay "se"
-		wait for 3 seconds
+		showBubble 3, "Yeah, he better got the balls to bring that ball to us."
 		if user.canceled
 			return
-		hide overlay "nw"
-		show "<i>\"Otherwise he won't belong to us...\"</i>" in overlay "ne"
-		wait for 3 seconds
+		showBubble 1, "Otherwise he won't belong to us..."
 		if user.canceled
 			return
-		hide overlay "se"
-		show "<i>\"And he better not tries any tricks.\"</i>" in overlay "nw"
-		wait for 3 seconds
+		showBubble 2, "And he better not tries any tricks."
 		if user.canceled
 			return
-		hide overlay "ne"
-		show "<i>\"Yeah! You hear that? No cheating, we are watching you!\"</i>" in overlay "se"
-		wait for 3 seconds
+		showBubble 3, "Yeah! You hear that? No cheating, we are watching you!"
 		if user.canceled
 			return
 		hide overlay "nw"
@@ -176,3 +166,26 @@ action startgame
 		say "\nAnd now... Good luck!"
 		wait for 30 seconds
 		chapterAdvance
+
+function prepareBubbles
+	do
+		cleanupBubbles
+		now bubbleStyle is "border-width:3px;padding:20px;margin:20px;border-radius:18px;"
+		hide overlay "ne" with style bubbleStyle
+		hide overlay "nw" with style bubbleStyle
+		hide overlay "se" with style bubbleStyle
+
+function cleanupBubbles
+	do
+		hide overlay "ne" with style "default"
+		hide overlay "nw" with style "default"
+		hide overlay "se" with style "default"
+
+function showBubble
+	understand
+		showBubble [num], [txt]
+	do
+		now bubbleNames is {"ne", "nw", "se"}
+		hide overlay bubbleNames.((num) % 3)
+		show "<i>\"[+txt]\"</i>" in overlay bubbleNames.((num-1) % 3)
+		wait for 4 seconds

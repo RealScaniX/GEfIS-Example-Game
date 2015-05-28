@@ -46,6 +46,7 @@ function lightsource_update
 				player.illumination = player.illumination + itm.illumination
 			else if itm is not a lightsource // non equippables always shine
 				player.illumination = player.illumination + itm.illumination
+		player.illumination = min of player.illumination and 100
 
 function setlight
 	understand

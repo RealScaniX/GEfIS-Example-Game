@@ -2,21 +2,15 @@ this is chapter transitions by ScaniX
 
 function chapterAdvance
 	do
+		cleanupBubbles
 		globals.chapter = globals.chapter + 1
 		if 0 is globals.chapter
 			saychapter 0
 			playmusic "Quinns Song-First Night.mp3", 100
-			hide overlay "ne" with style "default"
-			hide overlay "nw" with style "default"
-			hide overlay "se" with style "default"
-			hide overlay "ne" with style "border-width:3px;padding:20px;"
-			hide overlay "nw" with style "border-width:3px;padding:20px;"
-			hide overlay "se" with style "border-width:3px;padding:20px;"
 			playambience "27077__daveincamas__clockticks.ogg", 10
+			prepareBubbles
 			introtalk
-			hide overlay "ne" with style "default"
-			hide overlay "nw" with style "default"
-			hide overlay "se" with style "default"
+			cleanupBubbles
 			say "You barely listen to the voices behind you. Your heart is thumping in your chest as you are standing alone in this big abandoned house. It is close to midnight and
 					you sneaked out of your bedroom to be here."
 			say "All you can think about is that this is the worst thing they could have asked you to do. Your fear of the dark has been a problem ever after that accursed accident."
@@ -63,8 +57,10 @@ function chapterAdvance
 		else if 3 is globals.chapter
 			saychapter globals.chapter
 		else if 4 is globals.chapter
+			playMusic null, 100
+			playAmbience null, 100
+			stop audio channel "sound"
 			saychapter globals.chapter
-			switch to ending mode
 
 function scrollAway
 	do
@@ -89,7 +85,7 @@ function saychapter
 		now chapternames is {"A simple task", "The circle of keys", "Somewhere green", "Letting go", "Welcome to the club"}
 		say "\n\n"
 		say "<div style=\"text-align:center;\">"
-		say "<span style=\"font-size:38px;letter-spacing:2px;\">[if chap > 0]Chapter [+chap][else if chap == 4]Epilogue[else]Prologue[end]</span>\n"
+		say "<span style=\"font-size:38px;letter-spacing:2px;\">[if chap == 4]Epilogue[else if chap > 0]Chapter [+chap][else]Prologue[end]</span>\n"
 		say "<span style=\"font-size:24px;letter-spacing:4px;font-style:italic;\">[+chapternames.(chap)]</span>\n"
 		say "<image chapter.png>\n"
 		say "</div>"

@@ -4,6 +4,16 @@ This is Carryables by ScaniX
  */
 
 uses walkman by Scanix
+uses flashlight by Scanix
+
+/************************************************************
+ * ball
+ */
+there is an item called ball
+	its description is "Although you have looked for this thing for hours, it is still a simple, dark blue plastic ball. It looks pretty old as well."
+	its smell is "It smells of plastic and lots of fun."
+	its sound is "This can sound like cheering or a breaking window, depending on how it is handled. At the moment it is silent, though."
+	its taste is "Nope."
 
 Entity Marble is an Item
 	its description is @"This is a [+this.color] marble."
@@ -164,97 +174,6 @@ function useAntidote
 
 understand 
 	"drink antidote" as "use antidote"
-
-
-/************************************************************
- * The flashlight
- */
-there is a lightsource called flashlight
-	its illumination is 20
-	its steps is 100
-	its usedSteps is 50
-	its useProc is "useflashlight"
-	its description is "It is a bit old, but it still appears to be in working condition. Being too stupid to have brought your own flashlight, you are happy to have found this."
-	its lit is true
-
-there is an item called battery
-	its useProc is "usebattery"
-	its useWithProc is "usebatterywith"
-	its sound is "This dosn't make a sound."
-	its taste is @[addOneTimeEvent "tasteBattery"]
-	its description is "A lot of scientists have worked hard for years for you to be able to hold this wondrous source of power in your small hands."
-
-there is an item called magic battery
-	its useProc is "usebattery"
-	its useWithProc is "usebatterywith"
-	its sound is "There is a little humming sound to it."
-	its smell is "As you try to examine the smell of it, a small electric jolt tickles your nose. You decide to be careful with this."
-	its taste is @[addOneTimeEvent "tasteBattery"]
-	its description is "It looks similar to a normal battery, but it has an infinity symbol on it. Or maybe it is just an 8 that is tired."
-
-function tasteBattery
-	do
-		if !globals.batteryTasted
-			globals.batteryTasted = true
-			say "Come to think of it: You never actually tasted a battery."
-			wait for 4 seconds
-			say "Kneeling down, you smash the battery on the floor until there is a rip on the side."
-			wait for 6 seconds
-			say "You turn the battery, so the opening is on the bottom and watch as some blubbering fluid is dripping out of it."
-			wait for 7 seconds
-			say "You open your mouth and stick out your tongue. Then you hold the battery above it, so it would leak directly onto your taste organ."
-			wait for 8 seconds
-			say "For a second, you can taste it. The taste of a battery is: burning."
-			say "Suddenly you feel the acid eating away at your tongue, making this the last thing you will ever taste."
-			wait for 12 seconds
-			say "Although it were only a few drops, the acid spreads in your mouth and runs down your throat. The pain you have to endure is indescribable while your 
-				inner organs are slowly dissolving."
-			wait for 12 seconds
-			say "After everything is over, all that is left of you is a pile of bones."
-			wait 
-			say "\"Cool!\", you think to yourself, returning  from your fantasy. You keep that option in mind, in case you have to seriously gross out some girls."
-		else
-			say "Not doing this once is enough for the moment."
-
-function useflashlight
-	do
-		if player.light is lightsource.flashlight
-			setlightsource null
-			say "You turn off the flashlight to conserve the battery power."
-		else
-			setlightsource lightsource.flashlight
-			if player.light is flashlight // could have been blocked
-				say "You turn on the flashlight and immediately feel better to have something in your hand that pushes back the darkness."
-				if lightsource.flashlight.usedSteps > lightsource.flashlight.steps / 2
-					say "Unfortunately you get the feeling that the battery in this thing is getting empty."
-
-function usebattery
-	do
-		if [playerOwns flashlight]
-			if flashlight.steps > 1000
-				say "You see no reason to remove the super battery from the flashlight ever again."
-				return
-			else if flashlight.usedSteps < flashlight.steps
-				say "You should wait until the current battery is really empty."
-				return
-			else if this is magic battery
-				say "You put the extraordinary battery into the flashlight. You are pretty sure that this is the last time you will need a new battery."
-				flashlight.steps = 500000
-				flashlight.illumination = 30
-				removeFromInv magic battery
-			else
-				say "You exchange the battery of the flashlight with a new one."
-				removeFromInv battery
-			flashlight.usedSteps = 0
-		else
-			say "You don't know what to do with the battery."
-
-function usebatterywith
-	do
-		if itm is flashlight
-			invoke function "usebattery"
-		else
-			say "That does not need a battery."
 
 
 /************************************************************

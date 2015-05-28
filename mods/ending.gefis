@@ -11,7 +11,7 @@ mode Ending
 
 function extroStatusInfo
 	do
-		return null
+		return ""
 
 function happyends
 	do
@@ -69,10 +69,46 @@ function happyends
 				wait for 0.2 second
 				say "[backspace][+c][if c != \"!\"]_[else] [end]"
 
+function extrotalk
+	do
+		flush
+		if user.canceled
+			return
+		showBubble 1, "You think he will make it?"
+		if user.canceled
+			return
+		showBubble 2, "He should, if he wants to get in."
+		if user.canceled
+			return
+		showBubble 3, "Yeah, he better got the balls to bring that ball to us."
+		if user.canceled
+			return
+		showBubble 1, "Otherwise he won't belong to us..."
+		if user.canceled
+			return
+		showBubble 2, "And he better not tries any tricks."
+		if user.canceled
+			return
+		showBubble 3, "Yeah! You hear that? No cheating, we are watching you!"
+		if user.canceled
+			return
+		hide overlay "nw"
+		wait for 2 seconds
+
 function extroduction
 	do
-		say ""
+		chapterAdvance
+		say "You step out of the old house that you know better than your own home now and close the door behind you. There is no sign of any of the boys waiting for you."
+		wait for 8 seconds
+		say "You wonder if you took to long and they've gone home."
+		wait for 4 seconds
+		say "You are so tired, that you start to think that you probably imagined the whole thing. Some events that happened in there seem pretty fantastic in hindsight."
+		wait for 8 seconds
+		say "\"Hello?\", you call out into the night, loud enough to be heard by anyone close by, but quite enough to not disturb the sleeping people in the neighborhood."
+		wait for 8 seconds
+		prepareBubbles
+		//extrotalk
+		cleanupBubbles
 		happyends
+		wait
 		end game
-
-		

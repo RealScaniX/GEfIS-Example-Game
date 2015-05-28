@@ -20,7 +20,7 @@ function mainprompt
 				now i is 0
 				for each inf in visitems
 					itm = inf.0
-					amount = inf.1
+					amount = inf.1	
 					cnt = inf.2
 					if cnt is not null and not (cnt is a place) and player.illumination < 10
 						continue
@@ -109,4 +109,12 @@ when play begins or resumes
 	addToInv box of matches
 
 when play ends
-   say "goodbye world!"
+	cls
+   say "<center><h2>Thank you for playing this game!</h2></center>"
+	say "I hope you had fun and enjoyed the story."
+	say "Feel free to leave some notes in the <a href=\"http://forum.scanix.de\" target=\"_blank\">forum</a> if you like. I would really appreciate that! :)\n"
+	say "\n"
+	say "And don't forget to save <a href=\"/index.php?mystory=true\" target=\"_blank\">your story</a>, so you can read your adventure 
+			with your grandchildren. =P\n"
+	say "\n"
+	wait

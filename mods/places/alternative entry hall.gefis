@@ -126,14 +126,37 @@ before action unlockwithkey
 function entranceUnlocking
 	do
 		now k is globals.circleKey
+		if k is key of light
+			if not [playerOwns ball]
+				// still no ball
+				say "You are almost ready to leave, but there is still no ball in your pockets. So you turn around and focus on your initial task again."
+			else
+				// finale!
+				say "You guess that this whole thing will be over when you use that key. Looking back, you wonder if you are really ready to leave this place."
+				ask whether "Leave?"
+				if user.consented
+					temps.prompted = true // no more prompt after this
+					say "When you stick the key into the center keyhole it is suddenly losing its solid form and changes into a bright white cloud that is immediately sucked in."
+					wait for 7 seconds
+					say "The light is slowly, but steadily spreading outwards, covering more and more of the circle stone and then the wall. You hold up an arm in front of 
+							your eyes to shield them from the light that quickly gets brighter until you have to close your eyes."
+					wait for 12 seconds
+					say "All of a sudden the light is gone and as you open your eyes again, you see nothing."
+					wait for 6 seconds
+					say "It takes your eyes a few seconds to adjust and then you finally see the original entrance door in front of you again."
+					wait for 8 seconds
+					say "Happy to have that exit back, you push down the door handle, open the door and leave the abandoned house..."
+					wait
+					switch to ending mode
+				else
+					say "There might still be secrets in this house, that you need to discover. So you turn around and think about what part you should explore next."
+			return
+		// Normal key
 		removeFromInv k
 		say "You stick the [+k.name] into the [+k.color] keyhole and turn it counterclockwise until you hear a clicking sound and cannot move the key anymore."
 		flush
 		sleep 3
-		if k is key of light
-			// finale!
-			return
-		else if k is blue key
+		if k is blue key
 			say "You hear something unlocking in the northeast corner of this hall."
 			northeast door.locked = false
 		else if k is red key
