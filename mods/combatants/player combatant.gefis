@@ -53,19 +53,21 @@ function playerWound
 			say "The attack of the [+enemyName] is too weak to be able to scare you any longer."
 			return false
 		// reduce by block
+		now weakenedPrefix is ""
 		if !poisonAttack and this.defends
 			fearGain = fearGain / 2
 			say "Your defense [one of]is weakening[or]reduces the effect of[at random] the attack. "
+			now weakenedPrefix is "[one of]nevertheless[or]still[at random]"
 		//debugSay " defense reduction --> [+fearGain]"
 		if !poisonAttack
 			if fearGain >= 40
-				say "You are absolutely terrified by your opponent."
+				say "You are [+weakenedPrefix] absolutely terrified by your opponent."
 			else if fearGain >= 20
-				say "The [+enemyName] scares you a lot."
+				say "The [+enemyName] [+weakenedPrefix] scares you a lot."
 			else if fearGain >= 7
-				say "The [+enemyName] frightenes you."
+				say "The [+enemyName] [+weakenedPrefix] frightenes you."
 			else 
-				say "Your fear increases a little."
+				say "Your fear [+weakenedPrefix] increases a little."
 		if [scare fearGain]
 			say "[one of]Your bravery is dwindling while the fear overcomes you.
 					[or]The [+enemyName] is too strong for you, forcing you to surrender.
