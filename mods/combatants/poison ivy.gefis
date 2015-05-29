@@ -50,7 +50,7 @@ function poisonIvyAttack
 			say "The poison ivy does not directly attack you, but drives some of its vines into the ground. Probably to have a more stable posture."
 			return 0
 		else
-			say this.name + " lashes out with its [one of]upper left[or]upper right[or]lower left[or]lower right[at random] arm whip to "
+			say "[+this.name] lashes out with its [one of]upper left[or]upper right[or]lower left[or]lower right[at random] arm whip to "
 			scare 0, "spread its poison"
 			say ".\n"
 			return (random number between 0.9 and 1.1) * this.strength

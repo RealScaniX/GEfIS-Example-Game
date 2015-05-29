@@ -87,7 +87,7 @@ There is a Combat called currentFight
  *		The fighting mode
  */
 mode Fight
-   its prompt is "Fight!"
+   its prompt is @"[one of]Fight![or]Fight?[at random]"
    its status info is @[fightStatusInfo]
 	allowed actions
 		attack
@@ -215,8 +215,8 @@ function endFight
 		if currentFight.won
 			currentFight.enemy.defeatedCount = currentFight.enemy.defeatedCount + 1
 			globals.wonCount = globals.wonCount + 1
-			// remove this encounter if the player killed it 10 times
-			if currentFight.enemy.droppedItem and currentFight.enemy.defeatedCount >= 10
+			// remove this encounter if the player killed it 7 times
+			if currentFight.enemy.droppedItem and currentFight.enemy.defeatedCount >= 7
 				currentFight.killed = true
 				removeEncounter currentFight.enemy
 		else
@@ -369,7 +369,6 @@ action defend
 		now enemyName is currentFight.enemy.name
 		now enemyLevel is currentFight.enemy.level
 		currentFight.player.defends = true
-		say "\n"
 		wait for 5 seconds
 
 action attack
