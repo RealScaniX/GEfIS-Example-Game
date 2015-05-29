@@ -26,14 +26,22 @@ function introstatus
 	do
 		if globals.gameStarted
 			return "<h3>Thank you for taking the time to play this!</h3> ^-^"
-		append "<b>GEfIS One</b>\n"
+		append "<b>GEfIS One - Main menu</b>\n"
+      append "[link help]help[/link]&nbsp; "
+      append "[link about]about[/link]&nbsp; "
+      append "[link \"/dox/?/Credits#gefis_one\"]credits[/link]&nbsp; "
+      append "[link start game]start a new game[/link]&nbsp; "
+      append "[link load game]load a save game[/link]&nbsp; "
+      append "[link restart]restart[/link]&nbsp; "
 
 action about
 	do
 		story log off
 		say "\"GEfIS One\" is a dark mystery adventure game."
-		say "This game has started as a simple showcase of the features of GEfIS, but has since grown into a complete little game project in itself. At the moment I am working 
-					on this more than on the engine which by now is complete enough to fully support this game.\n"
+		say "This game has started as a simple showcase of the features of GEfIS, but has since grown into a complete little game project on its own. After a while I was working 
+					on this more than on the engine itself which by then was complete enough to support most of the game.\n"
+		say "I returned to working on the engine only to add things I needed in the game, which is a good thing to develop a game engine, I guess."
+		wait
 		say "\nYou can view this page in [link \"/?dev=true&game=gefis+one&restart=true\"]developer mode[/link] and check out 
 					all the scripts and files that are the input for this game.\n"
 		say "There also is the [link \"/help\"]documentation[/link] that might help to clear things up a bit (at least in the future when it is more than just a list of empty pages).\n
@@ -41,13 +49,9 @@ action about
 					To talk about the game, you can visit the [link \"http://forum.scanix.de\"]forum[/link].\n"
 		say "And finally there is the <link \"https://github.com/RealScaniX/GEfIS-Example-Game\">GitHub</link> of this game for those 
 					of you who want to check out and play around with the sources.\n"
-		/*
-		say "\n<div style=\"background:#B0B0D0;foreground:white;padding:8px;\">Please note that this is still in development. Here is a current estimation of the progress:<br/>
-					&nbsp;<br/>
-					<htmlbar \"Engine\" 75/100><br/>
-					<htmlbar \"Game\" 65/100><br/>
-					<htmlbar \"Dox\" 10/100><br/></div>"
-		*/
+		wait
+		say "\nPlease check out the [link \"/dox/?/Credits#gefis_one\"]credits[/link] to see the artists that (willingly or not) took part in the creation of this game."
+		wait
 		story log on
 
 action help
@@ -91,7 +95,6 @@ action help
 				wrong. Note that this save game is lost when you leave the game session.\n"
 		say "To have a longer lasting save, use the <link save game>save game</link> command. You can load the game again by using <link load game>load game</link>. Note that all 
 				those actions can be performed by clicking on the corresponding icon in the config popup on the upper left."
-		say "You can check out the [link \"/dox/?/Credits\"]credits[/link] to see the artists that (willingly or not) took part in the creation of this game."
 		say "\n"
 		wait
 		if user.canceled
