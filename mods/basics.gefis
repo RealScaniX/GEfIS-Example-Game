@@ -203,7 +203,7 @@ action unlockwithkey
 		if k is null
 			say "You don't see that key here."
 			return
-		if not (k is a key)
+		if k is not a key
 			if k.useWithProc is not null
 				now t is k
 				now itm is d

@@ -4,7 +4,14 @@ there is a place called attic
 	its intro is @[atticIntro]
 	its exits are {"down": west wing}
 	its regions are {"anywhere", "house", "third floor"}
+	its ambience is "wind.ogg"
+	its items are {cardboard box}
 
 function atticIntro
 	do
-		addEncounter "anywhere", forgotten echo, 30
+		addEncounter "anywhere", forgotten echo, 50
+
+there is a container called cardboard box
+	its description is "In this large, almost empty attic this lonely cardboard box looks out of place. \"Tim's stuff\" is written on the side of it."
+
+

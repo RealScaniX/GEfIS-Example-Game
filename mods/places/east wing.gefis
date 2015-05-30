@@ -32,3 +32,4 @@ there is a doorPassage called eastwingNorthDoor
 
 there is a container called storage compartment
 	its discovered is false
+	its items are {ball}

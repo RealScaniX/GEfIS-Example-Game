@@ -18,7 +18,7 @@ mode Introduction
       say "[link help]help[/link] - Shows helpful information about how to play this game."
       say "[link about]about[/link] - Shows some info about this game."
       say "[link start game]start the game[/link] - Starts the game from the beginning."
-      say "[link load game]load a save game[/link] - Return to the game where you saved it."
+      say "[link load game]load a saved game[/link] - Return to the game where you saved it."
       say "[link restart]restart[/link] - Restart this session. This makes more sense from within the game as you are already pretty much at the beginning."
       say "\n"
 
@@ -31,7 +31,7 @@ function introstatus
       append "[link about]about[/link]&nbsp; "
       append "[link \"/dox/?/Credits#gefis_one\"]credits[/link]&nbsp; "
       append "[link start game]start a new game[/link]&nbsp; "
-      append "[link load game]load a save game[/link]&nbsp; "
+      append "[link load game]load a saved game[/link]&nbsp; "
       append "[link restart]restart[/link]&nbsp; "
 
 action about

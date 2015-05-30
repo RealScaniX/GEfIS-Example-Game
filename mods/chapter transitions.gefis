@@ -14,13 +14,14 @@ function chapterAdvance
 			say "You barely listen to the voices behind you. Your heart is thumping in your chest as you are standing alone in this big abandoned house. It is close to midnight and
 					you sneaked out of your bedroom to be here."
 			say "All you can think about is that this is the worst thing they could have asked you to do. Your fear of the dark has been a problem ever after that accursed accident."
+			wait for 20 seconds
 			say "Your mind travels back in time and you see that black nothingness in front of you again while in reality you are still standing in a big moonlit rectangle on the
-					floor with the shadow of a boy inside of it..."
+					floor with the shadow of a boy inside of it."
 			playambience "27077__daveincamas__clockticks.ogg", 20
 			wait
 			say "As if adjusting to your imagination, the rectangle continuously becomes narrower until it is a thin line and then vanishes completely."
 			playambience "27077__daveincamas__clockticks.ogg", 30
-			wait for 4 seconds
+			wait for 15 seconds
 			play "entrydoor.mp3" on audio channel "sound" with volume 100
 			playambience "27077__daveincamas__clockticks.ogg", 40
 			flush
@@ -70,13 +71,22 @@ function scrollAway
 			sleep 0.2
 		cls
 
-function saychapter
-	understand
-		saychapter [chap]
+function fadeOut
 	do
 		show "" in overlay "nw" with style "background:white;border:none;width:100%;height:100%;"
 		flush
 		sleep 1
+
+function fadeIn
+	do
+		hide overlay "nw" with style "default"
+		flush
+
+function saychapter
+	understand
+		saychapter [chap]
+	do
+		fadeOut
 		cls
 		sleep 0.7
 		play "elevatoreyeOpenClose.mp3" on audio channel "sound" with volume 10
@@ -91,6 +101,5 @@ function saychapter
 		say "</div>"
 		say "\n\n"
 		flush
-		hide overlay "nw" with style "default"
-		flush
+		fadeIn
 		sleep 2

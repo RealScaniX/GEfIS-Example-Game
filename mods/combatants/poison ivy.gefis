@@ -5,11 +5,11 @@ there is a Combatant called poison ivy
 	its woundProc is "poisonIvyWound"
 	its introProc is "poisonIvyIntro"
 	its appearProc is "poisonIvyAppear"
-	its strength is 30
+	its strength is 35
 	its constitution is 120
 	its level is 5
 	its poisonous is true
-	its lootTable is {"antidote": 40, "battery": 10, "magic battery": -2}
+	its lootTable is {"antidote": 40, "battery": 10, "orange marble": -5, "magic battery": -2}
 
 function poisonIvyIntro
 	do
@@ -69,7 +69,7 @@ function poisonIvyWound
 			if !this.droppedItem
 				say "Whatever has caused this plant to move on its own is no longer able to keep it up. It finally falls together to a heap of leaves and vines that gradually
 						gets smaller as the leaves are shriveling to nothing. In the end there is nothing more than a small brown patch on the grass."
-				if this.defeatedCount > 2 && chance of 70
+				if this.defeatedCount > 1 && chance of 70
 					say "A green key lies in the patch. Having been nearly impossible to see before, its bright green color is making it stand out now."
 					add green key to player.location.items
 					this.droppedItem = true
@@ -81,7 +81,7 @@ function poisonIvyWound
 			if dmg < 15
 				say "Your attack breaks some smaller vines. This seems to be rather irritating for the plant, but does not seem to hurt much."
 			else if dmg < 35
-				say "Your [+currentFight.player.weapon.name] [one of]rips off[or]cuts off[or]detaches[at random] some of the dangerous leaves."
+				say "Your [+currentFight.player.weapon.weaponName] [one of]rips off[or]cuts off[or]detaches[at random] some of the dangerous leaves."
 			else
 				say "[one of]breaking a vine[or]cutting off a twig[at random] of your opponent, you are glad to watch that part fall off and hit the ground, where it immediately
 					starts to [one of]turn brown[or]weather[at random]."

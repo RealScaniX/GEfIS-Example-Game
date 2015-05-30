@@ -36,10 +36,15 @@ before action takeItem
  * ball
  */
 there is an item called ball
-	its description is "Although you have looked for this thing for hours, it is still a simple, dark blue plastic ball. It looks pretty old as well."
+	its description is "Although you have looked for this thing for a long time, it is still a simple, dark blue plastic ball. It looks pretty old as well."
 	its smell is "It smells of plastic and lots of fun."
 	its sound is "This can sound like cheering or a breaking window, depending on how it is handled. At the moment it is silent, though."
 	its taste is "Nope."
+	its useProc is "useBall"
+
+function useBall
+	do
+		say "You better wait until you are not alone."
 
 Entity Marble is an Item
 	its description is @"This is a [+this.color] marble."
@@ -48,6 +53,21 @@ Entity Marble is an Item
 		
 there is a marble called red marble
 	its color is "red"
+
+there is a marble called blue marble
+	its color is "blue"
+
+there is a marble called green marble
+	its color is "green"
+
+there is a marble called yellow marble
+	its color is "yellow"
+
+there is a marble called purple marble
+	its color is "purple"
+
+there is a marble called orange marble
+	its color is "orange"
 
 there is a container called marble pouch
 	its description is "This your trusty bag of colorful marbles. It would be more impressive if you hadn't just lost all of them in a game recently."
@@ -105,10 +125,20 @@ understand
 	"look at map" as "look at garden map"
 
 there is an item called sketch pad
-	its description is "It is a small sketch pad with plain white pages. It is empty except for the top sheet which contains these words: \"Sometimes there isn't 
-			anything left to do, but hug your memory one last time and let it go.\"\nThe word \"memory\" is a bit smudgy as if the ink has come in contact with a drop of water."
+	its description is @[addOneTimeEvent "sketchPadDesc"]
 	its useProc is "penAndPaperUse"
 	its useWithProc is "penAndPaperUse"
+
+function sketchPadDesc
+	do
+		say "It is a small sketch pad with plain white pages. It is empty except for the top sheet which contains these words:"
+		wait for 6 seconds
+		say "\"Sometimes there isn't anything left to do, but hug your memory one last time and let it go.\"\n"
+		wait for 6 seconds
+		say "The word \"memory\" is a bit smudgy as if the ink has come in contact with a drop of water or something."
+		wait for 6 seconds
+		say "What a strange thing to find now. You start to believe that everything in this house has something to do with you personally.\n"
+		wait for 7 seconds
 
 there is an item called pen
 	its description is "It is a green ball pen. At least the plastic shell is green.\nTesting it on your palm, you see that the ink has the standard dark blue color."

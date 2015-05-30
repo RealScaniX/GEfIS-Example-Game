@@ -4,8 +4,14 @@ there is a place called guest room
 	its regions are {"anywhere", "house", "second floor"}
 	its exits are {"north": eastwingSouthDoor}
 	its intro is @[guestRoomIntro]
+	its items are {guestRoomChest}
 
 function guestRoomIntro
 	do
 		eastwingSouthDoor.name = "guest room door"
 		say "You are now standing in the guest room."
+
+there is a treasure chest called guestRoomChest
+	its name is "chest"
+	its guardian is forgotten echo
+	its items are {light sword}

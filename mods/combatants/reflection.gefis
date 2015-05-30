@@ -4,10 +4,10 @@ there is a Combatant called reflection
 	its attackProc is "reflectionAttack"
 	its woundProc is "reflectionWound"
 	its introProc is "reflectionIntro"
-	its strength is 25
+	its strength is 20
 	its constitution is 70
-	its level is 4
-	its lootTable is {"antidote": 10, "battery": 10, "magic battery": -2, "mirror shard": -2}
+	its level is 3
+	its lootTable is {"antidote": 10, "battery": 10, "green marble": -5, "magic battery": -2, "mirror shard": -2}
 
 function reflectionIntro
 	do
@@ -31,9 +31,9 @@ function reflectionAttack
 			say "As you get ready for an incoming blow, you see that the reflection does something else instead."
 			return 0
 		else
-			say this.name + " is using "
+			say "Your reflection is using a "
 			scare 0, "guilty look"
-			say " to scare you."
+			say " to make you feel bad."
 			return (random number between 0.9 and 1.1) * this.strength
 
 function reflectionWound
@@ -41,8 +41,8 @@ function reflectionWound
 		this.hp = this.hp - dmg
 		// drop green key
 		if this.hp < 1 
-			if !this.droppedItem && 
-				if this.defeatedCount > 2 && chance of 70
+			if !this.droppedItem
+				if this.defeatedCount > 1 && chance of 70
 					say "Some of the shards rejoin for a second to show the reflection of a blue key. Then it suddenly is like a projection into your side of the mirror and materializes
 							completely, before hitting the floor."
 					play "clong.ogg" on audio channel "sound" with volume 100

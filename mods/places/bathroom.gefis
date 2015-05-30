@@ -143,7 +143,7 @@ function bathroomMirrorDesc
 					boy that looks like you a lot[else]yourself[end]."
 			if !globals.reflectionEncounterAdded
 				globals.reflectionEncounterAdded = true
-				addEncounter "house", reflection, 30
+				addEncounter "house", reflection, 50
 			else if player.glow < 35 and globals.mirrorSmash is null && chance of 70
 				addOneTimeEvent "bathroomMirrorSmash"
 			else if player.glow < 60 and chance of 30

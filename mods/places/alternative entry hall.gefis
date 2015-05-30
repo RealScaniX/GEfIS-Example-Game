@@ -20,7 +20,6 @@ there is an event called alternativeentryhallsoothe
 	its delay is 1
 
 there is a doorPassage called northeast door
-	its locked is true
 	its origin is alternative entry hall
 	its destination is living room
 
@@ -143,8 +142,9 @@ function entranceUnlocking
 					wait for 12 seconds
 					say "All of a sudden the light is gone and as you open your eyes again, you see nothing."
 					wait for 6 seconds
-					say "It takes your eyes a few seconds to adjust and then you finally see the original entrance door in front of you again."
-					wait for 8 seconds
+					say "It takes your eyes a few seconds to adjust and then you finally see the original entrance door in front of you again. Looking around, you notice that the
+							whole entry hall is its old - and dusty - self again."
+					wait for 12 seconds
 					say "Happy to have that exit back, you push down the door handle, open the door and leave the abandoned house..."
 					wait
 					switch to ending mode
@@ -153,33 +153,43 @@ function entranceUnlocking
 			return
 		// Normal key
 		removeFromInv k
+		globals.("entranceLock_[+k.color]") = true
+		globals.entranceLocksOpened = globals.entranceLocksOpened + 1
+		if globals.entranceLocksOpened == 5
+			chapterAdvance
 		say "You stick the [+k.name] into the [+k.color] keyhole and turn it counterclockwise until you hear a clicking sound and cannot move the key anymore."
 		flush
-		sleep 3
-		if k is blue key
+		sleep 2
+		play "klick.ogg" on audio channel "sound"
+		flush
+		sleep 1
+		/*if k is green key
 			say "You hear something unlocking in the northeast corner of this hall."
 			northeast door.locked = false
-		else if k is red key
+		else*/
+		if k is red key
 			say "You hear something unlocking on the upper floor."
 			eastwingSouthDoor.locked = false
 		else if k is orange key
 			say "You hear something unlocking on the east side of this hall."
 			east door.locked = false
-		else if k is green key
+		else if k is blue key
 			say "You hear a distant unlocking sound to the northeast."
 			garden door.locked = false
 		else if k is purple key
-			say "You hear something unlocking in the north west corner of this hall."
+			say "You hear something unlocking in the northwest corner of this hall."
 			northwest door.locked = false
-		globals.("entranceLock_[+k.color]") = true
-		globals.entranceLocksOpened = globals.entranceLocksOpened + 1
 		if globals.entranceLocksOpened == 5
+			wait for 5 seconds
 			say "This time the sound is even louder than before and echoes through the hall. Then some mechanic inside starts to stir.\n
 					Another second later the white plate begins to move aside and finally reveals... another keyhole."
 			cellar door.locked = false
-		flush
-		sleep 3
+			wait for 12 seconds
+		else
+			flush
+			sleep 3
 		say "There is a rumbling sound coming from the cellar door."
 		if globals.entranceLocksOpened == 5
-			say "If your math is correct (and your teacher would probably doubt that), all five bars of the cellar door should be open now."
+			say "If your math is correct - and your teacher would probably not bet his money on it - all five bars of the cellar door should be open now."
+			wait for 8 seconds
 

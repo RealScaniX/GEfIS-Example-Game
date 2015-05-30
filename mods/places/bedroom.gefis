@@ -24,7 +24,7 @@ there is a thing called vibrator
 	its smell is "Smells like rubber."
 	its taste is "Mmh... no."
 	its useProc is "useVibrator"
-	its sound is @"[if globals.rubberStickExamined]It does not make a sound when it's turned off[else]It doesn't make a sound.[end]."
+	its sound is @"[if globals.rubberStickExamined]It does not make a sound when it's turned off[else]It doesn't make a sound[end]."
 	
 function useVibrator
 	do

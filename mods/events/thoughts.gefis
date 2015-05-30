@@ -18,16 +18,16 @@ function chainofthought
 			// reset delay
 			this.delay = 5
 			if 0 is globals.thoughtIndex
-				say "\nYou start to think that this might not be such a good idea after all. <i>What if something happens to you when you trip in the dark and no one is here to help?</i>"
+				say "\nYou start to think that this might not be such a good idea after all. What if something happens to you when you trip in the dark and no one is here to help?"
 				this.delay = 2
 				this.probability = 80
 			else if 1 is globals.thoughtIndex
-				say "\n<i>Thinking further about it... maybe it is time to stop being such a pussy and get over your fear. You will miss all those upcoming nights in the clubhouse if you keep being
-						frightened.</i>"
+				say "\nThinking further about it... maybe it is time to stop being such a pussy and get over your fear. You will miss all those upcoming nights in the clubhouse 
+						if you keep being afraid of everything."
 				this.delay = 2
 				this.probability = 80
 			else if 2 is globals.thoughtIndex
-				say "\n<i>Well, that whole fear thing won't matter if you don't manage to find that stupid ball in this dark house anyway...</i>"
+				say "\nWell, that whole fear thing won't matter if you don't manage to find that stupid ball in this dark house anyway..."
 			if globals.thoughtIndex < 10
 				globals.thoughtIndex = globals.thoughtIndex + 1
 		else if globals.chapter >= 1 and globals.chapter < 3
@@ -54,7 +54,7 @@ function chainofthought
 					say "after it happened, you and your mom have moved here. Of course, the main reason was the new job she had found here, but it was also supposed to help
 						you forget."
 				else if 103 is globals.thoughtIndex
-					say "Not having things around, that remind you of him every few seconds <b>does</b> help.\n"
+					say "\nNot having things around, that remind you of him every few seconds <b>does</b> help.\n"
 					wait for 5 seconds
 					say "Although... the real problem is: "
 					sleep 3
@@ -67,9 +67,9 @@ function chainofthought
 					say "\nFeeling alone was the main reason why you've immediately seized the opportunity to become part of a new group of kids your age."
 					wait for 7 seconds
 					say "You need something to distract you. "
-					sleep 3
+					wait for 3 seconds
 					say "Something to replace the pain. "
-					sleep 3
+					wait for 3 seconds
 					say "Something to fill the void."
 				else if 106 is globals.thoughtIndex
 					say "\nOf course there is a task that you need to fulfill to be accepted into the new group. A small trial that tests your bravery."

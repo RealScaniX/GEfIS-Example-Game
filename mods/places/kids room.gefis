@@ -11,8 +11,7 @@ there is a place called kid's room
 	its regions are {"anywhere", "house", "second floor"}
 	its intro is "You know a kid's room when you see one, no matter how long the kid is gone. And this one is a kid's room.\n
 			On the right of the door there is a bed just about your size. A wardrobe stands in front of the right wall next to a smaller cabinet with drawers.\n
-			There is a huge desk in front of the window, practically spanning from wall to wall. It would not make doing your homework a greater experience, but you'd
-			guess it would be more comfortable than your small table at home."
+			There is a huge desk in front of the window, practically spanning from wall to wall."
 
 function kidsRoomDesc
 	do
@@ -65,6 +64,7 @@ there is a container called kidsRoomCabinet
 	
 there is a thing called kidsRoomDesk
 	its name is "desk"
+	its description is "It would not make doing your homework a greater experience, but you'd guess it would be more comfortable than your small table at home."
 
 there is a doorPassage called kidsroomdoor
 	it is hidden

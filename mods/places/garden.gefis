@@ -344,7 +344,7 @@ function useShovelWith
 						list of things you wanted to do in your life."
 				wait for 9 seconds
 				say "Of course, it would help if it has been on the list at all."
-				addEncounter "anywhere", death, 30
+				addEncounter "anywhere", death, 50
 				wait for 9 seconds
 			else
 				say "It has been hard work to open the grave. You are not willing to repeat the whole ordeal backwards."

@@ -8,7 +8,7 @@ there is a Combatant called dark spark
 	its constitution is 20
 	its level is 1
 	its fightMusic is "Lomoto Perpetuo Loop.mp3"
-	its lootTable is {"magic battery": -200, "antidote": 10, "music tape": 10, "battery": 3, "magic battery": -2}
+	its lootTable is {"magic battery": -200, "antidote": 10, "music tape": 10, "battery": 3, "blue marble": -5, "magic battery": -2}
 
 function darkSparkIntro
 	do
@@ -48,7 +48,7 @@ function darkSparkWound
 			if !this.droppedItem
 				say "The density of particles of the dark spark seems to have decreased below a value that is necessary for the mass attraction that keeps it together. Soon more and 
 						more of the small antilights fly away from the cloud until they are all gone."
-				if this.defeatedCount > 2 && chance of 70
+				if this.defeatedCount > 1 && chance of 70
 					say "A purple key drops from within the darkness and falls to the floor."
 					play "clong.ogg" on audio channel "sound" with volume 100
 					add purple key to player.location.items

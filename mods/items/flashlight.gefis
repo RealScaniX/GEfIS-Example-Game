@@ -22,6 +22,7 @@ there is an item called magic battery
 	its smell is "As you try to examine the smell of it, a small electric jolt tickles your nose. You decide to be careful with this."
 	its taste is @[addOneTimeEvent "tasteBattery"]
 	its description is "It looks similar to a normal battery, but it has an infinity symbol on it. Or maybe it is just an 8 that is tired."
+	its dropSound is "crystal.ogg"
 
 function tasteBattery
 	do

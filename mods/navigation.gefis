@@ -98,7 +98,7 @@ function setDoor
 	understand
 		setDoor [d], [state]
 	do
-		if not (d is a doorPassage)
+		if d is not a doorPassage
 			say "You don't know how to open this."
 			return
 		if not (player.location.exits has d)

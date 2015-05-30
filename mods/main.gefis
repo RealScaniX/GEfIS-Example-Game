@@ -22,12 +22,12 @@ function mainprompt
 					itm = inf.0
 					amount = inf.1	
 					cnt = inf.2
-					if cnt is not null and not (cnt is a place) and player.illumination < 10
+					if cnt is not null and cnt is not a place and player.illumination < 10
 						continue
 					say "[if i > 0], [end][actionLink itm]"
 					if amount > 1
 						say " x [+amount]"
-					if cnt is not null and not (cnt is a place)
+					if cnt is not null and cnt is not a place
 						say " (in [+cnt.name])"
 					now i is i + 1
 				say "\n"

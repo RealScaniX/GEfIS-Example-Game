@@ -13,7 +13,8 @@ A Place
 before function mainPrompt
 	if temps.encounterCooldown > 0
 		temps.encounterCooldown = temps.encounterCooldown - 1
-	else if user.action is null or user.action is "lookat" or user.action is "lookaround"
+	//else if user.action is null or user.action is "lookat" or user.action is "lookaround"
+	else if user.action is null // need more fights
 		// no encounter when looking around
 	else if !player.location.pacified
 		now max is 0

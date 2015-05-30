@@ -7,7 +7,7 @@ there is a Combatant called forgotten echo
 	its strength is 45
 	its constitution is 160
 	its level is 8
-	its lootTable is {"music tape": 30, "battery": 3, "magic battery": -2}
+	its lootTable is {"music tape": 30, "battery": 3, "purple marble": -5, "magic battery": -2}
 
 function forgottenEchoIntro
 	do
@@ -40,7 +40,7 @@ function forgottenEchoWound
 		// drop green key
 		if this.hp < 1 
 			if !this.droppedItem
-				if this.defeatedCount > 2 && chance of 70
+				if this.defeatedCount > 1 && chance of 70
 					say "Some of the shards rejoin for a second to show the forgottenEcho of a blue key. Then it suddenly is like a projection into your side of the mirror and materializes
 							completely, before hitting the floor."
 					play "clong.ogg" on audio channel "sound" with volume 100

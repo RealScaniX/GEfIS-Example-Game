@@ -43,6 +43,10 @@ Entity Combatant is a thing
 		text hugProc											// reaction to hugging
 		bool wantsFight is true
 
+entity item
+	attributes
+		text dropSound is "thump.ogg"
+
 entity Weapon is a Equippable
 	its useProc is "equipItem"
 	attributes
@@ -210,15 +214,21 @@ function endFight
 	do
 		currentFight.finished = true
 		if currentFight.player.poisonDOT > 0
+			currentFight.player.poisonDOT = 0
 			say "The illness has left your body at the same time your opponent has gone from your sight."
 		story log on
 		if currentFight.won
 			currentFight.enemy.defeatedCount = currentFight.enemy.defeatedCount + 1
 			globals.wonCount = globals.wonCount + 1
-			// remove this encounter if the player killed it 7 times
-			if currentFight.enemy.droppedItem and currentFight.enemy.defeatedCount >= 7
-				currentFight.killed = true
+			if currentFight.enemy.droppedItem and currentFight.enemy.defeatedCount >= 5
+				// remove this encounter if the player killed it 5 times
+				currentFight.enemy.killed = true
 				removeEncounter currentFight.enemy
+			else if currentFight.evemy.droppedItem
+				// reduce probability if player got the item
+				for each enc in player.location.encounters
+					if enc.enemy is currentFight.enemy
+						enc.probability = 5
 		else
 			globals.lostCount = globals.lostCount + 1
 		end mode		
@@ -241,7 +251,7 @@ function startFight
 	do
 		//rememberAmbiencePos
 		rememberMusicPos
-		if not (enmy is a combatant)
+		if enmy is not a combatant
 			return
 		now currentFight.enemy is enmy
 		now currentFight.enemyStarts is false // todo: calculate somehow depending on the situation
@@ -385,7 +395,10 @@ action attack
 				say "Your weapon leaves something that will fight the enemy from the inside."
 				currentFight.enemy.poisonDOT = currentFight.enemy.poisonDOT + (dmg / 8)
 				//debugSay "Enemy poisonDOT: " + currentFight.enemy.poisonDOT
-		wait for 5 seconds
+		if currentFight.finished
+			wait
+		else
+			wait for 5 seconds
 
 function woundEnemy
 	do
@@ -415,6 +428,8 @@ function dropEnemyLoot
 				now itm is item.(itmname)
 				say "[one of]The [+enemyName] drops [a|an] [+itm.name][or][A|an] [+itm.name] appears out of nowhere and drops to the floor[at random]."
 				addToContainer player.location, itm
+				if itm.dropSound is not null
+					play itm.dropSound on audio channel "sound"
 				if oneTimeDrop
 					// remove from ALL enemies
 					//remove itmname from currentFight.enemy.lootTable
