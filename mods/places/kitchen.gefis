@@ -27,7 +27,11 @@ function appleDesc
 
 function useApple
 	do
-		say "It is still not a real apple. But if you get real hungry, you might take a bite anyway..."
+		if this.name is "wax apple"
+			say "It is still not a real apple. But if you get real hungry, you might take a bite anyway..."
+		else
+			say "Just as you are about to take a bite, you hesitate and look at it again."
+			do "look at apple"
 
 there is a container called kitchen cupboard
 	its description is @[cupboarddesc]

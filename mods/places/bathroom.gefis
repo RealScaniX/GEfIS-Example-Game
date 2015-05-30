@@ -13,13 +13,14 @@ there is a bathroom called lowerBathroom
 	its exits are {"east": lowerBathroomDoor}
 	its intro is @[lowerBathroomIntro]
 	its afterProc is "lowerBathroomAfterProc"
-	its illumination is 10
+	its illumination is 20
 	its regions are {"anywhere", "house", "first floor"}
 
 there is a bathroom called upperBathroom
 	its name is "bathroom"
 	its items are {mirror, sink, bath tub, shower}
 	its exits are {"north": westwingSouthDoor}
+	its illumination is 10
 	its intro is @[upperBathroomIntro]
 	its regions are {"anywhere", "house", "second floor"}
 
@@ -55,9 +56,9 @@ there is a thing called sink
 function lowerBathroomAfterProc
 	do
 		if lowerBathroomDoor.open
-			lowerBathroom.illumination = 10
+			lowerBathroom.illumination = 20
 		else
-			lowerBathroom.illumination = 0
+			lowerBathroom.illumination = 10
 		lightsource_update
 
 function sinkDesc
@@ -125,7 +126,9 @@ function bathroomDesc
 		if this is upperBathroom
 			append "This is quite a bit larger than your bathroom at home. It contains a shower <b>and</b> a bath tub."
 		else
-			append "[if lowerBathroomDoor.open]The blue light from the entry hall shines through the doorway into the small room and illuminates it. [end]This one is a bit smaller than the one at home, but you guess that it's because this one is only for guests."
+			append "Some sparse moonlight makes it through the window[if lowerBathroomDoor.open] and blue light from the entry hall shines in through the doorway[end], illuminating 
+						the small room enough to see. [end]This one is a bit smaller than the one at home, but you guess that it's because 
+						this one is only for guests."
 
 function bathroomMirrorDesc
 	do

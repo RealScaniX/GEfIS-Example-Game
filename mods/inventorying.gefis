@@ -57,7 +57,7 @@ action takeitem
 		addToInv itm
 		say "You take the " + itm.name + "."
 
-action dropitem
+action dropItem
 	understand
 		drop [itm]
 	do

@@ -7,6 +7,32 @@ uses walkman by Scanix
 uses flashlight by Scanix
 
 /************************************************************
+ * scar
+ */
+there is a thing called scar
+	its description is "This is your life long reminder of the tragedy. Your left arm has been broken badly and there has been an open flesh wound as well. There has even been
+			a little infection caused by the rusty metal to top it off. Still, you would be glad if you were the only one that got injured."
+	//its smell is "The scar smells of dead dog."
+	its smell is "The scar smells of suffering and death."
+	its taste is "Licking across your skin, you get a salty taste in your mouth, not too different from tears."
+	its sound is "It it could, it would tell a horrible story."
+	its useProc is "useScar"
+
+function useScar
+	do
+		say "Wearing it is all you can do with it."
+
+before action dropItem
+	if itm is scar
+		say "This cannot be dropped."
+		return
+
+before action takeItem
+	if itm is scar
+		say "You already have this, probably forever."
+		return
+
+/************************************************************
  * ball
  */
 there is an item called ball

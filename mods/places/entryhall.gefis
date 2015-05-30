@@ -4,8 +4,8 @@ There is a place called entry hall
    its exits are {"north": kitchen door, "down": cellar door, "west": locked door, "northwest": locked door, "east": locked door, "northeast": locked door}
 	its items are {cellar door, ticking sound}
 	its intro is ""
-	its description is @[entryhalldesc]
-	its illumination is 10
+	its description is @[addOneTimeEvent "entryhalldesc"]
+	its illumination is 15
 	its music is "Quinns Song-First Night.mp3"
 	its ambience is "27077__daveincamas__clockticks.ogg"
 	its ambienceVolume is 50
@@ -19,23 +19,15 @@ function entryhalldesc
 	do
 		say "This is the entry hall. It might have been an impressive room with its height that stretches over two floors, the big stairway and the expensive looking
 				wooden stuff like wardrobes, small tables, a huge clock and those tall weird things you can hang your coat or hat on."
+		wait for 13 seconds
 		say "But today, after years of neglecting, the dust and its new, tiny and crawling inhabitants have made it into a dark and eerie place."
+		wait for 8 seconds
+		say "The moon, which is to the southwest, sends in some rays of light through a large window above the big entrance door. The cold light is bright enough to make 
+				out all the things, but dark enough to offer plenty of shady corners for the monsters to hide in."
+		wait for 13 seconds
 		say "In front of you there is a stairway leading [link go up]up[/link] and there is a door on the left side of it, which obviously leads [link down]down[/link] into the 
 				cellar. There are other doors to the west, east, north, northwest and northeast."
-		add entryhallevent to player.events
-		return ""
-
-there is an event called entryhallevent 
-	its probability is 100
-	its eventproc is "entryhalltestevent"
-
-function eventproc
-	do
-		say "say something!"
-		ask "something?"
-		loop "edjaGhosty.ogg" on audio channel "ambience"
-		wait
-		stop audio channel "ambience"
+		wait for 12 seconds
 
 when play begins or resumes
 	//-south
@@ -65,8 +57,5 @@ function brokenstairwaydesc
 
 function mainentrancetrip
 	do
-		if this.locked
-			say "You cannot leave yet. You haven't found what you came here for."
-		else
-			say "You won!"
+		say "You cannot leave yet. You haven't found what you came here for."
 

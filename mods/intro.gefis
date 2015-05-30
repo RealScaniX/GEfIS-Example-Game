@@ -40,7 +40,7 @@ action about
 		say "\"GEfIS One\" is a dark mystery adventure game."
 		say "This game has started as a simple showcase of the features of GEfIS, but has since grown into a complete little game project on its own. After a while I was working 
 					on this more than on the engine itself which by then was complete enough to support most of the game.\n"
-		say "I returned to working on the engine only to add things I needed in the game, which is a good thing to develop a game engine, I guess."
+		say "I returned to working on the engine only to add things I needed in the game, which is a good way to finish up a game engine, I guess."
 		wait
 		say "\nYou can view this page in [link \"/?dev=true&game=gefis+one&restart=true\"]developer mode[/link] and check out 
 					all the scripts and files that are the input for this game.\n"
