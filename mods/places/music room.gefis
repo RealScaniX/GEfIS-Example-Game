@@ -9,8 +9,13 @@ there is a place called music room
 there is a treasure chest called musicRoomChest
 	its name is "chest"
 	its discovered is false
-	its guardian is forgotten echo
-	its items are {light sword}
+	its guardian is goblinC
+	its items are {silver marble}
+
+when play begins
+	addToContainer musicRoomChest, music tape
+	addToContainer musicRoomChest, music tape
+	addToContainer musicRoomChest, music tape
 
 function musicRoomIntro
 	do

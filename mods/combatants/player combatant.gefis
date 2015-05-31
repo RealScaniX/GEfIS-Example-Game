@@ -22,7 +22,7 @@ function playerAttack
 			// crit?
 			if chance of wpn.critChance
 				say "Seeing an opening you take your chance and manage to hit the [+enemyName] at a vulnerable point."
-				return this.strength * 2
+				return this.strength * 1.6
 			else
 				// roll dice to get attack damage
 				now dmgFactor is random number between 0.9 and 1.1
@@ -47,7 +47,7 @@ function playerWound
 					[or]Noticing a pattern in the attack, you are able to avoid getting hit.[at random]\n"
 			return false
 		// reduce by glow
-		fearGain = fearGain * (1.0 - player.glow / 120.0)
+		fearGain = fearGain * (1.0 - player.glow / 160.0)
 		//debugSay " glow reduction --> [+fearGain]"
 		if fearGain <= 0
 			say "The attack of the [+enemyName] is too weak to be able to scare you any longer."

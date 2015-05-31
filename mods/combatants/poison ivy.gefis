@@ -20,10 +20,10 @@ function poisonIvyIntro
 		say "Looking at the leaves you immediately recognize the poison ivy. You two have met before."
 		flush
 		sleep 5
-		say "This one is a little different though. You watch the thin green wires with all those dangerous leaves form a human like body in front of you."
+		say "This one is a little different though. You watch the thin green wires with all those dangerous leaves form a humanlike body in front of you."
 		flush
 		sleep 7
-		say "After it is finished you are standing in front of a two meters tall creature without a head, but with two legs, a bush like torso and four long arms that are
+		say "After it is finished you are standing in front of a two meters tall creature without a head, but with two legs, a bushy torso and four long arms that are
 				whirling around in the air like whips."
 		flush
 		sleep 9

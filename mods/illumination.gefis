@@ -31,9 +31,10 @@ function lightsource_update
 		if l is not null
 			l.usedSteps = l.usedSteps + 1
 			if l.usedSteps > l.steps
-				say "Your lightsource just went dark. As your eyes have been adjusted to this \
+				say "Your lightsource just went dark."
+/*				say "Your lightsource just went dark. As your eyes have been adjusted to this \
 						[if l.illumination > 70]blinding[else if l.illumination > 40]bright[else if l.illumination > 20]small[else]dim[end] \
-						light you need a few seconds to see anything in the dark that now surrounds you."
+						light you need a few seconds to see anything in the dark that now surrounds you." */
 				now player.light is null
 			else if l.usedSteps is l.steps - 2
 				say "Your lightsource starts flickering..."

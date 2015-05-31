@@ -17,8 +17,11 @@ there is a gardenTile called garden
 	its exits are {"south": garden door}
 	its illumination is 15
 
+before function mainprompt
+	temps.mapPrompt = temps.prompted
+
 after function mainprompt
-	if player.location is a gardenTile
+	if temps.prompted is not temps.mapPrompt and player.location is a gardenTile
 		if globals.gardenMapping and [playerOwns garden map]
 			if temps.gardenMapShowing
 				say "You hold the [link look at $|lower $]garden map[/link] up to find your way."
@@ -408,12 +411,12 @@ function gardenCreation
 		now things is a new list
 		//-chest 1: a music tape, guarded by a dark spark
 		now chest1 is a new treasure chest called "chest"
-		chest1.guardian = dark spark
-		chest1.items = {music tape}
+		chest1.guardian = goblinA
+		chest1.items = {music tape, battery}
 		add chest1 to things
 		//-chest 2: a dagger, guarded by a reflection
 		now chest2 is a new treasure chest called "chest"
-		chest2.guardian = reflection
+		chest2.guardian = goblinB
 		chest2.items = {dagger}
 		add chest2 to things
 		//-throwing stick

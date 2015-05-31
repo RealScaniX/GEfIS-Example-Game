@@ -179,7 +179,7 @@ mode Fight
 
 function updatePlayerWeapon
 	do
-		currentFight.player.strength = integer value of (player.glow / 2 + player.illumination / 15)
+		currentFight.player.strength = integer value of (player.glow / 3 + player.illumination / 15)
 		now wpn is unarmed
 		now ilist is [inventoryList]
 		for each itm in ilist

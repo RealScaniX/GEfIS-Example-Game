@@ -1,0 +1,225 @@
+this is goblin by scanix
+
+there is a valuesponge called globals
+	its metGoblin is false
+
+entity goblin is a combatant
+	its attackProc is "goblinAttack"
+	its woundProc is "goblinWound"
+	its introProc is "goblinIntro"
+	its appearProc is "goblinAppear"
+	its fightMusic is "Zap Beat.mp3"
+	its lootTable is {}
+	attributes
+		number attemptCounter is 0
+
+there is a goblin called goblinA
+	its name is "Goblin"
+	its level is 4
+	its strength is 20
+	its constitution is 80
+
+there is a goblin called goblinB
+	its name is "Goblin"
+	its level is 6
+	its strength is 35
+	its constitution is 150
+
+there is a goblin called goblinC
+	its name is "Goblin"
+	its level is 7
+	its strength is 42
+	its constitution is 180
+
+there is a goblin called goblinD
+	its name is "Goblin"
+	its level is 8
+	its strength is 50
+	its constitution is 220
+
+function goblinIntro
+	do
+		if !globals.metGoblin
+			globals.metGoblin = true
+			say "Out of nowhere an - even from your point of view - small guy appears before you."
+			say "He appears to have landed there after a huge jump as he is coming up from a crouched posture."
+			wait for 12 seconds
+			say "When he is finally standing upright, you can see that he is no taller than one meter."
+			say "The only pieces of clothing obscuring the dark green skin are a loincloth and a cap with untied bands dangling on the sides. Both seem to be made of some dark leather."
+			wait for 12 seconds
+			say "The long, pointy ears on the side of his head nearly have the shape of triangles. Pointy seems to be the main theme here as it can also be said about his nose and 
+					his chin."
+			say "The head appears to be a little too big for the small body, but it probably has to be that big to accommodate the large, emerald colored eyes."
+			wait for 16 seconds
+			say "\n\"Are... Are you a dark elf?\", you ask the creature."
+			say "\"Fuck you!\", he responds, baring sharp teeth and a long tongue in the process. You've obviously annoyed him with your question."
+			wait for 14 seconds
+			say "\"I'm a Goblin, of course.\", he corrects you and shakes his head in disbelief, \"Aren't you kids playing any RPGs anymore?\""
+			wait for 8 seconds
+			say "\n\"I'm sorry!\", you stutter and move slowly backwards, \"I didn't want to disturb you. Can't you just climb back in and we pretend I've never opened the chest?\""
+			wait for 9 seconds
+			say "\n\"Nope, that's no option.\", the Goblin replies with a smirk on his face, \"Think of that chest as my version of Pandora's box. Once it is opened...\""
+			wait for 9 seconds
+			say "You slowly see the smirk fade away as he stares at your confused face for a few moments and then lets his shoulders hang with a sigh."
+			say "\"You have no idea what I am talking about, right?\", he asks and watches you shake your head."
+			wait for 14 seconds
+			say "\nSuddenly he starts to giggle and stretches his arms and legs as if to prepare for something."
+			say "\"Then let's come to the fun part, shall we?\"\n"
+			wait for 12 seconds
+		else
+			say "A common sight appears in front of you. The Goblin stretches his arms and legs.\nEven for him the chest seems to be a little too small."
+		goblinAppear
+		
+function goblinAppear
+	do
+		if this.attemptCounter > 0
+			now x is this.attemptCounter % 5
+			if x is 1
+				say "The Goblin takes its place on the imaginary battlefield."
+			else if x is 2
+				say "\"Another round, another beating!\", the Goblin announces and gets ready."
+			else if x is 3
+				say "\"Oh, hi!\", the Goblin greets you, \"I almost missed you.\""
+			else if x is 4
+				say "\"Maybe you should fight the chest and claim me as a prize.\", the Goblin remarks and chuckles, \"Oh, wait a second! That sounds kind of weird...\""
+			else if x is 0
+				say "\"Do you have a telephone joker?\", the Goblin asks you, \"Because this might be the right time to call for help.\""
+			wait for 12 seconds
+		else
+			now knownGoblins is 0
+			for each gob in goblin.*
+				if gob.encounterCounter > 0
+					knownGoblins = knownGoblins + 1
+			if knownGoblins is 0
+				say "The Goblin looks you over from head to toe, probably estimating your strength. He then opens his hands to extend his fingers with their long, sharp nails."
+				say "Staring into the emerald eyes of the fantasy creature, you know that he expects you to fight."
+				wait for 14 seconds
+			else if knownGoblins is 1
+				say "\"How can you guard all chests at the same time?\", you ask him."
+				say "\"Using the TCPN: The treasure chest portal network, dummy!\", he answers mockingly."
+				wait for 12 seconds
+			else if knownGoblins is 2
+				say "\"Every time I open a chest you come out completely unharmed. How do you heal so quickly?\", you ask him."
+				say "\"There are health packs in this chest.\", he answers with a smirk, \"Better hurry up, before I use them up myself!\""
+				wait for 12 seconds
+			else if knownGoblins is 3
+				say "\"Why can't we be friends?\", you plead with him."
+				say "\"But little one...\", he answers with a smile, \"We already are.\""
+				wait for 12 seconds
+			else // should never happen
+				say "\"Any more stupid questions?\", he asks you and waits for a few seconds, \"No? Then let's get to business.\""
+				wait for 8 seconds
+			if this is goblinB
+				say "Your opponent suddenly pulls out brass knuckles and equips them."
+			else if this is goblinC
+				say "The hands of the Goblin disappear behind his back for a second, only to reappear holding daggers."
+			else if this is goblinD
+				say "When your opponent suddenly draws a small sword from behind his back, you wonder if he has a portal there as well."
+		this.attemptCounter = this.attemptCounter + 1
+
+function goblinAttack
+	do
+		if this.specialAttackPrepare is 1
+			this.specialAttackPrepare = 0
+			say "The Goblin suddenly has a small flask in his hand, then holds it to his lips and drinks the contents in one big gulp."
+			say "Whatever it was seems to make him feel better."
+			this.hp = min of this.constitution and (this.hp + 40)
+			return 0
+		else if this.specialAttackPrepare is 2
+			this.specialAttackPrepare = 0
+			say "In a fraction of a second the small creature manages to jump onto your chest and enclose your throat with its teeth keeping you in "
+			scare 0, "[one of]fear for your life[or]mortal fear[or]agony[at random]"
+			say " for a few seconds.\n"
+			say "Then it jumps back to where it stood before with an evil snickering."
+			return (random number between 0.9 and 1.1) * this.strength * 2.5
+		else if this.specialAttackCooldown == 0 && chance of 60
+			if this.hp < this.constitution - 30
+				this.specialAttackPrepare = 1
+				say "The Goblin reaches behind his back."
+			else
+				this.specialAttackPrepare = 2
+				say "Instead of attacking you, the Goblin seems to get ready for something."
+			return 0
+		else
+			say "[+this.name] is [one of]coming at you[or]attacking you[at random] with his "
+			if this is goblinA
+				say "clawlike hands"
+			else if this is goblinB
+				say "fists"
+			else if this is goblinC
+				say "daggers"
+			else if this is goblinD
+				say "sword"
+			say " to make you "
+			scare 0, "[one of]feel pain[or]suffer[at random]"
+			say ".\n"
+			return (random number between 0.9 and 1.1) * this.strength
+
+function goblinWon
+	do
+		say "\"Congratulations!\", the green imp says [one of]coughing[or]panting[or]exhausted[at random], \"You have earned your prize.\"\n"
+		say "He smiles as he gestures towards the treasure chest and then leaps into the shadows where he vanishes from your sight."
+		if [playerOwns lucky charm]
+			say "\"But now you will never know if it was your own strength or my present that has brought you victory.\", his voice echoes from within the darkness."
+		wait
+
+function goblinWound
+	do
+		this.hp = max of 5 and (this.hp - dmg)
+		// drop green key
+		if this.hp <= 5
+			currentFight.won = true
+			currentFight.finished = true
+			addOneTimeEvent "goblinWon"
+		else if !poisonAttack
+			if dmg < 7
+				say "The [+this.name] moves a hand to the place where you hit him, but only to check if you left some dirt."
+			else if dmg < 20
+				say "He obviously felt that hit as he moves a hand to the bruise and massages it briefly to soothe the pain."
+			else if dmg < 40
+				say "Your attack has left a wound that reduces his constitution and brings you closer to victory."
+			else
+				say "The green guy is thrown to the floor from the attack and it takes him a second to get back to his feet again."
+			if this.hp < 15
+				say "Your opponent starts to be quite exhausted and his posture isn't that stable anymore."
+			else if this.hp < 35
+				say "You notice that the breathing of the Goblin has significantly increased."
+		return false // you never kill him
+
+before function endFight
+	if !currentFight.won and globals.metGoblin and !globals.goblinLuckyCharm and currentFight.enemy is not a goblin
+		if globals.lostCount - globals.wonCount > 5
+			goblinLuckyCharm
+
+before function startFight
+	currentFight.lucky = [playerOwns lucky charm]
+
+function goblinLuckyCharm
+	do
+		updateAudio
+		wait for 18 seconds // time to note that we are back to entry hall
+		globals.goblinLuckyCharm = true
+		addToContainer player.location, lucky charm
+		playMusic goblinA.fightMusic, 80
+		say "\nAs you start to get up again, you see a familiar creature walk towards you. You are still feeling too weak to jump up and fight and are relieved to see 
+				that he doesn't seem to be here to attack you."
+		say "\"You are no fun to watch, buddy!\", the Goblin says and drops something in front of you."
+		wait for 16 seconds
+		say "The item on the floor looks like a five leaf clover. You look up at him with a puzzled look."
+		say "\"Take it! This will help you in your fights.\", he explains and turns to leave."
+		wait for 12 seconds
+		say "Just before he walks around the corner, he looks at you over his shoulder."
+		say "\"Just a warning: Everything comes at a price.\", he tells you with a grin. A second later he is gone."
+		say "\n"
+		wait
+
+there is an item called lucky charm
+	its name is "five leaf clover"
+	its description is "It is a clover with five leaves. It feels natural, but you doubt that it has grown in a normal way. The Goblin has given this to you for unknown reasons."
+	its smell is "Smells a bit like grass."
+	its taste is "You don't think that you're supposed to eat this."
+	its sound is "It whispers to you: \"Don't be afraid! Everything will be alright.\"\nOh, that's not the clover. That's just one of the voices in your head."
+
+entity combat
+	attributes
+		bool lucky is false

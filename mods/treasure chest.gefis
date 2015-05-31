@@ -3,7 +3,7 @@ this is treasure chest by scanix
 a treasure chest is a container
 	its description is @"The wooden chest looks a bit out of place here.[if this.locked] A heavy lock keeps you from opening it.[end] You are sure that <b>this</b> is a 
 			treasure chest and whatever might be in there: You certainly need it!"
-	its known is @!this.guarded		//	avoid the automatic lookat when opening
+	its known is @this.guarded		//	avoid the automatic lookat when opening
 	attributes
 		bool guarded is true
 		combatant guardian

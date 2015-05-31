@@ -69,6 +69,9 @@ there is a marble called purple marble
 there is a marble called orange marble
 	its color is "orange"
 
+there is a marble called silver marble
+	its color is "silver"
+
 there is a container called marble pouch
 	its description is "This your trusty bag of colorful marbles. It would be more impressive if you hadn't just lost all of them in a game recently."
 	its items are {red marble}
@@ -198,10 +201,11 @@ action raisemap
 			say "You have no map of this place."
 			return
 		if not temps.gardenMapShowing
+			temps.gardenMapString = null
 			say "You raise the map to find your path."
 			displayGardenMap
 		else
-			say "You are already the map up to your face."
+			say "You are already holding the map up."
 
 /************************************************************
  * antidote

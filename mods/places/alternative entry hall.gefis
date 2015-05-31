@@ -17,7 +17,7 @@ there is an event called alternativeentryhallsoothe
 	its eventproc is "alternativeentryhallsoothe"
 	its always is true
 	its repeat is true
-	its delay is 1
+	its delay is 2
 
 there is a doorPassage called northeast door
 	its origin is alternative entry hall

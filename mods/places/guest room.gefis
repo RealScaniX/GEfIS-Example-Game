@@ -13,5 +13,5 @@ function guestRoomIntro
 
 there is a treasure chest called guestRoomChest
 	its name is "chest"
-	its guardian is forgotten echo
+	its guardian is goblinC
 	its items are {light sword}
