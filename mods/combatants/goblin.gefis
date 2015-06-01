@@ -49,7 +49,7 @@ function goblinIntro
 			wait for 12 seconds
 			say "The long, pointy ears on the side of his head nearly have the shape of triangles. Pointy seems to be the main theme here as it can also be said about his nose and 
 					his chin."
-			say "The head appears to be a little too big for the small body, but it probably has to be that big to accommodate the large, emerald colored eyes."
+			say "The head appears to be a little too big for the small body, but it probably has to be that big to accommodate the large, amber eyes."
 			wait for 16 seconds
 			say "\n\"Are... Are you a dark elf?\", you ask the creature."
 			say "\"Fuck you!\", he responds, baring sharp teeth and a long tongue in the process. You've obviously annoyed him with your question."
@@ -81,7 +81,7 @@ function goblinAppear
 			else if x is 3
 				say "\"Oh, hi!\", the Goblin greets you, \"I almost missed you.\""
 			else if x is 4
-				say "\"Maybe you should fight the chest and claim me as a prize.\", the Goblin remarks and chuckles, \"Oh, wait a second! That sounds kind of weird...\""
+				say "\"Maybe you should fight the chest and claim me as a prize.\", the Goblin remarks and chuckles, \"No, wait a second! That sounds kind of weird...\""
 			else if x is 0
 				say "\"Do you have a telephone joker?\", the Goblin asks you, \"Because this might be the right time to call for help.\""
 			wait for 12 seconds
@@ -92,7 +92,7 @@ function goblinAppear
 					knownGoblins = knownGoblins + 1
 			if knownGoblins is 0
 				say "The Goblin looks you over from head to toe, probably estimating your strength. He then opens his hands to extend his fingers with their long, sharp nails."
-				say "Staring into the emerald eyes of the fantasy creature, you know that he expects you to fight."
+				say "Staring into the amber eyes of the fantasy creature, you know that he expects you to fight."
 				wait for 14 seconds
 			else if knownGoblins is 1
 				say "\"How can you guard all chests at the same time?\", you ask him."
