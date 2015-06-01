@@ -92,8 +92,9 @@ function listContents
 					say "[one of]Nothing[or]Air[or]Space for stuff[or]A yearning to be filled[at random]."
 				else
 					now i is 0
+					now cntOwned is [playerOwns cnt]
 					for each itm in cnt.items
-						say "[if i > 0], [end][invItemLink itm]"
+						say "[if i > 0], [end][if cntOwned][invItemLink itm][else][itemLink itm][end]"
 						now itm.discovered is true
 						now i is i + 1
 					say "\n"

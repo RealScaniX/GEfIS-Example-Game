@@ -342,3 +342,9 @@ function usewithsomething
 			return
 		now itm is [resolveitem user.input]
 		invoke action "usewith"
+
+function itemLink
+	understand
+		itemLink [itm]
+	do
+		return "<link [for each act in itm.actions][append act]|[end]>[+itm.name]</link>"
