@@ -4,8 +4,8 @@ there is a Combatant called dark spark
 	its attackProc is "darkSparkAttack"
 	its woundProc is "darkSparkWound"
 	its introProc is "darkSparkIntro"
-	its strength is 5
-	its constitution is 20
+	its strength is 12
+	its constitution is 35
 	its level is 1
 	its fightMusic is "Lomoto Perpetuo Loop.mp3"
 	its lootTable is {"antidote": 10, "music tape": 10, "battery": 3, "blue marble": -5, "magic battery": -2}
