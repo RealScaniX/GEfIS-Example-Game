@@ -36,9 +36,10 @@ function chainofthought
 			if globals.thoughtIndex < 100
 				globals.thoughtIndex = 100
 				this.probability = 30
+				this.delay = 10
 			else
 				if 100 is globals.thoughtIndex
-					say "\nYour [actionLink scar] is itching and you scratch your left arm in a reflex. You soon pull your hand back when you touch some "
+					say "\nYour [itemLink scar] is itching and you scratch your left arm in a reflex. You soon pull your hand back when you touch some "
 					scare 1, "unpleasant memories"
 					say ".\n"
 					globals.scarVisible = true
@@ -50,15 +51,15 @@ function chainofthought
 					say "Now you are not wishing for anything, but to turn back the pages."
 				else if 102 is globals.thoughtIndex
 					say "\nAfter that... "
-					sleep 2
+					wait for 2 seconds
 					say "after it happened, you and your mom have moved here. Of course, the main reason was the new job she had found here, but it was also supposed to help
 						you forget."
 				else if 103 is globals.thoughtIndex
 					say "\nNot having things around, that remind you of him every few seconds <b>does</b> help.\n"
 					wait for 5 seconds
 					say "Although... the real problem is: "
-					sleep 3
-					say "You don't need anything to remember, if it almost feels like a part of yourself is missing all the time."
+					wait for 3 seconds
+					say "You don't need anything to remember, if it almost feels like a part of yourself is missing."
 				else if 104 is globals.thoughtIndex
 					say "\nBeing alone with your mother does not really help either. You know that she has to work to provide for you both."
 					wait for 6 seconds
