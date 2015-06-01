@@ -53,7 +53,7 @@ function useTheWalkman
 						tape[at random][else]your only tape and press play. "
 				wait for 1 second
 				st = "[one of]The music scares away a part of your fear[or]Your mind starts to follow the melody, calming itself in the progress.[at random]"
-				so = player.fear / 3
+				so = player.fear * 2 / 3
 				if so < 40
 					so = 40
 				soothe so, st
