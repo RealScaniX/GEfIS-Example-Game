@@ -17,7 +17,7 @@ there is an event called alternativeentryhallsoothe
 	its eventproc is "alternativeentryhallsoothe"
 	its always is true
 	its repeat is true
-	its delay is 2
+	its delay is 1
 
 there is a doorPassage called northeast door
 	its origin is alternative entry hall
@@ -43,6 +43,9 @@ function alternativeentryhallsoothe
 		if player.fear < 4
 			return
 		now x is integer value of ((player.fear+5) / 5)
+		// increase effect if player is waiting
+		if user.action is "wait"
+			x = x * 2
 		soothe x, "[one of]The blue light calms your nerves.[or]The weird magical light soothes you.[or]The blue light seems to burn the darkness around you away.[at random]"
 
 function alternativeentryhallintro
