@@ -139,6 +139,7 @@ mode Fight
 			else
 				endFight
 	on start do
+		alternativeentryhallsoothe.delay = 1 // to avoid having the blue text inbetween fighter after events
 		globals.fightMusic = currentFight.enemy.fightMusic
 		playMusic globals.fightMusic, 80
 		playAmbience null, 100
@@ -179,7 +180,7 @@ mode Fight
 
 function updatePlayerWeapon
 	do
-		currentFight.player.strength = integer value of (player.glow / 3 + player.illumination / 15)
+		currentFight.player.strength = integer value of (player.glow / 5 + player.illumination / 20)
 		now wpn is unarmed
 		now ilist is [inventoryList]
 		for each itm in ilist
@@ -283,11 +284,14 @@ function doEnemyTurn
 				now poisonAttack is false
 				if not [woundPlayer]
 					if currentFight.enemy.poisonous
-						say "You feel a sickness inside of you rising."
-						currentFight.player.poisonDOT = currentFight.player.poisonDOT + (dmg / 8)
-						if currentFight.player.poisonDOT > 20
-							currentFight.player.poisonDOT = 20
-						//debugSay "PoisonDOT: " + currentFight.player.poisonDOT
+						if currentFight.player.poisonDOT < 0 // antidote
+							say "The antidote in your blood neutralizes the poison."
+						else
+							say "You feel a sickness inside of you rising."
+							currentFight.player.poisonDOT = currentFight.player.poisonDOT + (dmg / 8)
+							if currentFight.player.poisonDOT > 20
+								currentFight.player.poisonDOT = 20
+							//debugSay "PoisonDOT: " + currentFight.player.poisonDOT
 			if !enemyIsPassing
 				wait for 5 seconds
 
