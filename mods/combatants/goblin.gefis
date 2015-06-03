@@ -197,9 +197,10 @@ before function startFight
 function goblinLuckyCharm
 	do
 		updateAudio
-		wait for 18 seconds // time to note that we are back to entry hall
+		wait // time to note that we are back to entry hall
 		globals.goblinLuckyCharm = true
 		addToContainer player.location, lucky charm
+		rememberMusicPos
 		playMusic goblinA.fightMusic, 80
 		say "\nAs you start to get up again, you see a familiar creature walk towards you. You are still feeling too weak to jump up and fight and are relieved to see 
 				that he doesn't seem to be here to attack you."
@@ -212,6 +213,7 @@ function goblinLuckyCharm
 		say "\"Just a warning: Everything comes at a price.\", he tells you with a grin. A second later he is gone."
 		say "\n"
 		wait
+		restoreMusicPos
 
 there is an item called lucky charm
 	its name is "five leaf clover"

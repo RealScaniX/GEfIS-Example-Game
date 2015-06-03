@@ -82,8 +82,11 @@ function addToInv
 			// increase count
 			changeCarried itm, 1
 		else
-			add itm to player.inventory
-			changeCarried itm, 1
+			if itm is a marble and [playerOwns marble pouch]
+				addToContainer marble pouch, itm
+			else
+				add itm to player.inventory
+				changeCarried itm, 1
 
 function removeFromInv
 	understand
@@ -166,9 +169,17 @@ function changeCarried
 function inventoryList
 	do
 		now ilist is a new list
+		now idlist is a new list
 		for each x in player.inventory
+			if idlist has x.id
+				continue
+			add x.id to idlist
 			add x to ilist
-			now itemlist is ilist						// workaround until byref of arrays work in functions
-			addContainerItems x, true, false       // we create a local that is resolvable from inside of the function addContainerItems
-			now ilist is itemlist						// then put the results back into our local variable
+			now itemlist is a new list						// workaround until byref of arrays work in functions
+			addContainerItems x, true, false				// we create a local that is resolvable from inside of the function addContainerItems
+			for each y in itemlist							// then put the results back into our local variable
+				if idlist has y.id
+					continue
+				add y.id to idlist
+				add y to ilist
 		return ilist

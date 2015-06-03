@@ -242,9 +242,12 @@ action usewith
 			t2 = itm
 			itm = t
 			t = t2
-			invoke action usewith
+			invoke action "usewith"
 		else
-			invoke action use
+			say "You have difficulties imagining a good combination for those two objects."
+// doesn't really make sense...
+//		else
+//			invoke action "use"
 
 action use
 	understand

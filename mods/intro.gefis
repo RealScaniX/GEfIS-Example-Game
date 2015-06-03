@@ -57,6 +57,15 @@ action about
 action help
 	do
 		story log off
+		say "<b>A note at the beginning</b>\n"
+		say "Links that are embedded in a longer text with breaks in between cannot be invoked immediately. You have to wait until you are back at the action prompt."
+		say "Being at the action prompt (see icon in the \"user interface\" section) means that it is your turn in the game to do something."
+		say "\n"
+		wait
+		if user.canceled
+			return
+		say "<hr/>\n"
+		say "<b>Advancing in the story</b>\n"
 		say "To accomplish things in this game, you can use simple sentences like in the old adventure games.\nDon't try some complex stuff though or the game wouldn't understand you
 				and answer with something lame and dissappointing.\n"
 		say "\n<div style=\"background-color:rgba(120, 120, 120, 0.2);\">"
@@ -70,10 +79,6 @@ action help
 		say "</div>"
 		say "\nYeah, well... I bet you get the point anyway."
 		say "\n"
-		wait
-		if user.canceled
-			return
-		say "<hr/>\n"
 		say "Here is a list of the most common actions that can be performed in the game:"
 		say "look at <i>something</i>,   "
 		say "unlock <i>something</i> with <i>some key</i>,   "
@@ -91,6 +96,7 @@ action help
 		if user.canceled
 			return
 		say "<hr/>\n"
+		say "<b>Bookmarking your progress</b>\n"
 		say "To save your progress before heading into danger, you can use a <link quicksave>quicksave</link> and then a <link quickload>quickload</link> after everything went 
 				wrong. Note that this save game is lost when you leave the game session.\n"
 		say "To have a longer lasting save, use the <link save game>save game</link> command. You can load the game again by using <link load game>load game</link>. Note that all 
@@ -100,10 +106,11 @@ action help
 		if user.canceled
 			return
 		say "<hr/>\n"
+		say "<b>The user interface</b>\n"
 		say "The prompt at the bottom is sometimes showing you additional information about what is expected of you in form of a placeholder text in the field and with the help of
 				following icons:"
-		say "[image \"/img/mode_action.png\"] - This is the normal mode. You should enter something to perform an action in the game."
-		say "[image \"/img/mode_anykey.png\"] - The game waits for you to press any key to go on. Take your time to read the text and than hit space or whatever key deserves a hit
+		say "[image \"/img/mode_action.png\"] - This is the normal mode or action prompt. You should enter something to perform an action in the game."
+		say "[image \"/img/mode_anykey.png\"] - The game waits for you to press any key to go on. Take your time to read the text and then hit space or whatever key deserves a hit
 				(and no: This doesn't really include <b>ANY</b> key...). Sometimes you can press ESC to skip the scene like during the stops in this help text."
 		say "[image \"/img/mode_timedanykey.png\"] - The game will continue shortly, but you can press a key to continue <b>now</b> if you are an impatient fellow."
 		say "[image \"/img/mode_sleep.png\"] - You aren't supposed to do anything, just read the text or look at the picture and wait for more."
@@ -115,10 +122,18 @@ action help
 		wait
 		if user.canceled
 			return
+		say "- In the top left corner you will find several settings including switches for the audio channels, buttons to save/load and also a link to your story."
+		say "- If the game waits for you to press a key, you can click into the input field as well to advance."
+		say "- ESCAPE brings the focus back to the input field."
+		say "- CTRL+C clears the input."
+		say "\n"
+		wait
+		if user.canceled
+			return
 		say "<hr/>\n"
-		say "Some tips for playing:"
-		say "On the top there are some buttons to navigate, in the center there is a \"look around\" action which you should use often. In general it is best to look at 
-				everything to notice the important details."
+		say "<b>Some tips for playing</b>\n"
+		say "Look at stuff! In general it is best to look at everything to notice the important details. On the top there are some buttons to navigate, in the center there 
+					is a \"look around\" action which you should use often."
 		say "You can also use the numpad to navigate (when numlock is on)."
 		say "When you are asked something (e.g. \"What do you want to use with it?\") you can click on any link to respond with that text even if the link would normally do
 				something else."

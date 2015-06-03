@@ -4,3 +4,4 @@ there is a weapon called light sword
 	its strength is 25
 	its illumination is 30
 	its weaponName is @"[one of]glowing blade[or]knight's sword[or]light sword[at random]"
+	its critChance is 5

@@ -7,3 +7,9 @@ there is a weapon called dagger
 			wound caused by this."
 	its poisonous is true
 	its weaponName is @"[one of]tiny blade[or]knife[or]dagger[at random]"
+	its critChance is 5
+	its useWithProc is "useDaggerWith"
+
+function useDaggerWith
+	do
+		say "You point your dagger threateningly at the [+itm.name], but it doesn't seem to care."

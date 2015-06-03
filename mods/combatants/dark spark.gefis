@@ -46,6 +46,7 @@ function darkSparkWound
 		// drop green key
 		if this.hp < 1 
 			if !this.droppedItem
+				say "\n"
 				say "The density of particles of the dark spark seems to have decreased below a value that is necessary for the mass attraction that keeps it together. Soon more and 
 						more of the small antilights fly away from the cloud until they are all gone."
 				if this.defeatedCount > 1 && chance of 70

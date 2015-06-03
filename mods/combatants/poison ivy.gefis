@@ -5,7 +5,7 @@ there is a Combatant called poison ivy
 	its woundProc is "poisonIvyWound"
 	its introProc is "poisonIvyIntro"
 	its appearProc is "poisonIvyAppear"
-	its strength is 35
+	its strength is 30
 	its constitution is 120
 	its level is 5
 	its poisonous is true
@@ -67,6 +67,7 @@ function poisonIvyWound
 		// drop green key
 		if this.hp < 1 
 			if !this.droppedItem
+				say "\n"
 				say "Whatever has caused this plant to move on its own is no longer able to keep it up. It finally falls together to a heap of leaves and vines that gradually
 						gets smaller as the leaves are shriveling to nothing. In the end there is nothing more than a small brown patch on the grass."
 				if this.defeatedCount > 1 && chance of 70

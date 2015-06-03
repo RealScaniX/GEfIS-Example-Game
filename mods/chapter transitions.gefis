@@ -65,10 +65,12 @@ function chapterAdvance
 
 function scrollAway
 	do
+		story log off
 		for i from 1 to 30
 			say "\n\n"
 			flush
 			sleep 0.2
+		story log on
 		cls
 
 function fadeOut

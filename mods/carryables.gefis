@@ -103,6 +103,14 @@ there is a circle key called key of light
 	its description is "This key seems to be made of pure light, which wouldn't make sense as you can clearly touch it. Still you keep thinking that this thing does not belong
 			in the reality."
 
+after action dropItem
+	if itm is key of light
+		say "The key's bright light vanishes after you let go of it and you can only recognize a faint glow now."
+
+after action takeitem
+	if itm is key of light
+		say "As you touch the key, the bright light returns and illuminates the room."
+
 /************************************************************
  * pen and paper, garden map
  */

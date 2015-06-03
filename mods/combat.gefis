@@ -49,6 +49,7 @@ entity item
 
 entity Weapon is a Equippable
 	its useProc is "equipItem"
+	its useProc is "useWeapon"
 	attributes
 		number strength
 		text attackProc is "defaultWeaponAttack"
@@ -56,6 +57,17 @@ entity Weapon is a Equippable
 		number critChance is 5
 		text weaponName is @this.name
 		bool poisonous											// if true a fraction of the damage is added as poison dmg
+
+function useWeapon
+	do
+		ask whether "Do you want to equip the [+this.name] as weapon?"
+		if user.consented
+			now itm is this
+			invoke action "equip"
+		else if user.canceled
+			return
+		else
+			invoke function "usethiswithsomething"
 
 function defaultWeaponAttack
 	do
@@ -71,7 +83,7 @@ function defaultWeaponHit
 		if dmgFactor < 0.95
 			say "You graze the enemy with your [+weaponName]."
 		else if dmgFactor > 1.05
-			say "You're able to land a nice hit with your [+weaponName]."
+			say "You're able to land a nice hit."
 		else
 			say "You hit the [+enemyName]."
 
@@ -416,7 +428,7 @@ function woundEnemy
 			// add experience points (glow)
 			if player.glow < enemyLevel * 15
 				glow (enemyLevel * 15 - player.glow) / 2
-				say "As your foe disappears in front of you, you cannot help but feel more confident in yourself having subdued that creature."
+				say "\nAs your foe disappears in front of you, you cannot help but feel more confident in yourself having subdued that creature."
 			currentFight.finished = true
 			return true
 		return false

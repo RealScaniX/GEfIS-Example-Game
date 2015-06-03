@@ -42,6 +42,7 @@ function reflectionWound
 		// drop green key
 		if this.hp < 1 
 			if !this.droppedItem
+				say "\n"
 				if this.defeatedCount > 1 && chance of 70
 					say "Some of the shards rejoin for a second to show the reflection of a blue key. Then it suddenly is like a projection into your side of the mirror and materializes
 							completely, before hitting the floor."

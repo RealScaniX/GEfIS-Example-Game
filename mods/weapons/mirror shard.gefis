@@ -5,6 +5,7 @@ there is a weapon called mirror shard
 			The sharp edges of the pointy end though look like they would be fine for cutting through lots of stuff."
 	its strength is 20 // will be change on defense
 	its weaponName is @"[one of]glass shard[or]cutting edge[or]mirror piece[at random]"
+	its critChance is 5
 
 before function playerWound
 	do

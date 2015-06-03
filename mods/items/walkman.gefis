@@ -50,9 +50,10 @@ function useTheWalkman
 				say ".\n"
 			else
 				say "You push in [if music tape.carried > 1][one of]a random tape[or]the first tape your fingers touch[or]the topmost 
-						tape[at random][else]your only tape and press play. "
-				wait for 1 second
-				st = "[one of]The music scares away a part of your fear[or]Your mind starts to follow the melody, calming itself in the progress.[at random]"
+						tape[at random][else]your only tape[end] and press play."
+				flush
+				sleep 1.5
+				st = "[one of]The music scares away a part of your fear[or]Your mind starts to follow the melody, calming itself in the progress[at random]"
 				so = player.fear * 2 / 3
 				if so < 40
 					so = 40
@@ -69,5 +70,5 @@ function useTheWalkman
 			tapeBroken.always = true
 			add tapeBroken to currentFight.events
 
-when play begins or resumes
+when play begins
 	globals.walkmanUse = 0

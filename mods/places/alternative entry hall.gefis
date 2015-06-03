@@ -42,7 +42,7 @@ function alternativeentryhallsoothe
 	do
 		if player.fear < 4
 			return
-		now x is integer value of ((player.fear+5) / 5)
+		now x is integer value of ((player.fear+15) / 3)
 		// increase effect if player is waiting
 		if user.action is "wait"
 			x = x * 2
@@ -67,6 +67,8 @@ function entranceDesc
 		say "What once has been the normal front door of this house is now a huge circular stone plate. It seems to be made of some kind of blue, glowing marble. Although you 
 				suspect that this isn't really a thing you could find in a normal quarry."
 		say "On the outer ring there are five metallic keyholes in the colors blue, red, orange, green, and purple. "
+		say "In the center there is [if globals.entranceLocksOpened >= 5]another keyhole that opened up after you unlocked all five other locks[else]a white or silver metal cover
+				that hides something of importance, at least that is your impression when you look at it[end]."
 		if globals.entranceLocksOpened > 0
 			now clist is a new list
 			for each col in {"blue", "red", "orange", "green", "purple"}
@@ -83,14 +85,10 @@ function entranceDesc
 				say " locks."
 		else
 			say "\n"
-		say "In the center there is [if globals.entranceLocksOpened >= 5]another keyhole that opened up after you unlocked all five other locks[else]a white or silver metal cover
-				that hides something of importance, at least that is your impression when you look at it[end]."
-		say "The blue light seems to fill up the large hall completely and is moving somehow, like sunbeams below the rippled surface of the ocean. It kinda has the same effect on 
-				you as well. You feel like nothing can hurt you here."
 		
 before action open
 	now xxx is [resolveitem d]
-	if d is entrance
+	if xxx is entrance
 		say "You doubt that this can be opened in the classic way."
 		return
 
@@ -104,6 +102,8 @@ function alternativeentryhalldesc
 		say "Looking around, you notice that this hall looks very similar to the entry hall from before, but there are differences."
 		say "The biggest one is probably the thing you see in front of you when you turn towards the [link look at|open|unlock|close]entrance[/link]."
 		say "Or better yet: What once has been the entrance."
+		say "The blue light of the entrance seems to fill up the large hall completely and is moving somehow, like sunbeams below the rippled surface of the ocean. 
+				It kinda has the same relaxing effect on you as well. You also feel like nothing can hurt you here."
 		return ""
 
 before action unlockwithkey
