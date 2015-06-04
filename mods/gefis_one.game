@@ -81,3 +81,8 @@ Uses light sword weapon by ScaniX
 Uses hook weapon by ScaniX
 Uses mirror shard weapon by ScaniX
 
+
+// Useful regexps:
+// looking for string values that need to have a @ in front
+// (?ms)its \w+ is "(?:[^"]|(?<=\\)")*\[(?:[^"]|(?<=\\)")*"
+

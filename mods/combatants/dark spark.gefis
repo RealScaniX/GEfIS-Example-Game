@@ -45,10 +45,10 @@ function darkSparkWound
 		this.hp = this.hp - dmg
 		// drop green key
 		if this.hp < 1 
+			say "\n"
+			say "The density of particles of the dark spark seems to have decreased below a value that is necessary for the mass attraction that keeps it together. Soon more and 
+					more of the small antilights fly away from the cloud until they are all gone."
 			if !this.droppedItem
-				say "\n"
-				say "The density of particles of the dark spark seems to have decreased below a value that is necessary for the mass attraction that keeps it together. Soon more and 
-						more of the small antilights fly away from the cloud until they are all gone."
 				if this.defeatedCount > 1 && chance of 70
 					say "A purple key drops from within the darkness and falls to the floor."
 					play "clong.ogg" on audio channel "sound" with volume 100

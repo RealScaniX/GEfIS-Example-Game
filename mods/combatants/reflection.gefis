@@ -21,7 +21,7 @@ function reflectionAttack
 	do
 		if this.specialAttackPrepare > 0
 			this.specialAttackPrepare = 0
-			say "The living mirror in front of you suddenly smashes into dozens of pieces and when they all rotate to face you, you can see that each of them show a pair of eyes."
+			say "The living mirror in front of you suddenly smashes into dozens of pieces and when they all rotate to face you. Every single one of them shows a pair of eyes."
 			say "You feel "
 			scare 0, "pierced by countless eyes"
 			say ".\n"
@@ -43,6 +43,8 @@ function reflectionWound
 		if this.hp < 1 
 			if !this.droppedItem
 				say "\n"
+				say "A loud sound follows the cracks that spread across the whole reflection and signals the structural failure of your opponent. For a brief moment, 
+							you can see a [one of]frightened[or]surprises[or]shocked[at random] face in the mirror, then it starts to collapse."
 				if this.defeatedCount > 1 && chance of 70
 					say "Some of the shards rejoin for a second to show the reflection of a blue key. Then it suddenly is like a projection into your side of the mirror and materializes
 							completely, before hitting the floor."
@@ -50,7 +52,7 @@ function reflectionWound
 					add blue key to player.location.items
 					this.droppedItem = true
 				else if this.defeatedCount > 0
-					say "You try to get a better view of the item, but all you get are a few glimpses of something that looks like a blue key."
+					say "You try to get a better view of the mysterious item, but all you get are a few glimpses of something that looks like a blue key."
 				else
 					say "As the attacker is smashed into thousand shards you see the reflection of something blue in some of them."
 		else if !poisonAttack
@@ -61,4 +63,3 @@ function reflectionWound
 			if this.hp < 20
 				say "Cracks are spreading all over the reflection."
 		return this.hp < 1
-

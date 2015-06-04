@@ -16,6 +16,23 @@ function nightmareAppear
 
 function nightmareAttack
 	do
+		if this.specialAttackPrepare > 0
+			say "A shockwave of sounds wipes you off your feet."
+			this.specialAttackPrepare = 0
+			say "The living mirror in front of you suddenly smashes into dozens of pieces and when they all rotate to face you, you can see that each of them show a pair of eyes."
+			say "You feel "
+			scare 0, "pierced by countless eyes"
+			say ".\n"
+			return (random number between 0.9 and 1.1) * this.strength * 2.5
+		else if this.specialAttackCooldown == 0 && chance of 30
+			this.specialAttackPrepare = 1
+			say "As you get ready for an incoming blow, you see that the forgottenEcho does something else instead."
+			return 0
+		else
+			say this.name + " is torturing you with the "
+			scare 0, "sound of a [one of]terrible[or]painful[at random] memory"
+			say ".\n"
+			return (random number between 0.9 and 1.1) * this.strength
 		return 40
 
 function nightmareState

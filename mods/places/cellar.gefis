@@ -155,34 +155,54 @@ function finalFightEventProc
 			flush
 			sleep 3
 			say "The only light comes from a plain lightbulb that is hanging on a cable from the ceiling in the middle of the room, but it is more than enough to see everything. "
-			say "The large room is pretty tidy, all the boxes with stuff, tools and machinery is neatly sorted into shelves on the left and right walls. The storage rack on the right 
-					is especial heavily loaded and seems a bit unstable."
+			say "The large room is pretty tidy, all the boxes with stuff, tools and machinery are neatly sorted into shelves on the left and right walls. The storage rack on the 
+					right is especial heavily loaded."
 			say "On the back wall there is the workbench your father used to work at when he was still there."
 			wait
 			say "\n\"Get the ball!\", you hear your former self calling from the left."
+			wait for 2 seconds
+			play "190796__jiserte__xut1_ball_kick.ogg" on audio channel "sound"
+			wait for 2 seconds
 			say "Then that damn ball comes rolling at a high speed towards the shelve and crashes into it, bending one of the metal feet backwards. The boy who has once been 
 					you comes running after it, closely followed by a furry creature that somehow appears blurry to you."
+			wait for 2 seconds
+			play "190796__jiserte__xut1_ball_hit.ogg" on audio channel "sound"
+			wait
 			say "With a loud sound the screws that held the rack on the wall at the top come shooting out of their holes."
 			say "Someone seems to have pushed the \"slowmo\" button on the remote, because the following things are happening at a fraction of their normal speed."
+			wait for 2 seconds
+			play "screwShot.ogg" on audio channel "sound"
 			wait
 			say "\nYou see your other you turn his head towards you and you shiver at the evil grin on his face. Then the shelve falls over, the top frame hits the light bulb and 
 					smashes it to pieces. For some reason it does not get any darker and you still have to watch everything for a second time."
+			wait for 3 seconds
+			play "breakingGlass.ogg" on audio channel "sound"
+			wait
 			say "After some of the heavy tools fall out and hit the two unfortunate friends to the ground, the metal structure comes crashing down upon them and you hear a terrible 
 					whining sound from the creature."
+			play "99960__cgeffex__large-crash.ogg" on audio channel "sound"
+			wait for 4 seconds
+			play "155321__jace__dog-whining.ogg" on audio channel "sound"
 			wait
 			say "You were lucky on that day that the real heavy stuff was lying on the other half of the rack. The buzz saw wasn't turned on and there wasn't even 
 					a saw blade in it. But as you lay there on your stomach and the heavy machine hit your left arm, it didn't really matter."
-			say "You are unconsciously holding your scar as you hear your bone break again and see a part of it penetrating the skin."
-			say "Loud whining and heavy panting with a rattling sound in it fills the room. Your own shadow doesn't make a sound, but slowly turns his head and gazes evilly through 
+			wait
+			say "You are unconsciously holding your scar as you hear your bone break in your mind again when you see a part of it penetrating the skin of your shadow."
+			wait for 2 seconds
+			play "110617__soundscalpel-com__horror-bone-crunch.ogg" on audio channel "sound"
+			wait
+			say "Whining and heavy panting with a rattling sound in it fills the room. Your own shadow doesn't make a sound, but slowly turns his head and gazes evilly through 
 					the twisted shelves at you."
+			play "116486__adamlhumphreys__dogwhinepapillon01.ogg" on audio channel "sound"
 			wait
 			say "\nTears start to fill your eyes and run down your cheeks. You know that this will go on for hours. There will be no light, only frightening sounds."
 			say "You will try to reach out, but you cannot get close enough. You will try to get out from under there, but you are not strong enough."
 			say "Lying there in the dark, crying and hurting all over, you will shout for help, but no one will come."
 			wait
 			say "Until finally the whining will stop. So will the panting and the breathing altogether."
+			stop audio channel "sound"
 			wait for 10 seconds
-			say "\"Enough!\", you shout between sobs, \"It was an accident! I'm sorry!\"\n"
+			say "\n\"Enough!\", you shout between sobs, \"It was an accident! I'm sorry!\"\n"
 			wait for 7 seconds
 			say "\"So very sorry...\""
 			wait

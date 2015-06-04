@@ -11,27 +11,34 @@ there is a Combatant called forgotten echo
 
 function forgottenEchoIntro
 	do
-		say "From the corner of your eye you see a movement and slowly turn towards it. At first you recognize yourself and relax, but then you remember that there is no 
-				mirror [if player.location.name is \"bathroom\"]on that side[else]here[end]. Slowly the movements of your forgottenEcho separate from your own as it changes into a threatening pose."
+		say "The sounds around you start to change somehow."
+		wait for 5 seconds
+		say "Even if you are not moving, you notice that some of the sounds that have been behind you a second ago, are now in front of you."
+		wait for 8 seconds
+		say "After concentrating on it for a moment, you are finally sure, that they are gathering."
+		wait for 6 seconds
+		say "Although you cannot really see anything, your ears are able to replace your eyes in this case and you are able to pinpoint the thing that
+				is without any doubt a new enemy."
+		wait
 
 function forgottenEchoAttack
 	do
 		if this.specialAttackPrepare > 0
-			say "A shockwave of sounds wipes you off your feet."
 			this.specialAttackPrepare = 0
-			say "The living mirror in front of you suddenly smashes into dozens of pieces and when they all rotate to face you, you can see that each of them show a pair of eyes."
-			say "You feel "
-			scare 0, "pierced by countless eyes"
-			say ".\n"
+			say "A shockwave of sounds "
+			scare 0, "wipes you off your feet"
+			say ". Lying on your stomach you feel very vulnerable and hastily stand up again."
 			return (random number between 0.9 and 1.1) * this.strength * 2.5
 		else if this.specialAttackCooldown == 0 && chance of 30
 			this.specialAttackPrepare = 1
-			say "As you get ready for an incoming blow, you see that the forgottenEcho does something else instead."
+			say "As your ears prepare for the next attack, you notice that the little sounds around you start to gather in one point."
 			return 0
 		else
 			say this.name + " is torturing you with the "
-			scare 0, "sound of a [at random]terrible[or]painful[at random] memory"
+			scare 0, "sound of a [one of]terrible[or]painful[at random] memory"
 			say ".\n"
+			play "[one of]breakingGlass.ogg[or]155321__jace__dog-whining.ogg[or]110617__soundscalpel-com__horror-bone-crunch.ogg[or]190796__jiserte__xut1_ball_hit.ogg[or]
+						99960__cgeffex__large-crash.ogg[or]screwShot.ogg[at random]" on audio channel "sound"
 			return (random number between 0.9 and 1.1) * this.strength
 
 function forgottenEchoWound
@@ -39,24 +46,20 @@ function forgottenEchoWound
 		this.hp = this.hp - dmg
 		// drop green key
 		if this.hp < 1 
+			say "\n"
+			say "You seem to have distorted the airflow too much or produced too many sounds yourself, making the noises disband. You can hear them withdraw in different directions."
 			if !this.droppedItem
-				say "\n"
-				if this.defeatedCount > 1 && chance of 70
-					say "Some of the shards rejoin for a second to show the forgottenEcho of a blue key. Then it suddenly is like a projection into your side of the mirror and materializes
-							completely, before hitting the floor."
-					play "clong.ogg" on audio channel "sound" with volume 100
-					add blue key to player.location.items
-					this.droppedItem = true
-				else if this.defeatedCount > 0
-					say "You try to get a better view of the item, but all you get are a few glimpses of something that looks like a blue key."
-				else
-					say "As the attacker smashes into thousand shards you see the forgottenEcho of something blue in some of them."
+				say "The sounds grow weaker and weaker, but suddenly they gather again for a last attack."
+				say "A weak little shock wave is all they are capable of and it wasn't even directed at you."
+				say "It blew up some dust from the floor and when it settled again, you see an orange key lying there. You wonder if it has been there the whole time."
+				add orange key to player.location.items
+				this.droppedItem = true
 		else if !poisonAttack
-			if dmg < 15
-				say "The surface of the [+this.name] is becoming tarnished where it was hit."
+			if dmg < 50
+				say "Disturbing the sound waves, you manage to make some of the sounds diminish."
 			else
-				say "A cracking sound indicates that your attack didn't go unnoticed."
-			if this.hp < 7
-				say "Cracks are spreading all over the forgottenEcho."
+				say "Your attack causes a sound that overwhelms the sound cloud and mixes it up, so that it only produces an indistinguishable noise for a moment."
+			if this.hp < 40
+				say "The number of simultaneous sounds have decreased. The enemy is clearly weakened."
 		return this.hp < 1
 

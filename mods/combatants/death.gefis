@@ -99,8 +99,9 @@ function deathWound
 	do
 		this.hp = this.hp - dmg
 		if this.hp < 1 
+			say "\n"
+			say "The cat finally has to admit defeat, arches its back and hisses at you. Then it turns to flee."
 			if !this.droppedItem
-				say "\n"
 				if this.defeatedCount > 1 && chance of 70
 					say "You see the red key drop to the floor and are happy to finally be able to grab it, but then the cat takes it in its mouth and runs away with it."
 					this.droppedItem = true
