@@ -2,15 +2,33 @@ this is music room by scanix
 
 there is a place called music room
 	its exits are {"west": east door}
-	its intro is @[addOneTimeEvent musicRoomIntro]
-	its items are {musicRoomChest}
-	its description is @[musicRoomDesc]
+	its intro is @[addOneTimeEvent "musicRoomIntro"]
+	its items are {musicRoomChest, musicRoomChairs, piano}
+	its description is @[addOneTimeEvent "musicRoomDesc"]
 
 there is a treasure chest called musicRoomChest
 	its name is "chest"
 	its discovered is false
-	its guardian is goblinC
+	its guardian is goblinD
 	its items are {silver marble}
+
+there is a thing called piano
+	its description is "It is a big music instrument with a lot of keys. Most of them are white."
+	its sound is "As long as no one is touching those keys, it fortunately doesn't make a sound."
+	its useProc is "usePiano"
+
+there is a thing called musicRoomChairs
+	its name is "chairs"
+	its description is @[musicRoomChairsDesc]
+	its discovered is false
+
+function musicRoomChairsDesc
+	do
+		say "On each of them there was a leaflet, which surely contained the play list or something like that."
+		if !globals.musicRoomChairsDiscovered // we are in an after event here, so the normal discover is already done
+			globals.musicRoomChairsDiscovered = true
+			addToContainer music room, pen
+			say "One one of them you can see a pen."
 
 when play begins
 	addToContainer musicRoomChest, music tape
@@ -19,11 +37,21 @@ when play begins
 
 function musicRoomIntro
 	do
-		say "You slowly step into the large room."
-		wait for 2 seconds
-		say "The most dominating feature by far is the piano the back."
+		say "You slowly step into the large room. There are windows, but the moon is on the other side, so the only real light is the one you are carrying with you."
+		wait for 8 seconds
+		say "The most dominating feature by far is the piano the back. You keep wondering why there are so many things in this house that they did not want to take with them."
 
 function musicRoomDesc
 	do
-		discoverContainer music room
-		say "A music room. (description missing)"
+		say "Considering the piano, this was some sort of tiny concert hall or at least a place where an unfortunate person had to learn playing the piano and where other
+				unlucky people had to listen to it."
+		say "In front of the piano there were four rows of chairs."
+		if !globals.musicRoomDiscovered // we are in an after event here, so the normal discover is already done
+			globals.musicRoomDiscovered = true
+			say "A treasure chest stands behind the chairs."
+
+function usePiano
+	do
+		say "You cannot really play anything, so you just run your finger over all keys."
+		play "Piano Cue One.mp3" on audio channel "sound" with volume 70
+		wait for 7 seconds

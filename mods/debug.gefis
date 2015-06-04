@@ -35,10 +35,10 @@ when play resumes
 		say "Development mode, changes apply."
 		//do "encounters off"
 		// garden map
-		if not [playerOwns pen]
-			addToInv pen
-		if not [playerOwns sketch pad]
-			addToInv sketch pad
+		//if not [playerOwns pen]
+		//	addToInv pen
+		//if not [playerOwns sketch pad]
+		//	addToInv sketch pad
 
 action ff
 	do

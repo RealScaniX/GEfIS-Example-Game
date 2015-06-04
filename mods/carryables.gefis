@@ -138,6 +138,7 @@ there is an item called sketch pad
 	its description is @[addOneTimeEvent "sketchPadDesc"]
 	its useProc is "penAndPaperUse"
 	its useWithProc is "penAndPaperUse"
+	its discovered is false
 
 function sketchPadDesc
 	do

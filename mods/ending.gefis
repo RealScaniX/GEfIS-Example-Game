@@ -21,7 +21,7 @@ function happyends
 			wait for 0.2 second
 			say "[backspace][+c]_"
 		wait for 2 seconds
-		if globals.stickProgress < 2
+		if globals.stickProgress < 3
 			say "[backspace] "
 		else
 			for n from 1 to happy.#
@@ -40,7 +40,7 @@ function happyends
 			wait for 13 seconds
 			say "But it just knows that you will be different. "
 			wait for 4 seconds
-			if globals.stickProgress > 5
+			if globals.stickProgress > 7
 				say "Because no one has ever thrown the stick [+globals.stickProgress] times for him."
 			else
 				say "Because you've thrown the stick. [+globals.stickProgress] times."
