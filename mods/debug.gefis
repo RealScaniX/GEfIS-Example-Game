@@ -29,18 +29,3 @@ function maptest
 				for h from 0 to globals.gardenWidth-1
 					say "[if (h+(v%3)*2+zz) % 4 == 0]X[else]O[end]"
 				say "\n"
-
-when play resumes
-	if devmode
-		say "Development mode, changes apply."
-		//do "encounters off"
-		// garden map
-		//if not [playerOwns pen]
-		//	addToInv pen
-		//if not [playerOwns sketch pad]
-		//	addToInv sketch pad
-
-action ff
-	do
-		if devmode
-			startFight dark spark
