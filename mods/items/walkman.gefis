@@ -40,13 +40,16 @@ function useTheWalkman
 		else if currentFight.finished or player.fear < 10
 			say "You don't want to destroy a tape unless you really have to."
 		else 
+			so = player.fear * 2 / 3
+			if so < 40
+				so = 40
 			if globals.walkmanUse == 0
 				say "Maybe now is a good time to calm yourself with some nice music."
 				say "You put on the headphones, push in [if music tape.carried > 1][one of]a random tape[or]the first tape your fingers touch[or]the topmost 
 						tape[at random][else]your only tape and press on play."
 				wait for 2 seconds
 				say "After a few seconds "
-				soothe player.fear / 3, "the music starts to stream through your ears into your mind"
+				soothe so, "the music starts to stream through your ears into your mind"
 				say ".\n"
 			else
 				say "You push in [if music tape.carried > 1][one of]a random tape[or]the first tape your fingers touch[or]the topmost 
@@ -54,9 +57,6 @@ function useTheWalkman
 				flush
 				sleep 1.5
 				st = "[one of]The music scares away a part of your fear[or]Your mind starts to follow the melody, calming itself in the progress[at random]"
-				so = player.fear * 2 / 3
-				if so < 40
-					so = 40
 				soothe so, st
 				say ".\n"
 			globals.walkmanUse = globals.walkmanUse + 1
