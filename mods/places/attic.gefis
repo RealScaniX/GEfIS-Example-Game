@@ -2,17 +2,43 @@ this is attic by scanix
 
 there is a place called attic
 	its intro is @[atticIntro]
+	its description is @[atticDesc]
 	its exits are {"down": west wing}
 	its regions are {"anywhere", "house", "third floor"}
 	its ambience is "wind.ogg"
 	its items are {cardboard box}
+	its events are {atticEvent}
+	its sound is "The attic seems to be a place of many sounds. There is a creaking here, the whistle of the wind there and there are also... other sounds. 
+			Maybe there are rats here?"
+	its smell is "This place smells of old wood and also a bit mouldy as if there is a leak somewhere in the roof letting in wetness."
+
+there is an event called atticEvent
+	its probability is 30
+	its delay is 2
+	its repeat is true
+	its always is true
+	its eventProc is "atticEvent"
+
+function atticEvent
+	do
+		// make some random sound
+		play "kitchenCreak[one of]A[or]B[or]C[at random].ogg" on audio channel "sound"
+
+function atticDesc
+	do
+		say "The attic is probably the topmost of spooky places. The potential for a scary acoustic in cellars is high because of rats or machines, but attics have a 
+				repertoire of creepy sounds as well."
+		say "There is the wind that blows through holes, birds that nest in corners and dripping water after a rainfall."
+		say "Looking at how empty this attic is, you wonder why there is no echo. A lonely cardboard box is all that is left."
 
 function atticIntro
 	do
-		addEncounter "house", forgotten echo, 50
+		say "This room is huge, although it clearly does not cover the whole area of the house. The side walls are skewed, giving away the pitched roof and also where you are: 
+				The attic."
+		addEncounter "house", forgotten echo, 70
 
 there is a container called cardboard box
 	its description is @"In this large, almost empty attic this lonely cardboard box looks out of place. \"Tim's stuff\" is written on the side of it.\n
 			[if this.open]Half of it is filled with old toys. [if cardboard box.items has ball]Other than a ball, you[else]You[end] see nothing that interests you."
 	its items are {ball}
-
+	its discovered is false

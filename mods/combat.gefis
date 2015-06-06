@@ -442,7 +442,7 @@ function dropEnemyLoot
 				oneTimeDrop = true
 			if chance of ch
 				now itm is item.(itmname)
-				say "[one of]The [+enemyName] drops [a|an] [+itm.name][or][A|an] [+itm.name] appears out of nowhere and drops to the floor[at random]."
+				say "[one of]The [+enemyName] drops [a|an] [itemLink itm][or][A|an] [itemLink itm] appears out of nowhere and drops to the floor[at random]."
 				addToContainer player.location, itm
 				if itm.dropSound is not null
 					play itm.dropSound on audio channel "sound"

@@ -2,6 +2,66 @@ this is library by scanix
 
 there is a place called library
 	its exits are {"east": northwest door}
-	its illumination is 10
-	its intro is ""
-	its items are {sketch pad}
+	its illumination is 15
+	its intro is @[libraryIntro]
+	its description is @[libraryDesc]
+	its items are {right shelves, left shelves, front shelves, back shelves}
+
+function libraryIntro
+	do
+		northwest door.name = "library door"
+		append "This room is not very big and feels even smaller with the large shelves covering almost every centimeter of the walls.\n"
+		append "The contents of the shelves make it clear that this is the most boring of all rooms: The reading room."
+
+function libraryDesc
+	do
+		append "There are two large windows on the western wall, letting in a surprising large amount of moonlight.\n"
+		append "Nearly everything else of the walls is covered up with shelves, which are filled with countless books. Here and there you can see the obligatory
+				decorative stuff like a globe or an African statuette.\n"
+		append "The small table in front of the windows is surrounded by a floor lamp and two simple wooden chairs, because reading has to be an uncomfortable 
+				experience for the body as well."
+
+there is a thing called right shelves
+	its description is @[rightShelveDesc]
+	its sound is @[shelveSound]
+	its discovered is false
+
+there is a thing called left shelves
+	its description is "On the left side of the room, there are the modern books. You can see books from Steven King and even \"Lord of the Rings\". Judging from the 
+			size of the books, you are pretty sure that this is the extended directors cut."
+	its sound is @[shelveSound]
+	its discovered is false
+
+there is a thing called front shelves
+	its description is @[frontShelveDesc]
+	its sound is @[shelveSound]
+	its discovered is false
+
+there is a thing called back shelves
+	its description is "In the shelves next to the door, there are encyclopedias, dictionaries, statute books and other books without stories. Turning back towards the window,
+			you are glad to be able to leave them behind. Still you cannot help but feel sleepy all of a sudden and have to yawn."
+	its sound is @[shelveSound]
+	its discovered is false
+
+function shelveSound
+	do
+		append "[one of]If they could, those authors would probably jump at the opportunity to convince a young mind of the fantastic journeys that can be taken by reading
+			a good book.[or]Unfortunately those are no audio books.[or]Imagining what a terrible turmoil it would be if all those authors would tell you their story at the 
+			same time, you are delighted that they all stay silent.[at random]"
+
+function frontShelveDesc
+	do
+		append "This is the smallest shelve as it contains large holes for the windows. Looking through the titles, you can see some children's books."
+		if !sketch pad.discovered
+			sketch pad.discovered = true
+			addToContainer library, sketch pad
+			append "\nThere is a [itemLink sketch pad] sticking out between two books."
+
+function rightShelveDesc
+	do
+		append "Here you can see the classics. Goethe, Edgar Allan Poe, Kafka, Fontane and all the other dead guys are stuffed into these shelves with a 
+			plastic skull in the middle."
+		if !globals.libraryMusicTapeDiscovered
+			globals.libraryMusicTapeDiscovered = true
+			addToContainer library, music tape
+			append "\nThere is a [itemLink music tape] leaning against the plastic skull. You hope that is doesn't contain death metal."

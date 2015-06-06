@@ -142,11 +142,12 @@ there is an item called sketch pad
 
 function sketchPadDesc
 	do
-		say "It is a small sketch pad with plain white pages. It is empty except for the top sheet which contains these words:"
+		say "It is a small sketch pad with plain white pages. It is missing some pages that have been torn off.
+					The remaining ones are empty except for the top sheet which contains these words:"
 		wait for 6 seconds
 		say "\"Sometimes there isn't anything left to do, but hug your memory one last time and let it go.\"\n"
 		wait for 6 seconds
-		say "The word \"memory\" is a bit smudgy as if the ink has come in contact with a drop of water or something."
+		say "The word \"[\]memory\" is a bit smudgy as if the ink has come in contact with a drop of water or something."
 		wait for 6 seconds
 		say "What a strange thing to find now. You start to believe that everything in this house has something to do with you personally.\n"
 		wait for 7 seconds
@@ -155,6 +156,7 @@ there is an item called pen
 	its description is "It is a green ball pen. At least the plastic shell is green.\nTesting it on your palm, you see that the ink has the standard dark blue color."
 	its useProc is "penAndPaperUse"
 	its useWithProc is "penAndPaperUse"
+	its discovered is false
 
 function penAndPaperUse
 	do
@@ -174,7 +176,7 @@ function penAndPaperUse
 				say "Armed with your pen, you look around for a fitting victim. But then you feel powerless as you look at the large garden around you and suddenly know that
 					no one would ever find your writings in this terrain."
 			else
-				say "Thinking about drawing some cool things on the walls, you come to the conclusion that it would be in vain as the word <i>abandoned</i> in abandoned house 
+				say "Thinking about drawing some cool things on the walls, you come to the conclusion that it would be in vain as the word \"[\]abandoned\" in abandoned house 
 					isn't really promising a large number of people who would see it."
 		else if [playerOwns sketch pad]
 			say "The sketch pad is a good start, but you would need something to produce lines when dragged across the paper.\nYou think about biting your finger for a moment,

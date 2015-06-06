@@ -20,7 +20,7 @@ Entity place
 
 // Ignore first event check: no events after loading the game
 when play begins or resumes
-	temps.eventsEnabled = false
+	temps.eventsEnabledDelay = 3
 
 /*
  *		This is the event processing which happens in the after action script before the prompt
@@ -30,6 +30,9 @@ before function mainprompt
 
 function eventProcessing
 	do
+		if temps.eventsEnabledDelay > 0
+			temps.eventsEnabledDelay = temps.eventsEnabledDelay - 1
+			return
 		eventInvoked = false
 		// get list of events from player and location
 		now eventlist is a new list
@@ -52,7 +55,7 @@ function eventProcessing
 			if ev.delay > 0
 				ev.delay = ev.delay - 1
 				continue
-			if (eventInvoked or !temps.eventsEnabled) and not ev.always
+			if eventInvoked and not ev.always
 				continue
 			if (random number between 1 and 100) <= ev.probability
 				eventInvoked = not ev.always
@@ -61,7 +64,6 @@ function eventProcessing
 				if !ev.repeat
 					remove ev from eventOwner.events
 				// not breaking loop, all delays have to be decreased
-		temps.eventsEnabled = true
 
 function addOneTimeEvent
 	understand

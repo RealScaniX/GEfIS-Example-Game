@@ -36,7 +36,7 @@ function useVibrator
 function bedroomIntro
 	do
 		westwingNorthDoor.name = "bedroom door"
-		say "The big double bed in the middle and the boringness of the pictures on the wall tells you that this is the parents bedroom."
+		say "The big double bed in the middle and the boringness of the pictures on the wall tells you that you have now entered the parents bedroom."
 
 function rubberStickDesc
 	do

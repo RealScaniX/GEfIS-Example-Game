@@ -1,6 +1,6 @@
 This is Thoughts by ScaniX
 
-when play begins or resumes
+when play begins
 	now ev is a new event called "chainofthought"
 	ev.delay = 5
 	ev.probability = 50

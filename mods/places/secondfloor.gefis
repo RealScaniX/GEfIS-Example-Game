@@ -33,7 +33,9 @@ function secfloorintro
 	do
 		say "After two dozens of steps you finally reach the second floor. The corridor continues to your left and right, leading to the west and east wings. 
 			  In addition, there is a door right in front of you."
-		addEncounter "anywhere", dark spark, 50
+		if !globals.darkSparkAwakened
+			globals.darkSparkAwakened = true
+			addEncounter "anywhere", dark spark, 50
 
 function secfloordesc
 	do

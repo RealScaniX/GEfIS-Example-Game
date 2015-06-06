@@ -3,10 +3,40 @@ this is living room by scanix
 there is a place called living room
 	its exits are {"south": northeast door, "north": garden door}
 	its regions are {"anywhere", "house", "first floor"}
+	its items are {livingRoomTable}
+	its intro is @[livingRoomIntro]
+	its description is @[livingRoomDesc]
 
 there is a doorPassage called garden door
 	its locked is true
 	its origin is living room
 	its destination is garden
 
+function livingRoomIntro
+	do
+		say "Stepping into this medium large room, it initially feels as if the northern wall is missing. Then you realize that it just consists mainly of windows."
+		if !globals.darkSparkAwakened
+			globals.darkSparkAwakened = true
+			addEncounter "anywhere", dark spark, 50
 
+function livingRoomDesc
+	do
+		say "This is the living room. You imagine that it is a nice and bright place when the sunlight floods this room."
+		say "The windows in the northern wall almost reach from the floor up to the ceiling, there is a glass door on the left side, obviously leading into the garden."
+		say "There are two arm chairs and a sofa placed around a low table. In front of the eastern wall there is a large cupboard with a big hole in the middle where the
+				TV would go."
+		say "At least the TV has been important enough for the owners to take it with them. Or probably it has been stolen by someone afterwards."
+
+there is a thing called livingRoomTable
+	its name is "table"
+	its description is @[livingRoomTableDesc]
+	its discovered is false
+
+function livingRoomTableDesc
+	do
+		append "The table contains - from bottom to top - an ugly table cloth, a layer of dust, some TV magazines, a riddle book, a small bowl for snacks (empty) and a vase 
+				with dried flowers."
+		if !pen.discovered
+			pen.discovered = true
+			addToContainer living room, pen
+			append "\nNext to the riddle book, there is a [itemLink pen]."

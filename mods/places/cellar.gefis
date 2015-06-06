@@ -17,6 +17,11 @@ function cellarintro
 		scare 10, "frightened"
 		say " down here."
 
+before action close
+	if d is cellar door and d.open and player.location is cellar
+		say "You don't want to close the cellar door as long you are in the cellar."
+		return
+
 there is a doorPassage called cellar door
 	its origin is cellar
 	its description is @[cellarDoorDesc]
