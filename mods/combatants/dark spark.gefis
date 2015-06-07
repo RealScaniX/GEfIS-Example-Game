@@ -4,8 +4,8 @@ there is a Combatant called dark spark
 	its attackProc is "darkSparkAttack"
 	its woundProc is "darkSparkWound"
 	its introProc is "darkSparkIntro"
-	its strength is 12
-	its constitution is 35
+	its strength is 11
+	its constitution is 30
 	its level is 1
 	its fightMusic is "Lomoto Perpetuo Loop.mp3"
 	its lootTable is {"antidote": 10, "music tape": 10, "battery": 3, "blue marble": -5, "magic battery": -2}
@@ -17,7 +17,7 @@ function darkSparkIntro
 		say "You look around for something that might cast a shadow there, but cannot find anything. When it starts to move, you instinctively back off 
 				and stare at the blackness."
 		wait for 8 seconds
-		say "As it detaches itself from the shadows, you can see that it looks like a big dark point with a cloud of smaller flecks around it. Each of them could be described
+		say "As it detaches itself from the shadows, you can see that it looks like a big dark point with a cloud of smaller spots around it. Each of them could be described
 				as some sort of dark spark. Instead of emitting light, they seem to suck it in."
 		wait for 12 seconds
 		say "It obviously seems to be closing in on you, so you prepare to defend yourself."

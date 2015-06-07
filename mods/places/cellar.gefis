@@ -220,7 +220,8 @@ function finalFightEventProc
 			playMusic globals.fightMusic, 80
 			say "\nYou are confronted with a tall furry creature, that is standing on its hind paws like a bear. Long, sharp claws are protuding from all of its paws and drool is 
 					dripping from the teeth which are no less sharp, but somehow twisted."
-			say "The head is smashed and one of its eyes is missing while blood is seeping out of the open cracks. A metal bar is sticking in its chest, piercing the lungs."
+			say "The head is smashed and one of its eyes is missing while blood is seeping out of the open cracks. The yellow fur is bloody, dirty and matted all over and a metal bar 
+					is sticking in its chest, piercing the lungs."
 			say "The long tongue licks over the pointy teeth before it goes into an attacking pose and starts the fight with a "
 			scare 10, "threatening growl"
 			say ".\n"

@@ -32,7 +32,6 @@ function eventProcessing
 	do
 		if temps.eventsEnabledDelay > 0
 			temps.eventsEnabledDelay = temps.eventsEnabledDelay - 1
-			return
 		eventInvoked = false
 		// get list of events from player and location
 		now eventlist is a new list
@@ -55,7 +54,7 @@ function eventProcessing
 			if ev.delay > 0
 				ev.delay = ev.delay - 1
 				continue
-			if eventInvoked and not ev.always
+			if (temps.eventsEnabledDelay > 0 or eventInvoked) and not ev.always
 				continue
 			if (random number between 1 and 100) <= ev.probability
 				eventInvoked = not ev.always
@@ -74,4 +73,7 @@ function addOneTimeEvent
 		now evt is a new event
 		evt.always = true
 		evt.eventProc = procName
-		add evt to player.events
+		if !currentFight.finished
+			add evt to currentFight.events
+		else
+			add evt to player.events

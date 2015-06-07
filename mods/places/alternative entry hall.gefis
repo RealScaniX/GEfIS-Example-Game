@@ -46,7 +46,12 @@ function alternativeentryhallsoothe
 		// increase effect if player is waiting
 		if user.action is "wait"
 			x = x * 2
-		soothe x, "[one of]The blue light calms your nerves.[or]The weird magical light soothes you.[or]The blue light seems to burn the darkness around you away.[at random]"
+		if globals.lostCount > 0
+			soothe x, "[one of]The blue light calms your nerves.[or]Your wounds are vanishing in the blue light.[or]Even your clothes seem to return to their original state in the 
+					blue light.[or]The blue light slowly undoes all effects, that the horrors in this house had on you.[or]The weird magical light soothes you.[or]The blue light 
+					seems to burn the darkness around you away.[at random]"
+		else
+			soothe x, "[one of]The blue light calms your nerves.[or]The weird magical light soothes you.[or]The blue light seems to burn the darkness around you away.[at random]"
 
 function alternativeentryhallintro
 	do

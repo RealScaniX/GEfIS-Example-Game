@@ -8,6 +8,12 @@ there is a Combatant called player combatant
 
 function playerAttack
 	do
+		// nightmare
+		if currentFight.enemy is nightmare
+			now state is [nightmareState]
+			if state is 4
+				say "Looking at your old friend, you cannot even think of attacking him."
+				return 0
 		// find weapon
 		now wpn is unarmed
 		now ilist is [inventoryList]

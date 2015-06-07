@@ -13,8 +13,8 @@ there is a place called attic
 	its smell is "This place smells of old wood and also a bit mouldy as if there is a leak somewhere in the roof letting in wetness."
 
 there is an event called atticEvent
-	its probability is 30
-	its delay is 2
+	its probability is 80
+	its delay is 1
 	its repeat is true
 	its always is true
 	its eventProc is "atticEvent"

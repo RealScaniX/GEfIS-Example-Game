@@ -43,8 +43,9 @@ function lightsource_update
 			player.illumination = player.illumination + player.light.illumination
 		now ilist is [inventoryList]
 		for each itm in ilist
-			if itm is a equippable and itm.equipped
-				player.illumination = player.illumination + itm.illumination
+			if itm is a equippable 
+				if itm.equipped
+					player.illumination = player.illumination + itm.illumination
 			else if itm is not a lightsource // non equippables always shine
 				player.illumination = player.illumination + itm.illumination
 		player.illumination = min of player.illumination and 100

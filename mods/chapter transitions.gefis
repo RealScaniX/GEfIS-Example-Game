@@ -58,7 +58,7 @@ function chapterAdvance
 		else if 3 is globals.chapter
 			saychapter globals.chapter
 		else if 4 is globals.chapter
-			playMusic null, 100
+			playMusic "Rains Will Fall.mp3", 100
 			playAmbience null, 100
 			stop audio channel "sound"
 			saychapter globals.chapter
@@ -71,7 +71,9 @@ function scrollAway
 			flush
 			sleep 0.2
 		story log on
+		fadeOut
 		cls
+		fadeIn
 
 function fadeOut
 	do

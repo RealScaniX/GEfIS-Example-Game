@@ -120,6 +120,7 @@ mode Fight
 		flee
 		inventorying
 		huggies
+		hugNightmare
 	before action do
 		temps.prompted = false
 		story log off
@@ -155,6 +156,7 @@ mode Fight
 		globals.fightMusic = currentFight.enemy.fightMusic
 		playMusic globals.fightMusic, 80
 		playAmbience null, 100
+		currentFight.events = {}
 		currentFight.finished = false
 		currentFight.won = false
 		/************************************
@@ -225,6 +227,7 @@ function fightPrompt
 
 function endFight
 	do
+		currentFight.events = {}
 		currentFight.finished = true
 		if currentFight.player.poisonDOT > 0
 			currentFight.player.poisonDOT = 0
@@ -252,6 +255,8 @@ function resolveEnemy
 	do
 		if enmy is a combatant
 			return enmy
+		if enmy is a text
+			now enmy is a new phrase called enmy
 		if enmy is a phrase
 			for each cmb in combatant.*
 				if cmb.name == enmy.name
