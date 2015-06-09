@@ -39,7 +39,7 @@ action takeitem
 			now currContainer is player.location
 		else
 			for each cnt in player.location.items
-				if cnt is a container && cnt.items has itm
+				if cnt is a container && cnt.open && cnt.items has itm
 					now currContainer is cnt
 					break
 		// Remove from container
