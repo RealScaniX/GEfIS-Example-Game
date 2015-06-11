@@ -43,29 +43,29 @@ function goblinIntro
 			globals.metGoblin = true
 			say "Out of nowhere an - even from your point of view - small guy appears before you."
 			say "He appears to have landed there after a huge jump as he is coming up from a crouched posture."
-			wait for 12 seconds
+			wait for 14 seconds
 			say "When he is finally standing upright, you can see that he is no taller than one meter."
 			say "The only pieces of clothing obscuring the dark green skin are a loincloth and a cap with untied bands dangling on the sides. Both seem to be made of some dark leather."
-			wait for 12 seconds
+			wait for 14 seconds
 			say "The long, pointy ears on the side of his head nearly have the shape of triangles. Pointy seems to be the main theme here as it can also be said about his nose and 
 					his chin."
 			say "The head appears to be a little too big for the small body, but it probably has to be that big to accommodate the large, amber eyes."
-			wait for 16 seconds
+			wait
 			say "\n\"Are... Are you a dark elf?\", you ask the creature."
 			say "\"Fuck you!\", he responds, baring sharp teeth and a long tongue in the process. You've obviously annoyed him with your question."
-			wait for 14 seconds
+			wait for 15 seconds
 			say "\"I'm a Goblin, of course.\", he corrects you and shakes his head in disbelief, \"Aren't you kids playing any RPGs anymore?\""
-			wait for 8 seconds
-			say "\n\"I'm sorry!\", you stutter and move slowly backwards, \"I didn't want to disturb you. Can't you just climb back in and we pretend I've never opened the chest?\""
 			wait for 9 seconds
-			say "\n\"Nope, that's no option.\", the Goblin replies with a smirk on his face, \"Think of that chest as my version of Pandora's box. Once it is opened...\""
+			say "\n\"I'm sorry!\", you stutter and move slowly backwards, \"I didn't want to disturb you. Can't you just climb back in and we pretend I've never opened the chest?\""
+			wait for 10 seconds
+			say "\n\"Nope, that's no option.\", the Goblin replies with a smirk on his face, \"Think of that chest as my version of Pandora's box. Once it has been opened...\""
 			wait for 9 seconds
 			say "You slowly see the smirk fade away as he stares at your confused face for a few moments and then lets his shoulders hang with a sigh."
 			say "\"You have no idea what I am talking about, right?\", he asks and watches you shake your head."
 			wait for 14 seconds
 			say "\nSuddenly he starts to giggle and stretches his arms and legs as if to prepare for something."
 			say "\"Then let's come to the fun part, shall we?\"\n"
-			wait for 12 seconds
+			wait
 		else
 			say "A common sight appears in front of you. The Goblin stretches his arms and legs.\nEven for him the chest seems to be a little too small."
 		goblinAppear
@@ -122,7 +122,7 @@ function goblinAttack
 		if this.specialAttackPrepare is 1
 			this.specialAttackPrepare = 0
 			say "The Goblin suddenly has a small flask in his hand, then holds it to his lips and drinks the contents in one big gulp."
-			say "Whatever it was seems to make him feel better."
+			say "Whatever has been in there, seems to make him feel better now."
 			this.hp = min of this.constitution and (this.hp + 40)
 			return 0
 		else if this.specialAttackPrepare is 2
@@ -141,7 +141,7 @@ function goblinAttack
 				say "Instead of attacking you, the Goblin seems to get ready for something."
 			return 0
 		else
-			say "[+this.name] is [one of]coming at you[or]attacking you[at random] with his "
+			say "The [one of]Goblin[or]imp[or]short humanoid[at random] is [one of]coming at you[or]attacking you[at random] with his "
 			if this is goblinA
 				say "clawlike hands"
 			else if this is goblinB
@@ -187,9 +187,10 @@ function goblinWound
 		return false // you never kill him
 
 before function endFight
-	if !currentFight.won and globals.metGoblin and !globals.goblinLuckyCharm and currentFight.enemy is not a goblin
-		if globals.lostCount - globals.wonCount > 5
-			goblinLuckyCharm
+	if !currentFight.won and currentFight.enemy is not a goblin
+		if globals.metGoblin and !globals.goblinLuckyCharm
+			if globals.lostCount - globals.wonCount > 5
+				goblinLuckyCharm
 
 before function startFight
 	currentFight.lucky = [playerOwns lucky charm]

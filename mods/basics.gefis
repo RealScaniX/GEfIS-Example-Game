@@ -107,7 +107,7 @@ action listen
 		else if smt.sound is not null
 			say smt.sound
 		else if smt is not a sound
-			say "There isn't really a sound to it. Unless you smash it into a wall, of course..."
+			say "There isn't really a sound to it. Unless you smash it into something else, of course..."
 		else 
 			say smt.soundDesc
 
@@ -304,6 +304,20 @@ function playmusic
 			stop audio channel "music"
 		else
 			loop track on audio channel "music" with volume vol
+		now globals.musictrack is track
+
+function playmusicNoLoop
+	understand
+		playmusicNoLoop [track], [vol]
+	do
+		now globals.musicVolume is vol
+		if globals.musictrack is track
+			resume audio channel "music" with volume vol
+			return
+		if track is null
+			stop audio channel "music"
+		else
+			play track on audio channel "music" with volume vol
 		now globals.musictrack is track
 
 function playambience

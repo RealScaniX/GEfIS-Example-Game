@@ -18,7 +18,8 @@ function happyends
 		say "<center><h2> </h2></center>"
 		now happy is {"H", "a", "p", "p", "y", " ", "E", "n", "d", "!"}
 		for each c in happy
-			wait for 0.2 second
+			flush
+			sleep 0.2
 			say "[backspace][+c]_"
 		wait for 2 seconds
 		if globals.stickProgress < 3
@@ -26,89 +27,106 @@ function happyends
 		else
 			for n from 1 to happy.#
 				say "[backspace][backspace]_"
-				wait for 0.1 second
+				flush
+				sleep 0.1
 			say "[backspace]"
 			wait for 2 seconds
 			say "As you walk home, you fail to notice that something has been watching you. "
-			wait for 7 seconds
+			wait for text
 			say "There in the shadows it has been waiting for the others to go away."
-			wait for 7 seconds
+			wait for text
 			say "It has decided to not let you go like this. There are [+globals.stickProgress] good reasons."
-			wait for 7 seconds
+			wait for text
 			say "Slowly stepping out of the shadow behind the bush, it starts following you. "
 			say "It has been mistreated in the past. It became shy and very cautious over time."
-			wait for 13 seconds
+			wait for text
 			say "But it just knows that you will be different. "
-			wait for 4 seconds
+			wait for text
 			if globals.stickProgress > 7
-				say "Because no one has ever thrown the stick [+globals.stickProgress] times for him."
+				say "Because no one has ever thrown the stick for him [+globals.stickProgress] times in a row."
 			else
 				say "Because you've thrown the stick. [+globals.stickProgress] times."
-			flush
-			wait for 6 seconds
+			wait for text
 			say "And so the stray dog starts to wag its tail."
 			say "Its sensitive nose picks up the trail of a happy future and the legs start to move faster and faster to not lose it again."
-			wait for 13 seconds
-			play "thump.ogg" on audio channel "sound"
+			wait
+			play "thump.ogg" on audio channel "sound" with volume 100
 			flush
-			say "\nSuddenly you hear a sound behind you and spin around. There, right in front of you is a pretty large dog. You can't really tell the breed, but it is 
+			say "\nYou suddenly hear a sound behind you and spin around. There, right in front of you is a pretty large dog. You can't really tell the breed, but it is 
 					probably some mix."
 			say "The dog is panting and wagging its tail, obviously happy to see you."
-			wait for 12 seconds
+			wait for text
 			say "You smile as you look down and recognize the stick that you've been throwing all over the garden."
-			wait for 8 seconds
-			say "You bend down and pick up the stick as you notice that the dog has no collar."
-			say "You think for a moment and then decide, that it is the right thing to do. You are also pretty sure that your mom will be fine with this."
-			wait for 12 seconds
-			say "\n\"Come on, buddy.\", you say to your new friend, \"Let's go home!\""
+			wait for text
+			say "As you bend down to pick up the stick, you notice that the dog has no collar."
+			say "It only takes you a minute to decide on what to do. And you are also pretty sure, that your mom will be fine with your decision."
+			wait for text
+			say "\n\"Come on, buddy!\", you say to your new friend, \"Let's go home!\""
 			say "\n"
-			wait for 5 seconds
+			wait for 7 seconds
 			say "<center><h2> </h2></center>"
 			now happier is {"E", "v", "e", "n", " ", "H", "a", "p", "p", "i", "e", "r", " ", "E", "n", "d", "!"}
 			for each c in happier
-				wait for 0.2 second
+				flush
+				sleep 0.2
 				say "[backspace][+c][if c != \"!\"]_[else] [end]"
-
-function extrotalk
-	do
-		flush
-		if user.canceled
-			return
-		showBubble 1, "You think he will make it?"
-		if user.canceled
-			return
-		showBubble 2, "He should, if he wants to get in."
-		if user.canceled
-			return
-		showBubble 3, "Yeah, he better got the balls to bring that ball to us."
-		if user.canceled
-			return
-		showBubble 1, "Otherwise he won't belong to us..."
-		if user.canceled
-			return
-		showBubble 2, "And he better not tries any tricks."
-		if user.canceled
-			return
-		showBubble 3, "Yeah! You hear that? No cheating, we are watching you!"
-		if user.canceled
-			return
-		hide overlay "nw"
-		wait for 2 seconds
 
 function extroduction
 	do
 		chapterAdvance
 		say "You step out of the old house that you know better than your own home now and close the door behind you. There is no sign of any of the boys waiting for you."
-		wait for 8 seconds
-		say "You wonder if you took to long and they've gone home."
-		wait for 4 seconds
-		say "You are so tired, that you start to think that you probably imagined the whole thing. Some events that happened in there seem pretty fantastic in hindsight."
-		wait for 8 seconds
+		wait for text
+		say "You wonder if you just took too long and they've decided to go home."
+		wait for text
+		say "You are so tired, that you start to think that you've probably imagined the whole thing. Some events that have happened in there seem pretty fantastic in hindsight."
+		wait for text
 		say "\"Hello?\", you call out into the night, loud enough to be heard by anyone close by, but quite enough to not disturb the sleeping people in the neighborhood."
-		wait for 8 seconds
-		prepareBubbles
-		//extrotalk
-		cleanupBubbles
+		wait for text
+		//stop audio channel "music"
+		flush
+		sleep 3
+		playMusic null, 100
+		playMusicNoLoop "Rains Will Fall.mp3", 100
+		flush
+		sleep 1
+		say "\"Oh, hi!\", a blonde boy appears from around the corner of the house. He is a head shorter than you, but you remember that he has nearly the same age as you."
+		wait for text
+		say "\"I just had to... water the plants.\", he smiles at you, \"So, you are back already. Let me call the others.\""
+		say "He is sending a short SMS using his smart phone while you are wondering if he is making fun of you, because he said \"[\]already\"."
+		wait for text
+		say "\"I'm sorry that it took me so long to find it.\", you try to apologize as you give the ball to the blonde boy."
+		wait for text
+		say "\"What do you mean?\", he asks as he is eying the ball with a sceptical look on his face, \"You've only been gone for about fifteen minutes or so.\""
+		wait for text
+		say "After about two or three minutes, the others join you. They must have been in the club house which is not far away in the woods."
+		say "\"Hey, you've been too quick.\", the leader of the group - a black haired boy of fourteen years - tells you, \"We couldn't even finish a single 
+				round of our card game.\""
+		wait for text
+		say "\"Good job!\", he then adds and smiles reassuringly as he notices that you are wondering if he is pissed off."
+		wait for text
+		say "\"That's not the ball we've hidden, though.\", a younger boy notices, who seems to be the assistant of the leader. "
+		say "Although the trip to the house still wouldn't have been in vain, you really want to join them and begin to fear that you've missed your goal today."
+		wait for text
+		say "\"Yeah.\", the leader agrees, \"Doesn't matter, though. I ran around in that house for half an hour to hide our ball and haven't seen that one, 
+				so he did enough exploring anyway.\""
+		wait for text
+		say "After a short pause, he adds: \"You proved your fearlessness enough, I guess. What do you think, guys? Raise your hand to vote for him!\""
+		wait for text
+		say "One after the other, all seven boys raise their hands."
+		say "\"So... I'm in?\", you ask with delight."
+		wait for text
+		say "\"Yes.\", the leader answers with a grin, \"You're in!\""
+		say "\"Yeah, great!\", you shout out into the night, before realizing that you might wake the whole neighborhood - including you mom - and cover your mouth 
+				with your hands right away. The other boys giggle."
+		wait for text
+		say "One after the other, they pat you on the back to welcome you into their club and then you all say goodbye."
+		say "Most of them are yawning and are obviously as eager as you to get back to bed."
+		wait for text
+		say "When you are the last one to stand in front of the house, you turn back to look at it and wonder what magic has caused you to have this adventure."
+		wait for text
+		say "Whatever it was, you are thankful for the outcome."
+		say "You are suddenly very tired and start to walk back to your new home. You scratch your arm out of habit, but are too sleepy to notice that the scar isn't there anymore."
+		wait
 		happyends
 		wait
 		end game

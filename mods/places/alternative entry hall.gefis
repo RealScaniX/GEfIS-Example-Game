@@ -42,14 +42,14 @@ function alternativeentryhallsoothe
 	do
 		if player.fear < 4
 			return
-		now x is integer value of ((player.fear+15) / 3)
+		now x is integer value of (player.fear / 3)
 		// increase effect if player is waiting
 		if user.action is "wait"
-			x = x * 2
+			x = x * 1.5
 		if globals.lostCount > 0
-			soothe x, "[one of]The blue light calms your nerves.[or]Your wounds are vanishing in the blue light.[or]Even your clothes seem to return to their original state in the 
-					blue light.[or]The blue light slowly undoes all effects, that the horrors in this house had on you.[or]The weird magical light soothes you.[or]The blue light 
-					seems to burn the darkness around you away.[at random]"
+			soothe x, "[one of]The blue light calms your nerves.[or]Your wounds are vanishing in the blue light.[or]Even your clothes seem to return to their original state while
+					you are close to the entrynce.[or]The blue light slowly undoes all effects, that the horrors in this house had on you.[or]The weird magical light soothes you.[or]
+					The blue light seems to burn the darkness around you away.[at random]"
 		else
 			soothe x, "[one of]The blue light calms your nerves.[or]The weird magical light soothes you.[or]The blue light seems to burn the darkness around you away.[at random]"
 
@@ -142,17 +142,20 @@ function entranceUnlocking
 				say "You guess that this whole thing will be over when you use that key. Looking back, you wonder if you are really ready to leave this place."
 				ask whether "Leave?"
 				if user.consented
+					playMusicNoLoop "Water Lily.mp3", 100
+					flush
+					sleep 2
 					temps.prompted = true // no more prompt after this
 					say "When you stick the key into the center keyhole it is suddenly losing its solid form and changes into a bright white cloud that is immediately sucked in."
-					wait for 7 seconds
+					wait for text
 					say "The light is slowly, but steadily spreading outwards, covering more and more of the circle stone and then the wall. You hold up an arm in front of 
 							your eyes to shield them from the light that quickly gets brighter until you have to close your eyes."
-					wait for 12 seconds
+					wait for text
 					say "All of a sudden the light is gone and as you open your eyes again, you see nothing."
-					wait for 6 seconds
+					wait for text
 					say "It takes your eyes a few seconds to adjust and then you finally see the original entrance door in front of you again. Looking around, you notice that the
 							whole entry hall is its old - and dusty - self again."
-					wait for 12 seconds
+					wait for text
 					say "Happy to have that exit back, you push down the door handle, open the door and leave the abandoned house..."
 					wait
 					switch to ending mode

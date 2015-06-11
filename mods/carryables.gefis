@@ -37,7 +37,7 @@ before action takeItem
  */
 there is an item called ball
 	its description is "Although you have looked for this thing for a long time, it is still a simple, dark blue plastic ball. It looks pretty old as well."
-	its smell is "It smells of plastic and lots of fun."
+	its smell is @"It smells of plastic and lots of fun.[if !nightmare.killed] And also of blood and death.[end]"
 	its sound is "This can sound like cheering or a breaking window, depending on how it is handled. At the moment it is silent, though."
 	its taste is "Nope."
 	its useProc is "useBall"
@@ -102,6 +102,9 @@ there is a circle key called key of light
 	its illumination is 80
 	its description is "This key seems to be made of pure light, which wouldn't make sense as you can clearly touch it. Still you keep thinking that this thing does not belong
 			in the reality."
+	its smell is "This smells of freedom like nothing else."
+	its taste is "The key of light tastes minty fresh."
+	its sound is "This sounds like pure energy. How do you know that? You just do."
 
 after action dropItem
 	if itm is key of light

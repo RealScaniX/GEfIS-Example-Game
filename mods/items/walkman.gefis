@@ -26,7 +26,7 @@ function stopTheWalkman
 		if !currentFight.finished
 			playMusic null, 100
 			play "tapeScramble.ogg" on audio channel "sound" with volume 50
-			say "Your walkman claims his next victim and eats up the tape..."
+			say "Your walkman claims its next victim and eats up the tape..."
 			flush
 			sleep 1
 			playMusic globals.fightMusic, 100

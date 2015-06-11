@@ -42,6 +42,7 @@ Entity Combatant is a thing
 		bool killed												// true if this enemy is no longer attacking the player (defeated more than 10 times)
 		text hugProc											// reaction to hugging
 		bool wantsFight is true
+		text recoverProc is null								// method to call at beginning of fight to recover enemy to full strength (or whatever is desired)
 
 entity item
 	attributes
@@ -121,6 +122,8 @@ mode Fight
 		inventorying
 		huggies
 		hugNightmare
+		help
+		about
 	before action do
 		temps.prompted = false
 		story log off
@@ -153,18 +156,21 @@ mode Fight
 				endFight
 	on start do
 		alternativeentryhallsoothe.delay = 1 // to avoid having the blue text inbetween fighter after events
-		globals.fightMusic = currentFight.enemy.fightMusic
-		playMusic globals.fightMusic, 80
-		playAmbience null, 100
 		currentFight.events = {}
 		currentFight.finished = false
 		currentFight.won = false
 		/************************************
 				fill in enemy values
 		*************************************/
-		now currentFight.enemy.hp is currentFight.enemy.constitution
+		if currentFight.enemy.recoverProc is not null
+			invoke function currentFight.enemy.recoverProc on currentFight.enemy
+		else
+			now currentFight.enemy.hp is currentFight.enemy.constitution
 		now currentFight.enemy.specialAttackPrepare is 0
 		now currentFight.enemy.poisonDOT is 0
+		globals.fightMusic = currentFight.enemy.fightMusic
+		playMusic globals.fightMusic, 80
+		playAmbience null, 100
 		/************************************
 				fill in player values
 		*************************************/

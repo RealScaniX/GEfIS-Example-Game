@@ -30,11 +30,12 @@ function hugDeath
 				soothe 0, "relaxing"
 				say " again as you realize what this sound is and what it means."
 				wait for 12 seconds
-				say "As you finally pull back your hand, the cat glances at you one last time and then scurries off
-					[if player.location is a gardenTile]into the direction of its grave[end]."
+				say "As you finally pull back your hand, the cat glances at you one last time and then scurries off\
+					[if player.location is a gardenTile] into the direction of its grave[end]."
 				currentFight.won = true
 				currentFight.finished = true
 				currentFight.enemy.killed = true
+				removeEncounter death
 				wait for 7 seconds
 				glow 35
 				say "As you stand up again, you feel better on the inside."

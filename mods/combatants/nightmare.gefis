@@ -1,14 +1,35 @@
 this is nightmare by scanix
 
 there is a combatant called nightmare
-	its constitution is 300
-	its strength is 60
+	its constitution is 350
+	its strength is 70
 	its fightMusic is "Motherlode.mp3"		// start music manually later on
 	its attackProc is "nightmareAttack"
 	its woundProc is "nightmareWound"
 	its introProc is null
 	its appearProc is "nightmareAppear"
 	its hugProc is "hugNightmare"
+	its recoverProc is "recoverNightmare"
+
+function recoverNightmare
+	do
+		now state is [nightmareState]
+		if state is 4
+			this.name = "Lucky"
+			this.fightMusic = "Wounded.mp3"
+		else
+			this.name = "nightmare"
+			this.fightMusic = "Motherlode.mp3"
+		if state is 4
+			this.hp = 1
+		else if state is 3
+			this.hp = this.constitution / 4 - 1
+		else if state is 2
+			this.hp = this.constitution / 2 - 1
+		else if state is 1
+			this.hp = this.constitution * 3 / 4 - 1
+		else
+			this.hp = this.constitution
 
 function nightmareState
 	do
@@ -25,8 +46,11 @@ function nightmareState
 
 function nightmareAppear
 	do
-		this.name = "nightmare"
-		say "You are confronted with your worst nightmare."
+		now state is [nightmareState]
+		if state is 4
+			say "Your dog sits still in the same place as before and is waiting for you."
+		else
+			say "You are confronted with your worst nightmare."
 		// reset strength
 		this.strength = 60
 
@@ -108,7 +132,10 @@ function nightmareWound
 				say "With the last attack you feel something going away. There is a sudden wave of darkness flow through you, then it is gone."
 				say "As you focus on your opponent again, you see something that you've lost forever."
 				say "The furry creature has changed back to its natural appearance. In front of you stands a large, golden retriever."
-				globals.fightMusic = "Water Lily.mp3"
+				if currentFight.events has "tapeBreaking"
+					remove "tapeBreaking" from currentFight.events
+				globals.fightMusic = "Wounded.mp3"
+				playMusic null, 80
 				playMusic globals.fightMusic, 80
 			else if stateBefore is 3
 				say "Your attack to the head has forced it to spin backwards. When it turns back towards you, you are shocked to see that the second eye is back in its socket
@@ -180,14 +207,14 @@ function lettingGo
 				from the very first moment on."
 		wait for 12 seconds
 		say "You feel his tongue lick across your face and then the scar on your arm."
-		wait for 6 seconds
+		wait
 		say "Suddenly your hands lose contact and when you open your eyes, you only see a cloud of lights swarming around you and finally into you."
 		wait for 8 seconds
 		say "You feel warmth, companionship and peace as you consume the light. Those new feelings soothe all your fears and regrets and although you are still sad 
 				and miss your friend, you cannot help but smile and be thankful for the last moment you've shared with your friend."
-		wait for 14 seconds
 		player.fear = 0
 		player.glow = 100
+		wait
 		say "There is another glow coming from your hands and when you open your grip, you can see a key that seems to be made of light."
 		wait for 8 seconds
 		say "You finally stand up again, put the strange key into your pocket and wipe the tears from your face."

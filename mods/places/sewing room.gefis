@@ -1,9 +1,12 @@
 this is sewing room by scanix
 
 there is a place called sewing room
+	its intro is @[sewingRoomIntro]
+	its description is "Looking around in the"
 	its exits are {"south": eastwingNorthDoor}
 
 function sewingRoomIntro
 	do
 		eastwingNorthDoor.name = "sewing room door"
-		say "You are now standing in the sewing room."
+		return "The small corner room of the house has two windows, which don't help much as the moon is on the opposite side."
+
