@@ -4,6 +4,8 @@ There is a ValueSponge called Globals
 	its chapter is -1
 	its directions are {"north", "west", "east", "south", "northeast", "northwest", "southeast", "southwest", "up", "down"}
 
+There is a ValueSponge called OneStats
+
 There is a ValueSponge called temps
 	it is static
 
@@ -20,7 +22,7 @@ Entity Thing is an Entity
 		bool discovered is true
 		text description
 		text smell is "This smells like nothing really."
-		text taste is "You'd rather not taste that. For now."
+		text taste is @"[one of]You'd rather not taste that. For now[or]You wonder where the sudden urge to lick everything comes from[at random]."
 		text sound is null // if something is not a sound but still has a sound to it
 		list actions are {"look at", "use", "listen to", "smell", "taste"}
 		text useProc

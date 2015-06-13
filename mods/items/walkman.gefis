@@ -1,5 +1,8 @@
 This is walkman by ScaniX
 
+there is a valuesponge called OneStats
+	its musicTapes is 0
+
 there is an item called walkman
 	its combatUse is true
 	its description is "This is your infamous tape eating walkman. There is something wrong with the mechanics. While it still plays cassettes,
@@ -40,6 +43,7 @@ function useTheWalkman
 		else if currentFight.finished or player.fear < 10
 			say "You don't want to destroy a tape unless you really have to."
 		else 
+			OneStats.musicTapes = OneStats.musicTapes + 1
 			so = player.fear * 2 / 3
 			if so < 40
 				so = 40

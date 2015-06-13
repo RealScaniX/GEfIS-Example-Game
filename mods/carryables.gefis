@@ -223,6 +223,9 @@ action raisemap
 /************************************************************
  * antidote
  */
+there is a valuesponge called OneStats
+	its antidotes is 0
+
 there is an item called antidote
 	its description is "It's a little flask with some greenish, thick fluid inside. On the outside there is a sticker with a single word: Antidote\n"
 	its smell is "You take off the lid for a moment and take a whiff of it. You are totally sure that this is a prime example of a green smell. It strongly smells of all that
@@ -235,6 +238,7 @@ there is an item called antidote
 function useAntidote
 	do
 		if !currentFight.finished and (currentFight.player.poisonDOT > 0 or player.fear > 15)
+			OneStats.antidotes = OneStats.antidotes + 1
 			currentFight.player.poisonDOT = -1000 // defend against future poisoning
 			say "With a sigh you open the antidote and pour the fluid into your mouth. You take big gulps to avoid tasting it too much."
 			wait for 5 seconds

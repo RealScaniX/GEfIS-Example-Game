@@ -45,8 +45,6 @@ there is a thing called mirror
 	its description is @[bathroomMirrorDesc]
 	its sound is "Looking at your reflection, you think that you might be better off listening to someone else."
 
-there is a thing called bath tub
-
 there is a thing called sink
 	its useProc is "useSink"
 	its sound is @[sinkSound]
@@ -118,8 +116,6 @@ function useSink
 		else
 			stop audio channel "ambience"
 
-there is a thing called shower
-
 function bathroomDesc
 	do
 		append "It is a normal bathroom. There is a toilet, a sink and a mirror cabinet above it. "
@@ -141,12 +137,18 @@ function bathroomMirrorDesc
 			say "The mirror is a bit dusty and covered in some grime, but you can still see 
 					[if player.glow < 25]the face of a sad boy staring back at you[else if player.glow < 50]the face of a boy looking expectantly back at you[else if player.glow < 75]a
 					boy that looks like you a lot[else]yourself[end]."
+			say "You think, that you look adventurous with your dark, messy hair which are almost long enough to cover your eyes, but your mother nevertheless always 
+					says, that you look cute."
+			if nightmare.killed
+				say "Your brown eyes now have a glint of hope in them."
+			else
+				say "Your brown eyes look a bit too serious, even for your own taste."
 			if !globals.reflectionEncounterAdded
 				globals.reflectionEncounterAdded = true
 				addEncounter "house", reflection, 50
-			else if player.glow < 35 and globals.mirrorSmash is null && chance of 70
+			else if player.glow < 60 and globals.mirrorSmash is null && chance of 70
 				addOneTimeEvent "bathroomMirrorSmash"
-			else if player.glow < 60 and chance of 30
+			else if !reflection.killed and chance of 30
 				say "For a moment you think that the movements of the guy in the mirror do not match your own."
 
 function bathroomMirrorSmash
@@ -161,3 +163,39 @@ function bathroomMirrorSmash
 		flush
 		sleep 2
 		say "If it hasn't been your own fist that has smashed the mirror."
+
+there is a thing called shower
+	its description is @[addOneTimeEvent "showerCurtain"]
+	its smell is "Your nose tells you that this shower is in need of a bath."
+	its taste is "In theory this will taste of dirt, limescale and yuck. You will leave the practical test to someone else."
+	its useProc is "useShowerTub"
+
+there is a thing called bath tub
+	its description is "You half expect to find a skeleton lying inside of it or at least a pool of blood.\n
+				But all you can see are some dead bugs on the bottom and a border of limescale and dirt."
+	its smell is "Your nose tells you that this bath tub could use a shower."
+	its taste is "In theory this will taste of dirt, limescale and yuck. You will leave the practical test to someone else."
+	its useProc is "useShowerTub"
+
+function useShowerTub
+	do
+		say "You don't want to get dirty."
+
+function showerCurtain
+	do
+		if !globals.showerCurtainOpen
+			say "The shower curtain is closed."
+			wait for text
+			say "You contemplate opening the shower curtain, but you are unsure if you are more afraid of what you might find or of not knowing what is in there."
+			wait for text
+			if chance of 50
+				globals.showerCurtainOpen = true
+				say "Finally you decide to open it."
+				wait for text
+				play "202014__ryancacophony__shower-curtain-fast.ogg" on audio channel "sound" with volume 100
+				wait for 2 seconds
+			else
+				say "You decide against it."
+		// no else, will continue from above!
+		if globals.showerCurtainOpen
+			say "Well, this is a pretty standard shower. The most evil thing about it is probably that it's so dirty, that you will need another shower after using it."

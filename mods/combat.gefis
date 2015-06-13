@@ -42,7 +42,7 @@ Entity Combatant is a thing
 		bool killed												// true if this enemy is no longer attacking the player (defeated more than 10 times)
 		text hugProc											// reaction to hugging
 		bool wantsFight is true
-		text recoverProc is null								// method to call at beginning of fight to recover enemy to full strength (or whatever is desired)
+		text recoverProc is null							// method to call at beginning of fight to recover enemy to full strength (or whatever is desired)
 
 entity item
 	attributes

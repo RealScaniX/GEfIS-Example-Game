@@ -112,3 +112,28 @@ when play ends
 			with your grandchildren. =P\n"
 	say "\n"
 	wait
+	say "Here are some numbers:"
+	oneStats
+
+function oneStats
+	do
+		say "You have..."
+		say "<ul style=\"margin-top:0px;\"><li>[\]performed [+user.actions] actions, moving you around [+OneStats.movements] times."
+		say "</li><li>[\]won [+globals.wonCount] fight(s) and lost [+globals.lostCount] fight(s)."
+		now invitems is [inventoryList]
+		now marbleCount is 0
+		for each itm in invitems
+			if itm is a marble
+				marbleCount = marbleCount + 1
+		say "</li><li>[\]found [+marbleCount] marble(s)."
+		say "</li><li>[\]used [+OneStats.musicTapes] music tape(s)."
+		say "</li><li>[\]used [+OneStats.antidotes] antidote(s)."
+		say "</li><li>[\]fought the..."
+		say "<ul><li>[\]dark spark [+dark spark.encounterCounter] time(s)."
+		say "</li><li>[\]reflection [+reflection.encounterCounter] time(s)."
+		say "</li><li>[\]forgotten echo [+forgotten echo.encounterCounter] time(s)."
+		say "</li><li>[\]poison ivy [+poison ivy.encounterCounter] time(s)."
+		say "</li><li>[\]dead cat [+death.encounterCounter] time(s)."
+		say "</li><li>[\]Goblin [+(globlinA.encounterCounter+globlinB.encounterCounter+globlinC.encounterCounter+globlinD.encounterCounter)] time(s)."
+		say "</li></ul>"
+		say "</li></ul>"

@@ -189,7 +189,7 @@ function goblinWound
 before function endFight
 	if !currentFight.won and currentFight.enemy is not a goblin
 		if globals.metGoblin and !globals.goblinLuckyCharm
-			if globals.lostCount - globals.wonCount > 5
+			if globals.lostCount - globals.wonCount > 3
 				goblinLuckyCharm
 
 before function startFight

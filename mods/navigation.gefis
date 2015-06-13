@@ -1,5 +1,8 @@
 This is navigation by ScaniX
 
+there is a valuesponge called OneStats
+	its movements is 0
+
 entity Place is a Thing
 	its actions are {"look at $"}
    attributes
@@ -133,7 +136,7 @@ entity Stairway is a Passage
 
 function stairwaytrip
 	do
-		if chance of (player.location.illumination + player.illumination) in 50
+		if chance of player.illumination in 50
 			// all fine
 			return true
 		otherwise
@@ -251,6 +254,7 @@ function goToPlace
 		if not player.location.known
 			now player.location.known is true // do this before saying intro, because some intros reset this to false again
 			say player.location.intro
+		OneStats.movements = OneStats.movements + 1
 		updateaudio
 
 function updateaudio

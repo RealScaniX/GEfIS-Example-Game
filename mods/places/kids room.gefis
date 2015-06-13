@@ -57,6 +57,8 @@ there is a container called kidsRoomWardrobe
 there is a thing called dusty clothes
 	its description is "Those boy clothes look to be your size, but not your style. They are also really dusty and judging from the holes in them they at least match the taste
 		of some moths."
+	its sound is "If you move them around, there is some rustling sound, but that is all."
+	its smell is "They smell old."
 	
 there is a container called kidsRoomCabinet
 	its name is "cabinet"
