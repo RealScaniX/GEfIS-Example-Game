@@ -11,6 +11,8 @@ Entity container is an item
 		map itemCount
 		bool listContentsOnLook is true
 		bool showDescritionOnOpen is false
+		text openSound
+		text closeSound
 
 Entity Place
 	attributes
@@ -35,6 +37,10 @@ function setContainer
 			return
 		now d.open is state
 		say "You [if state]open[else]close[end] the [+d.name]."
+		if d.open and d.openSound is not null
+			play d.openSound on audio channel "sound"
+		else if !d.open and d.closeSound is not null
+			play d.closeSound on audio channel "sound"
 		// show contents on first open
 		if d.open and !d.known
 			if d.showDescritionOnOpen

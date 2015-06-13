@@ -6,6 +6,8 @@ a treasure chest is a container
 			[if this.guarded] You are sure that <b>this</b> is a treasure chest and whatever might be in there: You certainly need it![end]\n"
 	its known is @this.guarded		//	avoid the automatic lookat when opening
 	its showDescritionOnOpen is true
+	its openSound is "202092__spookymodem__chest-opening.ogg"
+	its closeSound is "261462__tntdude7__chest-slam.ogg"
 	attributes
 		bool guarded is true
 		combatant guardian

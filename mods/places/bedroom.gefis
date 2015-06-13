@@ -33,13 +33,19 @@ there is a container called left nightstand
 	its description is @"It's a small wooden table with some drawers and a lamp on top of it.[if this.open] You can see a magazine about cars, some advertisements for a finance
 			software and a small black book with business cards. Can it get any more boring than that?[end]"
 	its listContentsOnLook is false
+	its showDescritionOnOpen is true
 	its discovered is false
+	its openSound is "drawer_open.ogg"
+	its closeSound is "drawer_close.ogg"
 
 there is a container called right nightstand
 	its description is @"It's a small wooden table with some drawers and a lamp on top of it.[if this.open] In the drawers there is some uninteresting adult stuff like a few books,
 			glasses, a pen and a crosswords puzzle magazine.[if !globals.rubberStickExamined] Oh, but what's that?[end][end]"
 	its items are {vibrator}
 	its discovered is false
+	its showDescritionOnOpen is true
+	its openSound is "drawer_open.ogg"
+	its closeSound is "drawer_close.ogg"
 
 there is a thing called vibrator
 	it is hidden  // oh, yes
