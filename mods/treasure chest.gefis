@@ -5,6 +5,7 @@ a treasure chest is a container
 			[if this.locked] A heavy lock keeps you from opening it.[end]
 			[if this.guarded] You are sure that <b>this</b> is a treasure chest and whatever might be in there: You certainly need it![end]\n"
 	its known is @this.guarded		//	avoid the automatic lookat when opening
+	its showDescritionOnOpen is true
 	attributes
 		bool guarded is true
 		combatant guardian

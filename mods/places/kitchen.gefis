@@ -38,6 +38,7 @@ there is a container called kitchen cupboard
 	its items are {rusty key}
 	its discovered is false
 	its listContentsOnLook is false
+	its showDescritionOnOpen is true
 
 function cupboarddesc
 	do

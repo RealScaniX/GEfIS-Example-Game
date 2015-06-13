@@ -2,20 +2,44 @@ this is bedroom by scanix
 
 there is a place called bedroom
 	its exits are {"south": westwingNorthDoor}
-	its items are {bed, left nightstand, right nightstand}
+	its items are {bed, bedroomWardrobe, left nightstand, right nightstand}
 	its music is "Quinns Song-First Night.mp3"
 	its intro is @[bedroomIntro]
 	its regions are {"anywhere", "house", "second floor"}
+	its description is @[bedroomDesc]
+
+there is a container called bedroomWardrobe
+	its name is "wardrobe"
+	its description is @[bedroomWardrobeDesc]
+	its discovered is false
+
+function bedroomDesc
+	do
+		say "A large bed with all the necessary bedclothes and an additional layer of dust, a large wardrobe and two nightstands are all that keeps this 
+				room from being empty."
+		say "The pictures on the wall are as interesting as those on the wall of the waiting room of your former dentist. Just to be clear: 
+				That means that they are boring as hell."
+
+function bedroomWardrobeDesc
+	do
+		say "The large wardrobe almost touches the ceiling. It it made of some old, sturdy and dark wood."
+		if this.open
+			say "Seeing that there is nothing inside, you are relieved that the former owners at least took their clothes with them and are not running around 
+					naked out there somewhere."
+		else
+			say "There is a small keyhole with a key in it, so opening it shouldn't be a problem."
 
 there is a container called left nightstand
 	its description is @"It's a small wooden table with some drawers and a lamp on top of it.[if this.open] You can see a magazine about cars, some advertisements for a finance
 			software and a small black book with business cards. Can it get any more boring than that?[end]"
 	its listContentsOnLook is false
+	its discovered is false
 
 there is a container called right nightstand
 	its description is @"It's a small wooden table with some drawers and a lamp on top of it.[if this.open] In the drawers there is some uninteresting adult stuff like a few books,
 			glasses, a pen and a crosswords puzzle magazine.[if !globals.rubberStickExamined] Oh, but what's that?[end][end]"
 	its items are {vibrator}
+	its discovered is false
 
 there is a thing called vibrator
 	it is hidden  // oh, yes

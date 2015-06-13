@@ -8,7 +8,7 @@ there is a combatant called nightmare
 	its woundProc is "nightmareWound"
 	its introProc is null
 	its appearProc is "nightmareAppear"
-	its hugProc is "hugNightmare"
+	its hugProc is "hugNightmareProc"
 	its recoverProc is "recoverNightmare"
 
 function recoverNightmare
@@ -157,7 +157,7 @@ function nightmareWound
 			this.strength = 1
 		return false
 
-function hugNightmare
+function hugNightmareProc
 	do
 		now state is [nightmareState]
 		if state is 4

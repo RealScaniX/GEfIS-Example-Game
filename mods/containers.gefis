@@ -10,6 +10,7 @@ Entity container is an item
 		list items
 		map itemCount
 		bool listContentsOnLook is true
+		bool showDescritionOnOpen is false
 
 Entity Place
 	attributes
@@ -36,8 +37,11 @@ function setContainer
 		say "You [if state]open[else]close[end] the [+d.name]."
 		// show contents on first open
 		if d.open and !d.known
-			now smt is d
-			invoke action "lookat"
+			if d.showDescritionOnOpen
+				now smt is d
+				invoke action "lookat"
+			else if d.listContentsOnLook
+				listContents d
 
 function discoverContainer
 	understand
