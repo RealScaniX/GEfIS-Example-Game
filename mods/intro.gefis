@@ -180,7 +180,7 @@ action startgame
 		say "To get the best experience out of this you should play "
 		scare 0, "in the dark"
 		say " with headphones or at least with sound."
-		say "\nFor even more scary atmosphere place an animal or baby in your room that makes random, unexpected sounds."
+		say "\nFor an even scarier atmosphere, place an animal or baby in the same room that makes random, unexpected sounds."
 		say "\nAnd now... Good luck!"
 		wait for 30 seconds
 		chapterAdvance

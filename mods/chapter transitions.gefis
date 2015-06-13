@@ -21,7 +21,7 @@ function chapterAdvance
 			wait
 			say "As if adjusting to your imagination, the rectangle continuously becomes narrower until it is a thin line and then vanishes completely."
 			playambience "27077__daveincamas__clockticks.ogg", 30
-			wait for 15 seconds
+			wait for 9 seconds
 			play "entrydoor.mp3" on audio channel "sound" with volume 100
 			playambience "27077__daveincamas__clockticks.ogg", 40
 			flush

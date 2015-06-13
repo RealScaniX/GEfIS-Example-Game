@@ -15,6 +15,7 @@ function extroStatusInfo
 
 function happyends
 	do
+		story log off
 		say "<center><h2> </h2></center>"
 		now happy is {"H", "a", "p", "p", "y", " ", "E", "n", "d", "!"}
 		for each c in happy
@@ -24,12 +25,14 @@ function happyends
 		wait for 2 seconds
 		if globals.stickProgress < 3
 			say "[backspace] "
+			story log on
 		else
 			for n from 1 to happy.#
 				say "[backspace][backspace]_"
 				flush
 				sleep 0.1
 			say "[backspace]"
+			story log on
 			wait for 2 seconds
 			say "As you walk home, you fail to notice that something has been watching you. "
 			wait for text
@@ -64,12 +67,14 @@ function happyends
 			say "\n\"Come on, buddy!\", you say to your new friend, \"Let's go home!\""
 			say "\n"
 			wait for 7 seconds
+			story log off
 			say "<center><h2> </h2></center>"
 			now happier is {"E", "v", "e", "n", " ", "H", "a", "p", "p", "i", "e", "r", " ", "E", "n", "d", "!"}
 			for each c in happier
 				flush
 				sleep 0.2
 				say "[backspace][+c][if c != \"!\"]_[else] [end]"
+			story log on
 
 function extroduction
 	do
