@@ -10,6 +10,7 @@ entity goblin is a combatant
 	its appearProc is "goblinAppear"
 	its fightMusic is "Zap Beat.mp3"
 	its lootTable is {}
+	its hugProc is "hugGoblin"
 	attributes
 		number attemptCounter is 0
 
@@ -67,8 +68,9 @@ function goblinIntro
 			say "\"Then let's come to the fun part, shall we?\"\n"
 			wait
 		else
-			say "A common sight appears in front of you. The Goblin stretches his arms and legs.\nEven for him the chest seems to be a little too small."
-		goblinAppear
+			say "A common sight appears in front of you. The Goblin stretches his arms and legs.\nEven for him the container seems to be a little too small."
+		if !currentFight.finished // second floor compartment exception
+			goblinAppear
 		
 function goblinAppear
 	do
@@ -226,3 +228,34 @@ there is an item called lucky charm
 entity combat
 	attributes
 		bool lucky is false
+
+function hugGoblin
+	do
+		if !globals.huggedGoblin
+			globals.huggedGoblin = true
+			say "You try to befriend the strange creature and kneel down to hug him."
+			wft
+			say "The Goblin is either too curious or too surprised to move away, but you actually manage to wrap your arms around him."
+			wft
+			say "After a second he even hugs you back briefly, but then pushes you away. He looks up at you with a raised eyebrow."
+			wft
+			say "\"Well, that was awkward.\", he says and giggles, \"Why did you do that?\""
+			wft
+			say "\"I... I don't know.\", you answer hesitantly and blush a little."
+			wft
+			say "The green guy breathes in deeply and looks back at the treasure chest."
+			wft
+			say "\"Now you've done it!\", he finally says, \"You killed my fighting mood.\""
+			wft
+			say "You open your mouth and are just about to apologize when he interrupts you."
+			say "\"Ah, nevermind. Enjoy your price!\", he points to the chest and you look at it."
+			wft
+			say "When you turn back, the Goblin is gone."
+			wft
+			currentFight.won = true
+			currentFight.finished = true
+			currentFight.enemy.killed = true
+			glow 20
+		else
+			say "As you try to approach the Goblin again, he steps back."
+			say "\"One time is enough for today, don't you think?\", he says and you move back into your fighting position."

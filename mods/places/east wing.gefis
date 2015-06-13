@@ -32,3 +32,44 @@ there is a doorPassage called eastwingNorthDoor
 
 there is a container called storage compartment
 	its discovered is false
+	its listContentsOnLook is @globals.goblinCompartment
+	its showDescritionOnOpen is true
+	its description is @[storageCompartmentDesc]
+
+function storageCompartmentDesc
+	do
+		if storage compartment.open and !globals.goblinCompartment
+			globals.goblinCompartment = true
+			addOneTimeEvent "storageCompartmentGoblin"
+		else if storage compartment.open
+			if !globals.metGoblin
+				say "You hesitantly look into the compartment, but the creature is gone. You cannot see any possible exits, so you finally doubt if you were daydreaming...
+						or better yet: [\]nightdreaming in this case."
+			else
+				say "There is no sign of the Goblin."
+		else
+			say "The door of about one square meter can only be seen, because the wallpaper is cut along its edges. The small, round handle is wrapped in the same 
+					wallpaper, so it is not easily noticed."
+
+function storageCompartmentGoblin
+	do
+		rememberMusicPos
+		playMusic goblinA.fightMusic, 80
+		playAmbience null, 100
+		flush
+		if !globals.metGoblin
+			say "After you opened the compartment, something jumps out of it. The greenish creature stares at you for a moment and seemingly prepares for an attack."
+			wait for text
+			say "Suddenly he seems to notice something and turns around."
+			wait for text
+			say "\"Oh, that isn't even a chest.\", he says and shrugs, \"I guess there is no reason for a fight then.\""
+			say "He then jumps back into the compartment and you decide that it was a mistake to open it."
+			setContainer storage compartment, false
+		else
+			say "\"Missed me?\", the Goblin says after he has landed in front of you."
+			wait for text
+			say "\"Oh, that isn't even a chest.\", he says and shrugs, \"I guess there is no reason for a fight then.\""
+			wait for text
+			say "\"See ya!\", he calls out and jumps back into the compartment where he just vanishes somehow."
+		wait
+		updateaudio

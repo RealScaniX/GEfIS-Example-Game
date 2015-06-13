@@ -2,6 +2,9 @@ this is light sword weapon by scanix
 
 there is a weapon called light sword
 	its strength is 25
-	its illumination is 30
+	its illumination is 20
+	its description is "Well, the best name for this thing you can think of is \"light sword\".\nBut, when someone told you he had a light sword you would imagine 
+			it to be more like in Star Wars than this. In contrast to the Jedi weapon, this variant looks like a combination of the sword of Arthur and a neon 
+			advertisement sign.\n"
 	its weaponName is @"[one of]glowing blade[or]knight's sword[or]light sword[at random]"
 	its critChance is 5

@@ -104,8 +104,9 @@ before function goToPlace
 		illu = illu + player.light.illumination
 	now ilist is [inventoryList]
 	for each itm in ilist
-		if itm is a equippable and itm.equipped
-			illu = illu + itm.illumination
+		if itm is a equippable 
+			if itm.equipped
+				illu = illu + itm.illumination
 		else if itm is not a lightsource // non equippables always shine
 			illu = illu + itm.illumination
 	if illu < 10 and player.glow < 100

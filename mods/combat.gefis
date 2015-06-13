@@ -155,7 +155,7 @@ mode Fight
 			else
 				endFight
 	on start do
-		alternativeentryhallsoothe.delay = 1 // to avoid having the blue text inbetween fighter after events
+		alternativeentryhallsoothe.delay = 2 // to avoid having the blue text inbetween fight after events
 		currentFight.events = {}
 		currentFight.finished = false
 		currentFight.won = false
@@ -261,9 +261,13 @@ function resolveEnemy
 	do
 		if enmy is a combatant
 			return enmy
+		if enmy is an entitytype
+			enmy = enmy.name // ignore entitytypes
 		if enmy is a text
 			now enmy is a new phrase called enmy
 		if enmy is a phrase
+			if !currentFight.finished and (enmy.name is currentFight.enemy.name)
+				return currentFight.enemy
 			for each cmb in combatant.*
 				if cmb.name == enmy.name
 					return cmb
