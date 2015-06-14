@@ -58,6 +58,9 @@ entity Weapon is a Equippable
 		number critChance is 5
 		text weaponName is @this.name
 		bool poisonous											// if true a fraction of the damage is added as poison dmg
+		text missSound
+		text hitSound
+		text critHitSound
 
 function useWeapon
 	do

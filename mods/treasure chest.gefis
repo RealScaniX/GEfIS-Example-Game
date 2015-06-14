@@ -42,12 +42,12 @@ there is a key called chestKeyBeta
 there is a treasure chest called gardenChest1
 	its name is "chest"
 	its guardian is goblinA
-	its items are {music tape, battery, chestKeyAlpha}
+	its items are {dagger, chestKeyAlpha}
 
 there is a treasure chest called gardenChest2
 	its name is "chest"
 	its guardian is goblinB
-	its items are {dagger, chestKeyBeta}
+	its items are {music tape, battery, chestKeyBeta}
 	its locked is true
 	its key is chestKeyAlpha
 	its lockDescription is "There is a small alpha symbol on the lock."

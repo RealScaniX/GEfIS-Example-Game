@@ -25,6 +25,7 @@ function forgottenEchoAttack
 	do
 		if this.specialAttackPrepare > 0
 			this.specialAttackPrepare = 0
+			play "snd1_x.ogg" on audio channel "sound"
 			say "A shockwave of sounds "
 			scare 0, "wipes you off your feet"
 			say ". Lying on your stomach you feel very vulnerable and hastily stand up again."

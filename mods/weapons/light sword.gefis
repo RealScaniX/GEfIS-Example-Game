@@ -8,3 +8,6 @@ there is a weapon called light sword
 			advertisement sign.\n"
 	its weaponName is @"[one of]glowing blade[or]knight's sword[or]light sword[at random]"
 	its critChance is 5
+	its hitSound is "elektroschaufel.ogg"
+
+	

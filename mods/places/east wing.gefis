@@ -35,6 +35,8 @@ there is a container called storage compartment
 	its listContentsOnLook is @globals.goblinCompartment
 	its showDescritionOnOpen is true
 	its description is @[storageCompartmentDesc]
+	its openSound is "KleinFensterOpen.ogg"
+	its closeSound is "KleinFensterClose2.ogg"
 
 function storageCompartmentDesc
 	do

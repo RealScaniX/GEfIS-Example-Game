@@ -5,8 +5,11 @@ there is a place called guest room
 	its exits are {"north": eastwingSouthDoor}
 	its intro is @[guestRoomIntro]
 	its items are {guestRoomChest}
+	its illumination is 5
+	its description is ""
 
 function guestRoomIntro
 	do
 		eastwingSouthDoor.name = "guest room door"
-		say "You are now standing in the guest room."
+		say ""
+

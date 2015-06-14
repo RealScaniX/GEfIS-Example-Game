@@ -35,6 +35,7 @@ function tasteBattery
 			say "You turn the battery, so the opening is on the bottom and watch as some blubbering fluid is dripping out of it."
 			wait for 7 seconds
 			say "You open your mouth and stick out your tongue. Then you hold the battery above it, so it would leak directly onto your taste organ."
+			play "melt_longer.mp3" on audio channel "sound"
 			wait for 8 seconds
 			say "For a second, you can taste it. The taste of a battery is: burning."
 			say "Suddenly you feel the acid eating away at your tongue, making this the last thing you will ever taste."

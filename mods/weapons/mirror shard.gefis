@@ -6,6 +6,7 @@ there is a weapon called mirror shard
 	its strength is 20 // will be change on defense
 	its weaponName is @"[one of]glass shard[or]cutting edge[or]mirror piece[at random]"
 	its critChance is 5
+	its hitSound is "sword_get.mp3"
 
 before function playerWound
 	do

@@ -32,11 +32,17 @@ function playerAttack
 			if chance of critChance
 				say "Seeing an opening, you take your chance and manage to hit the [+enemyName] at a vulnerable point."
 				dmg = this.strength * 1.6
+				if wpn.critHitSound is not null
+					play wpn.critHitSound on audio channel "sound"
+				else if wpn.hitSound is not null
+					play wpn.hitSound on audio channel "sound"
 			else
 				// roll dice to get attack damage
 				now dmgFactor is random number between 0.9 and 1.1
 				now dmg is this.strength * dmgFactor
 				invoke function wpn.hitProc
+				if wpn.hitSound is not null
+					play wpn.hitSound on audio channel "sound"
 			if currentFight.lucky
 				dmg = dmg * 1.6
 			return dmg
@@ -46,6 +52,8 @@ function playerAttack
 				You underestimated the speed of the [+enemyName] and could not hit it.[or]
 				The [+enemyName] deflected the blow.
 				[at random]\n"
+			if wpn.missSound is not null
+				play wpn.missSound on audio channel "sound"
 			return 0
 		
 function playerWound

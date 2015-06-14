@@ -124,6 +124,7 @@ function gardenMapping
 								somethingMapped = true
 				if somethingMapped
 					temps.gardenMapString = null // redraw map
+					play "Papierscribble4.ogg" on audio channel "sound"
 					say "You [one of]mark this place[or]check your surroundings and note them[at random] on your map."
 			else if not temps.missingMap
 				temps.missingMap = true

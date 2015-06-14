@@ -39,8 +39,9 @@ function poisonIvyAttack
 	do
 		if this.specialAttackPrepare > 0
 			this.specialAttackPrepare = 0
-			say "Suddenly something is breaking out of the ground and grabs your ankles. Holding you in place with the vines that it has sent to you underground, you are unable
-					to avoid the "
+			play "118441__localtalkradio__rustling_long.ogg" on audio channel "sound"
+			say "Suddenly something is breaking out of the ground and grabs your ankles. Holding you in place with the vines that it has sent to you underground,
+					you are unable to avoid the "
 			scare 0, "repeated lashes"
 			say " of its long arms."
 			say "It takes you a few seconds to wiggle yourself out of the grasp of the evil plant."
@@ -50,6 +51,7 @@ function poisonIvyAttack
 			say "The poison ivy does not directly attack you, but drives some of its vines into the ground. Probably to have a more stable posture."
 			return 0
 		else
+			play "178615__montacue__the-rustle-of-a-bush.ogg" on audio channel "sound"
 			say "[+this.name] lashes out with its [one of]upper left[or]upper right[or]lower left[or]lower right[at random] arm whip to "
 			scare 0, "spread its poison"
 			say ".\n"

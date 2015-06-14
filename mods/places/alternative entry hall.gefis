@@ -147,6 +147,7 @@ function entranceUnlocking
 					sleep 2
 					temps.prompted = true // no more prompt after this
 					say "When you stick the key into the center keyhole it is suddenly losing its solid form and changes into a bright white cloud that is immediately sucked in."
+					play "stone_to_elevator.mp3" on audio channel "sound"
 					wait for text
 					say "The light is slowly, but steadily spreading outwards, covering more and more of the circle stone and then the wall. You hold up an arm in front of 
 							your eyes to shield them from the light that quickly gets brighter until you have to close your eyes."

@@ -6,3 +6,5 @@ there is a weapon called unarmed
 	its description is "unarmed fighting, yeah."
 	its weaponName is @"[one of]bare hand[or]fist[or]foot[at random]"
 	its critChance is 10
+	its hitSound is "190796__jiserte__xut1_ball_kick.ogg"
+

@@ -2,6 +2,7 @@ this is music room by scanix
 
 there is a place called music room
 	its exits are {"west": east door}
+	its illumination is 5
 	its intro is @[addOneTimeEvent "musicRoomIntro"]
 	its items are {musicRoomChest, musicRoomChairs, piano}
 	its description is @[addOneTimeEvent "musicRoomDesc"]

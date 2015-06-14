@@ -7,6 +7,7 @@ there is a weapon called hook
 	its weaponName is @"[one of]hook on a stick[or]metal claws[or]reaper of fruits[at random]"
 	its useWithProc is "useHookWith"
 	its critChance is 25
+	its hitSound is "barrel_attack.ogg"
 
 function useHookWith
 	do

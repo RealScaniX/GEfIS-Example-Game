@@ -9,6 +9,7 @@ there is a weapon called dagger
 	its weaponName is @"[one of]tiny blade[or]knife[or]dagger[at random]"
 	its critChance is 5
 	its useWithProc is "useDaggerWith"
+	its hitSound is "sword_get.mp3"
 
 function useDaggerWith
 	do
