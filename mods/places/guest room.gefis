@@ -10,8 +10,3 @@ function guestRoomIntro
 	do
 		eastwingSouthDoor.name = "guest room door"
 		say "You are now standing in the guest room."
-
-there is a treasure chest called guestRoomChest
-	its name is "chest"
-	its guardian is goblinC
-	its items are {light sword}

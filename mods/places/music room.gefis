@@ -6,12 +6,6 @@ there is a place called music room
 	its items are {musicRoomChest, musicRoomChairs, piano}
 	its description is @[addOneTimeEvent "musicRoomDesc"]
 
-there is a treasure chest called musicRoomChest
-	its name is "chest"
-	its discovered is false
-	its guardian is goblinD
-	its items are {silver marble}
-
 there is a thing called piano
 	its description is "It is a big music instrument with a lot of keys. Most of them are white."
 	its sound is "As long as no one is touching those keys, it fortunately doesn't make a sound."
@@ -26,11 +20,6 @@ function musicRoomChairsDesc
 	do
 		say "On each of them there was a leaflet, which surely contained the play list or something like that."
 		say "Picking one of them up to, you cannot help but shudder as you read the title: \"Darkness awaits\""
-
-when play begins
-	addToContainer musicRoomChest, music tape
-	addToContainer musicRoomChest, music tape
-	addToContainer musicRoomChest, music tape
 
 function musicRoomIntro
 	do

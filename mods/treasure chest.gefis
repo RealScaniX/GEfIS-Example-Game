@@ -3,7 +3,8 @@ this is treasure chest by scanix
 a treasure chest is a container
 	its description is @"[if this.open]The inside of the chest is covered with green velvet.[else]The wooden chest with golden ornaments looks a bit out of place here.[end]
 			[if this.locked] A heavy lock keeps you from opening it.[end]
-			[if this.guarded] You are sure that <b>this</b> is a treasure chest and whatever might be in there: You certainly need it![end]\n"
+			[if this.guarded] You are sure that <b>this</b> is a treasure chest and whatever might be in there: You certainly need it![end]\n
+			[if this.locked and (this.lockDescription is not null)][+this.lockDescription]\n[end]"
 	its known is @this.guarded		//	avoid the automatic lookat when opening
 	its showDescritionOnOpen is true
 	its openSound is "202092__spookymodem__chest-opening.ogg"
@@ -11,6 +12,7 @@ a treasure chest is a container
 	attributes
 		bool guarded is true
 		combatant guardian
+		text lockDescription
 
 entity combat
 	attributes
@@ -28,3 +30,47 @@ after function setContainer
 		say "As you open the treasure chest, you suddenly see some movement on the inside and jump back."
 		say "After the thing left the container, the lid closes again, leaving you with the feeling that this is not the treasure you were looking for...\n"
 		startFight d.guardian
+
+there is a key called chestKeyAlpha
+	its name is "alpha key"
+	its description is "It is a small bronze key with a small alpha symbol on it."
+
+there is a key called chestKeyBeta
+	its name is "beta key"
+	its description is "It is a small bronze key with a small beta symbol on it."
+
+there is a treasure chest called gardenChest1
+	its name is "chest"
+	its guardian is goblinA
+	its items are {music tape, battery, chestKeyAlpha}
+
+there is a treasure chest called gardenChest2
+	its name is "chest"
+	its guardian is goblinB
+	its items are {dagger, chestKeyBeta}
+	its locked is true
+	its key is chestKeyAlpha
+	its lockDescription is "There is a small alpha symbol on the lock."
+
+there is a treasure chest called guestRoomChest
+	its name is "chest"
+	its discovered is false
+	its guardian is goblinC
+	its items are {silver marble}
+	its locked is true
+	its key is chestKeyBeta
+	its lockDescription is "There is a small beta symbol on the lock."
+
+there is a treasure chest called musicRoomChest
+	its name is "chest"
+	its discovered is false
+	its guardian is goblinD
+	its items are {light sword}
+	its locked is true
+	its key is chestKeyBeta
+	its lockDescription is "There is a small beta symbol on the lock."
+
+when play begins
+	addToContainer guestRoomChest, music tape
+	addToContainer guestRoomChest, music tape
+	addToContainer guestRoomChest, music tape

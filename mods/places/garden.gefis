@@ -409,16 +409,10 @@ function gardenCreation
 			tiles.(v) = row
 		// scatter some stuff in the garden
 		now things is a new list
-		//-chest 1: a music tape, guarded by a dark spark
-		now chest1 is a new treasure chest called "chest"
-		chest1.guardian = goblinA
-		chest1.items = {music tape, battery}
-		add chest1 to things
+		//-chest 1
+		add gardenChest1 to things
 		//-chest 2: a dagger, guarded by a reflection
-		now chest2 is a new treasure chest called "chest"
-		chest2.guardian = goblinB
-		chest2.items = {dagger}
-		add chest2 to things
+		add gardenChest2 to things
 		//-throwing stick
 		add stick to things
 		//-grave

@@ -223,7 +223,7 @@ action unlockwithkey
 				now d.locked is false
 				say "You successfully unlock the [+d.name] using the [+k.name]."
 			else
-				say "[one of]You try every possible angle, but that key will not open the [+d.name].[or]Sheer force will not make that key fit either. The [+d.name] stays locked.[at random]"
+				say "[one of]You try every possible angle, but that key will not open the [+d.name].[or]Pure force will not make that key fit either. The [+d.name] stays locked.[at random]"
 		else
 			say "You don't know how to unlock this with the [+k.name] (or anything else for that matter)."
 

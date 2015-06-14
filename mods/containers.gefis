@@ -1,7 +1,7 @@
 This is containers by ScaniX
 
 Entity container is an item
-	its actions are {"look at", "open", "close", "take"}
+	its actions are {"look at", "unlock", "open", "close", "take"}
 	its carryable is false
 	attributes
 		bool locked is false
@@ -9,6 +9,7 @@ Entity container is an item
 		bool known is false			// we looked inside
 		list items
 		map itemCount
+		key key
 		bool listContentsOnLook is true
 		bool showDescritionOnOpen is false
 		text openSound
