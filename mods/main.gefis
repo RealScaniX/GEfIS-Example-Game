@@ -108,7 +108,7 @@ when play ends
 	say "I hope you had fun and enjoyed the story."
 	say "Feel free to leave some notes in the <a href=\"http://forum.scanix.de\" target=\"_blank\">forum</a> if you like. I would really appreciate that! :)\n"
 	say "\n"
-	say "And don't forget to save <a href=\"/index.php?mystory=true\" target=\"_blank\">your story</a>, so you can read your adventure 
+	say "And don't forget to save <a href=\"/?mystory=true\" target=\"_blank\">your story</a>, so you can read your adventure 
 			with your grandchildren. =P\n"
 	say "\n"
 	wait
