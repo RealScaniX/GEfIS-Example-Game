@@ -542,18 +542,6 @@ function equipItem
 		say "You equip the [+this.name]."
 		this.equipped = true
 
-/*
-action hug enemy
-	understand
-		hug enemy
-		hug opponent
-	modes
-		combat
-	do
-		now enm is currentFight.enemy
-		invoke action "huggies"
-*/
-
 action huggies
 	understand
 		hug [enm]
