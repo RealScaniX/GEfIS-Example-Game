@@ -145,7 +145,7 @@ action help
 		say "<b>The \"Let's walk through making of GEfIS One\" video</b>\n"
 		say "There is a complete walkthrough video with making of elements in it that you can watch if you get stuck or want to know why some things are the way they are. :)\n"
 		say "\n"
-		say "It is here: [\]http://gefis.storymaze.net/A/B/C\n"
+		say "It is here: [\]http://gefis.storymaze.net/games/GEfIS-Example-Game/resources/videos/A/B/C\n"
 		say "A, B and C are single words in lowercase. You have these hints:\n"
 		say "A: The smell of dusty clothes\n"
 		say "B: What apples are made of\n"
