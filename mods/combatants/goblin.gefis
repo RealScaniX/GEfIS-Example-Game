@@ -223,7 +223,7 @@ there is an item called lucky charm
 	its description is "It is a clover with five leaves. It feels natural, but you doubt that it has grown in a normal way. The Goblin has given this to you for unknown reasons."
 	its smell is "Smells a bit like grass."
 	its taste is "You don't think that you're supposed to eat this."
-	its sound is "It whispers to you: \"Don't be afraid! Everything will be alright.\"\nOh, that's not the clover. That's just one of the voices in your head."
+	its sound is "It whispers to you: \"Don't be afraid! Everything will be alright.\"\nOh, that's not the clover. It's just one of the voices in your head."
 
 entity combat
 	attributes
@@ -243,12 +243,12 @@ function hugGoblin
 			wft
 			say "\"I... I don't know.\", you answer hesitantly and blush a little."
 			wft
-			say "The green guy breathes in deeply and looks back at the treasure chest."
+			say "The little green guy breathes in deeply and looks back at the treasure chest."
 			wft
 			say "\"Now you've done it!\", he finally says, \"You killed my fighting mood.\""
 			wft
 			say "You open your mouth and are just about to apologize when he interrupts you."
-			say "\"Ah, nevermind. Enjoy your price!\", he points to the chest and you look at it."
+			say "\"Ah, nevermind. Enjoy your prize!\", he points to the chest and you look at it."
 			wft
 			say "When you turn back, the Goblin is gone."
 			wft
