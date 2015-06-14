@@ -68,8 +68,10 @@ function storageCompartmentGoblin
 		else
 			say "\"Missed me?\", the Goblin says after he has landed in front of you."
 			wait for text
+			say "Suddenly he seems to notice something and turns around."
+			wait for text
 			say "\"Oh, that isn't even a chest.\", he says and shrugs, \"I guess there is no reason for a fight then.\""
 			wait for text
-			say "\"See ya!\", he calls out and jumps back into the compartment where he just vanishes somehow."
+			say "\"See ya!\", he calls out and jumps back into the compartment, where he vanishes somehow."
 		wait
 		updateaudio
