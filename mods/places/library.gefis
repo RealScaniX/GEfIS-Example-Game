@@ -6,6 +6,8 @@ there is a place called library
 	its intro is @[libraryIntro]
 	its description is @[libraryDesc]
 	its items are {right shelves, left shelves, front shelves, back shelves}
+	its ambience is "27077__daveincamas__clockticks_noecho.ogg"
+	its ambienceVolume is 20
 
 function libraryIntro
 	do

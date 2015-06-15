@@ -7,6 +7,7 @@ mode Introduction
 		help
 		startgame
 		about
+		credits
    on start do
 		cls
 		say "<center>[image one.png]</center>\n"
@@ -96,16 +97,6 @@ action help
 		if user.canceled
 			return
 		say "<hr/>\n"
-		say "<b>Bookmarking your progress</b>\n"
-		say "To save your progress before heading into danger, you can use a <link quicksave>quicksave</link> and then a <link quickload>quickload</link> after everything went 
-				wrong. Note that this save game is lost when you leave the game session.\n"
-		say "To have a longer lasting save, use the <link save game>save game</link> command. You can load the game again by using <link load game>load game</link>. Note that all 
-				those actions can be performed by clicking on the corresponding icon in the config popup on the upper left."
-		say "\n"
-		wait
-		if user.canceled
-			return
-		say "<hr/>\n"
 		say "<b>The user interface</b>\n"
 		say "The prompt at the bottom is sometimes showing you additional information about what is expected of you in form of a placeholder text in the field and with the help of
 				following icons:"
@@ -137,6 +128,16 @@ action help
 		say "You can also use the numpad to navigate (when numlock is on)."
 		say "When you are asked something (e.g. \"What do you want to use with it?\") you can click on any link to respond with that text even if the link would normally do
 				something else."
+		say "\n"
+		wait
+		if user.canceled
+			return
+		say "<hr/>\n"
+		say "<b>Bookmarking your progress</b>\n"
+		say "To save your progress before heading into danger, you can use a <link quicksave>quicksave</link> and then a <link quickload>quickload</link> after everything went 
+				wrong. Note that this save game is lost when you leave the game session.\n"
+		say "To have a longer lasting save, use the <link save game>save game</link> command. You can load the game again by using <link load game>load game</link>. Note that all 
+				those actions can be performed by clicking on the corresponding icon in the config popup on the upper left."
 		say "\n"
 		wait
 		if user.canceled
@@ -220,3 +221,7 @@ function showBubble
 		hide overlay bubbleNames.((num) % 3)
 		show "<i>\"[+txt]\"</i>" in overlay bubbleNames.((num-1) % 3)
 		wait for 4 seconds
+
+action credits
+	do
+		say "The dox contain a section with all [link \"/dox/?/Credits#gefis_one\"]credits[/link]."

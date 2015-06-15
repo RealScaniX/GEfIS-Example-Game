@@ -25,6 +25,17 @@ there is an event called light_update_event
 	its repeat is true
 	its probability is 100
 
+there is an event called playerSoothing
+	its eventProc is "playerSoothing"
+	its always is true
+	its repeat is true
+	its probability is 80
+
+function playerSoothing
+	do
+		if currentFight.finished and player.fear > 10
+			player.fear = max of 10 and (player.fear - (max of 2 and player.glow / 10))
+
 function lightsource_update
 	do
 		now l is player.light
@@ -97,6 +108,7 @@ function soothe
 		
 when play begins or resumes
 	add light_update_event to player.events
+	add playerSoothing to player.events
 
 before function goToPlace
 	now illu is destination.illumination

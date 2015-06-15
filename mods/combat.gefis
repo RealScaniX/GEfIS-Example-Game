@@ -127,6 +127,7 @@ mode Fight
 		hugNightmare
 		help
 		about
+		credits
 	before action do
 		temps.prompted = false
 		story log off
@@ -203,7 +204,7 @@ mode Fight
 
 function updatePlayerWeapon
 	do
-		currentFight.player.strength = integer value of (player.glow / 5 + player.illumination / 20)
+		currentFight.player.strength = integer value of (player.glow / 4 + player.illumination / 20)
 		now wpn is unarmed
 		now ilist is [inventoryList]
 		for each itm in ilist
@@ -491,6 +492,8 @@ action use item
 			i = 0
 			for each itm in clist
 				say "[if i > 0], [end]<link use [+itm.name]>[+itm.name]</link>"
+				if itm.carried > 1
+					say " x [+itm.carried]"
 				i = i + 1
 			say "\n"
 

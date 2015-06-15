@@ -2,7 +2,7 @@ this is unarmed weapon by scanix
 
 there is a weapon called unarmed
 	it is static
-	its strength is 3
+	its strength is 6
 	its description is "unarmed fighting, yeah."
 	its weaponName is @"[one of]bare hand[or]fist[or]foot[at random]"
 	its critChance is 10

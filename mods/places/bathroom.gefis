@@ -9,7 +9,7 @@ a bathroom is a place
 	
 there is a bathroom called lowerBathroom
 	its name is "bathroom"
-	its items are {mirror, sink, lowerBathroomDoor}
+	its items are {mirror, sink, toilet, lowerBathroomDoor}
 	its exits are {"east": lowerBathroomDoor}
 	its intro is @[lowerBathroomIntro]
 	its afterProc is "lowerBathroomAfterProc"
@@ -18,7 +18,7 @@ there is a bathroom called lowerBathroom
 
 there is a bathroom called upperBathroom
 	its name is "bathroom"
-	its items are {mirror, sink, bath tub, shower}
+	its items are {mirror, sink, bath tub, shower, toilet, westwingSouthDoor}
 	its exits are {"north": westwingSouthDoor}
 	its illumination is 10
 	its intro is @[upperBathroomIntro]
@@ -50,6 +50,16 @@ there is a thing called sink
 	its sound is @[sinkSound]
 	its taste is @[sinkTaste]
 	its description is @[sinkDesc]
+
+there is a thing called toilet
+	its useProc is "useToilet"
+	its description is "Yes, this is a toilet."
+	its smell is "It smells... not bad, for a toilet."
+	its taste is "Seriously?"
+
+function useToilet
+	do
+		say "You don't [one of]feel the urge[or]have to[at random]."
 
 function lowerBathroomAfterProc
 	do

@@ -27,7 +27,7 @@ function stairwayDesc
 				say "You suddenly shiver and freeze as you feel hands upon your back."
 				say "Slowly turning your head, you see nothing at all and finally realize that it was only your shirt settling against your skin."
 			else
-				say "There are almost as many steps downwards as there are upwards."
+				say "There are almost as many steps down as there are up."
 
 function secfloorintro
 	do

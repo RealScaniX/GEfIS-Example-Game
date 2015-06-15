@@ -52,7 +52,7 @@ function forgottenEchoWound
 			if !this.droppedItem
 				say "The sounds grow weaker and weaker, but suddenly they gather again for a last attack."
 				say "A weak little shock wave is all they are capable of and it wasn't even directed at you."
-				say "It blew up some dust from the floor and when it settled again, you see an orange key lying there. You wonder if it has been there the whole time."
+				say "It blew up some dust from the floor and when it settled again, you see an [itemLink orange key] lying there. You wonder if it has been there the whole time."
 				add orange key to player.location.items
 				this.droppedItem = true
 		else if !poisonAttack

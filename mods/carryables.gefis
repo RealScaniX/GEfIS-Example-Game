@@ -259,9 +259,10 @@ understand
  */
 there is an item called box of matches
 	its description is @"These are your lucky matches. \"Lucky\", because you consider yourself lucky that your mother hasn't noticed you carrying those around in your 
-						pocket... yet.\nShaking it and listening closely to the rattling sound of the matches inside, you [one of]guess[or]estimate[or]calculate[at random] there are
-						precisely [+random number between 2 and 12] of them left."
+						pocket yet."
 	its smell is "This smells of forbidden adventure."
+	its sound is @"Shaking it and listening closely to the rattling sound of the matches inside, you [one of]guess[or]estimate[or]calculate[at random] there are
+						precisely [+random number between 2 and 12] of them left."
 	its taste is "You shouldn't get that wet if you want the matches to still work."
 	its useProc is "lightmatch"
 

@@ -6,6 +6,8 @@ there is a place called living room
 	its items are {livingRoomTable}
 	its intro is @[livingRoomIntro]
 	its description is @[livingRoomDesc]
+	its ambience is "27077__daveincamas__clockticks_noecho.ogg"
+	its ambienceVolume is 13
 
 there is a doorPassage called garden door
 	its locked is true

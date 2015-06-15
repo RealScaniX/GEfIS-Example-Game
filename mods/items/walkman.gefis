@@ -50,7 +50,7 @@ function useTheWalkman
 			if globals.walkmanUse == 0
 				say "Maybe now is a good time to calm yourself with some nice music."
 				say "You put on the headphones, push in [if music tape.carried > 1][one of]a random tape[or]the first tape your fingers touch[or]the topmost 
-						tape[at random][else]your only tape and press on play."
+						tape[at random][else]your only tape[end] and press on play."
 				wait for 2 seconds
 				say "After a few seconds "
 				soothe so, "the music starts to stream through your ears into your mind"

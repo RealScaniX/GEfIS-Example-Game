@@ -34,6 +34,7 @@ function useApple
 			do "look at apple"
 
 there is a container called kitchen cupboard
+	its name is "cupboard"
 	its description is @[cupboarddesc]
 	its items are {rusty key}
 	its discovered is false

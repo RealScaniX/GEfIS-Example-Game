@@ -73,7 +73,7 @@ function poisonIvyWound
 				say "Whatever has caused this plant to move on its own is no longer able to keep it up. It finally falls together to a heap of leaves and vines that gradually
 						gets smaller as the leaves are shriveling to nothing. In the end there is nothing more than a small brown patch on the grass."
 				if this.defeatedCount > 1 && chance of 70
-					say "A green key lies in the patch. Having been nearly impossible to see before, its bright green color is making it stand out now."
+					say "A [itemLink green key] lies in the patch. Having been nearly impossible to see before, its bright green color is making it stand out now."
 					add green key to player.location.items
 					this.droppedItem = true
 				else if this.defeatedCount > 0
