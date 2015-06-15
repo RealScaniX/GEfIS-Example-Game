@@ -109,7 +109,7 @@ action listen
 		else if smt.sound is not null
 			say smt.sound
 		else if smt is not a sound
-			say "There isn't really a sound to it. Unless you smash it into something else, of course..."
+			say "There isn't really a sound to it. Unless you hit it with something, of course."
 		else 
 			say smt.soundDesc
 

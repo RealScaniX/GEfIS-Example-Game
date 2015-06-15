@@ -10,6 +10,10 @@ A Place
 		list encounters
 		bool pacified is false
 
+after action wait
+	if temps.encounterCooldown > 0
+		temps.encounterCooldown = max of 0 and (temps.encounterCooldown - 2)
+
 before function mainPrompt
 	if temps.encounterCooldown > 0
 		temps.encounterCooldown = temps.encounterCooldown - 1

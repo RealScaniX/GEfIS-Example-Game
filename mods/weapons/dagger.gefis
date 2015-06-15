@@ -10,6 +10,7 @@ there is a weapon called dagger
 	its critChance is 5
 	its useWithProc is "useDaggerWith"
 	its hitSound is "sword_get.mp3"
+	its taste is "Tasting a potential poisonous thing is probably dangerous."
 
 function useDaggerWith
 	do

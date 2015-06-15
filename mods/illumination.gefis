@@ -18,6 +18,7 @@ entity lightsource is an item
 		number steps // how many steps does this last?
 		number usedSteps // how many steps are used
 		bool lit is false // we expect a specific light source to have a function here
+		text emptyMessage is "There is no more light in the [+light.name]."
 
 there is an event called light_update_event
 	its eventproc is "lightsource_update"
@@ -67,7 +68,7 @@ function setlight
 	do
 		if light is not null
 			if light.usedSteps >= light.steps
-				say "There is no more light in the [+light.name].[if light is flashlight] Unfortunately this does not make it a flash.[end]"
+				say light.emptyMessage
 				return
 		player.light = light
 

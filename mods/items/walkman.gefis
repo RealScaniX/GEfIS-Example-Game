@@ -8,6 +8,7 @@ there is an item called walkman
 	its description is "This is your infamous tape eating walkman. There is something wrong with the mechanics. While it still plays cassettes,
 								it will kill them at the same time.\nFrom time to time you take a screwdriver and try to fix it. 
 								There is a whole box of screwed up tapes to prove that your repairing skill needs some leveling."
+	its sound is "The sound of this walkman isn't too shabby when it plays music."
 	its useProc is "useTheWalkman"
 
 there is a soothingTape called music tape
@@ -16,13 +17,14 @@ entity soothingTape is an item
 	its description is "This is a music tape. If you wanted to know what's on it, you could probably play it on your walkman. Once."
 	its combatUse is true
 	its useProc is "useMusicTape"
+	its sound is "There is only one way to find out."
 
 function useMusicTape
 	do
 		if not [playerOwns walkman]
 			say "You have nothing to play it with."
 		else
-			do "use walkman"
+			invoke function "useTheWalkman"
 
 function stopTheWalkman
 	do

@@ -7,6 +7,11 @@ there is a weapon called mirror shard
 	its weaponName is @"[one of]glass shard[or]cutting edge[or]mirror piece[at random]"
 	its critChance is 5
 	its hitSound is "sword_get.mp3"
+	its useWithProc is "useMirrorShardWith"
+
+function useMirrorShardWith
+	do
+		say "You show the [+itm.name] its own ugly self, but it doesn't seem very impressed."
 
 before function playerWound
 	do

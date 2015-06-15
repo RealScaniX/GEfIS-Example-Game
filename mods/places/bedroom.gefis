@@ -16,7 +16,8 @@ there is a container called bedroomWardrobe
 
 function bedroomDesc
 	do
-		say "There are windows to the west and north. At least the window on the western wall lets in some of the moonlight while the window to the north shows the garden."
+		say "There are windows to the west and north. At least the window on the western wall lets in some of the moonlight, while the window to the north 
+				shows the garden."
 		say "A large bed with all the necessary bedclothes and an additional layer of dust, a large wardrobe and two nightstands are all that keeps this 
 				room from being empty."
 		say "The pictures on the wall are as interesting as those on the wall of the waiting room of your former dentist. Just to be clear: 
