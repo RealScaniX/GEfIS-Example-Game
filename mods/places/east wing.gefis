@@ -56,7 +56,7 @@ function storageCompartmentDesc
 function storageCompartmentGoblin
 	do
 		rememberMusicPos
-		playMusic goblinA.fightMusic, 80
+		playMusic goblinA.fightMusic, 45
 		playAmbience null, 100
 		flush
 		if !globals.metGoblin

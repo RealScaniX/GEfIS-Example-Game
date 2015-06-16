@@ -238,15 +238,21 @@ there is an item called antidote
 function useAntidote
 	do
 		if !currentFight.finished and (currentFight.player.poisonDOT > 0 or player.fear > 15)
-			OneStats.antidotes = OneStats.antidotes + 1
 			currentFight.player.poisonDOT = -1000 // defend against future poisoning
-			say "With a sigh you open the antidote and pour the fluid into your mouth. You take big gulps to avoid tasting it too much."
-			wait for 5 seconds
-			say "You feel the sickness shy away from the power of natural life force. Just one or two seconds later the "
-			soothe 35, "pleasant tingle"
-			say " has spread out through your whole body and the bad feeling is gone. In addition you feel better altogether now."
-			wait for 5 seconds
-			say "When you want to throw away the empty bottle, you notice that there isn't anything in your hand anymore."
+			if OneStats.antidotes is 0
+				say "With a sigh you open the antidote and pour the fluid into your mouth. You take big gulps to avoid tasting it too much."
+				wait for 5 seconds
+				say "You feel the sickness shy away from the power of natural life force. Just one or two seconds later the "
+				soothe 35, "pleasant tingle"
+				say " has spread out through your whole body and the bad feeling is gone. In addition you feel better altogether now."
+				wait for 5 seconds
+				say "When you want to throw away the empty bottle, you notice that there isn't anything in your hand anymore."
+			else
+				say "You swallow the bitter medicine with a grimace, but you [one of]cannot deny[or]have to agree[at random] that you "
+				soothe 35, "feel a lot better"
+				say " right away."
+			removeFromInv antidote
+			OneStats.antidotes = OneStats.antidotes + 1
 		else
 			say this.taste
 

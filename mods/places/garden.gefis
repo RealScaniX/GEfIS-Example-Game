@@ -54,7 +54,6 @@ function gardenTileIntro
 
 function gardenTileDesc
 	do
-		debugSay "Position [+this.x], [+this.y]"
 		now x is player.location.x
 		now y is player.location.y
 		if x == 0 && y == 0
@@ -473,4 +472,4 @@ function gardenCreation
 		globals.gardenTiles = tiles
 		player.location = garden
 		wait for 2 seconds
-		addEncounter "garden", poison ivy, 70
+		addEncounter "garden", poison ivy, 50

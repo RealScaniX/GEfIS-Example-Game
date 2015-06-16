@@ -176,7 +176,7 @@ mode Fight
 		now currentFight.enemy.specialAttackPrepare is 0
 		now currentFight.enemy.poisonDOT is 0
 		globals.fightMusic = currentFight.enemy.fightMusic
-		playMusic globals.fightMusic, 80
+		playMusic globals.fightMusic, 45
 		playAmbience null, 100
 		/************************************
 				fill in player values
@@ -221,8 +221,8 @@ function updatePlayerWeapon
 function fightStatusInfo
 	do
 		return "<div style=\"float:right;\">
-						<htmlbar \"Enemy\" [+int value of currentFight.enemy.hp]/[+int value of currentFight.enemy.constitution]><br/>
-						<htmlbar \"Fear\" [+int value of player.fear]/100>
+						<div id=\"enemy\"><htmlbar \"Enemy\" [+int value of currentFight.enemy.hp]/[+int value of currentFight.enemy.constitution]></div><br/>
+						<div id=\"fear\"><htmlbar \"Fear\" [+int value of player.fear]/100></div>
 					</div>Your opponent: [+currentFight.enemy.name]\n
 							Your weapon: [+currentFight.player.weapon.name] ([+currentFight.player.strength])"
 

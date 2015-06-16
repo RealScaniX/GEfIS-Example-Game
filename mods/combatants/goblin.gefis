@@ -205,7 +205,7 @@ function goblinLuckyCharm
 		globals.goblinLuckyCharm = true
 		addToContainer player.location, lucky charm
 		rememberMusicPos
-		playMusic goblinA.fightMusic, 80
+		playMusic goblinA.fightMusic, 45
 		say "\nAs you start to get up again, you see a familiar creature walk towards you. You are still feeling too weak to jump up and fight and are relieved to see 
 				that he doesn't seem to be here to attack you."
 		say "\"You are no fun to watch, buddy!\", the Goblin says and drops something in front of you."

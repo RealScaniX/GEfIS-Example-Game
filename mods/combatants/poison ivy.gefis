@@ -5,7 +5,7 @@ there is a Combatant called poison ivy
 	its woundProc is "poisonIvyWound"
 	its introProc is "poisonIvyIntro"
 	its appearProc is "poisonIvyAppear"
-	its strength is 30
+	its strength is 27
 	its constitution is 120
 	its level is 5
 	its poisonous is true

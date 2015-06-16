@@ -6,7 +6,7 @@ function chapterAdvance
 		globals.chapter = globals.chapter + 1
 		if 0 is globals.chapter
 			saychapter 0
-			playmusic "Quinns Song-First Night.mp3", 100
+			playmusic "Quinns Song-First Night.mp3", entry hall.musicVolume
 			playambience "27077__daveincamas__clockticks.ogg", 10
 			prepareBubbles
 			introtalk
