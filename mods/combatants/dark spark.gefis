@@ -54,6 +54,7 @@ function darkSparkWound
 					play "clong.ogg" on audio channel "sound" with volume 100
 					add purple key to player.location.items
 					this.droppedItem = true
+					currentFight.rewarded = true
 				else if this.defeatedCount > 0
 					say "You try to grab the purple item or get a better look at it, but you cannot reach it."
 				else

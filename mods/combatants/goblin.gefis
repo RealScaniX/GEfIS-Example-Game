@@ -172,6 +172,7 @@ function goblinWound
 		if this.hp <= 5
 			currentFight.won = true
 			currentFight.finished = true
+			currentFight.rewarded = true
 			addOneTimeEvent "goblinWon"
 		else if !poisonAttack
 			if dmg < 7

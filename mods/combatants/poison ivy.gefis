@@ -76,6 +76,7 @@ function poisonIvyWound
 					say "A [itemLink green key] lies in the patch. Having been nearly impossible to see before, its bright green color is making it stand out now."
 					add green key to player.location.items
 					this.droppedItem = true
+					currentFight.rewarded = true
 				else if this.defeatedCount > 0
 					say "You try to grab the green item or get a better look at it, but you cannot reach it."
 				else

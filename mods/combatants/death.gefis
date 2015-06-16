@@ -34,6 +34,7 @@ function hugDeath
 					[if player.location is a gardenTile] into the direction of its grave[end]."
 				currentFight.won = true
 				currentFight.finished = true
+				currentFight.rewarded = true
 				currentFight.enemy.killed = true
 				removeEncounter death
 				wait for 7 seconds

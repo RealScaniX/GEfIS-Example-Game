@@ -14,7 +14,8 @@ Entity Combat is an Entity
 		bool finished is true			// if we are not fighting, it is finished
 		bool won is false					// true if the player has won
 		list events
-		bool printExtraPrompt				// true if this has been triggered in an event which has to be handled slightly differently because of the display of the prompt afterwards
+		bool printExtraPrompt			// true if this has been triggered in an event which has to be handled slightly differently because of the display of the prompt afterwards
+		bool rewarded						// true if there already has been an item drop or something in the wounded proc, so the enemy does not drop another item
 
 Entity Combatant is a thing
 	attributes
@@ -164,6 +165,7 @@ mode Fight
 		currentFight.events = {}
 		currentFight.finished = false
 		currentFight.won = false
+		currentFight.rewarded = false
 		/************************************
 				fill in enemy values
 		*************************************/
@@ -251,7 +253,7 @@ function endFight
 				// remove this encounter if the player killed it 5 times
 				currentFight.enemy.killed = true
 				removeEncounter currentFight.enemy
-			else if currentFight.evemy.droppedItem
+			else if currentFight.enemy.droppedItem
 				// reduce probability if player got the item
 				for each enc in player.location.encounters
 					if enc.enemy is currentFight.enemy
@@ -444,7 +446,8 @@ function woundEnemy
 			// there already has been enough text in the enemy woundproc
 			//say "The [+enemyName] dissolves to rejoin the shadows."
 			// drop something
-			dropEnemyLoot
+			if !currentFight.rewarded
+				dropEnemyLoot
 			// add experience points (glow)
 			if player.glow < enemyLevel * 15
 				glow (enemyLevel * 15 - player.glow) / 2

@@ -51,6 +51,7 @@ function reflectionWound
 					play "clong.ogg" on audio channel "sound" with volume 100
 					add blue key to player.location.items
 					this.droppedItem = true
+					currentFight.rewarded = true
 				else if this.defeatedCount > 0
 					say "You try to get a better view of the mysterious item, but all you get are a few glimpses of something that looks like a blue key."
 				else

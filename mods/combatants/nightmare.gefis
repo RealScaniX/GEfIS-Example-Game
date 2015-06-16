@@ -164,6 +164,7 @@ function hugNightmareProc
 			currentFight.finished = true
 			currentFight.won = true
 			nightmare.killed = true
+			currentFight.rewarded = true
 			addOneTimeEvent "lettingGo"
 		else if state > 0
 			say "You slowly step closer, but a threatening growl lets you keep your distance again."

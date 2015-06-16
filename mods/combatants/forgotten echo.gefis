@@ -55,6 +55,7 @@ function forgottenEchoWound
 				say "It blew up some dust from the floor and when it settled again, you see an [itemLink orange key] lying there. You wonder if it has been there the whole time."
 				add orange key to player.location.items
 				this.droppedItem = true
+				currentFight.rewarded = true
 		else if !poisonAttack
 			if dmg < 50
 				say "Disturbing the sound waves, you manage to make some of the sounds diminish."
