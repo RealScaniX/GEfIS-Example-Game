@@ -18,9 +18,6 @@ action takeitem
 		pick up the [itm]
 	do
 		// do we see this item in the place?
-		if player.illumination < 10
-			say "It is too dark to even see what you want to take."
-			return
 		now itm is [resolveitem itm]
 		if itm is null
 			say "You don't see that."

@@ -125,3 +125,46 @@ before function goToPlace
 	if illu < 10 and player.glow < 100
 		say "Staring into the [one of]darkness[or]pitch black hole[at random] in front of you, you decide that you'd rather not go there without any light."
 		return
+
+before action lookat
+	do
+		if player.illumination < 5
+			say "In the total darkness you see totally nothing."
+			return
+
+before action lookaround
+	do
+		if player.illumination < 5
+			say "In the total darkness you see totally nothing."
+			return
+
+before action open
+	do
+		if player.illumination < 5
+			say "It is too dark to even see what you want to open."
+			return
+
+before action close
+	do
+		if player.illumination < 5
+			say "It is too dark to even see what you want to close."
+			return
+
+before action takeitem
+	do
+		if player.illumination < 10
+			say "It is too dark to even see what you want to take."
+			return
+
+before action unlockwithkey
+	do
+		if player.illumination < 10
+			say "It is too dark to even see what you want to unlock."
+			return
+
+before action unlock
+	do
+		if player.illumination < 10
+			say "It is too dark to even see what you want to unlock."
+			return
+

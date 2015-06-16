@@ -1,12 +1,13 @@
 This is Thoughts by ScaniX
 
-when play begins
-	now ev is a new event called "chainofthought"
-	ev.delay = 5
-	ev.probability = 50
-	ev.eventproc = "chainofthought"
-	ev.repeat = true
-	add ev to player.events
+there is an event called chainofthought
+	its delay is 5
+	its probability is 50
+	its eventproc is "chainofthought"
+	its repeat is true
+	
+when play begins or resumes
+	add chainofthought to player.events
 
 there is a valuesponge called globals
 	its thoughtIndex is 0
@@ -14,6 +15,9 @@ there is a valuesponge called globals
 function chainofthought
 	do
 		//play "drop[one of]A[or]B[or]C[or]D[at random].ogg" on audio channel "sound" with volume 100
+		now unthinkingActions are {"look", "lookaround", "smell", "listen", "taste"}
+		if unthinkingActions has user.action
+			return
 		if globals.cellarEvent is 0
 			// reset delay
 			this.delay = 5
@@ -65,12 +69,12 @@ function chainofthought
 					wait for 6 seconds
 					say "But you often feel alone, especially after moving here and leaving behind your friends in your hometown."
 				else if 105 is globals.thoughtIndex
-					say "\nFeeling alone was the main reason why you've immediately seized the opportunity to become part of a new group of kids your age."
+					say "\nFeeling alone was the main reason why you've immediately seized the opportunity to join a new group of kids around your age."
 					wait for 7 seconds
 					say "You need something to distract you. "
-					wait for 3 seconds
+					wait for 2 seconds
 					say "Something to replace the pain. "
-					wait for 3 seconds
+					wait for 2 seconds
 					say "Something to fill the void."
 				else if 106 is globals.thoughtIndex
 					say "\nOf course there is a task that you need to fulfill to be accepted into the new group. A small trial that tests your bravery."
@@ -78,3 +82,7 @@ function chainofthought
 					say "And so you ended up in this old house in the middle of the night to look for the ball that has been hidden somewhere here by the boys during the day."
 				if globals.thoughtIndex < 110
 					globals.thoughtIndex = globals.thoughtIndex + 1
+
+after function addOneTimeEvent
+	do
+		chainofthought.delay = chainofthought.delay + 1

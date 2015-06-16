@@ -64,7 +64,8 @@ entity Weapon is a Equippable
 
 function useWeapon
 	do
-		ask whether "Do you want to equip the [+this.name] as weapon?"
+		say "Do you want to equip the [+this.name] as weapon?"
+		ask whether "equip?"
 		if user.consented
 			now itm is this
 			invoke action "equip"

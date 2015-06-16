@@ -1,8 +1,8 @@
 this is hook weapon by scanix
 
 there is a weapon called hook
-	its description is "It is a very long stick with three clawlike hooks at one end.\nYou are unsure about what this is used for, but maybe you can pull down branches of 
-			trees with this to reach the high hanging fruits?"
+	its description is "It is a very long stick with three clawlike hooks at one end.\nYou are unsure about what this is used for, but maybe you can pull down 
+			branches of trees with this to reach the high hanging fruits?\nThis might be even usable as a weapon."
 	its strength is 15
 	its weaponName is @"[one of]hook on a stick[or]metal claws[or]reaper of fruits[at random]"
 	its useWithProc is "useHookWith"

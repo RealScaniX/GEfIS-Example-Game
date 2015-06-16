@@ -13,6 +13,8 @@ there is a container called bedroomWardrobe
 	its name is "wardrobe"
 	its description is @[bedroomWardrobeDesc]
 	its discovered is false
+	its openSound is "wardrobe.ogg"
+	its closeSound is "wardrobe.ogg"
 
 function bedroomDesc
 	do
@@ -25,7 +27,7 @@ function bedroomDesc
 
 function bedroomWardrobeDesc
 	do
-		say "The large wardrobe almost touches the ceiling. It it made of some old, sturdy and dark wood."
+		say "The large wardrobe almost touches the ceiling. It is made of some old, sturdy and dark wood."
 		if this.open
 			say "Seeing that there is nothing inside, you are relieved that the former owners at least took their clothes with them and are not running around 
 					naked out there somewhere."

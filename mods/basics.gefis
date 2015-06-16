@@ -57,9 +57,6 @@ action lookat
 		look at [smt]
 		look at the [smt]
 	do
-		if player.illumination < 5
-			say "In the total darkness you see totally nothing."
-			return
 		// can you see that?
 		now smt is [resolveitem smt]
 		if smt is a sound
@@ -190,6 +187,32 @@ action close
 		else
 			say "You don't know how to close this."
 
+action unlock
+	understand
+		unlock [d]
+	do
+		//if d is a doorPassage and !d.locked
+		//	say "The [+d.name] isn't even locked."
+		say "What will you use to unlock it with?"
+		now invitems is [inventoryList]
+		now keylist is a new list
+		for each invitm in invitems
+			if invitm is not a key
+				continue
+			add invitm to keylist
+		if keylist.# > 0
+			say "You have these keys: "
+			now i is 0
+			for each invitm in keylist
+				say "[if i > 0], [end][itemLink invitm]"
+				i = i + 1
+			say "\n"
+		ask "Key?"
+		if user.canceled or user.input is empty
+			return
+		now k is [resolveitem user.input]
+		invoke action "unlockwithkey"
+
 action unlockwithkey
 	understand
 		unlock [d] with [k]
@@ -268,9 +291,6 @@ action use
 			invoke function t.useProc on t
 		else
 			say "[one of]You don't know how to use this[or]This is totally useless[or]Maybe this is like art: Looking at it is all it is good for[at random]."
-
-understand
-	"look" as "look around"
 
 function rememberMusicPos
 	do

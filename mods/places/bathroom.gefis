@@ -148,7 +148,7 @@ function bathroomMirrorDesc
 					[if player.glow < 25]the face of a sad boy staring back at you[else if player.glow < 50]the face of a boy looking expectantly back at you[else if player.glow < 75]a
 					boy that looks like you a lot[else]yourself[end]."
 			say "You think, that you look adventurous with your dark, messy hair which are almost long enough to cover your eyes, but your mother nevertheless always 
-					says, that you look cute."
+					says that you look cute."
 			if nightmare.killed
 				say "Your brown eyes now have a glint of hope in them."
 			else

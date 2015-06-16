@@ -71,32 +71,6 @@ function doortrip
 			setDoor this, true
 		return true
 
-action unlock
-	understand
-		unlock [d]
-	do
-		//if d is a doorPassage and !d.locked
-		//	say "The [+d.name] isn't even locked."
-		say "What will you use to unlock it with?"
-		now invitems is [inventoryList]
-		now keylist is a new list
-		for each invitm in invitems
-			if invitm is not a key
-				continue
-			add invitm to keylist
-		if keylist.# > 0
-			say "You have these keys: "
-			now i is 0
-			for each invitm in keylist
-				say "[if i > 0], [end][itemLink invitm]"
-				i = i + 1
-			say "\n"
-		ask "Key?"
-		if user.canceled or user.input is empty
-			return
-		now k is [resolveitem user.input]
-		invoke action "unlockwithkey"
-
 function setDoor
 	understand
 		setDoor [d], [state]
@@ -267,10 +241,8 @@ function updateaudio
 action lookaround
 	understand
 		look around
+		look
 	do
-		if player.illumination < 5
-			say "In the total darkness you see totally nothing."
-			return
 		say player.location.description
 		for each itm in player.location.items
 			itm.discovered = true

@@ -57,7 +57,7 @@ function mainStatusInfo
 									"[image southwest icon]", "[image south icon]", "[image southeast icon]", "[image down icon]"}
 		for j from 0 to destinations.# - 1
 			now d is destinations.(j)
-			str = str + "<div style=\"float:left;font-size:12px;display:inline-block;position:relative;margin:0px;padding:0px;width:27px;text-align:center;\">"
+			str = str + "<div style=\"float:left;font-size:2px;display:inline-block;position:relative;margin:0px 4px 4px 0px;width:24px;height:24px;padding:0px;text-align:center;\">"
 			if d is not null
 				now disp is icons.(j)
 				if d is "here"
@@ -85,9 +85,9 @@ function mainStatusInfo
 			now itmcount is itmcount + itm.carried
 		itemlink = itemlink + ")"
 		return "<div style=\"float:right;line-height:0px;\">
-						<htmlbar \"Fear\" [+player.fear]/100><br/>
+						<div id=\"fear\"><htmlbar \"Fear\" [+player.fear]/100></div><br/>
 						<htmlbar \"Light\" [+player.illumination]/100><br/>
-						<htmlbar \"Glow\" [+player.glow]/100>
+						<div id=\"glow\"><htmlbar \"Glow\" [+player.glow]/100></div>
 					</div><div style=\"float:right;margin:0px 18px 0px 20px;line-height:normal;\">[+str]</div>
 					<nobr>After [+user.actions] actions, you ended up here:</nobr> <nobr>[link look around][append player.location][/link]</nobr>\n
 					You own [if itmcount > 0]<link inv>[+itmcount] thing[if itmcount > 1]s[end]</link> <link [+itemlink]>[image drop down.png]</link>.[else]nothing.[end]\n

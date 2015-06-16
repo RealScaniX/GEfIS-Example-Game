@@ -53,6 +53,8 @@ function trainWagonsDescEvt
 there is a container called kidsRoomWardrobe
 	its name is "wardrobe"
 	its items are {dusty clothes}
+	its openSound is "wardrobe.ogg"
+	its closeSound is "wardrobe.ogg"
 
 there is a thing called dusty clothes
 	its description is "Those boy clothes look to be your size, but not your style. They are also really dusty and judging from the holes in them they at least match the taste
@@ -63,6 +65,8 @@ there is a thing called dusty clothes
 there is a container called kidsRoomCabinet
 	its name is "cabinet"
 	its items are {flashlight}
+	its openSound is "KleinFensterOpen.ogg"
+	its closeSound is "KleinFensterClose2.ogg"
 	
 there is a thing called kidsRoomDesk
 	its name is "desk"
