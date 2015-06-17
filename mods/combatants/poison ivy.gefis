@@ -6,7 +6,7 @@ there is a Combatant called poison ivy
 	its introProc is "poisonIvyIntro"
 	its appearProc is "poisonIvyAppear"
 	its strength is 27
-	its constitution is 120
+	its constitution is 90
 	its level is 5
 	its poisonous is true
 	its lootTable is {"antidote": 40, "battery": 10, "orange marble": -5, "magic battery": -2}
@@ -15,20 +15,16 @@ function poisonIvyIntro
 	do
 		play "178615__montacue__the-rustle-of-a-bush.ogg" on audio channel "sound"
 		say "A rustling sound startles you and as you look in its direction, you see some vines detach themselves from a small tree close to you."
-		flush
-		sleep 7
+		wft
 		say "Looking at the leaves you immediately recognize the poison ivy. You two have met before."
-		flush
-		sleep 5
+		wft
 		say "This one is a little different though. You watch the thin green wires with all those dangerous leaves form a humanlike body in front of you."
-		flush
-		sleep 7
+		wft
 		say "After it is finished you are standing in front of a two meters tall creature without a head, but with two legs, a bushy torso and four long arms that are
 				whirling around in the air like whips."
-		flush
-		sleep 9
+		wft
 		say "Still you will not run home crying this time. You prepare to attack the plant to get revenge for what it has done to you."
-		wait for 6 seconds
+		wft
 
 function poisonIvyAppear
 	do

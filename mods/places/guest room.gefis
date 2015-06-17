@@ -4,12 +4,27 @@ there is a place called guest room
 	its regions are {"anywhere", "house", "second floor"}
 	its exits are {"north": eastwingSouthDoor}
 	its intro is @[guestRoomIntro]
-	its items are {guestRoomChest}
+	its items are {guestRoomChest, guestRoomNightstand}
 	its illumination is 5
-	its description is ""
+	its description is @[guestRoomDesc]
 
 function guestRoomIntro
 	do
+		say "This medium sized room only has one window towards the street, that lets some light in. The right wall is keeping you from falling down into the 
+			entry hall and the left wall is almost completely covered up with furniture."
+
+there is a container called guestRoomNightstand
+	its name is "nightstand"
+	its discovered is false
+	its openSound is "KleinFensterOpen.ogg"
+	its closeSound is "KleinFensterClose2.ogg"
+	its items are {pink marble}
+	its description is @"It is a simple little wooden cube with a small door.[if this.open] On the inside, there is just the floor and one shelve to put stuff on.[end]"
+
+function guestRoomDesc
+	do
 		eastwingSouthDoor.name = "guest room door"
-		say ""
+		say "This room is almost furnished like a motel room. There is a large bed, a nightstand, a wardrobe, some shelves and a smaller cupboard with an empty space 
+			on top where the TV is missing. There also is a small table with two chairs.\nThe weird collection of personal things and kitsch in the cupboard and on 
+			the shelves makes you believe, that no one has actually lived here for a longer time.\nThis seems to be the guest room."
 

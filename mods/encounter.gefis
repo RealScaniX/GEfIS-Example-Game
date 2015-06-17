@@ -15,26 +15,29 @@ after action wait
 		temps.encounterCooldown = max of 0 and (temps.encounterCooldown - 2)
 
 before function mainPrompt
-	if temps.encounterCooldown > 0
-		temps.encounterCooldown = temps.encounterCooldown - 1
-	//else if user.action is null or user.action is "lookat" or user.action is "lookaround"
-	else if user.action is null // need more fights
-		// no encounter when looking around
-	else if !player.location.pacified and !nightmare.killed and chance of 60 // general encounter chance is 40% makes 60% chance that nothing happens
-		now max is 0
-		for each enc in player.location.encounters
-			if !enc.enemy.wantsFight
-				continue
-			max = max + enc.probability
-		now z is random number between 0 and max
-		for each enc in player.location.encounters
-			if !enc.enemy.wantsFight
-				continue
-			if z < enc.probability
-				// start fight
-				startFight enc.enemy
-				return
-			z = z - enc.probability
+	if user.action is null // need more fights
+		// no encounter when action could not be understood
+	else if !player.location.pacified // not even coolDowning in chillout area
+		now coolDown is 1
+		if user.action is "wait" // need more fights
+			coolDown = 2
+		if temps.encounterCooldown > 0
+			temps.encounterCooldown = temps.encounterCooldown - coolDown
+		if temps.encounterCooldown == 0 and !nightmare.killed and chance of 60 // general encounter chance is 40% makes 60% chance that nothing happens
+			now max is 0
+			for each enc in player.location.encounters
+				if !enc.enemy.wantsFight
+					continue
+				max = max + enc.probability
+			now z is random number between 0 and max
+			for each enc in player.location.encounters
+				if !enc.enemy.wantsFight
+					continue
+				if z < enc.probability
+					// start fight
+					startFight enc.enemy
+					return
+				z = z - enc.probability
 
 before function startFight
 	temps.encounterCooldown = 10

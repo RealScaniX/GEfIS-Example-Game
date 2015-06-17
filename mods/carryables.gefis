@@ -72,6 +72,9 @@ there is a marble called orange marble
 there is a marble called silver marble
 	its color is "silver"
 
+there is a marble called pink marble
+	its color is "pink"
+
 there is a container called marble pouch
 	its description is "This your trusty bag of colorful marbles. It would be more impressive if you hadn't just lost all of them in a game recently."
 	its items are {red marble}

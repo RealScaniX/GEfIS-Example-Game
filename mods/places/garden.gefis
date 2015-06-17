@@ -450,6 +450,30 @@ function gardenCreation
 			for h from 0 to width-1
 				tile = tiles.(v).(h)
 				if tile.exits has "west"
+					if tile.exits.west.exits.north is a place
+						tile.exits.northwest = tile.exits.west.exits.north
+					if tile.exits.west.exits.south is a place
+						tile.exits.southwest = tile.exits.west.exits.south
+				if tile.exits has "east" 
+					if tile.exits.east.exits.north is a place
+						tile.exits.northeast = tile.exits.east.exits.north
+					if tile.exits.east.exits.south is a place
+						tile.exits.southeast = tile.exits.east.exits.south
+				if tile.exits has "south" and tile.exits.south is a place // entrance
+					if tile.exits.south.exits.west is a place
+						tile.exits.southwest = tile.exits.south.exits.west
+					if tile.exits.south.exits.east is a place
+						tile.exits.southeast = tile.exits.south.exits.east
+				if tile.exits has "north"
+					if tile.exits.north.exits.west is a place
+						tile.exits.northwest = tile.exits.north.exits.west
+					if tile.exits.north.exits.east is a place
+						tile.exits.northeast = tile.exits.north.exits.east
+/*
+		for v from 0 to height-1
+			for h from 0 to width-1
+				tile = tiles.(v).(h)
+				if tile.exits has "west"
 					if tile.exits.west.exits has "north"
 						tile.exits.northwest = tile.exits.west.exits.north
 					if tile.exits.west.exits has "south"
@@ -469,6 +493,7 @@ function gardenCreation
 						tile.exits.northwest = tile.exits.north.exits.west
 					if tile.exits.north.exits has "east"
 						tile.exits.northeast = tile.exits.north.exits.east
+*/
 		globals.gardenTiles = tiles
 		player.location = garden
 		wait for 2 seconds
