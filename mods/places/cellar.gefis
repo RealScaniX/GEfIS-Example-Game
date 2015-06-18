@@ -25,7 +25,7 @@ before action close
 there is a doorPassage called cellar door
 	its origin is cellar
 	its description is @[cellarDoorDesc]
-	its destination is entry hall
+	its destination is normalEntryHall
 	its open is false
 	its locked is true
    its key is rusty key

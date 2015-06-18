@@ -12,13 +12,13 @@ there is a place called second floor
 	its regions are {"anywhere", "house", "second floor"}
 
 there is a Stairway called stairway
-	its origin is alternative entry hall
+	its origin is alternativeEntryHall
 	its destination is second floor
 	its description is @[stairwayDesc]
 
 function stairwayDesc
 	do
-		if player.location is alternative entry hall
+		if player.location is alternativeEntryHall
 			say "This version of the stairway looks intact and should take you safely up to the second floor."
 		else
 			if !globals.stairwayfright

@@ -49,7 +49,7 @@ entity playercharacter is a thing
 		number glow is 0  // the inner light value of the player
 
 there is a playercharacter called Player
-	its location is entry hall
+	its location is normalEntryHall
 
 action lookat
 	understand

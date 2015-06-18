@@ -402,7 +402,7 @@ action flee
 		now enemyLevel is currentFight.enemy.level
 		if player.location.navigatable and (chance of 100 - enemyLevel * 5)
 			say "You manage to slip away and your opponent seems not interested enough to follow you."
-			player.location = alternative entry hall
+			player.location = alternativeEntryHall
 			currentFight.finished = true
 		else
 			say "[one of]You don't get away fast enough[or]You try to slip away, but your opponent suddenly stands in your way[at random]."

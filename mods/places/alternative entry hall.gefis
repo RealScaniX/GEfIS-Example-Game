@@ -1,6 +1,6 @@
 This is Alternative Entry hall by ScaniX
 
-There is a place called alternative entry hall
+There is a place called alternativeEntryHall
 	its name is "entry hall"
 	its intro is @[alternativeentryhallintro]
 	its description is @[alternativeentryhalldesc]
@@ -21,22 +21,22 @@ there is an event called alternativeentryhallsoothe
 	its delay is 1
 
 there is a doorPassage called northeast door
-	its origin is alternative entry hall
+	its origin is alternativeEntryHall
 	its destination is living room
 
 there is a doorPassage called east door
 	its locked is true
-	its origin is alternative entry hall
+	its origin is alternativeEntryHall
 	its destination is music room
 
 there is a doorPassage called northwest door
 	its locked is true
-	its origin is alternative entry hall
+	its origin is alternativeEntryHall
 	its destination is library
 
 there is a doorPassage called lowerBathroomDoor
 	its name is "west door"
-	its origin is alternative entry hall
+	its origin is alternativeEntryHall
 	its destination is lowerBathroom
 
 function alternativeentryhallsoothe
@@ -49,7 +49,7 @@ function alternativeentryhallsoothe
 			x = x * 1.5
 		if globals.lostCount > 0
 			soothe x, "[one of]The blue light calms your nerves.[or]Your wounds are vanishing in the blue light.[or]Even your clothes seem to return to their original state while
-					you are close to the entrynce.[or]The blue light slowly undoes all effects, that the horrors in this house had on you.[or]The weird magical light soothes you.[or]
+					you are close to the entrance.[or]The blue light slowly undoes all effects, that the horrors in this house had on you.[or]The weird magical light soothes you.[or]
 					The blue light seems to burn the darkness around you away.[at random]"
 		else
 			soothe x, "[one of]The blue light calms your nerves.[or]The weird magical light soothes you.[or]The blue light seems to burn the darkness around you away.[at random]"

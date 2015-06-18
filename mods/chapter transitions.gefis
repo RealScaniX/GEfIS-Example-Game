@@ -6,7 +6,7 @@ function chapterAdvance
 		globals.chapter = globals.chapter + 1
 		if 0 is globals.chapter
 			saychapter 0
-			playmusic "Quinns Song-First Night.mp3", entry hall.musicVolume
+			playmusic "Quinns Song-First Night.mp3", normalEntryHall.musicVolume
 			playambience "27077__daveincamas__clockticks.ogg", 10
 			prepareBubbles
 			introtalk
@@ -30,7 +30,7 @@ function chapterAdvance
 			say "But all you can hear is your own breathing and some ticking sound. At least for now."
 			playambience "27077__daveincamas__clockticks.ogg", 50
 			wait
-			goToPlace entry hall
+			goToPlace normalEntryHall
 			user.actions = 0
 			switch to main mode
 		else if 1 is globals.chapter
@@ -40,16 +40,16 @@ function chapterAdvance
 			cellar door.open = false
 			cellar door.locked = true
 			cellar door.key = null
-			cellar door.destination = alternative entry hall
+			cellar door.destination = alternativeEntryHall
 			cellar.music = "Quinns Song-A New Man.mp3"
 			//cellar.events = {} // already done by setting the repeat to false
 			//addEncounter "cellar", nightmare, 100
-			player.location = alternative entry hall // to not directly trigger finalfight (in fact this does not happen anyway)
+			player.location = alternativeEntryHall // to not directly trigger finalfight (in fact this does not happen anyway)
 			add finalFightEvent to cellar.events
-			kitchen door.destination = alternative entry hall
+			kitchen door.destination = alternativeEntryHall
 			kitchen.ambience = "27077__daveincamas__clockticks_noecho.ogg"
 			ticking sound.soundDesc = "The loud ticking of the grandfather clock tells you that you are still in the entry hall. Well, ... at least <b>an</b> entry hall."
-			playmusic alternative entry hall.music, alternative entry hall.musicVolume
+			playmusic alternativeEntryHall.music, alternativeEntryHall.musicVolume
 			playambience null, 100
 			saychapter globals.chapter
 			scare 10

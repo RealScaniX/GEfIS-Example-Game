@@ -1,6 +1,7 @@
 This is Entry hall by ScaniX
 
-There is a place called entry hall
+There is a place called normalEntryHall
+	its name is "entry hall"
    its exits are {"north": kitchen door, "down": cellar door, "west": locked door, "northwest": locked door, "east": locked door, "northeast": locked door}
 	its items are {cellar door, ticking sound}
 	its intro is ""
@@ -34,18 +35,18 @@ when play begins or resumes
 	now sd is a new doorPassage called "main entrance" 
 	now sd.locked is true
 	now sd.preproc is @[mainentrancetrip]
-	now entry hall.exits.south is sd
+	now normalEntryHall.exits.south is sd
 	//-broken stairs
 	now stairs is a new Stairway called "broken stairway"
-	now stairs.origin is entry hall
-	now stairs.destination is entry hall
+	now stairs.origin is normalEntryHall
+	now stairs.destination is normalEntryHall
 	now stairs.passable is false
 	now stairs.discovered is true
 	now stairs.description is "Despite the darkness, you can see that the stairway is going nowhere. After a few meters the steps are cracked and further up they 
 								are completely caved in. Judging by what you can see from down here, you are pretty sure that it is not a good idea to visit the second floor."
 	now stairs.preproc is "brokenstairwaydesc"
-	add stairs to entry hall.items
-	now entry hall.exits.up is stairs
+	add stairs to normalEntryHall.items
+	now normalEntryHall.exits.up is stairs
 
 there is a sound called ticking sound
 	its soundDesc is "The regular ticks of the large grandfather clock are both calming and terrifying. After thinking about it for a second, you come to the conclusion

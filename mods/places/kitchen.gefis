@@ -70,7 +70,7 @@ function kitchendesc
 
 there is a doorPassage called kitchen door
 	its origin is kitchen
-	its destination is entry hall
+	its destination is normalEntryHall
 	its open is false
 
 function afterProcKitchen
