@@ -44,7 +44,7 @@ function chapterAdvance
 			cellar.music = "Quinns Song-A New Man.mp3"
 			//cellar.events = {} // already done by setting the repeat to false
 			//addEncounter "cellar", nightmare, 100
-			player.location = alternativeEntryHall // to not directly trigger finalfight (in fact this does not happen anyway)
+			//player.location = alternativeEntryHall // to not directly trigger finalfight (in fact this does not happen anyway)
 			add finalFightEvent to cellar.events
 			kitchen door.destination = alternativeEntryHall
 			kitchen.ambience = "27077__daveincamas__clockticks_noecho.ogg"
@@ -52,7 +52,7 @@ function chapterAdvance
 			playmusic alternativeEntryHall.music, alternativeEntryHall.musicVolume
 			playambience null, 100
 			saychapter globals.chapter
-			scare 10
+			scare 111
 		else if 2 is globals.chapter
 			saychapter globals.chapter
 		else if 3 is globals.chapter

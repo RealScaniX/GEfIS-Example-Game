@@ -56,6 +56,14 @@ entity doorPassage is a Passage
       bool locked
       bool open
       key key
+		text openSound is "doorM_open_new.ogg"
+		text closeSound is "doorM_close_new.ogg"
+		text lockedProc is "doorLockedProc"
+
+function doorLockedProc
+	do
+		play "doorLocked.mp3" on audio channel "sound" with volume 100
+		say "A push on the door handle reveals that this door is locked."
 
 function doordesc
 	do
@@ -64,8 +72,7 @@ function doordesc
 function doortrip
 	do
 		if this.locked
-			play "doorLocked.mp3" on audio channel "sound" with volume 100
-			say "The [+this.name] is locked."
+			invoke function this.lockedProc on this
 			return false
 		else if not this.open
 			setDoor this, true
@@ -78,7 +85,7 @@ function setDoor
 		if d is not a doorPassage
 			say "You don't know how to open this."
 			return
-		if not (player.location.exits has d)
+		if not (player.location.exits has d) and not (player.location.items has d) 
 			say "You don't see this here."
 			return
 		if d.open is state
@@ -88,17 +95,13 @@ function setDoor
 				say "It already is closed. It might not be airtight, but there is nothing you can do about it."
 			return
 		if d.locked and state
-			play "doorLocked.mp3" on audio channel "sound" with volume 100
-			say "A push on the door handle reveals that this door is locked."
+			invoke function d.lockedProc on d
 			return
 		now d.open is state
 		if d.open
-			play "doorHandle.mp3" on audio channel "sound" with volume 100
-			flush
-			sleep 1.25
-			play "doorOpen.mp3" on audio channel "sound" with volume 100
+			play d.openSound on audio channel "sound" with volume 100
 		else
-			play "doorClose.ogg" on audio channel "sound" with volume 100
+			play d.closeSound on audio channel "sound" with volume 100
 		flush
 		sleep 0.5
 		say "You [if state]open[else]close[end] the door."
@@ -152,7 +155,9 @@ function resolveDestination
 			for each x in player.location.exits
 				if x is itm
 					return x
-		end
+			for each x in player.location.items
+				if x is itm and x is a passage
+					return x
 		return itm
 
 action navigate

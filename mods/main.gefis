@@ -76,6 +76,8 @@ function mainStatusInfo
 		now invitems is [inventoryList]
 		now itemlink is "("
 		for each itm in invitems
+			if itm is a marble // skip marbles
+				continue
 			itemlink = itemlink + "([+itm.name][if itm is a equippable and itm.equipped]*[end]:look at " + itm.name + "|"
 			itemlink = itemlink + "[if itm.carried > 1] x [+itm.carried][end]:|"
 			itemlink = itemlink + "U:use " + itm.name + "|"
@@ -117,14 +119,16 @@ when play ends
 
 function oneStats
 	do
-		say "You have..."
-		say "<ul style=\"margin-top:0px;\"><li>[\]performed [+user.actions] actions, moving you around [+OneStats.movements] times."
-		say "</li><li>[\]won [+globals.wonCount] fight(s) and lost [+globals.lostCount] fight(s)."
 		now invitems is [inventoryList]
 		now marbleCount is 0
 		for each itm in invitems
 			if itm is a marble
 				marbleCount = marbleCount + 1
+		say "You have..."
+		say "<ul style=\"margin-top:0px;\"><li>[\]performed [+user.actions] actions, moving you around [+OneStats.movements] times."
+		say "</li><li>[\]won [+globals.wonCount] fight(s) and lost [+globals.lostCount] fight(s)."
+		if globals.passThroughUsed
+			say "</li><li>[\]found a shortcut."
 		say "</li><li>[\]found [+marbleCount] marble(s)."
 		say "</li><li>[\]used [+OneStats.musicTapes] music tape(s)."
 		say "</li><li>[\]used [+OneStats.antidotes] antidote(s)."

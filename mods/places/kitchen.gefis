@@ -4,7 +4,7 @@ there is a place called kitchen
 	its exits are {"south": kitchen door}
    its description is @[kitchendesc]
 	its intro is "The wooden door opens with a screeching sound and reveals... a kitchen."
-	its items are {kitchen door, apple, kitchen cupboard}
+	its items are {kitchen door, apple, kitchen cupboard, passThrough}
 	its illumination is 10
 	its music is "Quinns Song-First Night.mp3"
 	its afterProc is "afterProcKitchen"
@@ -67,6 +67,8 @@ function kitchendesc
 		else
 			say "This version of the kitchen differs not a lot from your first visit. There is just a bit less dust and grime everywhere."
 			say "Still the shadows seem to be... darker than before."
+		say "[if passThrough.discovered]In the right wall there is a pass-through.[end]"
+		passThrough.discovered = true
 
 there is a doorPassage called kitchen door
 	its origin is kitchen
@@ -84,3 +86,10 @@ function afterProcKitchen
 			resume audio channel "ambience" with volume 20
 		else
 			resume audio channel "ambience" with volume 1
+		if globals.chapter > 0 and !globals.darkSparkAwakened
+			globals.darkSparkAwakened = true
+			addEncounter "anywhere", dark spark, 40
+
+when play resumes
+	if !(kitchen.items has passThrough)
+		add passThrough to kitchen.items

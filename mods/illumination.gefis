@@ -34,7 +34,7 @@ there is an event called playerSoothing
 
 function playerSoothing
 	do
-		if currentFight.finished and player.fear > 10
+		if globals.chapter > 0 and currentFight.finished and player.fear > 10 and player.location is not cellar
 			player.fear = max of 10 and (player.fear - (max of 2 and player.glow / 10))
 
 function lightsource_update
@@ -50,17 +50,24 @@ function lightsource_update
 				now player.light is null
 			else if l.usedSteps is l.steps - 2
 				say "Your lightsource starts flickering..."
-		player.illumination = player.location.illumination
+		now illu is [calculatePlayerIllumination]
+		illu = illu + player.location.illumination
+		player.illumination = min of illu and 100
+
+function calculatePlayerIllumination
+	do
+		now illu is 0
 		if player.light is a lightsource and player.light.lit
-			player.illumination = player.illumination + player.light.illumination
+			illu = illu + player.light.illumination
 		now ilist is [inventoryList]
 		for each itm in ilist
 			if itm is a equippable 
 				if itm.equipped
-					player.illumination = player.illumination + itm.illumination
+					illu = illu + itm.illumination
 			else if itm is not a lightsource // non equippables always shine
-				player.illumination = player.illumination + itm.illumination
-		player.illumination = min of player.illumination and 100
+				illu = illu + itm.illumination
+		illu = min of illu and 100
+		return illu
 
 function setlight
 	understand
@@ -89,13 +96,14 @@ function scare
 	do
 		if msg is not empty
 			say "<span style=\"text-shadow: 0px 1px 1px #FF0000;filter:dropshadow(color=#FF0000, offx=0, offy=1);\">[+msg]</span>"
-		player.fear = player.fear + amount
-		if player.fear >= 100
-			player.fear = 99
-			if currentFight.finished && alternativeEntryHall.known // do not say this when entering chapter 1
-				say "Your fear is stopping you from going any further and you have the strong urge to be back where you are safe."
-			goToPlace alternativeEntryHall
-			return true
+		if player.location is not alternativeEntryHall
+			player.fear = min of 100 and (player.fear + amount)
+			if player.fear >= 100
+				player.fear = 99
+				if currentFight.finished && alternativeEntryHall.known // do not say this when entering chapter 1
+					say "Your fear is stopping you from going any further and you have the strong urge to be back where you are safe."
+				goToPlace alternativeEntryHall
+				return true
 		return false
 
 function soothe
@@ -112,16 +120,8 @@ when play begins or resumes
 	add playerSoothing to player.events
 
 before function goToPlace
-	now illu is destination.illumination
-	if player.light is not null and player.light.lit
-		illu = illu + player.light.illumination
-	now ilist is [inventoryList]
-	for each itm in ilist
-		if itm is a equippable 
-			if itm.equipped
-				illu = illu + itm.illumination
-		else if itm is not a lightsource // non equippables always shine
-			illu = illu + itm.illumination
+	now illu is [calculatePlayerIllumination]
+	illu = illu + destination.illumination
 	if illu < 10 and player.glow < 100
 		say "Staring into the [one of]darkness[or]pitch black hole[at random] in front of you, you decide that you'd rather not go there without any light."
 		return

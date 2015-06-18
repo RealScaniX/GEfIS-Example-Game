@@ -44,7 +44,7 @@ function chainofthought
 			else
 				if 100 is globals.thoughtIndex
 					say "\nYour [itemLink scar] is itching and you scratch your left arm in a reflex. You soon pull your hand back when you touch some "
-					scare 1, "unpleasant memories"
+					scare 0, "unpleasant memories"
 					say ".\n"
 					globals.scarVisible = true
 				else if 101 is globals.thoughtIndex

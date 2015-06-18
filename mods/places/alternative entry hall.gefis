@@ -74,7 +74,7 @@ function entranceDesc
 				suspect that this isn't really a thing you could find in a normal quarry."
 		say "On the outer ring there are five metallic keyholes in the colors blue, red, orange, green, and purple. "
 		say "In the center there is [if globals.entranceLocksOpened >= 5]another keyhole that opened up after you unlocked all five other locks[else]a white or silver metal cover
-				that hides something of importance, at least that is your impression when you look at it[end]."
+				that hides something of importance. At least that is your impression when you look at it[end]."
 		if globals.entranceLocksOpened > 0
 			now clist is a new list
 			for each col in {"blue", "red", "orange", "green", "purple"}
@@ -109,7 +109,8 @@ function alternativeentryhalldesc
 		say "The biggest one is probably the thing you see in front of you when you turn towards the [link look at|open|unlock|close]entrance[/link]."
 		say "Or better yet: What once has been the entrance."
 		say "The blue light of the entrance seems to fill up the large hall completely and is moving somehow, like sunbeams below the rippled surface of the ocean. 
-				It kinda has the same relaxing effect on you as well. You also feel like nothing can hurt you here."
+				It kinda has the same relaxing effect on you as well."
+		say "You also feel like nothing can hurt you here."
 		return ""
 
 before action unlockwithkey

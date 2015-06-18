@@ -3,7 +3,7 @@ this is living room by scanix
 there is a place called living room
 	its exits are {"south": northeast door, "north": garden door}
 	its regions are {"anywhere", "house", "first floor"}
-	its items are {livingRoomTable}
+	its items are {livingRoomTable, passThrough}
 	its intro is @[livingRoomIntro]
 	its description is @[livingRoomDesc]
 	its ambience is "27077__daveincamas__clockticks_noecho.ogg"
@@ -16,16 +16,68 @@ there is a doorPassage called garden door
 
 function livingRoomIntro
 	do
-		say "Stepping into this medium large room, it initially feels as if the northern wall is missing. Then you realize that it just consists mainly of windows."
+		say "Stepping into this large room, it initially feels as if the northern wall is missing. Then you realize that it just consists mainly of windows."
 		if !globals.darkSparkAwakened
 			globals.darkSparkAwakened = true
 			addEncounter "anywhere", dark spark, 50
+
+there is a doorPassage called passThrough
+	its name is "pass-through"
+	its origin is kitchen
+	its destination is living room
+	its discovered is false
+	its open is false
+	its locked is @globals.chapter < 1
+	its description is @[passThroughDesc]
+	its openSound is "wardrobe.ogg"
+	its closeSound is "wardrobe.ogg"
+	its preproc is "passThroughPassage"
+	its lockedProc is "passThroughLocked"
+
+function passThroughLocked
+	do
+		say "The sliding door won't budge, no matter how hard you try."
+
+function passThroughPassage
+	do
+		if this.locked
+			say "You cannot open it, it seems to be stuck."
+		else
+			if !this.open
+				this.open = true
+				play this.openSound on audio channel "sound"
+				say "You open the pass-through."
+		this.passable = !this.locked
+		if this.passable and player.location is kitchen
+			now illu is [calculatePlayerIllumination]
+			illu = illu + living room.illumination
+			if illu < 10
+				say "Staring into the [one of]darkness[or]pitch black hole[at random] in front of you, you decide that you'd rather not go there without any light."
+				this.passable = false
+		if this.passable
+			say "You squeeze through the pass-through, because it is an awesome shortcut. Afterwards you just need to shake all the dust from your clothes, producing
+					small clouds in the air."
+			globals.passThroughUsed = true
+
+function passThroughDesc
+	do
+		if player.location is kitchen
+			append "This is the pass-through connecting the kitchen with"
+			if living room.known
+				append " the living room."
+			else
+				append "... another room."
+		else
+			append "This pass-through is connecting the living room with the kitchen."
 
 function livingRoomDesc
 	do
 		say "This is the living room. You imagine that it is a nice and bright place when the sunlight floods this room."
 		say "The windows in the northern wall almost reach from the floor up to the ceiling, there is a glass door on the left side, obviously leading into the garden."
-		say "There are two arm chairs and a sofa placed around a low table. In front of the eastern wall there is a large cupboard with a big hole in the middle where the
+		say "Half of the room is occupied by a large lunch table with eight chairs. "
+		say "[if passThrough.discovered]In the left wall there is the pass-through to the kitchen.[else]\n[end]"
+		passThrough.discovered = true
+		say "On the other side, there are two arm chairs and a sofa placed around a low table. In front of the eastern wall there is a large cupboard with a big hole in the middle where the
 				TV would go."
 		say "At least the TV has been important enough for the owners to take it with them. Or probably it has been stolen by someone afterwards."
 

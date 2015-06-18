@@ -2,11 +2,16 @@ this is sewing room by scanix
 
 there is a place called sewing room
 	its intro is @[sewingRoomIntro]
-	its description is "Looking around in the"
+	its description is "Looking around in the small room, you can see a sewing machine on a sturdy table in the center."
 	its exits are {"south": eastwingNorthDoor}
+	its items are {sewing machine}
 
 function sewingRoomIntro
 	do
 		eastwingNorthDoor.name = "sewing room door"
 		return "The small corner room of the house has two windows, which doesn't help much as the moon is on the opposite side."
 
+there is a thing called sewing machine
+	its discovered is false
+	its description is "There is a large piece of cloth sticking in it. As you grab it and spread it, you can see that one half of a pig is embroidered on it. 
+			It seems that the artist hasn't been able to finish this table-cloth or whatever this was supposed to become."
