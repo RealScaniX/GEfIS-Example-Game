@@ -114,7 +114,7 @@ action help
 		if user.canceled
 			return
 		say "- In the top left corner you will find several settings including switches for the audio channels, buttons to save/load and also a link to your story."
-		say "- If the game waits for you to press a key, you can click into the input field as well to advance."
+		say "- If the game waits for you to press a key, you can click into the input field or story window as well to advance."
 		say "- ESCAPE brings the focus back to the input field."
 		say "- CTRL+C clears the input."
 		say "\n"
