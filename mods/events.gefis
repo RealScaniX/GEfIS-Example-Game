@@ -20,7 +20,7 @@ Entity place
 
 // Ignore first event check: no events after loading the game
 when play begins or resumes
-	temps.eventsEnabledDelay = 3
+	temps.eventsEnabledDelay = 2
 
 /*
  *		This is the event processing which happens in the after action script before the prompt
@@ -32,37 +32,38 @@ function eventProcessing
 	do
 		if temps.eventsEnabledDelay > 0
 			temps.eventsEnabledDelay = temps.eventsEnabledDelay - 1
-		eventInvoked = false
-		// get list of events from player and location
-		now eventlist is a new list
-		if !currentFight.finished
-			add currentFight to eventlist
-			for each ev in currentFight.events
-				add ev to eventlist			
-		else
-			add player.location to eventlist
-			for each ev in player.location.events
-				add ev to eventlist
-			add player to eventlist
-			for each ev in player.events
-				add ev to eventlist
-		now eventOwner is null
-		for each ev in eventlist
-			if !(ev is an event)
-				eventOwner = ev
-				continue
-			if ev.delay > 0
-				ev.delay = ev.delay - 1
-				continue
-			if (temps.eventsEnabledDelay > 0 or eventInvoked) and not ev.always
-				continue
-			if (random number between 1 and 100) <= ev.probability
-				eventInvoked = not ev.always
-				//say "Invoking event [+ev.name] method: [+ev.eventproc]"
-				invoke function ev.eventproc on ev
-				if !ev.repeat
-					remove ev from eventOwner.events
-				// not breaking loop, all delays have to be decreased
+		if temps.eventsEnabledDelay == 0
+			eventInvoked = false
+			// get list of events from player and location
+			now eventlist is a new list
+			if !currentFight.finished
+				add currentFight to eventlist
+				for each ev in currentFight.events
+					add ev to eventlist			
+			else
+				add player.location to eventlist
+				for each ev in player.location.events
+					add ev to eventlist
+				add player to eventlist
+				for each ev in player.events
+					add ev to eventlist
+			now eventOwner is null
+			for each ev in eventlist
+				if !(ev is an event)
+					eventOwner = ev
+					continue
+				if ev.delay > 0
+					ev.delay = ev.delay - 1
+					continue
+				if eventInvoked and !ev.always
+					continue
+				if (random number between 1 and 100) <= ev.probability
+					eventInvoked = not ev.always
+					//say "Invoking event [+ev.name] method: [+ev.eventproc]"
+					invoke function ev.eventproc on ev
+					if !ev.repeat
+						remove ev from eventOwner.events
+					// not breaking loop, all delays have to be decreased
 
 function addOneTimeEvent
 	understand
