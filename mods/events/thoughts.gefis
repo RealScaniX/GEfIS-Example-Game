@@ -48,40 +48,46 @@ function chainofthought
 					say ".\n"
 					globals.scarVisible = true
 				else if 101 is globals.thoughtIndex
-					say "\nWell, here you are: A boy of almost 13 years, who has looked forward to his birthday for a whole year."
+					isay "\nWell, here you are: A boy of almost 13 years, who has looked forward to his birthday for a whole year."
 					wait for 6 seconds
-					say "Finally being a teenager promised a new chapter in your life."
+					isay "Finally being a teenager promised a new chapter in your life."
 					wait for 4 seconds
-					say "Now you are not wishing for anything, but to turn back the pages."
+					isay "Now you are not wishing for anything, but to turn back the pages."
 				else if 102 is globals.thoughtIndex
-					say "\nAfter that... "
+					isay "\nAfter that... "
 					wait for 2 seconds
-					say "after it happened, you and your mom have moved here. Of course, the main reason was the new job she had found here, but it was also supposed to help
+					isay "after it happened, you and your mom have moved here. Of course, the main reason was the new job she had found here, but it was also supposed to help
 						you forget."
 				else if 103 is globals.thoughtIndex
-					say "\nNot having things around, that remind you of him every few seconds <b>does</b> help.\n"
+					isay "\nNot having things around, that remind you of him every few seconds <b>does</b> help.\n"
 					wait for 5 seconds
-					say "Although... the real problem is: "
+					isay "Although... the real problem is: "
 					wait for 3 seconds
-					say "You don't need anything to remember, if it almost feels like a part of yourself is missing."
+					isay "You don't need anything to remember, if it almost feels like a part of yourself is missing."
 				else if 104 is globals.thoughtIndex
-					say "\nBeing alone with your mother does not really help either. You know that she has to work to provide for you both."
+					isay "\nBeing alone with your mother does not really help either. You know that she has to work to provide for you both."
 					wait for 6 seconds
-					say "But you often feel alone, especially after moving here and leaving behind your friends in your hometown."
+					isay "But you often feel alone, especially after moving here and leaving behind your friends in your hometown."
 				else if 105 is globals.thoughtIndex
-					say "\nFeeling alone was the main reason why you've immediately seized the opportunity to join a new group of kids around your age."
+					isay "\nFeeling alone was the main reason why you've immediately seized the opportunity to join a new group of kids around your age."
 					wait for 7 seconds
-					say "You need something to distract you. "
+					isay "You need something to distract you. "
 					wait for 2 seconds
-					say "Something to replace the pain. "
+					isay "Something to replace the pain. "
 					wait for 2 seconds
-					say "Something to fill the void."
+					isay "Something to fill the void."
 				else if 106 is globals.thoughtIndex
-					say "\nOf course there is a task that you need to fulfill to be accepted into the new group. A small trial that tests your bravery."
+					isay "\nOf course there is a task that you need to fulfill to be accepted into the new group. A small trial that tests your bravery."
 					wait for 7 seconds
-					say "And so you ended up in this old house in the middle of the night to look for the ball that has been hidden somewhere here by the boys during the day."
+					isay "And so you ended up in this old house in the middle of the night to look for the ball that has been hidden somewhere here by the boys during the day."
 				if globals.thoughtIndex < 110
 					globals.thoughtIndex = globals.thoughtIndex + 1
+
+function isay
+	understand
+		isay [txt]
+	do
+		say "<div style=\"font-style:italic;display:inline;\">[+txt]</div>"
 
 after function addOneTimeEvent
 	do
