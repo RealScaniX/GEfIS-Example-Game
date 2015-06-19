@@ -2,9 +2,18 @@ this is sewing room by scanix
 
 there is a place called sewing room
 	its intro is @[sewingRoomIntro]
-	its description is "Looking around in the small room, you can see a sewing machine on a sturdy table in the center."
+	its description is "Scanning the small room with your eyes, you first notice a sewing machine on a sturdy table in front of a window.\nThe rest of the room 
+			has surely been decorated by a woman as well. The only cupboard contains porcelain swans, kittens and such things.\n
+			In one corner there is a L shaped couch with a small table in front of it. You can almost picture the mother sitting there with other women from the
+			neighborhood, discussing the newest fashion crap or exchanging gossip."
 	its exits are {"south": eastwingNorthDoor}
-	its items are {sewing machine}
+	its items are {sewing machine, sewingRoomCupboard}
+
+there is a thing called sewingRoomCupboard
+	its name is "cupboard"
+	its discovered is false
+	its description is "Looking through the drawers and shelves, you can find absolutely nothing of interest. If you were a cat, you'd probably have been
+			happy about the ball of yarn."
 
 function sewingRoomIntro
 	do
@@ -15,3 +24,11 @@ there is a thing called sewing machine
 	its discovered is false
 	its description is "There is a large piece of cloth sticking in it. As you grab it and spread it, you can see that one half of a pig is embroidered on it. 
 			It seems that the artist hasn't been able to finish this table-cloth or whatever this was supposed to become."
+	its useProc is "useSewingMachine"
+	its sound is "You know that the sound of this can be pretty annoying, so you are glad that it is turned off."
+	its taste is "The thought of a needle in your tongue keeps you from experiencing what might be a unique flavor."
+	its smell is "This still smells of the grease that has been used to keep it running smoothly."
+
+function useSewingMachine
+	do
+		say "If you were to finish this piece, the poor swine would end up looking like a mutant."
