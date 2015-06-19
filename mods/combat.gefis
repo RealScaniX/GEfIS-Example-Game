@@ -221,8 +221,8 @@ function updatePlayerWeapon
 function fightStatusInfo
 	do
 		return "<div style=\"float:right;\">
-						<div id=\"enemy\"><htmlbar \"Enemy\" [+int value of currentFight.enemy.hp]/[+int value of currentFight.enemy.constitution]></div><br/>
 						<div id=\"fear\"><htmlbar \"Fear\" [+int value of player.fear]/100></div>
+						<div id=\"enemy\"><htmlbar \"Enemy\" [+int value of currentFight.enemy.hp]/[+int value of currentFight.enemy.constitution]></div><br/>
 					</div>Your opponent: [+currentFight.enemy.name]\n
 							Your weapon: [+currentFight.player.weapon.name] ([+currentFight.player.strength])"
 
