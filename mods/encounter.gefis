@@ -22,8 +22,8 @@ before function mainPrompt
 		if user.action is "wait" // need more fights
 			coolDown = 2
 		if temps.encounterCooldown > 0
-			temps.encounterCooldown = temps.encounterCooldown - coolDown
-		if temps.encounterCooldown == 0 and !nightmare.killed and chance of 60 // general encounter chance is 40% makes 60% chance that nothing happens
+			temps.encounterCooldown = max of 0 and (temps.encounterCooldown - coolDown)
+		else if !nightmare.killed and chance of 60 // general encounter chance is 40% makes 60% chance that nothing happens
 			now max is 0
 			for each enc in player.location.encounters
 				if !enc.enemy.wantsFight
