@@ -88,7 +88,7 @@ function afterProcKitchen
 			resume audio channel "ambience" with volume 1
 		if globals.chapter > 0 and !globals.darkSparkAwakened
 			globals.darkSparkAwakened = true
-			addEncounter "anywhere", dark spark, 40
+			addEncounter "anywhere", dark spark, 60
 
 when play resumes
 	if !(kitchen.items has passThrough)

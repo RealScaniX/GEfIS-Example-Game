@@ -35,7 +35,7 @@ function secfloorintro
 			  In addition, there is a door right in front of you."
 		if !globals.darkSparkAwakened
 			globals.darkSparkAwakened = true
-			addEncounter "anywhere", dark spark, 50
+			addEncounter "anywhere", dark spark, 60
 
 function secfloordesc
 	do

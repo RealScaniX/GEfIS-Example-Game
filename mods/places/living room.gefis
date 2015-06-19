@@ -19,7 +19,7 @@ function livingRoomIntro
 		say "Stepping into this large room, it initially feels as if the northern wall is missing. Then you realize that it just consists mainly of windows."
 		if !globals.darkSparkAwakened
 			globals.darkSparkAwakened = true
-			addEncounter "anywhere", dark spark, 50
+			addEncounter "anywhere", dark spark, 60
 
 there is a doorPassage called passThrough
 	its name is "pass-through"
