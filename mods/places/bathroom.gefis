@@ -155,7 +155,7 @@ function bathroomMirrorDesc
 				say "Your brown eyes look a bit too serious, even for your own taste."
 			if !globals.reflectionEncounterAdded
 				globals.reflectionEncounterAdded = true
-				addEncounter "house", reflection, 50
+				addEncounter "house", reflection, 20
 			else if player.glow < 60 and globals.mirrorSmash is null && chance of 70
 				addOneTimeEvent "bathroomMirrorSmash"
 			else if !reflection.killed and chance of 30
