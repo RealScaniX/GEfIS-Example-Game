@@ -44,7 +44,7 @@ function trainWagonsDescEvt
 				something else:"
 		wait
 		say "The layer of dust was perfectly intact on all of them. No one has touched them for years. They are just like a "
-		scare 5, "silent cry for help"
+		scare 0, "silent cry for help"
 		say " from the past."
 		say "You immediately drop the wagon and it falls back into place. Only your fingerprints are there to prove that you've touched it at all.\nHello, goosebumps!"
 		wait
