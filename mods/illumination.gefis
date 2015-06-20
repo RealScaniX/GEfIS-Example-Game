@@ -24,6 +24,7 @@ there is an event called light_update_event
 	its eventproc is "lightsource_update"
 	its always is true
 	its repeat is true
+	its system is true
 	its probability is 100
 
 there is an event called playerSoothing

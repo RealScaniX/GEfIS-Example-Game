@@ -289,4 +289,7 @@ function lightmatch
 				dance around you. You are wondering if that makes you even more uneasy than standing in the dark..."
 
 understand
+	"use match" as "use box of matches"
+	"use matches" as "use box of matches"
 	"light match" as "use box of matches"
+	"light matches" as "use box of matches"

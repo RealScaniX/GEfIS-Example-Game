@@ -8,6 +8,18 @@ Entity item
 	attributes
 		number carried is 0
 
+action take all
+	do
+		now visitems is [visibleitemlist true]
+		for each inf in visitems
+			itm = inf.0
+			if itm is not an item or !itm.carryable
+				continue
+			cnt = inf.2
+			if cnt is not null and cnt is not a place and player.illumination < 10
+				continue
+			invoke action "takeitem"
+
 action takeitem
 	understand
 		take [itm]

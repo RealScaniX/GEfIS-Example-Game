@@ -9,6 +9,7 @@ Entity event is an Entity
 		text eventProc
 		bool repeat is false
 		bool always is false		// if true, this event will also trigger if another event already was triggered
+		bool system is false		// if true, this event will always trigger, even if events are turned off for the moment
 
 Entity playercharacter
 	attributes
@@ -32,38 +33,39 @@ function eventProcessing
 	do
 		if temps.eventsEnabledDelay > 0
 			temps.eventsEnabledDelay = temps.eventsEnabledDelay - 1
-		if temps.eventsEnabledDelay == 0
-			eventInvoked = false
-			// get list of events from player and location
-			now eventlist is a new list
-			if !currentFight.finished
-				add currentFight to eventlist
-				for each ev in currentFight.events
-					add ev to eventlist			
-			else
-				add player.location to eventlist
-				for each ev in player.location.events
-					add ev to eventlist
-				add player to eventlist
-				for each ev in player.events
-					add ev to eventlist
-			now eventOwner is null
-			for each ev in eventlist
-				if !(ev is an event)
-					eventOwner = ev
-					continue
-				if ev.delay > 0
-					ev.delay = ev.delay - 1
-					continue
-				if eventInvoked and !ev.always
-					continue
-				if (random number between 1 and 100) <= ev.probability
-					eventInvoked = not ev.always
-					//say "Invoking event [+ev.name] method: [+ev.eventproc]"
-					invoke function ev.eventproc on ev
-					if !ev.repeat
-						remove ev from eventOwner.events
-					// not breaking loop, all delays have to be decreased
+		eventInvoked = false
+		// get list of events from player and location
+		now eventlist is a new list
+		if !currentFight.finished
+			add currentFight to eventlist
+			for each ev in currentFight.events
+				add ev to eventlist			
+		else
+			add player.location to eventlist
+			for each ev in player.location.events
+				add ev to eventlist
+			add player to eventlist
+			for each ev in player.events
+				add ev to eventlist
+		now eventOwner is null
+		for each ev in eventlist
+			if !(ev is an event)
+				eventOwner = ev
+				continue
+			if ev.delay > 0
+				ev.delay = ev.delay - 1
+				continue
+			if temps.eventsEnabledDelay > 0 && !ev.system
+				continue
+			if eventInvoked and !ev.always
+				continue
+			if (random number between 1 and 100) <= ev.probability
+				eventInvoked = not ev.always
+				//say "Invoking event [+ev.name] method: [+ev.eventproc]"
+				invoke function ev.eventproc on ev
+				if !ev.repeat
+					remove ev from eventOwner.events
+				// not breaking loop, all delays have to be decreased
 
 function addOneTimeEvent
 	understand
