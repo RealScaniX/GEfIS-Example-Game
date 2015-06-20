@@ -18,25 +18,25 @@ there is a goblin called goblinA
 	its name is "Goblin"
 	its level is 4
 	its strength is 20
-	its constitution is 80
+	its constitution is 150
 
 there is a goblin called goblinB
 	its name is "Goblin"
 	its level is 6
 	its strength is 35
-	its constitution is 150
+	its constitution is 300
 
 there is a goblin called goblinC
 	its name is "Goblin"
 	its level is 7
-	its strength is 42
-	its constitution is 180
+	its strength is 35
+	its constitution is 300
 
 there is a goblin called goblinD
 	its name is "Goblin"
 	its level is 8
-	its strength is 50
-	its constitution is 220
+	its strength is 40
+	its constitution is 300
 
 function goblinIntro
 	do
@@ -125,7 +125,7 @@ function goblinAttack
 			this.specialAttackPrepare = 0
 			say "The Goblin suddenly has a small flask in his hand, then holds it to his lips and drinks the contents in one big gulp."
 			say "Whatever has been in there, seems to make him feel better now."
-			this.hp = min of this.constitution and (this.hp + 40)
+			this.hp = min of this.constitution and (this.hp + this.constitution / 4)
 			return 0
 		else if this.specialAttackPrepare is 2
 			this.specialAttackPrepare = 0
@@ -160,7 +160,7 @@ function goblinAttack
 function goblinWon
 	do
 		say "\"Congratulations!\", the green imp says [one of]coughing[or]panting[or]exhausted[at random], \"You have earned your prize.\"\n"
-		say "He smiles as he gestures towards the treasure chest and then leaps into the shadows where he vanishes from your sight."
+		say "He smiles as he gestures towards the treasure chest and then leaps into the shadows, where he vanishes from your sight."
 		if [playerOwns lucky charm]
 			say "\"But now you will never know if it was your own strength or my present that has brought you victory.\", his voice echoes from within the darkness."
 		wait

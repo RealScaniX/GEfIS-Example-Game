@@ -55,7 +55,7 @@ there is a treasure chest called gardenChest2
 there is a treasure chest called guestRoomChest
 	its name is "chest"
 	its discovered is false
-	its guardian is goblinC
+	its guardian is goblinD
 	its items are {silver marble}
 	its locked is true
 	its key is chestKeyBeta
@@ -64,13 +64,13 @@ there is a treasure chest called guestRoomChest
 there is a treasure chest called musicRoomChest
 	its name is "chest"
 	its discovered is false
-	its guardian is goblinD
+	its guardian is goblinC
 	its items are {light sword}
 	its locked is true
 	its key is chestKeyBeta
 	its lockDescription is "There is a small beta symbol on the lock."
 
 when play begins
-	addToContainer guestRoomChest, music tape
-	addToContainer guestRoomChest, music tape
+	//addToContainer guestRoomChest, music tape
+	//addToContainer guestRoomChest, music tape
 	addToContainer guestRoomChest, music tape

@@ -193,7 +193,7 @@ function finalFightEventProc
 			say "You were lucky on that day that the real heavy stuff was lying on the other half of the rack. The buzz saw wasn't turned on and there wasn't even 
 					a saw blade in it. But as you lay there on your stomach and the heavy machine hit your left arm, it didn't really matter."
 			wait
-			say "You are unconsciously holding your scar as you hear your bone break in your mind again when you see a part of it penetrating the skin of your shadow."
+			say "You are unconsciously holding your scar when you see a part of it penetrating the skin of your shadow and you hear the bone break in your mind again."
 			wait for 2 seconds
 			play "110617__soundscalpel-com__horror-bone-crunch.ogg" on audio channel "sound"
 			wait

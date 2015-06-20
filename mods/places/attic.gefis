@@ -35,7 +35,7 @@ function atticIntro
 	do
 		say "This room is huge, although it clearly does not cover the whole area of the house. The side walls are skewed, giving away the pitched roof and also where you are: 
 				The attic."
-		addEncounter "house", forgotten echo, 70
+		addEncounter "anywhere", forgotten echo, 70
 
 there is a container called cardboard box
 	its description is @"In this large, almost empty attic this lonely cardboard box looks out of place. \"Tim's stuff\" is written on the side of it.\n

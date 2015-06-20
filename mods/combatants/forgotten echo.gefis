@@ -5,7 +5,7 @@ there is a Combatant called forgotten echo
 	its woundProc is "forgottenEchoWound"
 	its introProc is "forgottenEchoIntro"
 	its strength is 45
-	its constitution is 160
+	its constitution is 300
 	its level is 8
 	its lootTable is {"music tape": 30, "battery": 3, "purple marble": -5, "magic battery": -2}
 

@@ -1,7 +1,8 @@
 this is nightmare by scanix
 
 there is a combatant called nightmare
-	its constitution is 350
+	its constitution is 500
+	its hp is 500
 	its strength is 70
 	its fightMusic is "Motherlode.mp3"		// start music manually later on
 	its attackProc is "nightmareAttack"

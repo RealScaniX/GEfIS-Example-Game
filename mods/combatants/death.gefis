@@ -11,7 +11,7 @@ there is a Combatant called death
 	its level is 8
 	its lootTable is {"antidote": 20, "music tape": 40, "battery": 10, "yellow marble": -5, "magic battery": -2}
 	its hugProc is "hugDeath"
-	its wantsFight is @[not (player.location.items has grave)]
+	its wantsFight is @!(player.location.items has grave)
 
 function hugDeath
 	do
@@ -108,6 +108,7 @@ function deathWound
 					say "You see the [itemLink red key] drop to the floor and are happy to finally be able to grab it, but then the cat takes it in its mouth and runs away with it."
 					this.droppedItem = true
 					this.killed = true
+					currentFight.rewarded = true
 					removeEncounter death
 				else if this.defeatedCount > 0
 					say "You try to get a better view of the item, but all you get are a few glimpses of something that looks like a red key."

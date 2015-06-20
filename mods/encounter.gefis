@@ -40,7 +40,7 @@ before function mainPrompt
 				z = z - enc.probability
 
 before function startFight
-	temps.encounterCooldown = 10
+	temps.encounterCooldown = 4
 
 function addEncounter
 	understand
@@ -64,8 +64,8 @@ function addEncounter
 		for each p in placelist
 			if reg is null or p.regions has reg
 				add enc to p.encounters
-		if temps.encounterCooldown < 5
-			temps.encounterCooldown = 5
+		if temps.encounterCooldown < 1
+			temps.encounterCooldown = 1
 
 function removeEncounter
 	understand
