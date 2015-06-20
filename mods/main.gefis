@@ -138,6 +138,6 @@ function oneStats
 		say "</li><li>[\]forgotten echo [+forgotten echo.encounterCounter] time(s)."
 		say "</li><li>[\]poison ivy [+poison ivy.encounterCounter] time(s)."
 		say "</li><li>[\]dead cat [+death.encounterCounter] time(s)."
-		say "</li><li>[\]Goblin [+(globlinA.encounterCounter+globlinB.encounterCounter+globlinC.encounterCounter+globlinD.encounterCounter)] time(s)."
+		say "</li><li>[\]Goblin [+(goblinA.encounterCounter+goblinB.encounterCounter+goblinC.encounterCounter+goblinD.encounterCounter)] time(s)."
 		say "</li></ul>"
 		say "</li></ul>"

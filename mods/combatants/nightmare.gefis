@@ -193,7 +193,8 @@ action hugNightmare
 function lettingGo
 	do
 		playMusic "Hero Down.mp3", 100
-		scrollAway
+		wait for 4 seconds
+		//scrollAway
 		say "As you approach your best friend, he looks up at you and starts wagging his tail. You go down on your knees and embrace the furry body."
 		wait for 8 seconds
 		say "Your fingers run through the dense fur of your deceased buddy while tears swell in your eyes and run down your cheeks."
