@@ -7,6 +7,7 @@ there is a lightsource called flashlight
 	its useProc is "useflashlight"
 	its description is "It is a bit old, but it still appears to be in working condition. Being too stupid to have brought your own flashlight, you are happy to have found this."
 	its lit is true
+	its undroppable is true
 	its emptyMessage is "There is no more light in this flashlight. Unfortunately this does not make it a flash."
 	its sound is "This has to be one of the modern, silent torches. You cannot hear it burn."
 
