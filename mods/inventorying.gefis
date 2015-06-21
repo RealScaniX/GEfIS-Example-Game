@@ -75,6 +75,9 @@ action dropItem
 		if not [playerOwns itm]
 			say "You cannot drop what isn't yours."
 			return
+		if itm.undroppable
+			say "You don't want to lose this."
+			return
 		now cnt is player.location
 		now currContainer is [getInventoryContainer player.inventory, itm, player.inventory]
 		//invoke action "putintodirect"

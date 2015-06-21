@@ -119,6 +119,7 @@ action putinto
 	do
 		// do we see this item in the place?
 		now itm is [resolveitem itm]
+		now cnt is [resolveitem cnt]
 		if itm is null
 			say "You don't see that."
 			return
@@ -129,6 +130,9 @@ action putinto
 		// Carryable?
 		if not itm.carryable
 			say "You cannot carry that."
+			return
+		if itm.undroppable
+			say "You don't want to lose this."
 			return
 		// is target a container?
 		if cnt is a place

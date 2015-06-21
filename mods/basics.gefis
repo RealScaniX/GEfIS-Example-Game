@@ -32,6 +32,7 @@ entity Item is a Thing	// a thing that usually can be added to inventory
 	its actions are {"look at", "use", "take", "listen to", "smell", "taste"}
    attributes
 		bool carryable is true
+		bool undroppable is false
       number weight
 
 entity Sound is a Thing

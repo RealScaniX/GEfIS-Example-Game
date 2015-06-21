@@ -274,6 +274,7 @@ there is an item called box of matches
 						precisely [+random number between 2 and 12] of them left."
 	its taste is "You shouldn't get that wet if you want the matches to still work."
 	its useProc is "lightmatch"
+	its undroppable is true
 
 there is a lightsource called match
 	its illumination is 10
