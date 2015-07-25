@@ -5,7 +5,7 @@ There is a place called alternativeEntryHall
 	its intro is @[alternativeentryhallintro]
 	its description is @[alternativeentryhalldesc]
 	its illumination is 40
-	its music is "Infinite Perspective.mp3"
+	its music is "Ossuary 5 - Rest.mp3"
 	its events are {alternativeentryhallsoothe}
 	its items are {ticking sound, entrance, cellar door, stairway}
 	its pacified is true
