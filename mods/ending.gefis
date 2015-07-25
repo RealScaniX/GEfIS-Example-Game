@@ -94,7 +94,7 @@ function extroduction
 		playMusicNoLoop "Rains Will Fall.mp3", 100
 		flush
 		sleep 1
-		say "\"Oh, hi!\", a blonde boy appears from around the corner of the house. He is a head shorter than you, but you remember that he has nearly the same age as you."
+		say "\"Oh, hi!\", a blonde boy appears from around the corner of the house. He is a head shorter than you, but you remember that he is almost as old as you."
 		wait for text
 		say "\"I just had to... water the plants.\", he smiles at you, \"So, you are back already. Let me call the others.\""
 		say "He is sending a short SMS using his smart phone while you are wondering if he is making fun of you, because he said \"[\]already\"."
