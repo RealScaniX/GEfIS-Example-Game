@@ -66,4 +66,4 @@ function rightShelveDesc
 		if !globals.libraryMusicTapeDiscovered
 			globals.libraryMusicTapeDiscovered = true
 			addToContainer library, music tape
-			append "\nThere is a [itemLink music tape] leaning against the plastic skull. You hope that is doesn't contain death metal."
+			append "\nThere is a [itemLink music tape] leaning against the plastic skull. You hope that it doesn't contain death metal."
